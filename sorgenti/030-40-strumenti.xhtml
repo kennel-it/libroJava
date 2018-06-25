@@ -3,24 +3,35 @@
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="interpreti" group="infrastruttura" -->
 <!-- changelog 2017-09-20 inserita bozza iniziale del capitolo -->
+<!-- changelog 2018-06-21 prima bozza per jshell -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
-        <title>JVM</title>
+        <title>strumenti</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>         
     </head>
     <body>
 <header>
-<h1><img src="immagini/wip.png" alt="lavori in corso"/>JVM</h1>
-<p>compilare ed eseguire programmi Java</p>
+<h1><img src="immagini/wip.png" alt="lavori in corso"/>strumenti</h1>
+<p>compilare, eseguire e provare codice Java</p>
 </header>
 <article>
 <p>Per far funzionare un programma Java non è necessario avere un ambiente di sviluppo integrato:
 si può fare tutto installando il JDK (Java Development Kit) ed avere un editor di testo 
 (ad esempio il blocco note di Windows).</p>
 
-<p class="FIXME">FIXME: descrivere cosa è una macchina virtuale</p>
+<h2>jshell</h2>
+<p>Questo strumento è disponibile dalla versione 9 in poi del JDK (Java Development Kit).</p>
+<p><code>jshell</code> è un programma che ci permette di provare "al volo" piccole parti di codice java
+senza dover scrivere tutto il programma... anche una singola espressione!</p>
+<p>Per poterlo usare basta aprire una shell (cmd su Windows o un terminale qualsiasi su Linux/maxOS)
+e scrivere jshell</p> 
+<p>il programma presenta un prompt <code>jshell&gt;</code> che ci permetterà di inserire delle parti
+di codice che verranno compilate ed interpretate al volo. Possiamo ad esempio scrivere 
+<code>10/3</code> e vedere quale è il risultato.<br/>
+Se è la prima operazione che facciamo comparirà <code>$2 ==&gt; 3</code>... potremmo continuare
+scrivendo <code>$2*4</code> oppure scrivendo <code>String x</code> e poi<code>x="ciao"+"mondo"</code>.</p>
 
 <h2>Scrittura</h2>
 <p>Per semplificare un po' le cose creiamo una cartella "prova" sulla scrivania in cui inseriamo 
@@ -55,6 +66,7 @@ soltanto il nome.</p>
 
 <pre>java Saluto</pre>
 <p>In questo caso l'ouput del programma compare direttamente nel terminale.</p>
+
 </article>
 </body>
 </html>

@@ -32,7 +32,15 @@ header p {
 
 article { margin:1em 5% ; padding-bottom:3em}
 
-h2 { text-align: left }
+h2 { text-align: left 
+	margin-top:3em;
+	border-bottom:1px dashed #444; 
+}
+
+h3 { text-align: left 
+	margin-top:2em;
+	border-bottom:1px dotted #999; 
+}
 
 p {
 	text-align: justify;
@@ -40,7 +48,7 @@ p {
 	text-indent: 2em;
 }
 
-/*c'è un div.prog nel capitolo 090-30, 120-20, 120-40, 210-50, 270-30, 300-20 */
+/* FIXME: c'è un div.prog nel capitolo 090-30, 120-20, 120-40, 210-50, 270-30, 300-20 */
 div.prog, div.pseudo, pre {
 	padding: 0.5em;
 	margin-top: 1em;
@@ -50,6 +58,13 @@ div.prog, div.pseudo, pre {
 	font-size: 115%;
 	line-height: 100%;
 	overflow: scroll;
+}
+
+dfn {
+	/* FIXME: trovare una palette decorosa */
+	background-color: orange;
+	display: block;
+	padding: 0.5em;
 }
 
 div.prog, pre {

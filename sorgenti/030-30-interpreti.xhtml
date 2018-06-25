@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="linguaggi" group="infrastruttura" -->
+<!-- changelog 2018-06-23 inserita parte sulla JVM -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -158,6 +158,20 @@ quando la velocità dei calcolatori lasciava molto a desiderare e i sitemi opera
 oggetti complessi come quelli di oggi. Attualmente per interpretare un programma si fa
 ricorso a delle tecniche molto sofisticate che portano ad avere prestazioni 
 paragonabili con la soluzione compilativa.</p>
+
+<h2>Macchine virtuali</h2>
+<p>Lo scenario introdotto nella sezione precedente è quello che viene poi
+supportato nel caso di Java (ma è una soluzione piuttosto comune) da quella che si chiama
+<em>macchina virtuale</em> cioè da uno strato software che si frappone tra il sistema 
+operativo e il programma da eseguire.</p>
+<p>Lo scopo della macchina virtuale nel caso di Java è quello di nascondere le diversità
+che ci sono tra i diversi sistemi operativi: in prativa un programma compilato per la
+<em>JVM</em> (Java Virtual Machine) non deve tener conto del fatto che alcune operazioni
+(ad esempio la lettura dei file) viene fatta in maniera diversa in sistemi operativi diversi.</p> 
+<p>Attualmente la JVM interpreta un linguaggio chiamato bytecode 
+che viene prodotto dal compilatore java, per rendere più veloce l'esecuzione dei programmi 
+in realtà usa tecniche più sofisticate della sempli lettura di una istruzione alla volta ma 
+per quanto riguarda il suo uso resta un interprete di bytecode.</p>
 </article>
 </body>
 </html>
