@@ -8,124 +8,355 @@
     <title>esempioInterfaccia</title>
     <link type="text/css" rel="stylesheet" href="style.css"/>
     <script type="text/javascript" src="script/test.js"></script>
-    <script type="text/javascript" src="script/evidenziatore.js"></script>
+    <script type="text/javascript" src="script/evidenziatore.js"></script>      
     <style type="text/css">
-    	#finestra { float:left ; margin:2em ; border:2px solid blue; padding:0em}
-    	#titolo { background-color: blue ;  color:white }
-    	#contenuto { padding:0.25em; background-color: #e9e8e2 }
-    	#contenuto table { border-collapse: separate; border-spacing: 5px; }
-    	
-    	#nome { border:1px solid gray }    
-    	#eseguiSaluto { border:1px solid black; border-radius:0.5em }
-    </style>         
-    <style type="text/css">
-		div.prog { line-height: 0.65em }
-		div.prog { margin:0px ; padding:0px }
 		.st { color: blue }
+		
+		#finestra { float:left ; margin:2em ; border:2px solid blue; padding:0em}
+        #titolo { background-color: blue ;  color:white }
+        #contenuto { padding:0.25em; background-color: #e9e8e2 }
+        #contenuto table { border-collapse: separate; border-spacing: 5px; }
+        
+        #nome { border:1px solid gray }    
+        #eseguiSaluto { border:1px solid black; border-radius:0.5em }
+
+        .st { color: blue }
+        
+        #plancia{
+            border:1px solid black;
+            background-color: white;
+            padding: 1em;
+            position:fixed;
+            top:0.5em; right:0.5em;
+            display:inline-block;
+        }
+        #decorations { 
+            box-sizing: border-box;
+            border:0.2em solid brown;
+            border-radius: 0.35em 0.35em 0.25em 0.25em;    
+            width: 12.4em;
+            background-color:brown;
+        }
+        #stage {
+            background-color: #ff0000;
+            width:12em;
+            height:6em;
+        }
+        #stageBackground{
+            height: 1em;
+            text-align:center;
+        }
+        #scene{
+            background-color:yellow;
+            position:relative;
+            padding:0em;
+            top:-1em;
+            left:0em;
+            height:6em; 
+        }
+        #gridpane{
+            border-spacing: 0.25em;
+            background-color: #ccc;
+            width: 12em;
+            height:6em;
+        }
+        #cNome{
+            border:1px solid #555;
+            background: white;
+            width:7em; max-width: 7em;
+            overflow: hidden;
+        }
+        #pSaluta{
+            border-style:outset;
+            border-width: 4px;
+            border-color: gray;
+            border-radius: 0.25em;
+            background-color: #eeeeee;
+            display: inline-block;
+            text-align: center;
+        }
+        #eRisposta{
+            display: inline-block;
+            width:100%; max-width: 9em;
+            max-height:1.2em;
+            overflow: hidden;
+        }
+        .active code{
+            background-color: #dddddd;
+            padding: 0.15em; 0em;
+            margin:1px;
+            white-space:pre;
+        }
+        .active code.usable{
+            font-weight:bold;
+        }
+        .active code.on{ background-color: #aaff00 ; font-weight: bold }
+        .active code.off{ background-color:#ffaa00 ; font-weight: normal ; color: #aa5500}
 	</style>
+	<script type="text/javascript">
+    <![CDATA[
+        var stati = {
+            "setscene": {
+                off: [{ target:"scene", name:"display", value:"none"}],
+                on:  [{ target:"scene", name:"display", value:"block"}]
+            },
+            "addenome": {
+                off: [{ target:"eNome", name:"visibility", value:"hidden"}],
+                on:  [{ target:"eNome", name:"visibility", value:"visible"}]
+            },
+            "addcnome": {
+                off: [{ target:"cNome", name:"visibility", value:"hidden"}],
+                on:  [{ target:"cNome", name:"visibility", value:"visible"}]
+            },
+            "addpsaluta": {
+                off: [{ target:"pSaluta", name:"visibility", value:"hidden"}],
+                on:  [{ target:"pSaluta", name:"visibility", value:"visible"}]
+            },
+            "adderisposta": {
+                off: [{ target:"eRisposta", name:"visibility", value:"hidden"}],
+                on:  [{ target:"eRisposta", name:"visibility", value:"visible"}]
+            },
+            "show": {
+                off: [{ target:"decorations", name:"display", value:"none"}],
+                on:  [{ target:"decorations", name:"display", value:"block"}]
+            },
+            "undecorated": {
+                off: [
+                    { target:"decorations", name:"border-color", value:"brown"},
+                    { target:"decorations", name:"background-color", value:"brown"},
+                    { target:"title", name:"visibility", value:"visible"}
+                ],
+                on:  [
+                    { target:"decorations", name:"border-color", value:"white"},
+                    { target:"decorations", name:"background-color", value:"white"},
+                    { target:"title", name:"visibility", value:"hidden"}
+                ]
+            },
+            "onaction": {
+                off: [{ target:"trick", name:"visibility", value:"hidden"}],
+                on:  [{ target:"trick", name:"visibility", value:"visible"}]
+            },
+            "maxvalue": {
+                off: [{ target:"pSaluta", name:"width", value:"auto"}],
+                on:  [{ target:"pSaluta", name:"width", value:"100%"}]
+            },
+            "stile": {
+                off: [
+                    { target:"cNome", name:"background-color", value:"white"},
+                    { target:"eRisposta", name:"color", value:"black"}
+                ],
+                on:  [
+                    { target:"cNome", name:"background-color", value:"yellow"},
+                    { target:"eRisposta", name:"color", value:"green"}
+                ]
+            },
+        };
+        function esegui(){
+            var value = document.getElementById("trick").style["visibility"];
+            if(value=="visible"){
+                var o = document.getElementById("cNome").innerHTML;
+                document.getElementById("eRisposta").innerHTML = "ciao "+o;
+            }
+        }       
+        function build(){
+            elementi = document.querySelectorAll(".active code");
+            for(i=0; i<elementi.length; i++){
+                if(elementi[i].id){
+                    elementi[i].addEventListener("click",elaboraLinea, true);
+                }
+            }
+        }
+        function elaboraLinea(element){
+            element.target.className = element.target.className=="off" ? "on" : "off";
+            var prop = stati[element.target.id];
+            var indice = element.target.className; 
+            for(p=0 ; p<prop[indice].length ; p++){
+                document.getElementById( prop[indice][p].target ).style[ prop[indice][p].name ] = prop[indice][p].value;
+            }
+        }
+    ]]>
+    </script>
 </head>
-<body id="listato">
+<body id="listato" onload="build()">
 	<header>
 		<h1>esempioInterfaccia</h1>
 		<p>uso degli stili e della formattazione in un programma con interfaccia curata</p>
 	</header>
 	<article>
-	<p>Questo capitolo contiene un programma che ha molte impostazioni per l'interfaccia grafica,
+	
+	<h2>applicazione interattiva</h2>
+	<p>Fai click sulle linee colorate del listato e vedi cosa succede alla finestra.</p>
+    <p>L'applicazione funziona: basta scrivere il nome e fare click sul pulsante "saluta".</p>
+        
+    <h3>ApplicazioneCheSaluta.java</h3>
+    <div id="plancia">
+        <div id="decorations">
+            <div id="title"><span id="trick" style="visibility:visible"></span><span style="color:red">&#x25CF;</span><span style="color:yellow">&#x25CF;</span><span style="color:green">&#x25CF;</span> salve a tutti</div>
+            <div id="stage">
+                <div id="stageBackground">Stage vuoto: nessuno Scene da visualizzare</div>
+                <div id="scene">
+                    <table id="gridpane">
+                        <tr><td id="eNome">nome:</td><td id="cNome" contenteditable="true">James</td></tr>
+                        <tr><td colspan="2"><span id="pSaluta" onclick="esegui()">saluta</span></td></tr>
+                        <tr><td colspan="2"><span id="eRisposta">click su saluta</span></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<pre class="active">
+<code>package esempi;</code>
+<code>import javafx.application.Application;</code>
+<code>import javafx.scene.Scene;</code>
+<code>import javafx.scene.control.Button;</code>
+<code>import javafx.scene.control.Label;</code>
+<code>import javafx.scene.control.TextField;</code>
+<code>import javafx.scene.layout.GridPane;</code>
+<code>import javafx.stage.Stage;</code>
+
+<code>public class ApplicazioneCheSaluta extends Application{</code>
+    
+<code>  TextField cNome = new TextField("James");</code>
+<code>  Label eRisposta = new Label("Click su saluta");</code>
+    
+<code>  @Override</code>
+<code>  public void start(Stage primaryStage){</code>
+<code>      Button pSaluta = new Button("disegna");</code>
+<code>      Label eNome = new Label("nome:");</code>
+<code>      GridPane griglia = new GridPane();</code>
+        
+<code id="addenome"     class="on" >        griglia.add(eNome,0,0);</code>
+<code id="addcnome"     class="on" >        griglia.add(cNome, 1, 0);</code>
+<code id="addpsaluta"   class="on" >        griglia.add(pSaluta, 0, 1, 2, 1);</code>
+<code id="adderisposta" class="on" >        griglia.add(eRisposta, 0, 2, 2, 1);</code>
+
+<code                              >        Scene s = new Scene(griglia);</code>
+<code id="maxvalue"    class="off" >        pSaluta.setMaxWidth(Integer.MAX_VALUE);</code>
+<code id="setscene"    class="on"  >        primaryStage.setScene(s);</code>
+<code                              >        primaryStage.setTitle("salve a tutti");</code>
+<code id="undecorated" class="off" >        primaryStage.initStyle(StageStyle.UNDECORATED);</code>
+<code                              >        eRisposta.setId("risp");</code>
+<code id="stile"       class="off" >        s.getStylesheets().add("esempi/stileApplicazione.css");</code>
+<code id="show"        class="on"  >        primaryStage.show();</code>
+        
+<code id="onaction"    class="on"  >        pSaluta.setOnAction(e->saluta());</code>
+<code>  }</code>
+    
+<code>  private void saluta(){</code>
+<code>      String nome = cNome.getText();</code>
+<code>      eRisposta.setText("ciao "+nome);</code>
+<code>  }</code>
+    
+<code>  public static void main(String x[]){ launch(x); }</code>
+<code>}</code>
+
+</pre>
+
+<h3>stileApplicazione.css</h3>
+<pre class="st">
+<code>#risp { -fx-text-fill: green; }</code>
+<code>.text-field {  -fx-background-color:yellow;  }</code>
+</pre>
+	
+	
+	<h2>immagini e stili</h2>
+	
+	<p>Il programma di questa sezione ha molte impostazioni per l'interfaccia grafica,
 	mancano però tutte le funzionalità di calcolo!</p>
 	<p>Per farlo funzionare basta inserire questi due file e le due immagini nello stesso pacchetto: "esempi"</p>
 	
-	<p>In questo esempio vengono utilizzate due classi senza impostarle: <em>button</em> e <em>label</em>,
-	questo perché alcuni oggetti (quelli del pacchetto javafx.scene.control) hanno già una classe predefinita. 
-	L'oggetto Text ad esempio non ne ha una predefinita.</p>
+	<p>In questo esempio vengono utilizzate nel foglio di stile due classi senza impostarle: 
+	<em>button</em> e <em>label</em>,
+	questo perché alcuni oggetti (quelli del pacchetto javafx.scene.control) hanno già una classe predefinita.</p>
 	
 	<p>Le parti scritte in blu servono soltanto per curare l'aspetto, non hanno scopi funzionali.</p>
 	
-	<h2>ControlliCSS.java</h2>
+	<h3>ControlliCSS.java</h3>
 <pre>
 
-<span class=""     >package esempi;</span>
+<code class=""     >package esempi;</code>
 
-<span class=""     >import javafx.application.Application;</span>
-<span class=""     >import javafx.scene.Scene;</span>
-<span class=""     >import javafx.scene.control.Button;</span>
-<span class=""     >import javafx.scene.control.TextField;</span>
-<span class=""     >import javafx.scene.layout.GridPane;</span>
-<span class=""     >import javafx.scene.control.Label;</span>
-<span class="st"   >import javafx.scene.image.Image;</span>
-<span class="st"   >import javafx.scene.image.ImageView;</span>
-<span class=""     >import javafx.scene.text.Text;</span>
-<span class=""     >import javafx.stage.Stage;</span>
+<code class=""     >import javafx.application.Application;</code>
+<code class=""     >import javafx.scene.Scene;</code>
+<code class=""     >import javafx.scene.control.Button;</code>
+<code class=""     >import javafx.scene.control.TextField;</code>
+<code class=""     >import javafx.scene.layout.GridPane;</code>
+<code class=""     >import javafx.scene.control.Label;</code>
+<code class="st"   >import javafx.scene.image.Image;</code>
+<code class="st"   >import javafx.scene.image.ImageView;</code>
+<code class=""     >import javafx.scene.text.Text;</code>
+<code class=""     >import javafx.stage.Stage;</code>
 
-<span class=""     >public class ControlliCSS extends Application {</span>
+<code class=""     >public class ControlliCSS extends Application {</code>
 
-<span class=""     >    @Override</span>
-<span class=""     >    public void start(Stage primaryStage) {</span>
-<span class=""     >        // creo tutti gli oggetti che andrò a mettere nell'interfaccia</span>
-<span class=""     >        GridPane pannello = new GridPane();</span>
-<span class=""     >        Label eBase = new Label("base:");</span>
-<span class=""     >        TextField base = new TextField();</span>
-<span class=""     >        Label eAltezza = new Label("altezza:");</span>
-<span class=""     >        TextField altezza = new TextField();</span>
-<span class=""     >        Button calcolaPerimetro = new Button("perimetro");</span>
-<span class=""     >        Button calcolaArea = new Button("area");</span>
-<span class=""     >        Text risposta = new Text("Qui la risposta");</span>
+<code class=""     >    @Override</code>
+<code class=""     >    public void start(Stage primaryStage) {</code>
+<code class=""     >        // creo tutti gli oggetti che andrò a mettere nell'interfaccia</code>
+<code class=""     >        GridPane pannello = new GridPane();</code>
+<code class=""     >        Label eBase = new Label("base:");</code>
+<code class=""     >        TextField base = new TextField();</code>
+<code class=""     >        Label eAltezza = new Label("altezza:");</code>
+<code class=""     >        TextField altezza = new TextField();</code>
+<code class=""     >        Button calcolaPerimetro = new Button("perimetro");</code>
+<code class=""     >        Button calcolaArea = new Button("area");</code>
+<code class=""     >        Text risposta = new Text("Qui la risposta");</code>
         
-<span class="st"   >        // imposto alcune proprietà che riguardano l'aspetto degli elementi</span>
-<span class="st"   >        // i pulsanti devono allargarsi fino a riempire tutto lo spazio disponibile</span>
-<span class="st"   >        calcolaPerimetro.setMaxWidth(Double.MAX_VALUE);</span>
-<span class="st"   >        calcolaArea.setMaxWidth(Double.MAX_VALUE);</span>
+<code class="st"   >        // imposto alcune proprietà che riguardano l'aspetto degli elementi</code>
+<code class="st"   >        // i pulsanti devono allargarsi fino a riempire tutto lo spazio disponibile</code>
+<code class="st"   >        calcolaPerimetro.setMaxWidth(Double.MAX_VALUE);</code>
+<code class="st"   >        calcolaArea.setMaxWidth(Double.MAX_VALUE);</code>
         
-<span class="st"   >        // creo due immagini a partire da due faile presenti nella stessa cartella di questa classe</span>
-<span class="st"   >        Image iBase = new Image(getClass().getResourceAsStream("base.png"));</span>
-<span class="st"   >        Image iAltezza = new Image(getClass().getResourceAsStream("altezza.png"));</span>
+<code class="st"   >        // creo due immagini a partire da due faile presenti nella stessa cartella di questa classe</code>
+<code class="st"   >        Image iBase = new Image(getClass().getResourceAsStream("base.png"));</code>
+<code class="st"   >        Image iAltezza = new Image(getClass().getResourceAsStream("altezza.png"));</code>
     
-<span class="st"   >        // inserisco le immagini nelle etichette</span>
-<span class="st"   >        eBase.setGraphic(new ImageView(iBase));</span>
-<span class="st"   >        eAltezza.setGraphic(new ImageView(iAltezza));</span>
+<code class="st"   >        // inserisco le immagini nelle etichette</code>
+<code class="st"   >        eBase.setGraphic(new ImageView(iBase));</code>
+<code class="st"   >        eAltezza.setGraphic(new ImageView(iAltezza));</code>
 
-<span class="st"   >        // imposto l'id del pannello</span>
-<span class="st"   >        pannello.setId("pannello");</span>
-<span class="st"   >        // imposto l'id del pulsante del perimetro</span>
-<span class="st"   >        calcolaPerimetro.setId("pulsantePerimetro");</span>
-<span class="st"   >        // imposto l'id del pulsante dell'area</span>
-<span class="st"   >        calcolaArea.setId("pulsanteArea");</span>
-<span class="st"   >        // alcuni oggetti hanno la stessa classe</span>
-<span class="st"   >        calcolaArea.getStyleClass().add("gigante");</span>
-<span class="st"   >        calcolaPerimetro.getStyleClass().add("gigante");</span>
-<span class="st"   >        risposta.getStyleClass().add("gigante");</span>
+<code class="st"   >        // imposto l'id del pannello</code>
+<code class="st"   >        pannello.setId("pannello");</code>
+<code class="st"   >        // imposto l'id del pulsante del perimetro</code>
+<code class="st"   >        calcolaPerimetro.setId("pulsantePerimetro");</code>
+<code class="st"   >        // imposto l'id del pulsante dell'area</code>
+<code class="st"   >        calcolaArea.setId("pulsanteArea");</code>
+<code class="st"   >        // alcuni oggetti hanno la stessa classe</code>
+<code class="st"   >        calcolaArea.getStyleClass().add("gigante");</code>
+<code class="st"   >        calcolaPerimetro.getStyleClass().add("gigante");</code>
+<code class="st"   >        risposta.getStyleClass().add("gigante");</code>
         
-<span class=""     >        // inserisco gli elementi nel pannello</span>
-<span class=""     >        pannello.add(eBase,    0, 0);</span>
-<span class=""     >        pannello.add(base,     1, 0);</span>
-<span class=""     >        pannello.add(eAltezza, 2, 0);</span>
-<span class=""     >        pannello.add(altezza,  3, 0);</span>
-<span class=""     >        // i pulsanti devono occupare due spazi della griglia</span>
-<span class=""     >        pannello.add(calcolaPerimetro,0,1,2,1);</span>
-<span class=""     >        pannello.add(calcolaArea,     2,1,2,1);</span>
-<span class=""     >        // il testo di risposta occupa 4 spazi nella griglia</span>
-<span class=""     >        pannello.add(risposta, 0, 2, 4, 1);</span>
+<code class=""     >        // inserisco gli elementi nel pannello</code>
+<code class=""     >        pannello.add(eBase,    0, 0);</code>
+<code class=""     >        pannello.add(base,     1, 0);</code>
+<code class=""     >        pannello.add(eAltezza, 2, 0);</code>
+<code class=""     >        pannello.add(altezza,  3, 0);</code>
+<code class=""     >        // i pulsanti devono occupare due spazi della griglia</code>
+<code class=""     >        pannello.add(calcolaPerimetro,0,1,2,1);</code>
+<code class=""     >        pannello.add(calcolaArea,     2,1,2,1);</code>
+<code class=""     >        // il testo di risposta occupa 4 spazi nella griglia</code>
+<code class=""     >        pannello.add(risposta, 0, 2, 4, 1);</code>
       
-<span class=""     >        // creo la scena principale</span>
-<span class=""     >        Scene scene = new Scene(pannello);</span>
-<span class=""     >        // associo un foglio di stile alla scena principale</span>
-<span class=""     >        scene.getStylesheets().add("esempi/impostazioni.css");</span>
-<span class=""     >        // imposto il titolo dello stage (la finestra)</span>
-<span class=""     >        primaryStage.setTitle("Finestra di esempio");</span>
-<span class=""     >        // imposto la scena principale (il contenuto della finestra)</span>
-<span class=""     >        primaryStage.setScene(scene);</span>
-<span class=""     >        // mostro la finestra a schermo</span>
-<span class=""     >        primaryStage.show();</span>
-<span class=""     >    }</span>
+<code class=""     >        // creo la scena principale</code>
+<code class=""     >        Scene scene = new Scene(pannello);</code>
+<code class=""     >        // associo un foglio di stile alla scena principale</code>
+<code class=""     >        scene.getStylesheets().add("esempi/impostazioni.css");</code>
+<code class=""     >        // imposto il titolo dello stage (la finestra)</code>
+<code class=""     >        primaryStage.setTitle("Finestra di esempio");</code>
+<code class=""     >        // imposto la scena principale (il contenuto della finestra)</code>
+<code class=""     >        primaryStage.setScene(scene);</code>
+<code class=""     >        // mostro la finestra a schermo</code>
+<code class=""     >        primaryStage.show();</code>
+<code class=""     >    }</code>
 
-<span class=""     >    public static void main(String[] args) {</span>
-<span class=""     >        launch(args);</span>
-<span class=""     >    }</span>
-<span class=""     >}</span>
+<code class=""     >    public static void main(String[] args) {</code>
+<code class=""     >        launch(args);</code>
+<code class=""     >    }</code>
+<code class=""     >}</code>
 
 </pre>
 	
 	
-	<h2>impostazioni.css</h2>
+	<h3>impostazioni.css</h3>
 <pre class="st">
 
 

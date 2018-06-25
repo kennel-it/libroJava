@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
-<!-- grafoIndice requires="codiceRipetuto" group="base" -->
+<!-- grafoIndice requires="numeri vettore" group="base" -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -25,7 +25,115 @@
 <p>parti di codice riutilizzabili che svolgono compiti specifici</p>
 </header>
 <article>
-<p>Rispetto all'esempio del capitolo precedente potrebbe succedere che l'elenco dei numeri
+<p>Poniamo di voler costruire un programma per calcolare la media o il massimo di
+un elenco di valori contenuti in una casella di testo, il risultato sarebbe un programma come:</p>
+<pre>
+public class MediaMaggiorePlain extends Application{
+
+    TextField valori = new TextField();
+    Label risposta = new Label();
+
+    @Override
+    public void start(Stage finestra){
+        Label e_elenco = new Label("elenco: ");
+        Label e_risposta = new Label("risposta: ");
+        Button p_media = new Button("media");
+        Button p_massimo = new Button("massimo");
+        
+        GridPane griglia = new GridPane();
+        griglia.add(e_elenco, 0, 0);
+        griglia.add(valori, 1, 0, 2, 1);
+        griglia.add(p_media, 1, 1);
+        griglia.add(p_massimo, 2, 1);
+        griglia.add(e_risposta, 0, 2);
+        griglia.add(risposta, 1, 2);
+        
+        Scene scena = new Scene(griglia);
+        finestra.setScene(scena);
+        finestra.setTitle("media &amp; massimo");
+        finestra.show();
+        
+        p_media.setOnAction(evento-&gt;calcolaMedia());
+        p_massimo.setOnAction(evento-&gt;trovaMassimo());
+    }
+    
+    private void trovaMassimo(){
+        <span class="rip">String testi[] = valori.getText().split(" ");</span>
+        <span class="rip">int numeri[] = new int[testi.length];</span>
+        int massimo;
+        <span class="rip">for (int i = 0; i &lt; testi.length; i++) {</span>
+            <span class="rip">numeri[i] = Integer.parseInt(testi[i]);</span>
+        <span class="rip">}</span>
+        
+        massimo = numeri[0];
+        for (int i = 1; i &lt; numeri.length; i++) {
+            if(numeri[i]>massimo){
+                massimo = numeri[i];
+            }
+        }
+        risposta.setText(""+massimo);
+    }
+    
+    private void calcolaMedia(){
+        <span class="rip">String testi[] = valori.getText().split(" ");</span>
+        <span class="rip">int numeri[] = new int[testi.length];</span>
+        int somma=0,media;
+        <span class="rip">for (int i = 0; i &lt; testi.length; i++) {</span>
+            <span class="rip">numeri[i] = Integer.parseInt(testi[i]);</span>
+        <span class="rip">}</span>
+        
+        for (int i = 0; i &lt; numeri.length; i++) {
+            somma += numeri[i];
+        }
+        media = somma/numeri.length;
+        risposta.setText(""+media);
+    }
+
+    public static void main(String args[]){
+        launch(args);
+    }   
+}
+</pre>
+<p>La parte in blu si ripete due volte e così il programma risulta più lungo e più soggetto ad errori!</p>
+<p>Ma c'è una soluzione: scrivere un metodo che fa il lavoro comune. Questo metodo dovrà leggere sempre
+dalla stessa casella e avere come risultato un vettore di interi</p>
+<pre>
+
+private int[] leggiDati(){
+    String testi[] = valori.getText().split(" ");
+    int numeri[] = new int[testi.length];
+    for (int i = 0; i &lt; testi.length; i++) {
+        numeri[i] = Integer.parseInt(testi[i]);
+    }
+    return numeri;
+}
+    
+private void trovaMassimo(){
+    int numeri[] = leggiDati();
+    int massimo;
+       
+    massimo = numeri[0];
+    for (int i = 1; i &lt; numeri.length; i++) {
+        if(numeri[i]>massimo){
+            massimo = numeri[i];
+        }
+    }
+    risposta.setText(""+massimo);
+}
+
+private void calcolaMedia(){
+    int numeri[] = leggiDati();
+    int somma=0,media;
+       
+    for (int i = 0; i &lt; numeri.length; i++) {
+        somma += numeri[i];
+    }
+    media = somma/numeri.length;
+    risposta.setText(""+media);
+}
+</pre>
+
+<p>Rispetto all'esempio precedente potrebbe succedere che l'elenco dei numeri
 si trovi in una casella oppure in un'altra, in questo caso la nostra funzione non va più bene
 perché legge sempre dalla stessa casella: potrebbe in questo caso far comodo una funzione che 
 dato un testo (String) costruisca il vettore di numeri.</p>
@@ -42,14 +150,14 @@ private int[] daStringaAVettore(String testo){
 </pre>
 <p>Dalla prima riga della dichiarazione della funzione si possono ricavare alcune informazioni:</p>
 <dl>
-	<dt>int[]</dt>
-	<dd>la funzione restituirà (a chi l'ha chiamata) un vettore di interi</dd>
-	<dt>daStringaAVettore</dt>
-	<dd>il nome della funzione, dovrà essere usato per chiamarla</dd>
-	<dt>String testo</dt>
-	<dd>la funzione richiede un parametro di tipo String, quel parametro 
-	all'interno della funzione sarà riferito come <code>testo</code> (cioè all'interno della
-	funzione potremmo usare una variabile chiamata <code>testo</code></dd>
+    <dt>int[]</dt>
+    <dd>la funzione restituirà (a chi l'ha chiamata) un vettore di interi</dd>
+    <dt>daStringaAVettore</dt>
+    <dd>il nome della funzione, dovrà essere usato per chiamarla</dd>
+    <dt>String testo</dt>
+    <dd>la funzione richiede un parametro di tipo String, quel parametro 
+    all'interno della funzione sarà riferito come <code>testo</code> (cioè all'interno della
+    funzione potremmo usare una variabile chiamata <code>testo</code></dd>
 </dl>
 
  
@@ -71,11 +179,11 @@ private void calcolaMedia(){
 </pre>
 
 <div class="test">
-   	<p>Riguardo <code>public int calcolaNumero(int a, int b)</code> quali delle seguenti affermazioni sono vere?</p>
-	<a onclick="sbagliata(this)">restituisce una stringa</a> 
-	<a onclick="giusta(this)">ha due parametri</a>
-	<a onclick="sbagliata(this)">ha un parametro intero</a>
-	<a onclick="giusta(this)">si chiama calcolaNumero</a>  
+    <p>Riguardo <code>public int calcolaNumero(int a, int b)</code> quali delle seguenti affermazioni sono vere?</p>
+    <a onclick="sbagliata(this)">restituisce una stringa</a> 
+    <a onclick="giusta(this)">ha due parametri</a>
+    <a onclick="sbagliata(this)">ha un parametro intero</a>
+    <a onclick="giusta(this)">si chiama calcolaNumero</a>  
 </div>
 
 </article>
