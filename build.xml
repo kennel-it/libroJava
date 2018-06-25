@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<project name="libroClientServer" default="generaLibro" basedir=".">
+<project name="libroJava" default="generaLibro" basedir=".">
 	
     <taskdef name="compilaLibro" classname="it.aspix.ebook.AntTask" >
             <classpath>
