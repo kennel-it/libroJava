@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="css formattazione" group="grafica" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8"/>
+    <title>decorazioniInterattive</title>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <script type="text/javascript" src="script/test.js"></script>
+    <script type="text/javascript" src="script/evidenziatore.js"></script>
+    <style type="text/css">
+    	#finestra { float:left ; margin:2em ; border:2px solid blue; padding:0em}
+    	#titolo { background-color: blue ;  color:white }
+    	#contenuto { padding:0.25em; background-color: #e9e8e2 }
+    	#contenuto table { border-collapse: separate; border-spacing: 5px; }
+    	
+    	#nome { border:1px solid gray }    
+    	#eseguiSaluto { border:1px solid black; border-radius:0.5em }
+
+		div.prog { line-height: 0.65em }
+		div.prog { margin:0px ; padding:0px }
+		.st { color: blue }
+		
+		#plancia{
+			border:1px solid black;
+			background-color: white;
+			padding: 1em;
+			position:fixed;
+			top:0.5em; right:0.5em;
+			display:inline-block;
+		}
+		#decorations { 
+			box-sizing: border-box;
+			border:0.2em solid brown;
+			border-radius: 0.35em 0.35em 0.25em 0.25em;    
+			width: 12.4em;
+			background-color:brown;
+		}
+		#stage {
+			background-color: #ff0000;
+			width:12em;
+			height:6em;
+		}
+		#stageBackground{
+			height: 1em;
+			text-align:center;
+		}
+		#scene{
+			background-color:yellow;
+			position:relative;
+			padding:0em;
+			top:-1em;
+			left:0em;
+			height:6em; 
+		}
+		#gridpane{
+			border-spacing: 0.25em;
+			background-color: #ccc;
+			width: 12em;
+			height:6em;
+		}
+		#cNome{
+			border:1px solid #555;
+			background: white;
+			width:7em; max-width: 7em;
+			overflow: hidden;
+		}
+		#pSaluta{
+			border-style:outset;
+			border-width: 4px;
+			border-color: gray;
+			border-radius: 0.25em;
+			background-color: #eeeeee;
+			display: inline-block;
+			text-align: center;
+		}
+		#eRisposta{
+			display: inline-block;
+			width:100%; max-width: 9em;
+			max-height:1.2em;
+			overflow: hidden;
+		}
+		.active div{
+			background-color: #dddddd;
+			padding: 0.15em; 0em;
+			margin:1px;
+			white-space:pre;
+		}
+		.active div.usable{
+			font-weight:bold;
+		}
+		.active div.on{ background-color: #aaff00 ; font-weight: bold }
+		.active div.off{ background-color:#ffaa00 ; font-weight: normal ; color: #aa5500}
+	</style>
+	<script type="text/javascript">
+	<![CDATA[
+		var stati = {
+			"setscene": {
+				off: [{ target:"scene", name:"display", value:"none"}],
+				on:  [{ target:"scene", name:"display", value:"block"}]
+			},
+			"addenome": {
+				off: [{ target:"eNome", name:"visibility", value:"hidden"}],
+				on:  [{ target:"eNome", name:"visibility", value:"visible"}]
+			},
+			"addcnome": {
+				off: [{ target:"cNome", name:"visibility", value:"hidden"}],
+				on:  [{ target:"cNome", name:"visibility", value:"visible"}]
+			},
+			"addpsaluta": {
+				off: [{ target:"pSaluta", name:"visibility", value:"hidden"}],
+				on:  [{ target:"pSaluta", name:"visibility", value:"visible"}]
+			},
+			"adderisposta": {
+				off: [{ target:"eRisposta", name:"visibility", value:"hidden"}],
+				on:  [{ target:"eRisposta", name:"visibility", value:"visible"}]
+			},
+			"show": {
+				off: [{ target:"decorations", name:"display", value:"none"}],
+				on:  [{ target:"decorations", name:"display", value:"block"}]
+			},
+			"undecorated": {
+				off: [
+					{ target:"decorations", name:"border-color", value:"brown"},
+					{ target:"decorations", name:"background-color", value:"brown"},
+					{ target:"title", name:"visibility", value:"visible"}
+				],
+				on:  [
+					{ target:"decorations", name:"border-color", value:"white"},
+					{ target:"decorations", name:"background-color", value:"white"},
+					{ target:"title", name:"visibility", value:"hidden"}
+				]
+			},
+			"onaction": {
+				off: [{ target:"trick", name:"visibility", value:"hidden"}],
+				on:  [{ target:"trick", name:"visibility", value:"visible"}]
+			},
+			"maxvalue": {
+				off: [{ target:"pSaluta", name:"width", value:"auto"}],
+				on:  [{ target:"pSaluta", name:"width", value:"100%"}]
+			},
+			"stile": {
+				off: [
+					{ target:"cNome", name:"background-color", value:"white"},
+					{ target:"eRisposta", name:"color", value:"black"}
+				],
+				on:  [
+					{ target:"cNome", name:"background-color", value:"yellow"},
+					{ target:"eRisposta", name:"color", value:"green"}
+				]
+			},
+		};
+		function esegui(){
+			var value = document.getElementById("trick").style["visibility"];
+			if(value=="visible"){
+				var o = document.getElementById("cNome").innerHTML;
+				document.getElementById("eRisposta").innerHTML = "ciao "+o;
+			}
+		}		
+		function build(){
+			elementi = document.querySelectorAll(".active div");
+			for(i=0; i<elementi.length; i++){
+				if(elementi[i].id){
+					elementi[i].addEventListener("click",elaboraLinea, true);
+				}
+			}
+		}
+		function elaboraLinea(element){
+			element.target.className = element.target.className=="off" ? "on" : "off";
+			var prop = stati[element.target.id];
+			var indice = element.target.className; 
+			for(p=0 ; p<prop[indice].length ; p++){
+				document.getElementById( prop[indice][p].target ).style[ prop[indice][p].name ] = prop[indice][p].value;
+			}
+		}
+	]]>
+	</script>
+</head>
+<body onload="build()">
+	<header>
+		<h1>decorazioniInterattive</h1>
+		<p>modifiche dell'aspetto di una finestra in base al codice utilizzato</p>
+	</header>
+	<article>
+	<p>Fai click sulle linee colorate del listato e vedi cosa succede alla finestra.</p>
+	<p>L'applicazione funziona: basta scrivere il nome e fare click sul pulsante "saluta".</p>
+		
+	<div id="pagina">
+	<div id="plancia">
+		<div id="decorations">
+			<div id="title"><span id="trick" style="visibility:visible"></span><span style="color:red">&#x25CF;</span><span style="color:yellow">&#x25CF;</span><span style="color:green">&#x25CF;</span> salve a tutti</div>
+			<div id="stage">
+				<div id="stageBackground">Stage vuoto: nessuno Scene da visualizzare</div>
+				<div id="scene">
+					<table id="gridpane">
+						<tr><td id="eNome">nome:</td><td id="cNome" contenteditable="true">James</td></tr>
+						<tr><td colspan="2"><span id="pSaluta" onclick="esegui()">saluta</span></td></tr>
+						<tr><td colspan="2"><span id="eRisposta">click su saluta</span></td></tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<h2>ApplicazioneCheSaluta.java</h2>
+<div class="active">
+
+<div>package esempi;</div>
+<div>import javafx.application.Application;</div>
+<div>import javafx.scene.Scene;</div>
+<div>import javafx.scene.control.Button;</div>
+<div>import javafx.scene.control.Label;</div>
+<div>import javafx.scene.control.TextField;</div>
+<div>import javafx.scene.layout.GridPane;</div>
+<div>import javafx.stage.Stage;</div>
+
+<div>public class ApplicazioneCheSaluta extends Application{</div>
+	
+<div>	TextField cNome = new TextField("James");</div>
+<div>	Label eRisposta = new Label("Click su saluta");</div>
+	
+<div>	@Override</div>
+<div>	public void start(Stage primaryStage){</div>
+<div>		Button pSaluta = new Button("disegna");</div>
+<div>		Label eNome = new Label("nome:");</div>
+<div>		GridPane griglia = new GridPane();</div>
+		
+<div id="addenome"     class="on" >		griglia.add(eNome,0,0);</div>
+<div id="addcnome"     class="on" >		griglia.add(cNome, 1, 0);</div>
+<div id="addpsaluta"   class="on" >		griglia.add(pSaluta, 0, 1, 2, 1);</div>
+<div id="adderisposta" class="on" >		griglia.add(eRisposta, 0, 2, 2, 1);</div>
+
+<div                              >		Scene s = new Scene(griglia);</div>
+<div id="maxvalue"    class="off" >		pSaluta.setMaxWidth(Integer.MAX_VALUE);</div>
+<div id="setscene"    class="on"  >		primaryStage.setScene(s);</div>
+<div                              >		primaryStage.setTitle("salve a tutti");</div>
+<div id="undecorated" class="off" >		primaryStage.initStyle(StageStyle.UNDECORATED);</div>
+<div                              >		eRisposta.setId("risp");</div>
+<div id="stile"       class="off" >		s.getStylesheets().add("esempi/stileApplicazione.css");</div>
+<div id="show"        class="on"  >		primaryStage.show();</div>
+		
+<div id="onaction"    class="on"  >		pSaluta.setOnAction(e->saluta());</div>
+<div>	}</div>
+	
+<div>	private void saluta(){</div>
+<div>		String nome = cNome.getText();</div>
+<div>		eRisposta.setText("ciao "+nome);</div>
+<div>	}</div>
+	
+<div>	public static void main(String x[]){ launch(x); }</div>
+<div>}</div>
+
+</div>
+
+<h2>stileApplicazione.css</h2>
+<div class="prog st">
+<div>#risp { -fx-text-fill: green; }</div>
+<div>.text-field {  -fx-background-color:yellow;  }</div>
+</div>
+ 
+</div>
+</article>
+</body>
+</html>

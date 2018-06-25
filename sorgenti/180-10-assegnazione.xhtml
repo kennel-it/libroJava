@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="" group="base" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="assegnazione"/>
+        <title>assegnazione</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>assegnazione</h1>
+<p>assegnare un valore ad una variabile</p>
+</header>
+<article>
+<p>In java il simbolo <em>=</em> ci permette di assegnare un valore ad una variabile,
+non è da confondere con il simbolo usato per fare il confronto che invece è <em>==</em></p>
+
+<p>La struttura di una assegnazione è sempre la seguente</p>
+
+<pre> nomeVariabile = espressione </pre>
+
+<p>Visto che non è un confronto nell'espressione può comparire lo stesso nome della variabile, anzi succede molto spesso:</p>
+
+<pre> x = x+4;</pre>
+
+<p>Questa istruzione prende il valore della variabile x, ci aggiunge 4 e <em>poi</em> scrive il risultato sempre nella
+variabile x</p>
+
+<p>visto che questa scrittura è molto comune abbiamo un modo per abbreviarla:</p>
+<pre> x += 4;</pre>
+
+<p>Caso ancora più frequente è quello in cui io debba aggiungere 1 ad una variabile, questo si può scrivere così:</p>
+
+<pre> x++ </pre>
+
+<p>E <em>++</em> si chiama operatore di incremento, se posto dopo il nome di una variabile più precisamente si 
+chiama operatore di <em>postincremento</em></p>
+
+<p>Il seguente frammento di programma agginge 1 alla variabile x, 1 alla variabile z e 1 alla variabile k:</p>
+<pre> 
+x=x+1;
+z+=1;
+k++; 
+</pre>
+
+<div class="test">
+   	<p>Come posso fare per incrementare il valore di una variabile di 5 unità?</p>
+	<a onclick="giusta(this)">a+=5;</a> 
+	<a onclick="sbagliata(this)">a==5;</a>
+	<a onclick="sbagliata(this)">a*=5;</a>
+	<a onclick="giusta(this)">a=a+5;</a>  
+</div>
+</article>
+</body>
+</html>

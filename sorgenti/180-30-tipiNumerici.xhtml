@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="" group="base" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>tipiNumerici</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>tipiNumerici</h1>
+<p>rappresentazione dei numeri e relativi operatori</p>
+</header>
+<article>
+<p>I tipi fondamentali di Java che 8 in tutto, di questi ben 6 servono a memorizzare dei numeri,
+con o senza parte decimale.</p>
+<p>I tipi senza parte decimale si diffenziano in base al numero più grande che possono contenere, 
+quelli con la parte decimale in base alla precisione che hanno nella mantissa e nell'esponente
+(per capire: quante cifre prendono in considerazione in entrabe le parti).</p>
+
+<h2>Tipi numerici interi</h2>
+<dl>
+	<dt>byte</dt>
+	<dd>un numero intero (con segno), occupa 8 bit bit in memoria, i suoi valori vanno da -128 a 127</dd>
+
+	<dt>short</dt>
+	<dd>numero intero (con segno), occupa 16 bit in memoria, i suoi valori vanno da -32768 a 32767</dd>
+
+	<dt class="importante">int</dt>
+	<dd>numero intero (con segno), occupa 32 bit in memoria, i suoi valori vanno da -2147483648 ... 2147483647,
+	per ricordarci facilmente nell'ordine di ± due miliardi</dd>
+
+	<dt>long</dt>
+	<dd>numero intero (con segno), occupa in memoria 64 bit, i suoi valori vanno da -9223372036854775808 a 9223372036854775807,
+	per ricordarci più facilmente nell'ordine di ± 10<sup>18</sup>.<br/>
+	I numeri di tipo long si scrivono postponendo una "L" al numero intero, "14456L" è un valore long valido.</dd>
+</dl>
+
+<h2>Tipi numerici in virgola mobile</h2>
+<dl>	
+	<dt>float</dt>
+	<dd>numero in virgola mobile, in memoria occupa 32 bit, il numero più piccolo memorizzabile è circa ±1,45x10<sup>-45</sup>
+	e il più grande è circa 3,4x10<sup>38</sup>
+	I numeri di tipo float si scrivono utilizzando il "." per separare la parte decimale e postponendo una 
+	"f" al numero, "14.456f" è un valore float valido.</dd>
+	
+	<dt>double</dt>
+	<dd>numero in virgola mobile, in memoria occupa 64 bit, il numero più piccolo memorizzabile è circa ±4,5x10<sup>-324</sup>
+	e il più grande è circa 1,7x10<sup>308</sup>.<br/>
+	I numeri di tipo double si scrivono utilizzando il "." per separare la parte decimale, "14.456" è un valore double valido.</dd>
+</dl>
+
+<div class="test">
+   	<p>Quale dei seguenti tipi può contenere valori con la parte decimale?</p>
+	<a onclick="sbagliata(this)">byte</a> 
+	<a onclick="giusta(this)">float</a>
+	<a onclick="sbagliata(this)">short</a>
+	<a onclick="giusta(this)">double</a>  
+</div>
+	
+<p>I tipi numerici vengono utilizzati anche per fare calcoli, quindi per scrivere espressioni, insieme agli 
+operatori, di seguito elenchiamo quelli che servono per combinare valori numerici</p>
+
+<H2>Operatori numerici</H2>
+<dl>
+	<dt>+</dt>
+	<dd>è il solito operatore per l'addizione: <code>4 + 7</code> è una espressione ammissibile, 
+	anche <code>k + 7</code> se <var>k</var> è una variabile di tipo numerico</dd>
+	
+	<dt>-</dt>
+	<dd>sottrazione, usato nel modo usuale.</dd>
+	
+	<dt>*</dt>
+	<dd>moltiplicazione, <code>k * m</code> è una espressione valida se <var>k</var> e <var>m</var>
+	sono due variabili numeriche</dd>
+	
+	<dt>/</dt>
+	<dd>quoziente, il risultato della divisione. Se si usano variabili in virgola mobile è il risultato 
+	che ci si aspetta: <code>15.0 / 4.0</code> dà come risultato <code>3.75</code>. Se si usano valori 
+	interi il risultato è quello delle divisioni che si facevano alle elementari! (quelle con il resto)
+	quindi: <code>10 / 3</code> fa <code>3</code>.</dd>
+	
+	<dt>%</dt>
+	<dd>resto della divisione, anche chiamato modulo. <code>10 / 3</code> fa <code>1</code></dd>
+</dl>
+
+<div class="test">
+	<p>Quanto vale <code>6 + 4 / 2</code> ?</p>
+    <a onclick="giusta(this)">8<span class="spiegazione">esatto</span></a> 
+    <a onclick="sbagliata(this)">5<span class="spiegazione">no, viene fatta prima la divisione</span></a> 
+</div>
+
+<h2>Considerazioni generali</h2>
+<p>È possibile utilizzare soltanto le parentesi tonde per modificare la precedenza degli operatori.</p>
+<p>Se in una espressione vengono mescolati valori (o variabili) di più tipi il tipo del risultato sarà quello
+più preciso possibile, questo tipo di conversione viene fatta un operatore alla volta.
+Nell'espressione <code>(45 / 10) * 2.5</code>
+prima viene eseguito 45/10 che fa 4 e poi la moltiplicazione per 2.5 che fa 10.0, un valore double.</p>
+
+<div class="test">
+	<p>Quanto vale <code>[6 + (2 * 2) ] / 2</code> ?</p>
+    <a onclick="sbagliata(this)">5<span class="spiegazione">no, le parentesi quadre non posso essere usate</span></a> 
+    <a onclick="sbagliata(this)">4<span class="spiegazione">no, le parentesi quadre non posso essere usate</span></a>
+    <a onclick="giusta(this)">errore<span class="spiegazione">giusto, le parentesi quadre non posso essere usate</span></a> 
+</div>
+
+<div class="test">
+	<p>Quanto vale <code>8 / 3</code> ?</p>
+    <a onclick="giusta(this)">2<span class="spiegazione">giusto! è una divisione tra interi</span></a> 
+    <a onclick="sbagliata(this)">2.66666<span class="spiegazione">no, le divisioni tra interi non hanno una parte decimale</span></a>
+    <a onclick="sbagliata(this)">3<span class="spiegazione">no, le divisioni tra interi non vengono arrotondate</span></a> 
+</div>
+
+</article>
+</body>
+</html>

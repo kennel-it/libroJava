@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="condizionale salutaUtente vettore" group="algoritmiStruttureDati" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>stringhe</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>stringhe</h1>
+<p>gestione dei testi</p>
+</header>
+<article>
+<h2>Il problema</h2>
+<p>Capita spesso che lavorando con dei testi (frasi o parole) serva di prendere in considerazione un carattere alla volta. 
+Una possibilità è quella di usare il metodo split() per avere un array formato da singoli caratteri ma resta ad esempio 
+il problema che confrontare due stringhe usando equals() non è molto comodo (né molto veloce).</p>
+<h2>La soluzione</h2>
+<p>Usare altri due metodi che l'oggetto String ci mette a disposizione: toCharArray() e charAt(), il primo costruisce 
+un vettore di caratteri (char) costituito dai singoli componenti della stringa, il secondo prende un singolo carattere
+dal testo.</p>
+<pre>
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Caratteri extends Application{
+  TextField c_uno = new TextField();
+  TextField c_due = new TextField();
+  Label risposta = new Label();
+	
+  @Override
+  public void start(Stage s){
+    Label e_uno = new Label("primo parametro:");
+    Label e_due = new Label("secondo parametro:");
+    Label e_risposta = new Label("risposta:");
+    Button carattere = new Button("n_esimo carattere");
+    Button prima = new Button("confronta prima");
+		
+    GridPane gp = new GridPane();
+    gp.add(e_uno,0,0);
+    gp.add(c_uno,1,0);
+    gp.add(e_due,0,1);
+    gp.add(c_due,1,1);
+    gp.add(carattere,1,2);
+    gp.add(prima,1,3);
+    gp.add(e_risposta,0,4);
+    gp.add(risposta,1,4);
+		
+    Scene scena = new Scene(gp);
+    s.setScene(scena);
+    s.setTitle("Caratteri");
+    s.show();
+		
+    carattere.setOnAction(evento->prendiEnnesimoCarattere());
+    prima.setOnAction(evento->confrontaPrimaLettera());
+  }
+	
+  /* qui uso il metodo toCharArray per recuperare un intero array di caratteri */
+  private void prendiEnnesimoCarattere(){
+    String f = c_uno.getText();
+    int n = Integer.parseInt(c_due.getText());
+    char v[];
+    v = f.toCharArray();
+    risposta.setText(""+v[n]);
+  }
+	
+  /* qui uso anche charAt per recuperare un singolo carattere */
+  private void confrontaPrimaLettera(){
+    String f = c_uno.getText();
+    String s = c_due.getText();
+    char v[];
+    v = f.toCharArray();
+    char primoSotto;
+    primoSotto = s.charAt(0);
+		
+    if(v[0]==primoSotto){
+      risposta.setText("sono uguali");
+    }else{
+      risposta.setText("non sono uguali");
+    }
+  }
+	
+  public static void main(String x[]){
+    launch(x);
+  }
+}
+</pre>
+<p>Un'altra cosa utile potrebbe essere quella di costruire una stringa a partire da un vettore di caratteri, questo è facile:
+<code>String testo = new String(vettoreDiCaratteri)</code>.</p>
+</article>
+</body>
+</html>

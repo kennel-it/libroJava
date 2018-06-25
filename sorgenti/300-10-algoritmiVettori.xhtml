@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="vettore" group="base" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>algoritmiVettori</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>algoritmiVettori</h1>
+<p>algoritmi notevoli di ricerca in un vettore</p>
+</header>
+<article>
+<p>In informatica ci sono degli algoritmi tipici, che si propongono cioè a tutti gli studenti. Questi sono: la ricerca di un elemento in un vettore ordinato
+   o no e l'ordinamento di un vettore. Cominciamo:</p>
+<h3>Individuazione del massimo in un vettore (disordinato)</h3>
+<p>Usiamo, tra le altre, una variabile che tenga conto del massimo fino ad ora trovato. Tale variabile la chiameremo <code><var>massimo</var></code>. Come
+   valore iniziale le daremo il contenuto della prima cella della del vettore. A partire dalla seconda all'ultima si farà poi sempre questa operazione:
+   se il valore trovato nella cella in esame è più grande di quello contenuto in <code><var>massimo</var></code> allora copieremo in tale variabile quanto
+   c'è nella cella del vettore alla posizione corrente. La variabile <code><var>massimo</var></code> conterrà così mano a mano il massimo della porzione di
+   vettore fino a quel punto analizzata. Al termine dell'analisi conterrà il massimo. Non rimane che fornire l'algoritmo:</p>
+<pre>public void cercaMassimo() {
+   int massimo, indice;
+   for(massimo = vet[0], indice = 1; indice &lt; vet.length; indice++) {
+      if(massimo &lt; vet[indice]) {
+         massimo = vet[indice];
+      }
+   }
+   t_risultato.setText(massimo + "");
+}</pre>
+<p>Per esercizio individua il minimo in un vettore disordinato.</p>
+<h3>Individuazione del massimo in un vettore (ordinato)</h3>
+<p>Il problema è di facile soluzione: se il vettore è ordinato in modo crescente il massimo sarà l'ultimo valore del vettore, quello cioè di indice maggiore;
+   se invece il vettore è ordinato in modo decrescente il massimo sarà nella prima posizione.</p>
+<p>Per esercizio individua il minimo in un vettore ordinato.</p>
+<h3>Ricerca di un elemento in un vettore (disordinato)</h3>
+<p>Dato un vettore caricato chiamato <code><var>vet</var></code>, dire se un certo numero è presente (nel qual caso mostrare la posizione del primo trovato)
+   oppure no (nel qual caso mostrare -1). Partendo dal presupposto che il vettore in questione non è ordinato, l'unico modo per risolvere il problema è quello
+   di analizzare ogni elemento e verificare se questo corrisponde. 
+   Consideriamo per che il vettore sia già caricato e grande <code><var>n</var></code>.</p>
+<pre>public void cercaInSerie() {
+   int indice, numeroCercato;
+   numeroCercato = Integer.parseInt(t_numeroCercato.getText());
+   int posizioneElemento = -1;
+   
+   for(indice = 0; indice &lt; vet.length &amp;&amp; posizioneElemento==-1 ; indice++) {
+      if(vet[indice] == numeroCercato) {
+         posizioneElemento = indice;
+      }
+   }
+   t_risultato.setText("" + posizioneElemento);
+}</pre>
+<p>Questa funzione scrive dapprima <var>-1</var> nella variabile <var>posizioneElemento</var> dopodiché, 
+	solo nel caso in cui si sia trovato il numero cercato, si sovrascrive il
+   contenuto di tale variabile col valore di <code><var>indice</var></code>che indica appunto la posizione dell'elemento. La stessa cosa fa la seguente funzione
+   con la sola differenza di controllare solo alla fine del <code>for</code> il fatto di aver trovato il numero: se fosse <code><var>indice</var> &lt;
+   <var>n</var></code> vuol dire che il numero è stato trovato, altrimenti no. Perché questo? Quindi:</p>
+<pre>public void cercaInSerie() {
+   int indice, numeroCercato;
+   numeroCercato = Integer.parseInt(t_numeroCercato.getText());
+   boolean trovato = false;
+   for(indice = 0; indice &lt; vet.length &amp;&amp; !trovato; indice++) {
+      if(vet[indice] == numeroCercato) {
+         trovato = true;
+      }
+   }
+   if(indice &lt; vet.length) {   //Il for si è fermato prima, quindi l'abbiamo trovato
+      t_risultato.setText("" + indice);
+   } else {           //Il for si è fermato perché indice == n, quindi l'elemento non c'è
+      t_risultato.setText("-1");
+   }
+}</pre>
+<p>Possiamo un po' migliorare il codice: mettiamo la condizione della if direttamente all'interno della condizione del <code>for</code> facendo sì che ripeta
+   per tutti gli <code><var>indice</var> &lt; <var>n</var> &amp;&amp; <var>vet</var>[<var>indice</var>] != <var>numeroCercato</var></code>. Sarà allora:</p>
+<pre>public void cercaInSerie() {
+   int indice, numeroCercato;
+   numeroCercato = Integer.parseInt(t_numeroCercato.getText());
+   for(indice = 0; indice &lt; vet.length &amp;&amp; vet[indice] != numeroCercato; indice++) {
+   }
+   if(indice &lt; vet.length) {   //Il for si è fermato prima, quindi l'abbiamo trovato
+      t_risultato.setText("" + indice);
+   } else {           //Il for si è fermato perché indice == n, quindi l'elemento non c'è
+      t_risultato.setText("-1");
+   }
+}</pre>
+<p>Avrai senz'altro osservato che il <code>for</code> ha corpo vuoto. In questo caso anziché mettere le graffe aperte e chiuse possiamo mettere il <code>;</code>.
+   Nel complesso la funzione nella sua ultima stesura sarà:</p>
+<pre>public void cercaInSerie() {
+   int indice, numeroCercato;
+   numeroCercato = Integer.parseInt(t_numeroCercato.getText());
+   for(indice = 0; indice &lt; vet.length &amp;&amp; vet[indice] != numeroCercato; indice++);
+   if(indice &lt; vet.length) {   //Il for si è fermato prima, quindi l'abbiamo trovato
+      t_risultato.setText("" + indice);
+   } else {           //Il for si è fermato perché indice == n, quindi l'elemento non c'è
+      t_risultato.setText("-1");
+   }
+}</pre>
+<h3>Ricerca di un elemento in un vettore (ordinato)</h3>
+<p>Supponiamo che sia ordinato in modo crescente. Facciamo un esempio di vettore crescente di 15 elementi:</p>
+<table border="1">
+   <tr>
+      <td width="50">-33</td>
+      <td width="50">-28</td>
+      <td width="50">-19</td>
+      <td width="50">-2</td>
+      <td width="50">1</td>
+      <td width="50">14</td>
+      <td width="50">15</td>
+      <td width="50">15</td>
+      <td width="50">18</td>
+      <td width="50">21</td>
+      <td width="50">42</td>
+      <td width="50">45</td>
+      <td width="50">50</td>
+      <td width="50">61</td>
+      <td width="50">67</td>
+   </tr><tr>
+      <td> 0</td>
+      <td> 1</td>
+      <td> 2</td>
+      <td> 3</td>
+      <td> 4</td>
+      <td> 5</td>
+      <td> 6</td>
+      <td> 7</td>
+      <td> 8</td>
+      <td> 9</td>
+      <td> 10</td>
+      <td> 11</td>
+      <td> 12</td>
+      <td> 13</td>
+      <td> 14</td>
+   </tr>
+</table>
+<p>Supponiamo di voler cercare il numero 18. Dato che non ho ancora nessuna informazione sul vettore l'intervallo di ricerca va dalla posizione inferiore 0
+   alla posizione superiore 14. Questo perché in pratica la ricerca deve avvenire su tutto il vettore. Devo tener memoria di questo quindi utilizzerò 2 variabili
+   e le inzializzo: rispettivamente <code><var>inf</var> = 0</code> e <code><var>sup</var> = 14</code>. Voglio a studiare l'elemento in posizione centrale.
+   Come si calcola la posizione centrale: essendo la posizione centrale o posizione media, si ottiene con la formula della media fra le posizioni inferiore e
+   superiore. Il risultato lo metto nella variabile <code><var>metà</var> = (<var>inf</var> + <var>sup</var>) / 2</code>. Valuto se il numero contenuto in
+   questa cella è quello cercato. Nell'esempio <code><var>metà</var> = (14 + 0) / 2</code> cioè 7. Il contenuto in 7 è (il secondo) 15. Rispetto al numero
+   cercato (18) il 15 è più piccolo e di conseguenza sicuramente non potrà stare nelle posizioni del vettore da 0 a 7. L'intervallo di ricerca sarà allora da 8
+   a 14. L'8 si ottiene incrementando di 1 (perché si riferisce al successivo) il valore di <code><var>metà</var></code>. Chi è che dovrà valere 8:
+   <code><var>inf</var></code> o <code><var>sup</var></code>? Dato che è cambiato l'estremo inferiore dell'intervallo di ricerca, sarà <code><var>inf</var></code>
+   ad essere aggiornata: <code><var>inf</var> = metà + 1</code>.<br/>
+   Si ricomincia pari pari tutto l'algoritmo (a meno ovviamente dell'inizializzazione di <code><var>inf</var></code> e <code><var>sup</var></code>): calcolo di
+   <code><var>metà</var> = (8 + 14) / 2</code> che è 11. Anche qui studio cosa c'è in 11 e vedo che è 45. Non è il numero che cerco, è più grande del numero
+   che sto cercando. Posso quindi affermare che se il numero ci fosse sarebbe in una posizione precedente a quella di <code><var>metà</var></code> ma superiore
+   o uguale a quella di <code><var>inf</var></code>. Devo aggiornare quindi la mia variabile <code><var>sup</var></code> a <code><var>metà - 1</var></code>
+   cioè 10.<br/>
+   Si ricomincia ancora una volta come sopra. Calcolo ancora una volta <code><var>metà</var> = (<var>8</var> + <var>10</var>) / 2</code> e stavolta sarà 9. Qui
+   c'è 21 che risulta più grande. L'intervallo di ricerca si restringe ancora perché <code><var>sup</var></code> si riduce a 8. Il valore medio sarà banalmente
+   8 e osservando il valore di questa posizione ci farà esultare: l'abbiamo trovato quindi l'algoritmo termina con successo.</p>
+<p>Se avessimo cercato 19? Riguardando tutti i passaggi precedenti possiamo affermare che nulla cambia fino all'ultimo passaggio escluso. In questo si osserva
+   invece che in posizione 8 il valore trovato risulta più piccolo (è 18) dato che cerchiamo 19. Ne consegue che la variabile <code><var>inf</var></code>
+   diviene <code><var>metà</var> + 1</code>quindi 9. Ci troviamo ad avere a questo punto <code><var>inf</var> &gt; <var>inf</var></code> quindi terminiamo la
+   ricerca perché l'elemento non è presente nel vettore.</p>
+<p>Tale metodo di ricerca si chiama <em>Ricerca binaria</em> o <em>Ricerca dicotomica</em>. Non rimane che presentare la funzione:</p>
+<pre>public void ricercaBinaria() {
+   int inf, sup, metà, ris = -1;
+   numeroCercato = Integer.parseInt(t_numeroCercato.getText());
+   for(inf = 0, sup = vet.length-1; inf &lt;= sup; ) {
+      metà = (inf + sup) / 2;
+      if(numeroCercato == vet[metà]) {
+         ris = metà;
+         break;
+      }
+      if(numeroCercato &lt; vet[metà]) {
+         sup = metà - 1;
+      }
+      if(numeroCercato &gt; vet[metà]) {
+         inf = metà + 1;
+      }
+   }
+   t_risultato.setText(ris + "");
+}</pre>
+<p>Per esercizio prova ad eliminare il primo <code>if</code> contenuto nel <code>for</code>.</p>
+<div class="esercizio">
+Dato un vettore di <code><var>n</var></code> elementi, caricarlo in modo disordinato quindi individuare il massimo elemento che non sia però
+   superiore della media.
+</div>
+<div class="esercizio">
+Dato un vettore di <code><var>n</var></code> elementi, caricarlo quindi in modo disordinato. Creare successivamente un altro vettore in cui
+   in ogni elemento inserisci quanto dista il corrispettivo del vettore originario dalla media. Ad esempio, dato il vettore 4, 2, 5, 8, 6 si desume la media 5.
+   Il nuovo vettore avrà componenti 5-4 = 1, 5-2 = 3, 0, -3, -1.
+</div>
+<div class="esercizio"> 
+	Dato un vettore di <code><var>n</var></code> voti, dire se sono più le sufficienze oppure no. 
+	Come variante indica anche a quanto ammonta la differenza.
+</div>
+<div class="esercizio">
+	Realizza un programma Java che permetta all'utente di caricare un vettore di n elememti non ordinati. Alla pressione di un pulsante mostrare
+   all'utente (in due distinte caselle di testo) quanti sono i numeri pari superiori alla media dei valori del vettore e quanti sono i numeri inferiori alla media
+   del vettore.
+</div>
+<div class="esercizio">
+Realizza un programma Java che permetta all'utente di caricare un vettore di n elememti non ordinati. Alla pressione di un pulsante mostrare
+   all'utente la media tra il minimo ed il massimo del vettore, quindi mostrare quanti elementi sono inferiori a tale media.
+</div>
+</article>
+</body>
+</html>

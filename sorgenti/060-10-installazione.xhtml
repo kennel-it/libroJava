@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>installazione</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>       
+        <style type="text/css">
+        	p { margin:0.15em }
+        	ul { margin:0.15em }
+        </style>
+          
+    </head>
+<body>
+<header>
+<h1>installazione</h1>
+<p>Procedure per l'installazione di diversi tipi di software: java, eclipse e scene builder.</p>
+</header>
+<article>
+
+<h2>Java Development Kit</h2>
+<ul>
+	<li>aprire con un browser la pagina <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE Downloads</a>.</li>
+	<li>click sul pulsante download sotto JDK</li>
+	<li>accettare la licenza</li>
+	<li>scaricare la versione giusta per il proprio sistema</li>
+</ul>
+
+<h2>eclipse</h2>
+<p>Le istruzioni che seguono sono per scaricare il pacchetto, <em>non</em> per l'installer.</p>
+<p>La versione "EE" ci è utile perché ha anche degli editor per i css.</p>
+<ul>
+	<li>aprire con un browser il sito <a href="http://www.eclipse.org/">eclipse.org</a></li>
+	<li>seguire il link per la pagina dei <a href="http://www.eclipse.org/downloads/">download</a></li>
+	<li>seguire il link <a href="http://www.eclipse.org/downloads/eclipse-packages/">download packages</a></li>
+	<li>scaricare la versione "Eclipse IDE for Java EE Developers" giusta per il proprio sistema operativo</li>
+	<li>una volta scaricato eclipse scompattare il file e posizionare la cartella "eclipse" sulla scrivania (o in altra posizione)</li>
+	<li>è possibile lanciare eclipse aprendo la cartella e facendo doppio click sull'eseguibile</li>
+</ul>
+
+<h2>e(fx)clipse</h2>
+<p>È un plugin per eclipse che consente di interagire più facilmente con programmi che usano javafx.</p>
+<p>La pagina da cui ottenere informazioni è quella di <a href="https://www.eclipse.org/efxclipse/install.html">e(fx)clipse</a>.</p>
+<p>Le istruzioni che seguono sono per la versione 2.4.0 .</p>
+<ul>
+	<li>aprire eclipse</li>
+	<li>menu /Help/Install New Software...</li>
+	<li>click sul pulsante "Add..."</li>
+	<li>nel campo "name" inserire "e(fx)clipse"</li>
+	<li>nel campo "location" inserire "http://download.eclipse.org/efxclipse/updates-released/2.4.0/site"</li>
+	<li>click sul pulsante "ok"</li>
+	<li>nella casella "work with" deve comparire il sito appena immesso</li>
+	<li>al centro della finestra selezionare il gruppo "e(fx)clipse install"</li>
+	<li>premere "next&gt;" e completare l'installazione (anche accettando la licenza)</li>
+	<li>alla fine dell'installazine verrà richiesto il riavvio di eclipse</li>
+</ul>
+
+<h2>Scene Builder</h2>
+<p>È un programma che permette di costruire velocemente interfacce per JavaFX.</p>
+<p>Durante l'installazione è bene prendere nota della cartella in cui viene installato Scene Builder.</p> 
+<ul>
+	<li>aprire con un browser la pagina <a href="http://gluonhq.com/labs/scene-builder/">Gluon: Scene Builder</a>.</li>
+	<li>click sul pulsante download</li>
+	<li>scaricare la versione corretta per il proprio sistema operativo</li>
+	<li>installare il programma appena scaricato</li>
+</ul>
+<p>Il programma viene installato nella cartella AppData dell'utente... che normalmente windows tiene nascosta, 
+per poterla vedere bisogna aprire Esplora risorse e nel gruppo Mostra/Nascondi della linguetta Visualizza 
+bisogna spuntare "elementi nascosti"</p>
+<p>Per poter usare Scene Builder direttamente da Eclipse:</p>
+<ul>
+	<li>aprire eclipse</li>
+	<li>menu Windows/Preferences</li>
+	<li>selezionare sulla sinistra il gruppo "JavaFX"</li>
+	<li>nella parte centrale compare "Scene Builder executable"</li>
+	<li>fare click su browse e trovare Scene Builder nel proprio sistema</li>
+</ul>
+<p>Solitamente il percorso di Scene Builder è C:\Users\NOME_DELL_UTENTE\AppData\Local\SceneBuilder\SceneBuilder.exe</p>
+
+</article>
+</body>
+</html>

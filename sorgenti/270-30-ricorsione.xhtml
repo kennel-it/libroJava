@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="funzioni" group="base" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>ricorsione</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <style type="text/css">
+        	.rip { font-weight: bold; color:blue }
+        	#stack { border:3px solid #ddd ; margin-top:0em}
+        	.prog .esecuzione { background-color:yellow }
+        	h2 { margin-bottom:0em }
+        	h3 { margin-bottom:0em }
+        </style>         
+		<script src="iv/InterpreteVisuale.js" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="iv/InterpreteVisuale.css"/>
+		<script type="text/javascript">
+		//<![CDATA[	
+			scriptFattoriale = [
+				{ "principale": [
+					[ "velocita", "2" ],
+					[ "decl", "a", "mostra", false, "i_11" ],
+					[ "chiamata", "fattoriale", {"n": '3'}, "a", "i_12" ],
+					[ "istr", "a=a", "i_12" ]
+				]},
+				{ "fattoriale": [
+					[ "decl", "r", "mostra", false, "i_16" ],
+					[ "if", "n==1",
+						[  // then
+							[ "istr", "r=1", "i_18" ]
+						], // else
+						[ 
+							[ "chiamata", "fattoriale", {"n": 'n-1'}, "r", "i_20" ],
+							[ "istr", "r=n*r", "i_21" ]
+						]
+					, "i_17"],
+					[ "restituisci", "r", "i_23" ]
+				]}
+			];
+			var interpreteVisuale1;
+			function esegui(){
+				var p1 = new Programma(scriptFattoriale);
+				interpreteVisuale1 = new InterpreteVisuale(p1, "pc1", "stack");
+				interpreteVisuale1.interpreta("principale");
+			}
+			var stato = true;
+			function switchPausa(){
+				if(stato){
+					interpreteVisuale1.pausa();
+					document.getElementById("pausa").innerHTML = "riprendi";
+				}else{
+					interpreteVisuale1.riprendi();
+					document.getElementById("pausa").innerHTML = "pausa";
+				}
+				stato = !stato;
+			}
+		//]]>
+		</script>
+		<style type="text/css">
+			.stack { border:3px solid #ddd ; margin-top:0em}
+	
+			.programma { font-family: Courier; background-color: #eee; padding:1em }
+			.programma div { padding-top:0.25em }
+			.programma .esecuzione { background-color:yellow }
+			.i1 { padding-left:0em }
+			.i2 { padding-left:2em }
+			.i3 { padding-left:4em }
+			
+			.bloccoLavoro {
+				display: flex;
+	        	flex-direction: row;
+	        	margin: 1em 0em;
+			}
+			.bloccoLavoro > * {
+				padding-left: 1em;
+				padding-right: 1em;
+			}
+			.bloccoLavoro > *:FIRST-CHILD {
+				align-self: center;
+			}
+			.bloccoLavoro > *:FIRST-CHILD div{
+				border: 2px solid red;
+				border-radius: 0.35em;
+				background-color: #ddd;
+				padding:0.25em;
+				margin:0.5em;
+			}
+			.bloccoLavoro > *:nth-child(2){
+				background-color: #e0e0e0;
+			}
+			.bloccoLavoro > *:nth-child(3){
+				background-color: #eaeaea;
+			}
+		</style> 
+    </head>
+<body xmlns:m="http://www.w3.org/1998/Math/MathML">
+<header>
+<h1>ricorsione</h1>
+<p>funzioni che chiamano loro stesse</p>
+</header>
+<article>
+<h2>Funzioni ricorsive</h2>
+<p>Prendiamo come esempio la funzione fattoriale:</p>
+<m:math>
+    <m:mrow>
+        <m:mi>fattoriale</m:mi>
+        <m:mo stretchy="false">(</m:mo>
+        <m:mi>x</m:mi>
+        <m:mo stretchy="false">)</m:mo>
+        <m:mo>=</m:mo>
+        <m:mrow>
+            <m:mo>{</m:mo>
+            <m:mtable>
+                <m:mtr>
+                    <m:mtd columnalign="left">
+                        <m:mrow>
+                            <m:mn>1</m:mn>
+                            <m:mo>se n=1</m:mo>
+                        </m:mrow>
+                    </m:mtd>
+                </m:mtr>
+                <m:mtr>
+                    <m:mtd columnalign="left">
+                        <m:mrow>
+                            <m:mn>n*fattoriale(n-1)</m:mn>
+                            <m:mo>se n>1</m:mo>
+                        </m:mrow>
+                    </m:mtd>
+                </m:mtr>
+            </m:mtable>
+        </m:mrow>
+    </m:mrow>
+</m:math>
+
+<p>Il modo più facile di scriverla è di tradurre in java quello che c'è scritto nella definizione.</p>
+
+<pre>
+// definizione della funzione
+public int fattoriale(int n){
+	int risposta;
+	if(n==1){
+		risposta = 1;
+	}else{
+		risposta = n * fattoriale (n-1); 
+	}
+	return risposta;
+}
+</pre>
+
+<p>Vediamo come è possibile utilizzare la funzione in un programma, qui sotto è
+riportato un frammento di codice, la funzione <code>eseguiCalcolo</code> è
+quella che viene richiamata alla pressione del pulsante</p>
+
+<h2>Simulazione fattoriale ricorsivo</h2>
+
+<div class="bloccoLavoro">
+	<div><!-- controlli -->
+		<div onclick='esegui()'>avvia programma</div>
+		<div onclick='switchPausa()' id="pausa">pausa</div>
+	</div>
+	<div style="display: flex;flex-direction: column;align-items: flex-center;justify-content: flex-end;">
+		<div id="stack"></div>
+		<h3>Stack</h3>
+	</div>
+	<div>
+		<h3>codice</h3>
+		<div class="programma">
+			<div class="i1"><span id="i_10">public void principale()</span></div>
+			<div class="i2"><span id="i_11">int a;</span></div>
+			<div class="i2"><span id="i_12">a = fattoriale(3);</span></div>
+			<div class="i1"><span id="i_13">}</span></div>
+			<div class="i2"><span id="i_14">  </span></div>
+			<div class="i1"><span id="i_15">public int fattoriale(int n){</span></div>
+			<div class="i2"><span id="i_16">int r;</span></div>
+			<div class="i2"><span id="i_17">if(n==1){</span></div>
+			<div class="i3"><span id="i_18">r = 1;</span></div>
+			<div class="i2"><span id="i_19">}else{</span></div>
+			<div class="i3"><span id="i_20">r = fattoriale(n-1);</span></div>
+			<div class="i3"><span id="i_21">r = n*r;</span></div>
+			<div class="i2"><span id="i_22">}</span></div>
+			<div class="i2"><span id="i_23">return r;</span></div>
+			<div class="i1"><span id="i_24">}</span></div>
+		</div>
+	</div>
+</div>
+
+<p>Se in un'altra parte del programma dovesse servire di calcolare di nuovo il fattoriale
+basterà chiamare di nuovo la funzione <code>fattoriale()</code> senza dover scrivere
+due volte lo stesso pezzo di codice: il programma sarà più corto e in caso di correzioni
+si dovrà correggere una sola cosa.</p>
+
+</article>
+</body>
+</html>

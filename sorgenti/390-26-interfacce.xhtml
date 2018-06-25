@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- grafoIndice requires="classi" group="algoritmiStruttureDati" --><!-- FIXME: serve anche altro -->
+<!-- changelog 2017-07-04 inserito capitolo vuoto -->
+<!-- changelog 2017-08-07 inserito blocco contenuti -->
+<!-- changelog 2017-10-03 corretto riferimento insensato a "clienti" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>interfacce</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>   
+    </head>
+<body>
+<header>
+<h1>interfacce</h1>
+<p>definire punti di accesso comuni</p><!-- FIXME "punti di accesso" "funzionalità" -->
+</header>
+<article>
+
+<p>La realtà che voglio modellare è formata tra gli altri da questi due oggetti:
+Squadra e Atleta. Quello che mi interessa di una squadra è il colore della maglia
+(cosa che non mi interessa degli atleti), in nome e il numero di telefono, di un Atleta mi interessa
+di nuovo il numero di telefono, il nome e il tempo migliore sui 100m.</p>
+
+<p>Parte del mio programma prevede la posssibilità di visualizzare una rubrica
+che contenga sia le squadre che gli atleti:
+non mi interessa distinguere tra i due in questo contesto.</p>
+
+<p>Proviamo a fare così: creo una classe InterfacciaRubrica con due metodi:</p>
+<pre class="prog">
+class InterfacciaRubrica {
+	/* altri metodi e variabili */
+    void visualizzaSquadra(Squadra s){
+        campoNome.setText(s.getNome());
+        ...
+    }
+    void visualizzaAtleta(Atleta a){
+        campoNome.setText(a.getNome());
+        ...
+    }
+}
+</pre>
+
+<p>E se in futuro esistessero altre entità che io vorrò visualizzare in <code>InterfacciaRubrica</code>?
+Come posso fare in modo che la mia interfaccia funzioni senza doverla stare sempre
+a modificare?</p>
+
+<p>Per risolvere questo problema ci vengono in aiuto le interfacce. L'idea è questa: entrambe gli oggetti 
+rappresentano una voce di rubrica e nel contesto di <code>InterfacciaRubrica</code> non ci interessa altro
+(non importa il tempo sui 100m per esempio).
+Possiamo esplicitare al livello sintattico questo concetto.</p>
+
+<h2>Dichiarazione di una interfaccia</h2>
+<p>Una interfaccia si dichiara in un file come una normale classe ma sostituendo
+<code>class</code> con <code>interface</code>.</p>
+<p>Questa qui sotto è la nostra interfaccia:</p>
+<pre>
+public <em>interface</em> ElementoRubrica {
+    <em>public String getNome();
+    public String getNumero();</em>
+}
+</pre>
+<div class="test">
+   	<p>Cosa ha di strano questo file?</p> 
+	<a onclick="sbagliata(this)">i metodi sono public<span class="spiegazione">lo possono essere come nelle classi</span></a> 
+	<a onclick="giusta(this)">manca il corpo dei metodi <span class="spiegazione">giusto! ma nelle interfacce i metodi sono fatti così.</span></a>
+</div>
+
+<p>Le interfacce a differenza delle classi non dicono <em>come</em> svolgere le azioni
+(cosa che nelle classi si fa nel corpo dei metodi) ma soltanto <em>quali</em> funzionalità
+un oggetto deve avere.</p>
+
+<h2>Implementazione di una interfaccia</h2>
+<p>Adesso dobbiamo dichiarare che il nostro Atleta si comporta anche come un ElementoRubrica: 
+dobbiamo <em>implementare</em> l'interfaccia usando la parola chiave <code>implements</code>.</p>
+<p>Un oggetto java può implementare più di una interfaccia, basta elencarle una dopo l'altra
+separandole con una virgola.</p>
+<pre>
+public class Atleta <em>implements</em> ElementoRubrica {
+    private String nome;
+    private String numero;
+    
+    /* tutti gli altri metodi */
+    
+    public String getNome() {
+        return nome;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+}
+</pre>
+
+<p>Il vantaggio a questo punto è questo: nella mia classe InterfacciaRubrica
+posso ignorare quale oggetto particolare devo visualizzare, mi interessa soltanto
+che implementi l'opportuna interfaccia <code>ElementoRubrica</code>.</p>
+<pre class="prog">
+class InterfacciaRubrica {
+	/* altri metodi e variabili */
+    void visualizzaSquadra(ElementoRubrica e){
+	    campoNome.setText(e.getNome());
+	    ...
+    }
+}
+</pre>
+<p>Se volessi implementare questa interfaccia anche nell'oggetto Allenatore
+la mia interfaccia grafica non avrebbe bisogno di nessuna modifica.</p>
+
+<p>Una interfaccia non può:</p>
+<ul>
+<li>essere direttamente instanziata cioè non posso 
+creare un oggetto di tipo ElementoRubrica usando <code>new</code> perché nella definizione
+dell'interfaccia io non ho definito il suo comportamento (manca il corpo dei metodi).</li>
+<li>avere variabili di istanza</li>
+</ul> 
+
+</article>
+</body>
+</html>

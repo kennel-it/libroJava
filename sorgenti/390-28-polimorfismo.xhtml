@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- grafoIndice requires="funzioni classi" group="algoritmiStruttureDati" -->
+<!-- changelog 2017-07-04 inserito capitolo vuoto -->
+<!-- changelog 2017-08-07 inserito blocco contenuti -->
+<!-- changelog 2017-08-22 aggiunto costruttore come esempio di polimorfismo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>polimorfismo</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+    </head>
+<body>
+<header>
+<h1>polimorfismo</h1>
+<p>variazioni di comportamento al variare dei tipi</p>
+</header>
+<article>
+
+<h2>TODO: da dividere? </h2>
+
+<h2>Metodi</h2><!-- Ad hoc polymorphism, function overloading -->
+<p>Questo tipo di polimorfismo è noto anche come <em>function overloading</em>.</p>
+<p>All'interno di una classe possiamo vere più metodi con lo stesso
+nome: l'importante è che il numero degli argomenti o il loro tipo non coincidano.
+Detto in altri termini due metodi sono diversi se hanno un numero di argomenti diversi
+o se hanno lo stesso numero di argomenti ma di tipi diversi.</p>
+<p>Nel caso di java i metodi non possono però essere differenziati in base al tipo
+ritornato.</p>
+<p>Prendiamo per esempio una classe che consente di impostare il lato di una figura
+che dovrebbe essere un numero in virgola mobile ma che permettiamo di impostare come testo
+per comodità dell'utilizzatore.</p>
+<pre>
+class Quadrato {
+	private double lato;
+	
+	public void setLato(double d){
+		lato = d;
+	}
+	
+	public void setLato(String l){
+		lato = Double.parseDouble(l);
+	}
+} 
+</pre>
+
+<p>Spesso è utile ad esempio avere diversi costruttori per lo stesso oggetto:
+in questo caso l'oggetto <code>Persona</code> può essere costruito sia fornendo nome e altezza 
+che il solo nome:</p>
+<pre>
+class Persona {
+	private double altezza;
+	private String nome;
+	
+	public Persona(String n, double a){
+		nome = n;
+		altezza = a;
+	}
+	
+	public Persona(String n){
+		nome = n;
+	}
+} 
+</pre>
+
+<h2>Classi (generics)</h2>
+<p class="FIXME">ci andiamo a impelagare in un discorso complicato? come facciamo
+per evitarlo visto che si usa almeno nelle ListView?</p>
+<p>Java ha un modo per definire dei tipi parametrici: ad esempio nell interfacce grafiche 
+posso dire di avere una ListView di String oppure di Integer...</p>
+<p>Per specificare questo fatto il tipo degli oggetti contenuti va specifivato tra 
+&lt;&gt;</p> 
+<p>Ad esempio per creare una lista che contiene dei testi usiamo il tipo
+<code>ListView&lt;String&gt;</code> e più precisamente per creare l'oggetto<br/>
+<code>ListView&lt;String&gt; l = new ListView&lt;&gt;()</code><br/>
+nella creazione dell'oggetto (dopo il new) non è necessario inserire di nuovo il tipo dell'oggetto contenuto.</p>
+
+
+</article>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="" group="base" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>booleani</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+	<h1>booleani</h1>
+	<p>rappresentazione dei valori di verità e relativi operatori</p>
+</header>
+<article>
+<p>Il tipo booleano ammette due sole costanti: <var>true</var> e <var>false</var>.</p>
+<p>Il tipo di Java per le variabili booleane è <em>boolean</em>.</p>
+
+<h2>Operatori di confronto</h2>
+<p>Gli operatori di confronto hanno come argomento due valori numerici (ad eccezione di uguale e 
+diverso che operano anche su operandi boolean) e restituiscono come risultato un valore boolean.</p>
+ 
+<div class="def">
+<dl>
+	<dt>==</dt>
+	<dd>a == b<br/>
+	a è ugule a b, vale true se a ha lo stesso valore di b</dd>
+
+	<dt>!=</dt>
+	<dd>a != b<br/>
+	a è diverso da b, vale true se a non ha lo stesso valore di b</dd>
+		
+	<dt>&gt;</dt>
+	<dd>a &gt; b<br/>
+	a  è maggiore di b, vale true se a è maggiore a b</dd>
+
+	<dt>&gt;=</dt>
+	<dd>a &gt;= b<br/>
+	a  è maggiore o uguale a b, vale true se a è maggiore o uguale a b</dd>
+	
+	<dt>&lt;</dt>
+	<dd>a &lt; b<br/>
+	a  è minore di b, vale true se a è minore di b</dd>
+	
+	<dt>&lt;=</dt>
+	<dd>a &lt;= b<br/>
+	a  è minore o uguale a b, vale true se a è minore u uguale a b</dd>
+	
+</dl>
+</div>
+ 
+<h2>Operatori logici</h2>
+ 
+<div class="def">
+<dl>
+	<dt>||</dt>
+	<dd>or, "oppure". Vale true se uno dei due operandi è true.
+		<table>
+			<tr><th>||</th><th>true</th><th>false</th></tr>
+			<tr><th>true</th><td>true</td><td>true</td></tr>
+			<tr><th>false</th><td>true</td><td>false</td></tr>
+		</table>
+		<code>true || false</code> vale <code>true</code>
+	</dd>
+	<dt>&amp;&amp;</dt>
+	<dd>and, "e". Vale true se entrambe i due operandi sono true.
+		<table>
+			<tr><th>&amp;&amp;</th><th>true</th><th>false</th></tr>
+			<tr><th>true</th><td>true</td><td>false</td></tr>
+			<tr><th>false</th><td>false</td><td>false</td></tr>
+		</table>
+		<code>true &amp;&amp; false</code> vale <code>false</code>
+	</dd>
+	<dt>!</dt>
+	<dd>not, "non". Inverte il valore di verità che lo segue, lavora su un singolo operando.
+		<table>
+			<tr><th></th><th>!</th></tr>
+			<tr><th>true</th><td>false</td></tr>
+			<tr><th>false</th><td>true</td></tr>
+		</table>
+		<code>!true</code> vale <code>false</code>
+	</dd>
+</dl>
+</div>
+
+<div class="test">
+   	<p>Quanto vale <code>true || (!false)</code> ?</p>
+	<a onclick="sbagliata(this)">false</a> 
+	<a onclick="giusta(this)">true</a>  
+</div> 
+</article>
+</body>
+</html>

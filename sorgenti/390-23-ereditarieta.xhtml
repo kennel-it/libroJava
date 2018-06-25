@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- grafoIndice requires="classi" group="algoritmiStruttureDati" -->
+<!-- changelog 2017-07-04 spostati contenuti dal capitolo delle classi -->
+<!-- changelog 2017-08-04 corretta formattazione esercizi -->
+<!-- changelog 2017-10-23 spostata parte dei metodi static in classi -->
+<!-- changelog 2017-11-14 aggiunto esempio -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>ereditarietà</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+        <style type="text/css">
+        	.old { color: red }
+        	.new { color: green }
+        	#pulsanteOld { background-color: rgba(255,0,0,0.5) }
+        	#pulsanteNew { background-color: rgba(0,200,0,0.5) }
+        	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
+        </style>
+        <script type="text/javascript"><![CDATA[
+        	function mostra(quale){
+        		var elenco;
+        		elenco = document.getElementsByClassName("new");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className){
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        		elenco = document.getElementsByClassName("old");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className){
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        	}
+        ]]></script>       
+    </head>
+<body onload="mostra('old')" >
+<header>
+<h1>ereditarieta</h1>
+<p>oggetti che ampliano o specializzano oggetti preesistenti</p>
+</header>
+<article>
+<h2>Le persone, gli studenti e i professori</h2>
+<p>Una realtà che ci è familiare è quella scolastica. Vogliamo rappresentare le persone che hanno a che fare con la scuola tramite la classe <code>Persona</code>. Queste
+persone possono essere i commessi del bar, il personale negli uffici, quelli che fanno il servizio al corridoio, il dirigente e così via. Di queste persone ci interessa
+il nome, il cognome, il ruolo svolto, lo stipendio mensile, la categoria (0: indefinito, 1 dirigente, 2: docente, 3: tecnico, 4: amministrativo, 5: ausiliario).
+La classe, con relativi costruttori, sarà una cosa del tipo:</p>
+<pre>public class Persona {
+   private String nome, cognome;
+   private String ruolo;
+   private float stipendio;
+   private byte categoria;
+
+   public Persona() {
+      nome = cognome = "&lt;indefinito&gt;";
+      ruolo = "&lt;non assegnato&gt;";
+      stipendio = 0.0f;
+      categoria = 0;
+   }
+
+   public Persona(String n, String c, String r, float s, byte cat) {
+      nome = n;
+      cognome = c;
+      ruolo = r;
+      stipendio = s;
+      categoria = cat;
+   }
+}</pre>
+<p>Prendiamo in considerazione ora gli alunni: senza dubbio sono persone. Sono persone un po' particolari perché oltre le caratteristiche comuni a tutte le persone,
+questi frequentano una classe, possono frequentare le lezioni di religione oppure di attività alternativa, quindi possiamo individuare la nuova proprietà che è la
+classe frequentata ed una ulteriore che è la situazione in merito alla religione. Nei linguaggi ad oggetti possiamo indicare il fatto che gli studenti sono persone con
+particolari caratteristiche tramite il concetto di <em>ereditarietà</em>: la classe Studente eredita tutto ciò che è nella classe Persona ed in più ci saranno le
+proprietà sopra dette che la persona generica non ha. In altre parole la classe Studente <em>estende</em> la classe Persona. Esplicitiamo tutti questi concetti tramite il
+seguente:</p>
+<pre>public class Studente extends Persona {
+   private String nome, cognome;
+   private String ruolo;
+   private float stipendio;
+   private boolean categoria;
+   private String classe;
+   private String religione;
+
+   public Studente() {
+      nome = cognome = "&lt;indefinito&gt;";
+      ruolo = "&lt;non assegnato&gt;";
+      stipendio = 0.0f;
+      categoria = 0;
+      classe = "&lt;non assegnata&gt;";
+      religione = "lt;indefinito&gt;";
+   }
+
+   public Studente(String n, String c, String r, String cl, String rel) {
+      nome = n;
+      cognome = c;
+      ruolo = r;
+      stipendio = 0.0f;
+      this.categoria = 0;
+      classe = cl;
+      religione = rel;
+   }
+}</pre>
+<p>Nel modo appena proposto non si evidenziano vantaggi dal dire che la classe Studente è una classe che estende Persona, infatti abbiamo ricreato tutte le proprietà
+indistintamente nuove e vecchie. Dato però che il realtà uno studente è anche una persona non è necessario dire che ha un nome, questo è già presente in quanto persona,
+stessa cosa per tutte le proprietà della classe Persona. Allora - ed è anche più logico - le uniche proprietà che andranno dichiarate sono le nuove:</p>
+<h2>In sintesi</h2>
+<p>Quando quello che vogliamo fare non è creare un oggetto nuovo ma aggiungere/modificare delle funzionalità di un oggetto esistente possiamo farlo
+usando la parola chiave <code>extends</code> nella dichiarazione della classe seguita dal nome della classe che si vuole ampliare/cambiare. In questo
+caso l'oggetto definito avrà tutte le proprietà e tutti i comportamenti di quello originale con le aggiunte o le modifiche indicate nella classe.</p>
+<pre>public class Studente extends Persona {
+   private String classe;
+   private String religione;
+
+   public Studente() {
+      super();	// Per la spiegazione di super() guarda il paragrafo che segue
+      classe = "&lt;non assegnata&gt;";
+      religione = "lt;indefinito&gt;";
+   }
+
+   public Studente(String n, String c, String r, String cl, String rel) {
+      super(n, c, r, 0.0f, 0);
+      classe = cl;
+      religione = rel;
+   }
+}</pre>
+<p>La parola <code>super</code> sta ad indicare la classe dalla quale si è fatta l'estensione, si chiama infatti <em>superclasse</em> o classe padre. La classe
+che estende la superclasse si chiama <em>classe estesa</em> o classe figlia. Nel nostro esempio la superclasse è Persona, la classe figlia è Studente. L'invocazione
+di <code>super()</code> come metodo sta ad indicare il costruttore, in effetti si fa riferimento al nome della classe con le parentesi dei metodi...<br/>
+Si utilizza super() in modo tale da invocare il costruttore per le proprietà definite in precedenza, lasciando qui il solo lavoro di dare un valore alle ultime
+definite. Si osserva che ci sono 2 invocazioni di <code>super()</code>: una senza argomenti e l'altra con tanti argomenti quante sono le proprietò della classe padre.</p>
+<p>Se provassimo però il codice sopra otterremmo un errore: abbiamo detto infatti che la parola <code>private</code> indica che la proprietà (o il metodo) non può essere
+visto al di fuori della classe. La classe derivata è a tutti gli effetti un'altra classe e quindi nulla traspare. La soluzione viene nella parola chiave
+<code>protected</code>: sta ad indicare che quanto segue (metodo o proprietà) è visibile solo a tutti i metodi della classe stessa (ovviamente) e a tutte le classi che
+estendono questa. Nel momento in cui andremo a dichiarare oggetti, dovremo porre attenzione su cosa dovrà essere pubblico, cosa privato e cosa protetto. La classe persona
+a questo punto sarà:</p>
+<pre>public class Persona {
+   protected String nome, cognome;
+   protected String ruolo;
+   protected float stipendio;
+   protected boolean categoria;
+
+   public Persona() {
+      nome = cognome = "&lt;indefinito&gt;";
+      ruolo = "&lt;non assegnato&gt;";
+      stipendio = 0.0f;
+      categoria = 0;
+   }
+
+   public Persona(String n, String c, String r, float s, byte cat) {
+      nome = n;
+      cognome = c;
+      ruolo = r;
+      stipendio = s;
+      categoria = cat;
+   }
+}</pre>
+<p>Allo stesso modo si potrà realizzare la classe <code>Professore</code> estensione di <code>Persona</code>.</p>
+<pre>public class Professore extends Persona {
+   private String materia;
+   private int orePotenziamento;
+
+   public Professore() {
+      super();
+      materia = "&lt;non assegnata&gt;";
+      orePotenziamento = 0;
+   }
+
+   public Studente(String n, String c, String r, String mat, String orePot) {
+      super(n, c, r, 1000.0f, 2);
+      materia = mat;
+      orePotenziamento = orePot;
+   }
+}
+</pre>
+<h3>Risparmio vincolato pluriennale</h3>
+<p>Riprendiamo l'esempio del risparmio vincolato. In quel caso la somma che si otteneva era data alla fine del periodo di investimento. Ipotizziamo però che riusciamo
+a trattenerci dallo spendere quei soldi e li manteniamo per un certo numero di anni. Quale sarà la somma totale?<br/>Di certo ci appoggeremo al codice già scritto (ci
+dobbiamo ricordare di sostituire <code>private</code> <code>interessiPercentuale</code>con <code>protected</code> <code>interessiPercentuale</code>sulle proprietà) e
+lo estenderemo con qualcosa in più:</p>
+<pre>public class RisparmioVincolatoPluriennale extends RisparmioVincolato {
+   private byte durataPeriodo;
+   private short numeroPeriodi;
+
+   public RisparmioVincolatoPluriennale() {
+      super();
+      durataPeriodo = 0; //In mesi quanto dura il vincolo. Si consente solo 3 mesi, 6 mesi, 1 anno, 2 anni
+      numeroPeriodi = 0;
+   }
+
+   public RisparmioVincolatoPluriennale(String n, String c, int cod, float euro, short a, byte m, byte g, float i, byte durata, short periodi) {
+      super(n, c, cod, euro, a, m, g, i);
+      if(durata==3 || durata==6 || durata==12 || durata==24) {
+         durataPeriodo = durata;
+      } else {
+         durataPeriodo = 0;
+      }
+      if(numeroPeriodo > 0) {
+         numeroPeriodi = periodi;
+      } else {
+         numeroPeriodi = 0;
+      }
+   }
+
+   double fornisciCapitale() {
+      if(durataPeriodo==0 || numeroPeriodi==0) {
+         return 0;
+      }
+      /* La percentuale di interessi che viene pubblicizzata è riferita ad un periodo di un anno.
+       * Se per esempio investiamo per 6 mesi al 2% in realtà (dato che è mezzo anno) avremo gli interessi dell'1% a fine periodo
+       * Se per esempio investiamo per 24 anni al 3% in realtà (dato che sono 2 anni) avremo gli interessi del 6% a fine periodo
+       */
+      double interessiVeri = interessiPercentuale*(durata/12.0);
+      // Invochiamo il metodo della superclasse che calcola il nuovo capitale a fine periodo, per il numero di periodi indicato
+      double capitaleIniziale = importo;
+      for(int i=0; i&lt;numeroPeriodi; i++) {
+         importo = fornisciCapitale();	//viene invocato il metodo della superclasse aggiornando il capitale sul quale calcola
+      }
+      double capitale = importo;
+      importo = capitaleIniziale;	// si rimette l'importo al valore iniziale, come se nulla fosse cambiato
+      return capitale;
+   }
+}</pre>
+<h3>file it/esempi/Secondo.java</h3>
+<pre>
+package it.esempio;
+
+public class Secondo extends Primo {
+	String c;
+	public Secondo(int k, boolean p, String u){
+		x=k;
+		y=p;
+		c=u;
+	}
+	public String descrivi(){
+		return c+x+c;
+	}
+}
+</pre>
+
+<div class="test">
+   	<p>L'oggetto <code>Secondo</code> ha un metodo <code>leggiVal()</code>?</p> 
+	<a onclick="sbagliata(this)">no</a> 
+	<a onclick="giusta(this)">si <span class="spiegazione">perché lo eredita da Primo</span></a>
+</div>
+
+<div class="test">
+   	<p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
+   	<code>Secondo o;<br/>o = new Secondo(3,false,"#");<br/>String m=o.descrivi();</code><br/>
+   	Quanto vale m?
+   	</p> 
+	<a onclick="sbagliata(this)">non si sa</a> 
+	<a onclick="sbagliata(this)">3</a>
+	<a onclick="sbagliata(this)">n:3 <span class="spiegazione">attenzione: descrivi() viene ridefinito in Secondo</span></a>
+	<a onclick="giusta(this)">#3# <span class="spiegazione">perché viene usato il metodo definito in Secondo</span></a>
+</div>
+
+<h2>Variabili condivise</h2>
+</article>
+</body>
+</html>

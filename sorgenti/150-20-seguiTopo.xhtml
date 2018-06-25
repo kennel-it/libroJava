@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="tela" group="grafica" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>seguiTopo</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>seguiTopo</h1>
+<p>intercettare i movimenti del mouse</p>
+</header>
+<article>
+<p>È possibile intercettare le azioni che l'utente esegue con il mouse su un oggetto
+(qui faremo esempi con il mouse ma si possono intercettare anche altre azioni), nell'introduzione dei Canvas
+avevamo già disegnato sul canvas intercettando il trascinamento del mouse.</p>
+<p>Per fare un esperimento potremmo creare un programma che contiene un canvas
+chiamaro <code>tela</code> a cui collegheremo 3 gestori di eventi:</p>
+
+<pre>
+tela.addEventHandler(MouseEvent.MOUSE_MOVED, e -> gestisciMovimento(e));
+tela.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> gestisciTrascinamento(e));
+tela.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> gestisciClick(e));
+</pre>
+
+<p>Il metodo che gestisce il modimento del mouse disegna semplicemente un
+quadratino giallo sotto al puntatore.</p>
+<pre>
+public void gestisciMovimento(MouseEvent e) {
+	gc.setFill(Color.YELLOW);
+	gc.fillRect(e.getX() - 2, e.getY() - 2, 5, 5);
+}
+</pre>
+<p><code>gestisciTrascinamento(e)</code> fa esattamente la stessa cosa soltanto che 
+il quadratino è di colore rosso.</p>
+<p>Anche <code>gestisciClick(e)</code> fa un lavoro analogo soltanto che 
+disegna un cerchio blu di diametro 9 pixel.</p> 
+
+<p>Provando il programma sarà possibile vedere le differenze tra i diversi eventi.</p>
+
+<p>In questo programma abbiamo usato un modo diverso per intercettare gli eventi:
+<code>pulsante.addEventHandler(ActionEvent.ACTION, e->azionePulsante())</code>.</p>
+<p>finora avevamo usato la funzione <code>setOnAction()</code> soltanto in 
+relazione ai <code>Button</code>, <code>addEventHandler</code> ci sonsente di collegare 
+più gestori a seconda dell'evento che occorre: il primo parametro è l'evento
+che siamo interessati a gestire e il secondo è il gestore incaricato (si potrebbe
+specificare in diversi modi, questo è il più sintetico che possiamo usare con java8).</p>
+
+</article>
+</body>
+</html>

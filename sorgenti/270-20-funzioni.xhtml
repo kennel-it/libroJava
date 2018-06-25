@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="codiceRipetuto" group="base" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>funzioni</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <style type="text/css">
+        	.rip { font-weight: bold; color:blue }
+        	#stack { border:3px solid #ddd ; margin-top:0em}
+        	.prog .esecuzione { background-color:yellow }
+        	h2 { margin-bottom:0em }
+        	h3 { margin-bottom:0em }
+        </style>         
+        <!-- per l'interprete dimostrativo -->
+		<link type="text/css" rel="stylesheet" href="iv/InterpreteVisuale.css"/>
+        <script type="text/javascript" src="iv/InterpreteVisuale.js"></script>
+    </head>
+<body>
+<header>
+<h1>funzioni</h1>
+<p>parti di codice riutilizzabili che svolgono compiti specifici</p>
+</header>
+<article>
+<p>Rispetto all'esempio del capitolo precedente potrebbe succedere che l'elenco dei numeri
+si trovi in una casella oppure in un'altra, in questo caso la nostra funzione non va più bene
+perché legge sempre dalla stessa casella: potrebbe in questo caso far comodo una funzione che 
+dato un testo (String) costruisca il vettore di numeri.</p>
+<pre>
+// dichiarazione della funzione
+private int[] daStringaAVettore(String testo){ 
+    String testi[] = testo.split(" ");
+    int numeri[] = new int[testi.length];
+    for (int i = 0; i &lt; testi.length; i++) {
+        numeri[i] = Integer.parseInt(testi[i]);
+    }
+    return numeri;
+}
+</pre>
+<p>Dalla prima riga della dichiarazione della funzione si possono ricavare alcune informazioni:</p>
+<dl>
+	<dt>int[]</dt>
+	<dd>la funzione restituirà (a chi l'ha chiamata) un vettore di interi</dd>
+	<dt>daStringaAVettore</dt>
+	<dd>il nome della funzione, dovrà essere usato per chiamarla</dd>
+	<dt>String testo</dt>
+	<dd>la funzione richiede un parametro di tipo String, quel parametro 
+	all'interno della funzione sarà riferito come <code>testo</code> (cioè all'interno della
+	funzione potremmo usare una variabile chiamata <code>testo</code></dd>
+</dl>
+
+ 
+<p>Poi, per usare la funzione, potremo scrivere qualcosa del tipo:</p>
+<pre>
+private void calcolaMedia(){
+    String contenutoCasella = valori.getText();
+    int numeri[];
+    int somma=0,media;
+       
+    // chiamo la funzione registro il risultato nel vettore numeri 
+    numeri = daStringaAVettore(contenutoCasella);
+    for (int i = 0; i &lt; numeri.length; i++) {
+        somma += numeri[i];
+    }
+    media = somma/numeri.length;
+    risposta.setText(""+media);
+}
+</pre>
+
+<div class="test">
+   	<p>Riguardo <code>public int calcolaNumero(int a, int b)</code> quali delle seguenti affermazioni sono vere?</p>
+	<a onclick="sbagliata(this)">restituisce una stringa</a> 
+	<a onclick="giusta(this)">ha due parametri</a>
+	<a onclick="sbagliata(this)">ha un parametro intero</a>
+	<a onclick="giusta(this)">si chiama calcolaNumero</a>  
+</div>
+
+</article>
+</body>
+</html>

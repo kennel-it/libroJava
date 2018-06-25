@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="" group="base" -->
+<!-- changelog 2017-08-21 possibile fare copia/incolla del programma in eclipse -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>helloWorld</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>    
+		<style type="text/css">
+        	header { background-image: url(decorazioni/helloWorld.jpg); }
+        </style>      
+    </head>
+    <body onload="sistemaIde()">
+    	<header>
+    		<h1>helloWorld</h1>
+    		<p>passo per passo il primo programma funzionante</p>
+		</header>
+    	<article>
+    	<p>I nostri programmi saranno scritti usando Java e la sua interfaccia grafica JavaFX, 
+		per la creazione di un nuovo progetto in <span class="eclipse">Eclipse vai sul menu 
+		<span class="ide">File/New/Project...</span> nella finestra che si apre apri il gruppo 
+		<span class="ide">Java</span> e seleziona <span class="ide">Java Project</span> 
+		e poi premi <span class="ide">Next &gt;</span></span> 
+		<!-- <span class="netbeans">NetBeans vai sul menu <span class="ide">File/New Project...</span>
+		nella finestra che si apre scegliere come categoria <span class="ide">JavaFX</span>
+		e poi in <span class="ide">Projects</span> <span class="ide">JavaFX Application</span></span> -->.
+		Ora indica il nome del progetto (per esempio ciaoMondo) e termina con Finish. 
+		Il progetto nuovo comparirà sulla sinistra.</p>
+		
+		<p>Nello svolgere le prossime operazione fai attenzione al Maiuscolo/minuscolo nei nomi degli elementi:
+		Apri le cartelle del progetto, diventrà visibile una cartella <span class="eclipse ide">src</span> 
+		<!--  <span class="netbeans ide">Source Packages</span> -->,
+		fai click con il destro e poi click sul menu contestuale <span class="ide">New/class</span>,
+	    chiamala <span class="ide">CiaoMondo</span> (nel campo Name) e scrivi <span class="ide">ciaoMondo</span>
+	    nel campo Package. A questo punto fai doppio click sulla classe appena creata per aprirla.</p>
+    	
+		<!-- <p class="netbeans">Per Netbeans: vai sul menu 
+		<span class="ide">File/New Project...</span> nella finestra che si apre scegli dal gruppo 
+		<span class="ide">Categories</span> la voce <span class="ide">JavaFx</span> 
+		mentre dal gruppo 
+		<span class="ide">Projects</span> la voce <span class="ide">JavaFx Application</span> 
+		e poi premi <span class="ide">Next &gt;</span>. 
+		Ora indica il nome del progetto (per esempio ciaoMondo) e termina con Finish. 
+		Il progetto nuovo comparirà con un file già aperto.</p> -->
+		
+		<p>Il file "CiaoMondo", conterrà qualche linea di codice che va cancellata e sostituita con il programma qua sotto:</p>
+	
+<pre>
+package ciaoMondo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+/**
+ * @author aspix
+ */
+public class CiaoMondo extends Application {
+   
+   Button btn = new Button();
+   
+   @Override
+   public void start(Stage primaryStage) {
+      btn.setText("Saluta!");
+      btn.setOnAction(e -> esegui());
+        
+      StackPane root = new StackPane();
+      root.getChildren().add(btn);
+        
+      Scene scene = new Scene(root, 300, 250);
+        
+      primaryStage.setTitle("Hello World!");
+      primaryStage.setScene(scene);
+      primaryStage.show();
+   }
+   
+   private void esegui(){
+      btn.setText("Ciao Mondo!");
+   }
+
+   /**
+    * @param args the command line arguments
+    */
+   public static void main(String[] args) {
+      launch(args);
+   }
+}</pre>
+
+	<p>Non tutto ciò che vi è scritto viene interpretato dal computer: noterai alcune parti sono racchiuse dal simboli 
+	<code>/*</code> e <code>*/</code>. 
+	Tali delimitatori indicano i commenti, cioè cose che il programmatore inserisce a scopo chiarificatore affinché altri 
+	(o lui stesso) possano meglio capire cosa fa quella parte di programma. In questi commenti spesso si inserisce un 
+	asterisco ad ogni inizio riga ma solo per motivi estetici e di leggibilità. 
+	Tutti i commenti appariranno nell'editor come un testo grigio
+	e verranno scartati in fase di compilazione.</p>
+	
+	<p>Un modo alternativo per inserire il commento è scrivere <code>//commento</code>. 
+	Quando viene incontrata la doppia barra, tutto il resto della riga è un commento, 
+	quindi si possono anche qui inserire considerazioni. Dato che è fino al termine della riga, non serve una chiusura.</p>
+	
+	<p>La prima riga indica il nome del <em>programma</em> (o meglio il <code>package</code>, pacchetto) che andiamo a realizzare. 
+	In generale un programma java è composto da più file contenuti in più pacchetti,  
+	il nostro semplice programma è un caso particolare ed è composto da un solo file.</p>
+	 
+	<p>Il gruppo successivo indica tutte le funzionalità di cui ha bisogno questa parte di programma per funzionare
+	(detto nei termini di java: gli altri oggetti che useremo); 
+	queste vengono importate (<code>import</code>) per poter essere poi usate nel programma.
+	La riga contenente la parola chiave <code>class</code> indica – per ora – la nostra finestra 
+	(il programma in esecuzione appare all'utente come una finestra). 
+	Osserva che a fine riga c'è una <code>{</code> ed in fondo al file c'è la rispettiva <code>}</code>. 
+	Rappresentano rispettivamente l'inizio e la fine di tutto ciò che farà la finestra.</p>
+	
+	<p>Procediamo con la lettura, 
+	la riga contenente <code>start</code> indica la prima funzionalità del nostro programma, 
+	quella cioè che viene avviata nel momento in cui deve essere disegnata la finestra 
+	(da cui, appunto, start). Nota che anch'essa ha la <code>{</code> a fine riga e si conclude con la corrispettiva 
+	<code>}</code>. Le graffe delimitano l'insieme di istruzioni che deve essere eseguito. 
+	Quando scriveremo nostre funzionalità useremo le graffe per raccogliere tutte le istruzioni 
+	atte a raggiungere il risultato previsto.</p>
+	<pre>Button btn = new Button();</pre>
+	
+	<p>Si tratta di una dichiarazione di variabile. Le dichiarazioni di variabile hanno la sintassi:</p>
+	<pre>tipo nomeVariabile;</pre>
+	<p>in questo caso il tipo è <code>Button</code> ed il nome della variabile è <var>btn</var>. 
+	Alcune variabili sono ti un <a href="060-2-teo_tipiNumerici.xhtml">tipo</a> 
+	semplice come un intero, un numero con la virgola, un carattere ecc.; 
+	altre variabili sono invece più complesse come in questo caso, in tal caso bisogna aggiungere alla dichiarazione
+	 = new tipo(). Il perché lo vedremo tra un po' di tempo. Ogni componente di una finestra è un tipo non semplice, quindi
+	per ciascuno di esso dovremo usare questa specifica sintassi.
+	Essendo il punsante un tipo non semplice, tale parte va aggiunta. 
+	Se avessi dovuto dichiarare invece un oggetto di tipo testo avresti dovuto scrivere</p>
+	
+	<pre>Label testo = new Label();</pre>
+	
+	<p>Il pulsante ancora non ha un testo al suo interno da mostrare all'utente. 
+	Questo si imposta con la riga successiva: <code>btn.setText("Say 'Hello World'")</code>. 
+	Osserva la strana sintassi d'inizio riga: <code>btn.</code> che in generale è nomeVariabile.: 
+	tale notazione sta a significare “sto parlando dell'oggetto btn”; 
+	cosa si vuol fare con l'oggetto in questione è specificato subito dopo ed in questo caso si tratta 
+	di impostare il testo, appunto <code>setText(“Testo da mostrare”)</code>.</p>
+	
+	<div class="test">
+    	<p>Quale istruzione si usa per utilizzare nel nostro programma degli elementi (oggetti) scritti da altri?</p>
+        <a onclick="sbagliata(this)">class</a> 
+        <a onclick="giusta(this)">import</a> 
+        <a onclick="sbagliata(this)">StackPane</a>
+        <a onclick="sbagliata(this)">Copyright</a>
+  	</div>
+  	
+  	<div class="test">
+    	<p>Quali parentesi si usano per raggruppare delle parti di codice?</p>
+        <a onclick="sbagliata(this)">tonde ()</a>
+        <a onclick="sbagliata(this)">quadre []</a> 
+        <a onclick="giusta(this)">graffe {}</a> 
+        <a onclick="sbagliata(this)">angolari &lt;&gt;</a>
+  	</div>
+	
+	<p>Salta qualche riga sulle quali si torna tra pochissimo ed arriva a:</p>
+	<pre>StackPane root = new StackPane()</pre>
+	<p>si vede subito che si tratta di una dichiarazione di una variabile di tipo StackPane chiamata root. 
+	Tutti gli oggetti grafici che utilizzi nella finestra (pulsanti, caselle di testo, elenchi, ...) 
+	devono essere disposti in quello che possiamo considerare il pannello di una bacheca mentre i 
+	nostri oggetti sono il contenuto di tale bacheca. Lo StackPane impila (mette uno sopra l'altro 
+	come la pila di piatti) gli oggetti da inserire nel pannello. Se abbiamo ad esempio 3 oggetti, 
+	questi verranno sovrapposti gli uni sugli altri. Questo non è l'unico modo per organizzare gli elementi
+	dell'interfaccia grafica.</p>
+	
+	<p>Arrivi a</p>
+	<pre>root.getChildren().add(btn);</pre>
+	<p>parli di <var>root</var> ed utilizzi la funzionalità <code>getChildren()</code>. ma non finisce qui perché di quest'ultima, 
+	a sua volta, vogliamo usare la funzionalità <code>add</code>, cioè aggiungere (un elemento); 
+	l'elemento da aggiungere è indicato nelle parentesi, in questo caso il pulsante <var>btn</var>. 
+	Osserva che aggiungendo in questo modo oggetti non puoi specificare in quale posizione metterli.</p> 
+	
+	<div class="test">
+    	<p>Uno degli oggetti che si usano come contenitore di altri elementi dell'interfaccia grafica si chiama:</p>
+        <a onclick="sbagliata(this)">Label</a>
+        <a onclick="sbagliata(this)">Button</a> 
+        <a onclick="giusta(this)">StackPane</a> 
+        <a onclick="sbagliata(this)">Scene</a>
+  	</div>
+	
+	<p>La riga successiva contiene ancora una dichiarazione:</p>
+	<pre>Scene scene = new Scene(root, 300, 250);</pre>
+	<p>la scena indica l'area contenuta nella finestra vera e propria. 
+	Tale dichiarazione è leggermente diversa da quanto affermato (per semplicità) fino ad ora: 
+	le parentesi tonde in questo caso hanno un contenuto, questo perché in questo caso per costruire
+	un nuovo oggetto Scene servono delle informazioni in più. 
+	Il primo argomento – <var>root</var> – sta ad indicare come si chiama il pannello da inserire 
+	in quest'area mentre il secondo ed il terzo – 300, 250 – ne indicano le misura (larghezza, altezza), 
+	quindi indicano la misura della finestra a meno dei bordi e della barra del titolo.</p>
+
+	<div class="test">
+    	<p>cosa fa il seguente frammento di programma?</p>
+    	<pre>/* StackPane root = new StackPane() */</pre>
+        <a onclick="sbagliata(this)">crea un nuovo StackPane</a>
+        <a onclick="sbagliata(this)">avvia il programma</a> 
+        <a onclick="giusta(this)">niente, è un commento</a> 
+  	</div>
+
+
+	<p>Andando avanti vedi l'uso della funzionalità <code>.setTitle(“il titolo”)</code> 
+	per l'oggetto <var>primaryStage</var>. Tale oggetto, che è la finestra vera e propria, 
+	non deve essere dichiarato in quanto viene già fornito al tuo programma. 
+	Tornando alla funzionalità, questa imposta il testo da visualizzare sulla barra del titolo 
+	della tua applicazione. La linea che segue abbina la finestra con la sua scena, 
+	cioè la sua area tramite <code>primaryStage.setScene(scene)</code>.</p>
+
+	<p>Non resta che visualizzare, mostrare (<code>show</code>) la finestra e tutto il suo contenuto. 
+	Lo fai tramite l'ultima riga:</p> 
+	<pre>primaryStage.show();</pre>
+	
+	<p>Da osservare che questa è l'ultima istruzione della funzionalità start. 
+	Ciò significa – tra l'altro – che tutte le variabile qui dichiarate appena fatta la show() 
+	finiranno di essere accessibili, in quanto la } fa scomparire tutti i nomi. 
+	Altre funzionalità non potranno quindi farne uso. Si termina con la funzionalità 
+	<code>.setOnAction</code> di <var>btn</var> indicante le azioni da intreprendere nel caso l'utente
+	interagisca con l'oggetto in questione (ancora, il pulsante). In questo caso il programma farà una sola cosa: 
+	scriverà sul pulsante il messaggio Hello world!
+	</p>
+</article>
+</body>
+</html>

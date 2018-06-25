@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="css formattazione" group="grafica" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8"/>
+    <title>esempioInterfaccia</title>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <script type="text/javascript" src="script/test.js"></script>
+    <script type="text/javascript" src="script/evidenziatore.js"></script>
+    <style type="text/css">
+    	#finestra { float:left ; margin:2em ; border:2px solid blue; padding:0em}
+    	#titolo { background-color: blue ;  color:white }
+    	#contenuto { padding:0.25em; background-color: #e9e8e2 }
+    	#contenuto table { border-collapse: separate; border-spacing: 5px; }
+    	
+    	#nome { border:1px solid gray }    
+    	#eseguiSaluto { border:1px solid black; border-radius:0.5em }
+    </style>         
+    <style type="text/css">
+		div.prog { line-height: 0.65em }
+		div.prog { margin:0px ; padding:0px }
+		.st { color: blue }
+	</style>
+</head>
+<body id="listato">
+	<header>
+		<h1>esempioInterfaccia</h1>
+		<p>uso degli stili e della formattazione in un programma con interfaccia curata</p>
+	</header>
+	<article>
+	<p>Questo capitolo contiene un programma che ha molte impostazioni per l'interfaccia grafica,
+	mancano però tutte le funzionalità di calcolo!</p>
+	<p>Per farlo funzionare basta inserire questi due file e le due immagini nello stesso pacchetto: "esempi"</p>
+	
+	<p>In questo esempio vengono utilizzate due classi senza impostarle: <em>button</em> e <em>label</em>,
+	questo perché alcuni oggetti (quelli del pacchetto javafx.scene.control) hanno già una classe predefinita. 
+	L'oggetto Text ad esempio non ne ha una predefinita.</p>
+	
+	<p>Le parti scritte in blu servono soltanto per curare l'aspetto, non hanno scopi funzionali.</p>
+	
+	<h2>ControlliCSS.java</h2>
+<pre>
+
+<span class=""     >package esempi;</span>
+
+<span class=""     >import javafx.application.Application;</span>
+<span class=""     >import javafx.scene.Scene;</span>
+<span class=""     >import javafx.scene.control.Button;</span>
+<span class=""     >import javafx.scene.control.TextField;</span>
+<span class=""     >import javafx.scene.layout.GridPane;</span>
+<span class=""     >import javafx.scene.control.Label;</span>
+<span class="st"   >import javafx.scene.image.Image;</span>
+<span class="st"   >import javafx.scene.image.ImageView;</span>
+<span class=""     >import javafx.scene.text.Text;</span>
+<span class=""     >import javafx.stage.Stage;</span>
+
+<span class=""     >public class ControlliCSS extends Application {</span>
+
+<span class=""     >    @Override</span>
+<span class=""     >    public void start(Stage primaryStage) {</span>
+<span class=""     >        // creo tutti gli oggetti che andrò a mettere nell'interfaccia</span>
+<span class=""     >        GridPane pannello = new GridPane();</span>
+<span class=""     >        Label eBase = new Label("base:");</span>
+<span class=""     >        TextField base = new TextField();</span>
+<span class=""     >        Label eAltezza = new Label("altezza:");</span>
+<span class=""     >        TextField altezza = new TextField();</span>
+<span class=""     >        Button calcolaPerimetro = new Button("perimetro");</span>
+<span class=""     >        Button calcolaArea = new Button("area");</span>
+<span class=""     >        Text risposta = new Text("Qui la risposta");</span>
+        
+<span class="st"   >        // imposto alcune proprietà che riguardano l'aspetto degli elementi</span>
+<span class="st"   >        // i pulsanti devono allargarsi fino a riempire tutto lo spazio disponibile</span>
+<span class="st"   >        calcolaPerimetro.setMaxWidth(Double.MAX_VALUE);</span>
+<span class="st"   >        calcolaArea.setMaxWidth(Double.MAX_VALUE);</span>
+        
+<span class="st"   >        // creo due immagini a partire da due faile presenti nella stessa cartella di questa classe</span>
+<span class="st"   >        Image iBase = new Image(getClass().getResourceAsStream("base.png"));</span>
+<span class="st"   >        Image iAltezza = new Image(getClass().getResourceAsStream("altezza.png"));</span>
+    
+<span class="st"   >        // inserisco le immagini nelle etichette</span>
+<span class="st"   >        eBase.setGraphic(new ImageView(iBase));</span>
+<span class="st"   >        eAltezza.setGraphic(new ImageView(iAltezza));</span>
+
+<span class="st"   >        // imposto l'id del pannello</span>
+<span class="st"   >        pannello.setId("pannello");</span>
+<span class="st"   >        // imposto l'id del pulsante del perimetro</span>
+<span class="st"   >        calcolaPerimetro.setId("pulsantePerimetro");</span>
+<span class="st"   >        // imposto l'id del pulsante dell'area</span>
+<span class="st"   >        calcolaArea.setId("pulsanteArea");</span>
+<span class="st"   >        // alcuni oggetti hanno la stessa classe</span>
+<span class="st"   >        calcolaArea.getStyleClass().add("gigante");</span>
+<span class="st"   >        calcolaPerimetro.getStyleClass().add("gigante");</span>
+<span class="st"   >        risposta.getStyleClass().add("gigante");</span>
+        
+<span class=""     >        // inserisco gli elementi nel pannello</span>
+<span class=""     >        pannello.add(eBase,    0, 0);</span>
+<span class=""     >        pannello.add(base,     1, 0);</span>
+<span class=""     >        pannello.add(eAltezza, 2, 0);</span>
+<span class=""     >        pannello.add(altezza,  3, 0);</span>
+<span class=""     >        // i pulsanti devono occupare due spazi della griglia</span>
+<span class=""     >        pannello.add(calcolaPerimetro,0,1,2,1);</span>
+<span class=""     >        pannello.add(calcolaArea,     2,1,2,1);</span>
+<span class=""     >        // il testo di risposta occupa 4 spazi nella griglia</span>
+<span class=""     >        pannello.add(risposta, 0, 2, 4, 1);</span>
+      
+<span class=""     >        // creo la scena principale</span>
+<span class=""     >        Scene scene = new Scene(pannello);</span>
+<span class=""     >        // associo un foglio di stile alla scena principale</span>
+<span class=""     >        scene.getStylesheets().add("esempi/impostazioni.css");</span>
+<span class=""     >        // imposto il titolo dello stage (la finestra)</span>
+<span class=""     >        primaryStage.setTitle("Finestra di esempio");</span>
+<span class=""     >        // imposto la scena principale (il contenuto della finestra)</span>
+<span class=""     >        primaryStage.setScene(scene);</span>
+<span class=""     >        // mostro la finestra a schermo</span>
+<span class=""     >        primaryStage.show();</span>
+<span class=""     >    }</span>
+
+<span class=""     >    public static void main(String[] args) {</span>
+<span class=""     >        launch(args);</span>
+<span class=""     >    }</span>
+<span class=""     >}</span>
+
+</pre>
+	
+	
+	<h2>impostazioni.css</h2>
+<pre class="st">
+
+
+/* proprietà da applicare a tutte le etichette ( Label )*/
+.label {  
+    /* sopra, destra, sotto, sinistra */
+    -fx-padding: 1em 0em 1em 1em;
+} 
+
+/* proprietà da applicare a tutti i Button */
+.button {
+    -fx-border-color: black;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+    /* lo spazio da mettere tra il bordo e il riempimento */
+    -fx-background-insets: 0px;
+}
+
+/* impostazioni per il pulsante del perimetro */
+#pulsantePerimetro { -fx-background-color: yellow; }
+/* ... quando il mouse ci passa sopra */
+#pulsantePerimetro:hover { -fx-background-color: red; }
+/* impostazioni per il pulsante dell'area */
+#pulsanteArea { -fx-background-color: green; }
+/* ... quando il mouse ci passa sopra */
+#pulsanteArea:hover { -fx-background-color: blue; }
+
+#pannello {
+    -fx-background-color: linear-gradient(to bottom , yellow, orange);
+    /* spazio tra gli elementi */
+    -fx-hgap: 0.5em;
+    -fx-vgap: 1em;
+    /* spazio tra questo pannello e il bordo della finestra */
+    -fx-padding: 1em;
+}
+
+/* proprietà da applicare a tutti gli oggetti che appartengono alla classe "gigante" */
+.gigante{
+    -fx-font-family: times;
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+}
+</pre>
+</article>
+</body>
+</html>

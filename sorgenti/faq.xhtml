@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub infrastructure: opf:properties="scripted" TOC:type="toc" order="A00" useInIndex="false" -->
+<!-- grafoIndice requires="" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Domande e risposte</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <style type="text/css">
+        	p {text-indent: 0em; margin-top:0}
+        	.domanda { font-weight: bold;font-size:115%; margin-top:2em ; border-top: 1px solid gray ; margin-bottom:0 ; padding-bottom: 0} 
+        </style>       
+    </head>
+    <body>
+    	<header>        
+    	<h1>faq</h1>
+    	<p>domande comuni con relative risposte</p>
+    	</header>
+    	<article>
+    	
+    	<p class="domanda">Sto usando Eclipse e non mi trova le classi di JavaFX cosa posso fare?</p>
+    	<p>Pare sia un problema della versione Luna di Eclipse, ma si risolve.</p>
+    	<ul>
+    		<li>Dopo aver creato il progetto fai click con il taasto destro sul nome del progetto</li>
+    		<li>Seleziona "properties"</li>
+    		<li>Dall'elenco a sinistra scegli "Java Build Path"</li>
+    		<li>poi la linguetta "Libraries"</li>
+			<li>seleziona l'unico elemento presente nella lista centrale</li>
+			<li>click su "Remove" (non resta nessun elemento)</li>
+			<li>click su "Add Library"</li>
+			<li>scegli "JRE System Library", poi next</li>
+			<li>se è già spuntato "Workspace default JRE (Java 8)" va bene, altrimenti seleziona "alternate"" e poi java8</li>
+			<li>fai click su finish</li> 
+			<li>click su ok</li>
+    	</ul>
+    	
+    	<p class="domanda">Da dove scarico NetBeans?</p>
+    	<p><a href="https://netbeans.org/downloads/">https://netbeans.org/downloads/</a></p>
+    	
+        <p class="domanda">Quando avvio la mia classe con NetBeans mi compare:<br/> 
+        "Errore: impossibile trovare o caricare la classe principale ...<br/>
+		Java Result: 1"<br/>
+		e non funziona nulla.</p>
+		<p>Devi andare sul menu "Run" e fare click sulla voce "Clean and Build Project"<br/>
+		(supponendo che la classe abbia davvero il metodo main).</p>
+		
+		<p class="domanda">Modifico, il programma, lo avvio e si comporta come se non avessi fatto modifiche</p>
+		<p>Se il progetto è di tipo "javafx" netbeans 7 non compila in automatico, devi chiederlo espressamente 
+		facendo chick sull'icona con il martello.</p>
+		<p>Se si usano Netbeans 8 e Java 8 Volendo si può sveltire la procedura.<br/> 
+		Va creato un progetto java normale (non java-fx), una volta fatto:</p>
+		<ul>
+			<li>click con il destro sul nome del progetto e poi su properties</li>
+			<li>nel gruppo Compiling (dentro Build) spuntare "Compile on save"</li>
+			<li>nel gruppo Packaging (sempre dentro build) togliere la spunta da "Build JAR after Compiling"</li>
+		</ul> 
+		
+		<p class="domanda">Not all requested modules can be enabled: [StandardModule:org.netbeans.module.javafx.kit jarfile ...]</p>
+		<p>Dovrebbe (condizionale fino a conferma!) dipendere da alcune impostazioni e un modo 
+		per risolvere è rimuovere e reinstallare NetBeans.</p>
+		
+		<p class="domanda">Quando incollo gli esempi dal libro il programma è tutto su una riga!</p>
+		<p>Usando Eclipse selezionare tutto il programma, poicli ck con il tasto destro e selezionare "source" poi "format".</p>
+		</article>
+    </body>
+</html>

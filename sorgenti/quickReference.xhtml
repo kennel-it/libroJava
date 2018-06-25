@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- grafoIndice requires="" -->
+<!-- changelog 2017-09-24 aggiunto capitolo -->
+<!-- changelog 2017-09-26 aggiunti Math, CheckBox, metodi close() -->
+<!-- changelog 2017-09-26 aggiunto foglio di stile (bozza) per la stampa -->
+<!-- changelog 2017-10-03 inseriti FileOutputStream e OutputStreamWriter, corretto foglio di stile -->
+<!-- changelog 2017-10-03 inserito gruppo in FileOutputStream -->
+<!-- changelog 2017-10-10 cambiato ordine oggetti -->
+<!-- changelog 2017-10-10 inseriti molti oggetti -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Riferimento veloce</title>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <style type="text/css">
+		article{ column-count: 2 }
+		@media screen and (orientation:portrait) {
+			article{ column-count: 1 }
+		}
+		body > p { margin:0em 2em }
+		div{ 
+			border:1px solid gray ; margin: 1em ; 
+			padding:0 ; 
+			break-inside: avoid-column; 
+		}
+		div:first-child { margin-top:0em }
+		div h3 { 
+			font-size:100% ; font-weight: normal; font-style: normal;
+			margin:0px ; padding:0.15em; color: #888 ; 
+		}
+		div h3 a { 
+			 font-size:130% ; font-weight: bold; 
+			 color:black ; text-decoration:none
+		}
+		div h5 {background-color: #d8efcb ; margin:0px ; font-weight: normal; padding:0.2em; text-align: right}
+		div h5::before { content: "interfacce/superclassi: "; font-size:75%}
+		div h4 { 
+			margin:0px; margin-top:0em; padding:0.15em;
+			font-size:100%; 
+			background-color: rgb(30, 48, 32) ; color:white; 
+		}
+		div p { 
+			margin:0.25em ; margin-left:2.25em; text-indent: -2em;
+			margin-bottom:0.5em;
+			text-align: left;
+		}
+		/* patch per il foglio globale */
+		nav#top { display:none }
+				
+		@media print {
+             body > p, header { display: none }
+             html, body, article { margin:0pt ; padding:0pt }
+			 div h3   { font-size:10pt }
+			 div h3 a { font-size:11pt }
+			 div h4   { font-size:8pt ; color: white; background: #444; 
+
+			 }
+			 div h5   { font-size:8pt }
+			 div p    { font-size:8pt }
+		}
+    </style>       
+</head>
+<body>
+<header>        
+	<h1>quickReference</h1>
+	<p>un unico punto per le informazioni essenziali sugli oggetti</p>
+</header>
+<p>Questa è una scheda-promemoria (i cui contenuti sono volutamente molto semplificati), 
+i link portano al manuale ufficiale con la descrizione per esteso di tutte le 
+funzionalità dei singoli oggetti.</p>
+   	
+<article>
+<h2>Interfaccia grafica</h2>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/control/Button.html">Button</a></h3>
+	<h5>Node</h5>
+  	<h4>costruttori</h4>
+	<p>Button()</p>
+	<p>Button(String testo)</p>
+	<h4>metodi</h4>
+	<p>String getText()</p>
+	<p><i>void setOnAction( e -> metodo() )</i></p>
+	<p>void setText(String testo)</p>
+	<p>void setText(String testo)</p>
+</div>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/control/CheckBox.html">CheckBox</a></h3>
+	<h5>Node</h5>
+	<h4>costruttori</h4>
+	<p>CheckBox()</p>
+	<p>CheckBox(String testo)</p>
+	<h4>metodi</h4>
+	<p>String getText()</p>
+	<p>void setText(String testo)</p>
+	<p>boolean isSelected​()</p>
+</div>
+<div>
+   	<h3>javafx.scene.layout.<a 
+   	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/layout/GridPane.html">GridPane</a></h3>
+   	<h5>Node, Pane</h5>
+   	<h4>costruttori</h4>
+   	<p>GridPane()</p>
+   	<h4>metodi</h4>
+   	<p>void add​(Node elemento, int indiceColonna, int indiceRiga)</p>
+   	<p>void add​(Node elemento, int indiceColonna, int indiceRiga, int quanteColonne, int quanteRighe)</p>
+   	<p>void setHgap​(double valore)</p>
+   	<p>void setVgap​(double valore)</p>
+   	<p>void setPadding​(Insets spaziatura)</p>
+</div>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/control/Label.html">Label</a></h3>
+	<h5>Node</h5>
+  	<h4>costruttori</h4>
+	<p>Label()</p>
+	<p>Label(String testo)</p>
+	<h4>metodi</h4>
+	<p>String getText()</p>
+	<p>void setText(String testo)</p>
+</div>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/control/RadioButton.html">RadioButton</a></h3>
+	<h5>Node</h5>
+	<h4>costruttori</h4>
+	<p>CheckBox()</p>
+	<p>CheckBox(String testo)</p>
+	<h4>metodi</h4>
+	<p>String getText()</p>
+	<p>void setText(String testo)</p>
+	<p>boolean isSelected​()</p>
+	<p>void setToggleGroup​(ToggleGroup gruppo)</p>
+</div>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/Scene.html">Scene</a></h3>
+	<h4>costruttori</h4>
+	<p>Scene(Pane pannello)</p>
+</div>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/stage/Stage.html">Stage</a></h3>
+	<h4>costruttori</h4>
+	<p>Stage()</p>
+	<h4>metodi</h4>
+	<p>setScene(Scene scena)</p>
+	<p>setTitle(String titolo)</p>
+	<p>void 	show()</p>
+	<p>void 	showAndWait()</p>
+</div>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/control/TextField.html">TextField</a></h3>
+	<h5>Node</h5>
+	<h4>costruttori</h4>
+	<p>ToggleGroup()</p>
+	<h4>metodi</h4>
+	<p>String getText()</p>
+	<p>void setText(String testo)</p>
+</div>
+<div>
+	<h3>javafx.scene.control.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/control/ToggleGroup.html">ToggleGroup</a></h3>
+	<h4>costruttori</h4>
+	<p>TextField()</p>
+	<p>TextField(String testo)</p>
+	<h4>metodi</h4>
+	<p>String getText()</p>
+	<p>void setText(String testo)</p>
+</div>
+
+<h2>File</h2>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/io/BufferedReader.html">BufferedReader</a></h3>
+	<h4>costruttori</h4>
+	<p>BufferedReader​(Reader lettoreCaratteri)</p>
+	<h4>metodi</h4>
+	<p>void 	close​()</p>
+	<p>String readLine​()</p>
+</div>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/io/InputStreamReader.html">InputStreamReader</a></h3>
+	<h5>Reader</h5>
+	<h4>costruttori</h4>
+	<p>InputStreamReader​(InputStream in)</p>
+	<h4>metodi</h4>
+	<p>void 	close​()</p>
+</div>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/io/FileOutputStream.html">FileOutputStream</a></h3>
+	<h5>OutputStream</h5>
+	<h4>costruttori</h4>
+	<p>FileOutputStream​(String percorsoDelFile)</p>
+	<p>FileOutputStream​(String percorsoDelFile, boolean accoda)</p>
+	<h4>metodi</h4>
+	<p>void 	close​()</p>
+</div>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/io/FileInputStream.html">FileInputStream</a></h3>
+	<h5>InputStream</h5>
+	<h4>costruttori</h4>
+	<p>FileInputStream​(String percorsoDelFile)</p>
+	<h4>metodi</h4>
+	<p>void 	close​()</p>
+</div>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/io/OutputStreamWriter.html">OutputStreamWriter</a></h3>
+	<h5>Writer</h5>
+	<h4>costruttori</h4>
+	<p>OutputStreamWriter​(OutputStream out)</p>
+	<p>OutputStreamWriter​(OutputStream out, String nomeCodifica)</p>
+	<h4>metodi</h4>
+	<p>void write​(String str)</p>
+	<p>void 	close​()</p>
+</div>
+
+<h2>Eccezioni</h2>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/lang/FileNotFoundException.html">FileNotFoundException</a></h3>
+	<h5>IOException</h5>
+	<h4>metodi</h4>
+	<p>String getMessage​()</p>
+</div>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/lang/IOException.html">IOException</a></h3>
+	<h4>metodi</h4>
+	<p>String getMessage​()</p>
+</div>
+<div>
+	<h3>java.io.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/lang/NumberFormatException.html">NumberFormatException</a></h3>
+	<h5>RuntimeException</h5>
+	<h4>metodi</h4>
+	<p>String getMessage​()</p>
+</div>
+
+
+<h2>Tutto il resto</h2>
+<div>
+	<h3>java.lang.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/lang/Double.html">Double</a></h3>
+	<h4>metodi</h4>
+	<p>static double parseDouble​(String testo)</p>
+</div>
+<div>
+	<h3>java.lang.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/lang/Integer.html">Integer</a></h3>
+	<h4>metodi</h4>
+	<p>static int parseInt​(String testo)</p>
+</div>
+<div>
+   	<h3>java.lang.<a 
+   	href="https://docs.oracle.com/javase/9/docs/api/java/lang/Math.html">Math</a></h3>
+   	<h4>metodi</h4>
+   	<p>static double random​()</p>
+   	<p>static double sqrt​(double a)</p>
+</div>
+<div>
+	<h3>java.lang.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/lang/String.html">String</a></h3>
+	<h4>metodi</h4>
+	<p>int length()</p>
+	<p>String[] split(String separatore)</p>
+	<p>String substring​(int inizio, int fine)</p>
+	<p>char[] toCharArray​()</p>
+</div>
+<div>
+	<h3>java.lang.<a 
+	href="https://docs.oracle.com/javase/9/docs/api/java/lang/StringBuilder.html">StringBuilder</a></h3>
+	<h4>costruttori</h4>
+	<p>StringBuilder​(String testo)</p>
+	<h4>metodi</h4>
+	<p>int indexOf​(String testo)</p>
+	<p>int indexOf​(String testo, int daDove)</p>
+	<p>insert​(int offset, char c)</p>
+	<p>int length()</p>
+	<p>String substring​(int inizio, int fine)</p>
+	<p>String toString​()</p>
+</div>
+
+</article>
+</body>
+</html>

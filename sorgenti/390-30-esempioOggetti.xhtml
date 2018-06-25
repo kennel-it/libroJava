@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="ereditarieta condizionale salutaUtente" group="algoritmiStruttureDati" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>esempioOggetti</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+        <style type="text/css">
+        	.old { color: red }
+        	.new { color: green }
+        	#pulsanteOld { background-color: rgba(255,0,0,0.5) }
+        	#pulsanteNew { background-color: rgba(0,200,0,0.5) }
+        	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
+        </style>
+        <script type="text/javascript"><![CDATA[
+        	function mostra(quale){
+        		var elenco;
+        		elenco = document.getElementsByClassName("new");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className){
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        		elenco = document.getElementsByClassName("old");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className){
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        	}
+        ]]></script>       
+    </head>
+<body onload="mostra('old')" >
+<header>
+<h1>esempioOggetti</h1>
+<p>modello di una autorimessa che usa gli oggetti</p>
+</header>
+<article>
+<p>Questo capitolo contiene un insieme di classi che mostrano alcuni concetti della programmazione ad oggetti.</p>
+
+
+<h3>File: it/aspix/librojava/parcomacchine/Autoveicolo.java</h3>
+<pre>
+package it.aspix.librojava.parcomacchine;
+
+public class Veicolo {
+	private static double kilometriInMiglio = 1.609344; 
+	String targa;
+	String modello;
+	double kmAlLitro;
+	int posti;
+
+	public int leggiPosti(){
+		return posti;
+	}
+	
+	public void impostaTarga(String t) {
+		targa = t;
+	}
+	public String leggiTarga() {
+		return targa;
+	}
+	
+	public void impostaModello(String m) {
+		modello = m;
+	}
+	public String leggiModello() {
+		return modello;
+	}
+	
+	public void impostaKmAlLitro(double k) {
+		kmAlLitro = k;
+	}
+	public void impostaLitri100Km(double litri){
+		kmAlLitro = 100/litri;
+	}
+	public double leggiKmAlLitro() {
+		return kmAlLitro;
+	}
+	public double leggiMigliaAlLitro(){
+		return kmAlLitro / kilometriInMiglio;
+	}
+	
+	public double consumoPerViaggio(double lunghezza){
+		double litri;
+		litri = lunghezza / kmAlLitro;
+		return litri;
+	}
+	
+	public String descrizione(){
+		return modello;
+	}
+}
+</pre>
+
+<h3>File: it/aspix/librojava/parcomacchine/Autorimessa.java</h3>
+<pre>
+package it.aspix.librojava.parcomacchine;
+
+/**
+ * Questa autorimessa non è particolarmente furba, ha n posti 
+ * e li usa indistintamente per automobili e per motociclette
+ */
+public class Autorimessa {
+	Veicolo spazio[];
+	
+	public Autorimessa(int n){
+		spazio = new Veicolo[n];
+	}
+	
+	public boolean parcheggia(int posto, Veicolo mezzo){
+		if(spazio[posto]==null){
+			spazio[posto] = mezzo;
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public Veicolo rimuoviVeicolo(int posto){
+		Veicolo v = spazio[posto];
+		spazio[posto] = null;
+		return v;
+	}
+	
+	public int postiLiberi(){
+		int pl=0;
+		int i;
+		for(i=0;i&lt;spazio.length;i++){
+			if(spazio[i]==null){
+				pl++;
+			}
+		}
+		
+		return pl;
+	}
+}
+</pre>
+
+<h3>File: it/aspix/librojava/parcomacchine/Automobile.java</h3>
+<pre>
+package it.aspix.librojava.parcomacchine;
+
+public class Automobile extends Veicolo{
+
+	int porte = 5;
+	
+	public void impostaPasseggeri(int o){
+		posti = 1+o;
+	}
+	
+	public void impostaPorte(int n){
+		porte = n;
+	}
+	
+	public String descrizione(){
+		String d;
+		if(targa==null){
+			d = modello;
+		}else{
+			d = modello + " targata "+ targa;
+		}
+		return d;
+	}
+}
+</pre>
+
+<h3>File: it/aspix/librojava/parcomacchine/Motocicletta.java</h3>
+<pre>
+package it.aspix.librojava.parcomacchine;
+
+public class Motocicletta extends Veicolo{
+
+	public void impostaPasseggero(boolean n){
+		if(n==true){
+			posti = 2;
+		}else{
+			posti = 1;
+		}
+	}
+}
+</pre>
+
+<p>Per provare ad usare questi oggetti usiamo una quinta classe con il solo metodo main, 
+non usa una interfaccia grafica per essere più semplice possibile, la classe sta in 
+un pacchetto diverso.</p>
+
+<h3>File: it/aspix/librojava/utilizzatore/Test.java</h3>
+<pre>
+package it.aspix.librojava.utilizzatore;
+
+import it.aspix.librojava.parcomacchine.Automobile;
+import it.aspix.librojava.parcomacchine.Autorimessa;
+import it.aspix.librojava.parcomacchine.Motocicletta;
+
+public class Test {
+
+	public static void main(String[] args) {
+		double x,y;
+		double lunghezzaViaggio = 329;
+		
+		Automobile punto = new Automobile();
+		punto.impostaTarga("ab789rt");
+		punto.impostaModello("Fiat Punto");
+		punto.impostaKmAlLitro(17);
+		punto.impostaPorte(3);
+		punto.impostaPorte(5);
+		Motocicletta diavel = new Motocicletta();
+		diavel.impostaLitri100Km(8);
+		diavel.impostaModello("Ducati Diavel");
+		
+		
+		x = punto.consumoPerViaggio(lunghezzaViaggio);
+		y = diavel.consumoPerViaggio(lunghezzaViaggio);
+		System.out.println(punto.descrizione()+" consuma "+x+" litri");
+		System.out.println(diavel.descrizione()+" consuma "+y+" litri");
+		
+		Autorimessa daCarlo = new Autorimessa(5);
+		if(daCarlo.parcheggia(0, punto)){
+			System.out.println("parcheggio OK");
+		}else{
+			System.out.println("parcheggio PIENO");
+		}
+		if(daCarlo.parcheggia(1, diavel)){
+			System.out.println("parcheggio OK");
+		}else{
+			System.out.println("parcheggio PIENO");
+		}
+		
+		System.out.println("posti liberi:" +daCarlo.postiLiberi());
+		Motocicletta v;
+		v = (Motocicletta) daCarlo.rimuoviVeicolo(1);
+		
+		System.out.println(v.descrizione());
+		System.out.println("posti liberi:" +daCarlo.postiLiberi());
+	}
+
+}
+</pre>
+</article>
+</body>
+</html>

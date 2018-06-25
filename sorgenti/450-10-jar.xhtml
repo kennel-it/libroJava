@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="helloWorld" group="infrastruttura" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>distribuzione</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+        <style type="text/css">
+        	header { background-image: url(decorazioni/distribuzione.jpg); }
+        </style>
+    </head>
+<body>
+<header>
+<h1>distribuzione</h1>
+<p>distribuire il prodotto finale all'utente</p>
+</header>
+<article>
+<p>Essendo java multipiattaforma non esiste un formato "eseguibile" come per il linguaggi compilati,
+un programma java è un file zip che contiene tutti i file .class che compongono il programma stesso
+più altri file utili alla sua esecuzione (ad esempio i file css o le immagini che abbiamo inserito).</p>
+
+<p>Quando si fa doppio click cu uno di questi file zippati (che avranno ".jar" come estensione)
+su un computer con java installato viene automaticamente avviato java che a sua volta apre una 
+specifica classe presente nel file.</p>
+
+<p>La procedura per generare questo file dipende dall'ambiente di sviluppo utilizzato e include nel
+pacchetto creato tutte le classipresenti nel progetto.</p>
+
+<h2>Eclipse</h2>
+
+<h3>Creare una configurazione di avvio</h3>
+<p>Se non ci sono esigenze particolari basta aprire la classe principale della nostra applicazione e avviarla almeno una volta.</p>
+
+<h3>Produrre il paccheto jar</h3>
+<ul>
+	<li>click con il destro sul progetto</li>
+	<li>click sul menu "export..."</li>
+	<li>dal gruppo "Java" selezionare "Runnable JAR file", poi click su next</li>
+	<li>in "Launch configuration" selezionare la configurazione di avvio che lancia la nostra classe principale</li>
+	<li>selezionare la destinazione in "Export destination"</li>
+	<li>in "Library handling" la selezione redefinita "Extract required libraries into generated JAR" va normalmente bene
+	(supponiamo che non si stiano usando librerie o che abbiamo diritto ad includere le librerie, fatto da controllare nella 
+	loro licenza)</li>
+	<li>click su "finish"</li>
+</ul>
+
+
+
+<h2>Netbeans</h2>
+<p>NetBeans ha un modo automatico per produrre questi particolari file zip (che avranno come estensione .jar)
+e per specificare quale è la classe che va avviata al doppio click.</p>
+
+<h3>Specificare la classe principale</h3>
+<p>Ogni progetto ha una classe che viene impostata da Netbeans al momento della sua creazione,
+in caso che serva di cambiarla:</p>
+<ul>
+   <li>click con il destro sul nome del progetto, poi click sul menu "Properties"</li>
+   <li>click sulla voce "Run"</li>
+   <li>la voce "Application Class:" dovrà contenere il nome della classe principale, può essere selezionata usando il tasto "Browse..."</li>
+</ul>
+
+<h3>Produrre il paccheto jar</h3>
+<ul>
+	<li>click con il destro sul nome del progetto, poi click sul menu "Properties"</li>
+   	<li>click sulla voce "Build" poi sub-voce "Packaging"</li>
+	<li>spuntare "Build JAR after compiling"</li>
+	<li>la voce "JAR File" ci dice dove verrà salvato il file jar all'interno della cartella del progetto</li>
+</ul>
+<p>A questo punto ogni volta che un progetto viene compilato viene anche creato il file jar, 
+se non serve l'opzione può essere disattivata.</p>
+</article>
+</body>
+</html>

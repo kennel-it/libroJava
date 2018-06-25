@@ -1,0 +1,232 @@
+.FIXME {background-color: yellow; color:red; padding:1em}
+
+* {
+  box-sizing:border-box;
+}
+	
+body {
+	font-family: Verdana, sans-serif;
+	margin:0em;
+}
+
+header {
+	margin:0 ; padding:0;
+}
+
+header h1 {
+	text-align: center; 
+	padding:1em ; margin:0px; 
+	text-shadow: -1px -1px white ,1px -1px white , 1px 1px white, -1px 1px white;
+	background-color: rgba(240,240,240,0.8)
+}
+
+header p {
+	margin-top:0;
+	padding:0.25em 0em ;
+	text-align: center;
+	background-color: rgba(240,240,240,0.9)
+}
+
+#toc { margin:0em 2em }
+#toc img { height: 16px }
+
+article { margin:1em 5% ; padding-bottom:3em}
+
+h2 { text-align: left }
+
+p {
+	text-align: justify;
+	line-height: 1.5em;
+	text-indent: 2em;
+}
+
+/*c'è un div.prog nel capitolo 090-30, 120-20, 120-40, 210-50, 270-30, 300-20 */
+div.prog, div.pseudo, pre {
+	padding: 0.5em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	white-space: pre;
+	font-family: monospace;
+	font-size: 115%;
+	line-height: 100%;
+	overflow: scroll;
+}
+
+div.prog, pre {
+	background-color: #eee;
+	clear: both;
+}
+
+div.pseudo {
+	/* FIXME: andrebbe messo un colore per distinguere */
+}
+
+/* deve stare dopo div.prog per impostare il colore dello sfondo */
+div.errore{
+	background-color: #ffcccc;
+}
+
+div.prog div {
+	white-space: pre;
+}
+
+div.prog .evidenza {
+	background-color: #ffd
+}
+
+div.pseudo {
+	background-color: #eef;
+}
+
+code { 
+	font-size: 125%;
+	color: #700;
+	padding-left:0.25em; padding-right:0.25em;
+	white-space: nowrap; 
+	word-wrap: normal;
+	overflow-wrap: normal;
+}
+
+em {
+	font-style: normal; font-weight: bold; color: #9c0f16;
+}
+
+body#titlepage {
+	text-align: center;
+}
+
+li { margin-top:0.2em }
+li a {padding: 0.35em ; display:inline-block; color:black ; width:100%}
+li a strong { font-size:110% }
+
+h2 { 
+    text-align: left;
+    margin-top:2em;
+    margin-bottom:0.25em
+}
+
+dt {
+	font-weight: bold;
+}
+
+img.screen_shot {
+	border:1px solid gray;
+	margin: 0.5em;
+}
+
+/* esercizi e test */
+.test {
+	background-color: #dce3f9;
+	border: 1px dashed gray;
+	padding: 1em;
+	margin-top:0.5em;
+	margin-bottom:0.5em;
+}
+
+.test p {
+	margin: 0em;
+	padding: 0em;
+	text-indent: 0em;
+}
+
+.test a {
+	display: inline-table;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em; 
+	padding: 0.25em;
+	border:1px solid #aaa;
+	background-color: #eee;
+}
+
+.test a span.spiegazione{
+	display:none ; font-size:85%
+}
+
+.test a span.spiegazione:before {
+	content: " (";
+}
+
+.test a span.spiegazione:AFTER {
+	content: ")";
+}
+
+.test a.spiega span.spiegazione{
+	display:inline
+}
+
+.esercizio {
+	margin-top:4em;
+	border: 2px dashed gray;
+	padding: 0.5em;
+}
+
+.esercizio + .esercizio {
+    margin-top:1em;
+}
+
+.esercizio p {
+	margin:0px;
+}
+
+.esercizio h3 {
+	margin-top:0em; margin-bottom:0em;	
+}
+
+body {
+	counter-reset: section;           /* Set the section counter to 0 */
+}
+div.esercizio:before {
+	counter-increment: section;      /* Increment the section counter */
+	content: "esercizio " counter(section); /* Display the counter */
+	padding-right:1em;
+	font-size:85%; color: #888;
+}
+
+div.curiosita, div.suggerimento, div.suggerimentoProgramma {
+	float:right; clear:both; width:25%; font-size:85% ;
+	padding:1em ; margin: 1em 0em 1em 2em ; 
+	text-align: left;
+}
+
+div.curiosita {   
+	background-color: #fefae3; 
+}
+
+div.suggerimento {   
+	background-color: #c7eacb; 
+	white-space: normal !important;
+	overflow:auto; 
+}
+div.suggerimentoProgramma {   
+	background-color: #c7eacb; 
+	white-space: nowrap;
+	overflow: scroll; 
+	white-space: pre;
+}
+
+.netbeans { 
+	background-color: rgb(240,240,255);
+}
+
+.eclipse { 
+	background-color: rgb(255,240,240);
+}
+
+.IDE_inutile { display: none }
+
+.ide { font-family: Courier, monospaced }
+
+nav#top {
+    display: flex;
+    flex-direction: row;
+} 
+
+nav#top > * {
+	flex-grow: 1;
+	text-align:center;
+	background-color: #d9f1c6;
+	padding:0.5em;
+	margin:0em 1em;
+	text-decoration: none;
+	color: black;
+}

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="sintassi" group="infrastruttura" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>linguaggi</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>linguaggi</h1>
+<p>perché un linguaggio al posto di un altro</p>
+</header>
+<article>
+<p>Riguardo ai linguaggi di programmazioni è utile osservare che ne 
+esistono una enorme varietà: le differenze tra l'uno e l'altro sono notevoli. 
+Come esempio può essere utile guardare <a href="http://www.levenez.com/lang/">Computer Languages History</a>
+che mostra come alcuni dei principali linguaggi di programmazione si sono evoluti
+oppure <a href="https://helloworldcollection.github.io">The Hello World Collection</a>
+che raccoglie una miriade di programmi in diversi linguaggi che scrivono semplicemente "Hello World!"</p>
+
+<div class="curiosita">
+<img src="immagini/piet_hello_world.png" alt="Hello Wrold in Piet" style="float:right; margin-left:1em"/>
+<br/>Hello world nel linguaggio Piet
+</div>    	
+<p>Esistono linguaggi adatti a manipolare archivi di testo (es: AWK), 
+per elaborare problemi matematici (es: Fortran) altri adatti a creare velocemente programmi 
+per la gestione dei sistemi (Perl), altri ancora orientati verso l'intelligenza artificiale (come Lisp) 
+e come ultimo esempio alcuni nati per l'apprendimento dell'informatica come Scratch.</p>
+
+<p>Quello visto è soltanto un breve cenno sulla varietà dei linguaggi di programmazione, 
+ne nascono continuamente di nuovi dalle esigenze delle singole ditte o gruppi di lavoro;
+ad esempio javascript usato in maniera estremamente diffusa nel WEB è nato da un progetto 
+di Netscape e si è poi sviluppato fino a raggiungere uno standard.</p>
+
+<p>A quanto detto va aggiunto che formalmente un programma può essere scritto in un qualsiasi linguaggio, 
+nella scelta di quello giusto influiranno diversi fattori, tra cui: 
+cosa la sua sintassi ci permette di esprimere con semplicità? 
+Esistono parti di programma già scritte atte ad assolvere compiti specifici?</p>
+
+<p>Come esempio possiamo vedere due piccoli programmi scritti rispettivamente in Perl 
+e Java che scrivono semplicemente "Ciao mondo!" sul terminale.</p>
+
+Perl:
+<pre>print "Ciao mondo!\n";</pre>
+Java:
+<pre>
+class Ciao { 
+   public static void main(String argv[]){ 
+      System.out.print("Ciao mondo!\n"); 
+   } 
+}
+</pre>
+<div class="suggerimento">...e non è neanche detto che la lunghezza dei programmi sia l'unico parametro per valutare un linguaggio.</div>
+<p>Se però volessimo avere un programma con una interfaccia grafica non è detto che Perl resti il più semplice.</p>
+
+<h2>Alto o basso livello?</h2>
+<p>I linguaggi di programmazione sono classificabili seguendo diversi parametri, 
+uno di uso comune è quello che distingue linguaggi di alto o basso livello.</p>
+
+<p>Con l'espressione "linguaggio ad alto livello" si intende un linguaggio che nella 
+sua struttura è più vicino (tutto è sempre molto relativo) al linguaggio umano e
+quindi al punto di vista della persona che scrive il programma, 
+mentre sono a basso livello quei linguaggi più vicini alla macchina.</p>
+  
+<p>Java può essere considerato un linguaggio ad alto livello, per fare un confronto possiamo
+usare "Hello World!" scritto in java e una versione dello stesso programma in
+un linguaggio di basso livello: l'Assembler</p>
+
+<pre>
+   ;; Hello World for the nasm Assembler (Linux)
+	
+   SECTION .data
+
+   msg db "Hello, world!",0xa ; 
+   len equ $ - msg
+
+   SECTION .text
+   global main
+
+main:
+   mov eax,4     ; write system call
+   mov ebx,1     ; file (stdou)
+   mov ecx,msg   ; string
+   mov edx,len   ; strlen
+   int 0x80      ; call kernel
+
+   mov eax,1     ; exit system call
+   mov ebx,0      
+   int 0x80      ; call kernel
+</pre>
+
+<p>Si vede facilmente che sebbene la sintassi di entrambe i linguaggi sia sconosciuta 
+il frammento di codice java è molto più comprensibile del frammento di assembler!</p>
+
+</article>
+</body>
+</html>

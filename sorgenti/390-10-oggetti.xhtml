@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="ripetizione salutaUtente" group="algoritmiStruttureDati" -->
+<!-- changelog 2017-10-23 inserito incipit -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>oggetti</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+        <style type="text/css">
+        	.old { color: red }
+        	.new { color: green }
+        	#pulsanteOld { background-color: rgba(255,0,0,0.5) }
+        	#pulsanteNew { background-color: rgba(0,200,0,0.5) }
+        	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
+        </style>
+        <script type="text/javascript"><![CDATA[
+        	function mostra(quale){
+        		var elenco;
+        		elenco = document.getElementsByClassName("new");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className){
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        		elenco = document.getElementsByClassName("old");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className) {
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        	}
+        ]]></script>       
+    </head>
+<body onload="mostra('old')" >
+<header>
+<h1>oggetti</h1>
+<p>dalla programmazione procedurale a quella ad oggetti</p>
+</header>
+<article>
+<!-- changelog 2017-09-20 cappello introduttivo aggiunto ancora un pezzo -->
+<h2>Gli studenti a scuola</h2>
+<p>Nella nostra scuola di studenti ce ne sono molti. Ciascuno di loro è però un individuo a sé stante</p>
+<h2>Problema e soluzione</h2>
+<p>Partiamo con un esempio per comprendere il fatto. Vogliamo gestire una certa quantità di autoveicoli dei quali ci interessa la targa,
+il modello e quanti km riesce a fare con un litro di carburante. Bisogna anche dare la possibilità di aggiungere una nuova auto a quelle
+presenti e fare il calcolo di quanto spende l'automobilista se percorre una certa quantità di chilometri ipotizzando il fatto che il
+carburante usato costi 1,5€ al litro; ognuna di queste funzionalità saranno associate alla pressione di un rispettivo pulsante.<br/>
+Come procediamo?<br/>
+Dato che le automobili sono una quantità adotteremo un vettore. Di quale tipo sarà però il vettore? Se lo facciamo di tipo stringa in una
+data cella ci sarà o la targa o il modello; per quanto riguarda il consumo è utile un numero con la virgola. La soluzione che siamo in
+grado di fornire ci porterà allora ad usare 3 vettori: uno per la targa, uno per il modello ed uno per i consumi; ovviamente tutte le
+informazioni di un veicolo saranno registrate allo stesso indice per tutti e 3 i vettori.</p>
+<p>L'approccio alla soluzione procede in modo tale che l'algoritmo di interazione con i 3 vettori sta immerso nel programma. Se cambiassimo
+qualcosa nella rappresentazione dei dati dovremo poi cercare riga per riga tutti i punti in cui andiamo a lavorare con i vettori degli
+autoveicoli. Finché il programma rimane corto si può fare ma nel momento in cui diviene centinaia di righe diventa improponibile: ci vuole
+tanto tempo per un'operazione noiosa e basta una svista per compromettere il funzionamento del software realizzato.</p>
+<h2>Alternative</h2>
+<p>Creare in "un posto a parte" tutte le dichiarazioni che coinvolgono le variabili inerenti l'autoveicolo e tutte le funzionalità che
+accedono a tali variabili. In nessun'altra parte del programma si possono cambiare o leggere tali variabili se non tramite quelle specifiche
+funzionalità previste nell'area appena indicata.
+In questo modo se qualcosa non va, il problema è solo nell'area ristretta in cui c'è la gestione delle variabili. Se bisogna cambiare
+qualcosa nelle variabili o nelle funzionalità, basta operare nel "solito" punto prima indicato.</p>
+<h2>Cosa cambia</h2>
+<p>La programmazione ad oggetti implica un nuovo modo di creare modelli per i programmi: poniamo maggiore enfasi sui singoli attori
+(gli oggetti) della realtà che andiamo a modellare. Nel momento in cui si crea l'oggetto si indicano certamente le sue caratteristiche o
+<em>proprietà</em> ma anche i modi o <em>metodi</em> che interagiscono con tali proprietà.</p>
+<p>Nell'esempio appena sopra, una proprietà sarà targa (di tipo stringa), un'altra sarà modello (di tipo stringa) e l'ultima sarà KmAlLitro (di
+di tipo numerico con la virgola). Un esempio di metodo è quello che presa una targa, la confronta con quella dell'oggetto in esame e restituisce
+<code>true</code> o <code>false</code> a seconda che la targa corrisponda o meno.</p>
+<p>Riferendoci all'esempio degli autoveicoli possiamo pensare che ci saranno più oggetti dello stesso tipo, ciascuno con i propri valori:
+tutti avranno una targa ma ciascuna targa sarà diversa dalle altre e via così per le altre proprietà. Nel momento in cui ne definisci le
+specifiche, fai una operazione unica per tutti gli oggetti di questa "categoria". Possiamo allora considerare questa come una classe di oggetti.<br/>
+Proprio <code>class</code> è la parola chiave che si usa in Java.</p>
+<p>Vediamo cosa cambia facendo un confronto tra due versione dello stesso programma: vogliamo mantiene un elenco di automobili con relativa
+targa e consumo, all'occorrrenza inserendo la targa e i km percorsi il programma deve dirci quanto spenderemmo con una specifica automobile.</p>
+<p>La <span onclick="mostra('old')" class="pulsante" id="pulsanteOld">prima versione</span> del programma non usa gli oggetti</p>
+<div class="new">
+<h3>File: Autoveicolo.java</h3>
+<pre>
+public class Autoveicolo {
+	String targa;
+	String modello;
+	double kmAlLitro;
+	
+	public Autoveicolo(String t, String m, double l){
+		targa = t;
+		modello = m;
+		kmAlLitro = l;
+	}
+	
+	public boolean confrontaTarga(String t) {
+		return targa.equals(t);
+	}
+}
+</pre>
+</div>
+<h3>File: Programma.java</h3>
+<pre>
+public class Programma extends Application{
+	<span class="old">
+	String targa[];
+	String modello[];
+	double kmAlLitro[];</span>
+	<span class="new">Autoveicolo automobili[];</span>
+	int autoRegistrate = 0;
+	
+	TextField inTarga = new TextField();
+	TextField inModello = new TextField();
+	TextField inLitri = new TextField();
+	TextField calcTarga = new TextField();
+	TextField calcKm = new TextField();
+	Label risposta = new Label();
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Button aggiungi = new Button("aggiungi auto");
+		Button calcolaSpesa = new Button("calcola spesa");
+		GridPane gp = new GridPane();
+		gp.add(new Label("targa:"),0,0);
+		gp.add(inTarga,1,0);
+		gp.add(new Label("modello:"),0,1);
+		gp.add(inModello,1,1);
+		gp.add(new Label("consumo:"),0,2);
+		gp.add(inLitri,1,2);
+		gp.add(aggiungi,1,3);
+		gp.add(new Label("targa:"),0,4);
+		gp.add(calcTarga,1,4);
+		gp.add(new Label("km:"),0,5);
+		gp.add(calcKm,1,5);
+		gp.add(calcolaSpesa,1,6);
+		gp.add(new Label("spesa:"),0,7);
+		gp.add(risposta,1,7);
+		
+		Scene scena = new Scene(gp);
+		primaryStage.setScene(scena);
+		primaryStage.setTitle("automobili");
+		primaryStage.show();
+		
+		aggiungi.setOnAction(e->aggiungiAuto());
+		calcolaSpesa.setOnAction(e->azioneSpesa());
+		// ci prendiamo una licenza: non ci saranno mai più di 100 automobili
+		<span class="old">targa = new String[100];
+		modello = new String[100];
+		kmAlLitro = new double[100];</span>
+		<span class="new">automobili = new Autoveicolo[100];</span>
+	}
+	
+	public static void main(String args[]){
+		launch(args);
+	}
+	
+	private void aggiungiAuto(){
+		String t = inTarga.getText();
+		String m = inModello.getText();
+		double l100k = Double.parseDouble(inLitri.getText());
+		
+		<span class="old">targa[autoRegistrate] = t;
+		modello[autoRegistrate] = m;
+		kmAlLitro[autoRegistrate] = l100k;</span><span class="new">automobili[autoRegistrate] = new Autoveicolo(t, m, l100k);</span>
+		autoRegistrate++;
+		risposta.setText(t+" registrata");
+	}
+	
+	private void azioneSpesa(){
+		String t = calcTarga.getText();
+		double kilometri = Double.parseDouble(calcKm.getText());
+		<span class="old">int trovato = -1;</span><span class="new">Autoveicolo trovata = null;</span>
+		double spesa;
+		
+		for(int i=0;i&lt;autoRegistrate;i++){
+			<span class="old">if(targa[i].equals(t)) {
+				trovato=i;
+			}</span><span class="new">if(automobili[i].confrontaTarga(t)) {
+				trovata = automobili[i];
+			}</span>
+		}
+		<span class="old">if(trovato!=-1) {
+			spesa = kilometri/kmAlLitro[trovato]*1.5;
+			risposta.setText("l'automobile "+modello[trovato]+" spende "+spesa );
+		}</span>
+		<span class="new">if(trovata!=null) {
+			spesa = kilometri/trovata.kmAlLitro*1.5;
+			risposta.setText("l'automobile "+trovata.modello+" spende "+spesa );
+		}</span>else{
+			risposta.setText("non trovo "+t);
+		}
+		
+	}
+	
+}
+</pre>
+<p>La <span onclick="mostra('new')" class="pulsante" id="pulsanteNew">seconda versione</span> usa invece un <em>oggetto</em>: <code>Autoveicolo</code> con le <em>proprietà</em>
+<code>marca</code>, <code>modello</code> e <code>kmAlLitro</code> mentre i <em>metodi</em> sono: un <em>costruttore</em> (lo vedremo nel capitolo dedicato alle classi) e
+<code>confrontaTarga()</code>.</p>
+<p>Osserviamo che avremmo potuto dichirare più oggetti di tipo Autoveicolo anziché uno, per esempio per dichiarare 2 oggetti Autoveicolo scriveremo nel programma<br/>
+<code>Autoveicolo auto1 = new Autoveicolo();<br/>
+Autoveicolo auto2 = new Autoveicolo();</code><br/>È chiaro che ognuna delle 2 auto avrà la sua marca, il suo modello, i suoi km al litro che percorre ma se ci soffermiamo un
+istante appare chiaro che sebbene i valori saranno molto probabilmente diversi, è anche vero che tutte e 2 le auto hanno la proprietà <code>marca</code>, la proprietà
+<code>modello</code> e la <code>kmAlLitro</code> così come entrambe hanno i 2 metodi visti più in alto; nessuno dei 2 avrà però la proprietà maxVelocità perché non è stata
+sopra dichiarata.</p>
+<p>In definitiva concludiamo che le caratteristiche di Autoveicolo le definiamo una volta e valgono per tutti gli oggetti di quel tipo che si vanno a creare e tali
+caratteristiche si esplicitano dichiarando la costruzione di una nuova <em>classe</em> che costituirà quindi il <em>tipo</em> degli oggetti.</p>
+<p>In java ogni nome di classe inizia per maiuscola e deve essere registrata in un file che ha il suo stesso nome.</p>
+</article>
+</body>
+</html>

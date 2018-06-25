@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="salutaUtente assegnazione" group="base" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>numeri</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>numeri</h1>
+<p>operazioni aritmetiche con numeri forniti dall'utente</p>
+</header>
+<article>
+<p>Supponiamo ora di voler calcolare il prodotto di due numeri interi forniti dall'utente.  
+Ragionevolmente dovremo procedere in questo modo: leggere i due numeri, fare il prodotto e quindi visualizzerai i risultati.
+Bene. L'unica differenza è che quando leggi il contenuto di un campo testo, 
+questo è di <em><a href="180-30-tipiNumerici.xhtml">tipo</a></em>, appunto, testo altrimenti detto stringa (<code>String</code>);
+serve quindi una esplicita conversione da stringa a intero. Questo è possibile grazie al metodo 
+statico parseInt() dell'oggetto Integer, che in pratica si usa scrivendo:  
+<code>Integer.parseInt(stringa)</code>.</p>
+
+<p>Nella funzione che gestirà l'evento, posto che i campi testo degli operandi si chiamino 
+rispettivamente <var>op1</var> ed <var>op2</var> mentre il campo testo per mostrare il risultato si chiami risultato, 
+immetteremo il seguente frammento di codice:</p>
+<pre>public void calcola() {
+   String op1, op2, ris;
+   int n1, n2, tot;
+   op1 = operando1.getText();
+   op2 = operando2.getText();
+   n1 = Integer.parseInt(op1);
+   n2 = Integer.parseInt(op2);
+   tot = n1 * n2;
+   ris = "" + tot;
+   risultato.setText(ris);
+}</pre>
+
+<p>Puoi senz'altro osservare che particolare risulta l'operazione inversa, 
+cioè la conversione in testo del risultato a partire dall'intero tot. Il procedimento ha questa logica: 
+l'operatore + ha due significati diversi a seconda che si riferisca a numeri o a stringhe; 
+nel primo caso infatti esegue la normale addizione mentre nel secondo caso – 
+come visto in un precedente capitolo – esegue una concatenazione di testi. 
+Osservando la riga in questione (la penultima) vedrai che un argomento dell'operatore è 
+di tipo stringa e l'altro è di tipo intero. Quando uno degli operandi è di tipo stringa, 
+Java cercherà di far diventare anche l'altro operando stringa, eseguendo così una conversione 
+implicita da intero a testo. Dato che la stringa vuota concatenata ad una seconda stringa 
+(che è il risultato della trasformazione in stringa di tot) rende esattamente la seconda stringa, 
+abbiamo ottenuto ciò che si voleva.</p>
+
+<div class="test">
+   	<p>Se <var>lunghezza</var> è una variabile di tipo intero e <var>testo</var> è una variabile di tipo String 
+   	che contine la rappresentazione di un numero come posso fare per avere il suo valore in <var>lunghezza</var>?</p>
+    <a onclick="sbagliata(this)">Integer.parseInt(testo,lunghezza)<span class="spiegazione">Integer.parseInt() ha un solo argomento qui ne vengono usati due</span></a>
+    <a onclick="sbagliata(this)">testo=Integer.parseInt(lunghezza)<span class="spiegazione">L'argomento dei Integer.parseInt() deve essere il testo, come risultato dà un numero, qui l'argomento è un numero</span></a> 
+    <a onclick="giusta(this)">lunghezza=Integer.parseInt(testo)</a> 
+</div>
+
+<p>Per terminare prova ad analizzare la seguente funzione analoga alla precedente:</p>
+<pre>public void calcola() {
+   int n1, n2, tot;
+   n1 = Integer.parseInt(operando1.getText());
+   n2 = Integer.parseInt(operando2.getText());
+   tot = n1 * n2;
+   risultato.setText("" + tot);
+}</pre>
+
+<p>Dedurrai che si tratta della sola eliminazione delle variabili stringa. 
+Allo stesso modo <code>Float.ParseFloat(stringa)</code> e 
+<code>Double.ParseDouble(stringa)</code> convertono la stringa in un numero reale a 
+singola (float) o doppia (double) precisione.</p> 
+
+<div class="esercizio">
+	<p>Crea un programma che calcola l'area e il perimetro di un quadrato, 
+	il lato del quadrato è un numero senza parte decimale.</p>
+</div>
+
+</article>
+</body>
+</html>

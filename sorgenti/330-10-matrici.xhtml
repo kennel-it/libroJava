@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="algoritmiVettori vettoreDiOggetti salutaUtente" group="algoritmiStruttureDati" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>matrici</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>matrici</h1>
+<p>vettori bidimensionali</p>
+</header>
+<article>
+<p>Per identificare di quale elemento si stesse parlando si è usato un indice. Pensa ora ad una tabella, ad un foglio di calcolo: per identificarne una cella
+   occorre specificare la riga e la colonna. Per far questo si usa la coppia di parentesi quadre [][]. Nella prima si inserirà il numero di righe del vettore
+   nella dichiarazione o il numero di riga alla quale si vuole accedere, nella seconda si inserirà il numero di colonne nella dichiarazione o il numero di
+   colonna alla quale si vuole accedere. Per creare oggetti valgono esattamente le regole viste per il vettore.</p>
+<p>Non rimane che risolvere qualche problema.</p>
+<h3>La tavola pitagorica (da 1 a 11)</h3>
+<pre>public class Pitagorica extends Application {
+   Text <var>elementi</var>[][];
+   <br/>
+   public void start(Stage <var>primaryStage</var>) {
+      <var>elementi</var> = new Text[11][11];
+      int <var>riga</var>, <var>colonna</var>;
+      GridPane <var>p</var> = new GridPane();
+      for(<var>riga</var>=0;<var>riga</var>&lt;11;<var>riga</var>++) {             //per ogni riga da 0 a 10...
+         for(<var>colonna</var>=0;<var>colonna</var>&lt;11;<var>colonna</var>++) { //...per ciascuna colonna nella riga <var>riga</var>...
+         <var>elementi</var>[<var>riga</var>][<var>colonna</var>] = new Text("" + ((riga+1)*(colonna+1)) ); //il valore è il n° di riga * quello di colonna
+         <var>p</var>.add(<var>elementi</var>[<var>riga</var>][<var>colonna</var>], <var>colonna</var>, <var>riga</var>);
+      }
+      Scene <var>scena</var> = new Scene(p, 400, 400);
+      <var>primaryStage</var>.setTitle("Tavola pitagorica");
+      <var>primaryStage</var>.setScene(<var>scena</var>);
+      <var>primaryStage</var>.show();
+   }
+}</pre>
+<h3>Il massimo ed il minimo (matrice non ordinata)</h3>
+<p>Si scorrono tutti gli elementi, cioè una riga alla volta tutti gli elementi in ciascuna colonna e via via si tiene memoria di quale è il minimo ed il
+   massimo fino a quel momento</p>
+<pre>public class MinMax extends Application {
+   int <var>matrice</var>[][];
+   TextField <var>indicaRighe</var> = new TextField();
+   TextField <var>indicaColonne</var> = new TextField();
+   TextField <var>elemento</var> = new TextField();
+   Text <var>risMin</var> = new Text("...");
+   Text <var>risMax</var> = new Text("...");
+   int numRighe, numColonne, rCar, cCar; //Le ultime due sono il n° di righe e colonne caricate
+   <br/>
+   public void start(Stage <var>primaryStage</var>) {
+      Text <var>lIndicaRighe</var> = new Text("N° righe");
+      Text <var>lIndicaColonne</var> = new Text("N° colonne");
+      Text <var>lElemento</var> = new Text("Valore cella");
+      Button <var>impostaDimensione</var> = new Button("Prepara matrice");
+      Button <var>caricaMatrice</var> = new Button("Inserisci elemento");
+      Button <var>eseguiCalcolo</var> = new Button("Individua");
+      Text <var>lRisMin</var> = new Text("Minimo");
+      Text <var>lRisMax</var> = new Text("Massimo");
+      GridPane <var>p</var> = new GridPane();
+      <var>p</var>.add(<var>lIndicaRighe</var>, 0, 0);
+      <var>p</var>.add(<var>indicaRighe</var>, 1, 0);
+      <var>p</var>.add(<var>lIndicaColonne</var>, 0, 1);
+      <var>p</var>.add(<var>indicaColonne</var>, 1, 1);
+      <var>p</var>.add(<var>impostaDimensione</var>, 1, 2);
+      <var>p</var>.add(<var>lElemento</var>, 0, 3);
+      <var>p</var>.add(<var>elemento</var>, 1, 3);
+      <var>p</var>.add(<var>caricaMatrice</var>, 1, 4);
+      <var>p</var>.add(<var>eseguiCalcolo</var>, 1, 5);
+      <var>p</var>.add(<var>lRisMin</var>, 0, 6);
+      <var>p</var>.add(<var>risMin</var>, 1, 6);
+      <var>p</var>.add(<var>lRisMax</var>, 0, 7);
+      <var>p</var>.add(<var>risMax</var>, 1, 7);
+      impostaDimensione.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+         @Override
+         public void handle(ActionEvent event) {
+            dimensiona();
+         }
+      });
+      caricaMatrice.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+         @Override
+         public void handle(ActionEvent event) {
+            carica();
+         }
+      });
+      eseguiCalcolo.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+         @Override
+         public void handle(ActionEvent event) {
+            calcola();
+         }
+      });
+      Scene <var>scena</var> = new Scene(<var>p</var>, 350, 500);
+      <var>primaryStage</var>.setTitle("Massimo &amp; minimo");
+      <var>primaryStage</var>.setScene(<var>scena</var>);
+      <var>primaryStage</var>.show();
+   }
+   <br/>
+   public void dimensiona() {
+      <var>numRighe</var> = Integer.parseInt(<var>indicaRighe</var>.getText());
+      <var>numColonne</var> = Integer.parseInt(<var>indicaColonne</var>.getText());
+      <var>matrice</var> = new int[<var>numRighe</var>][<var>numColonne</var>];
+      rCar = cCar = 0;
+   }
+   <br/>
+   public void carica() {
+      if(<var>rCar</var> &lt; <var>numRighe</var>) {
+         if(<var>cCar</var> &lt; <var>numColonne</var>) {
+            <var>matrice</var>[<var>rCar</var>][<var>cCar</var>] = Integer.parseInt(<var>elemento</var>.getText());
+            <var>cCar</var>++;
+         } else {
+            <var>rCar</var>++;
+            <var>cCar</var> = 0;
+         }
+      } else {
+         <var>elemento</var>.setText("Matrice piena.");
+      }
+   }
+   <br/>
+   public void calcola() {
+      int <var>massimo</var>, <var>minimo</var>, <var>riga</var>, <var>colonna</var>;
+      for(<var>riga</var> = 0; <var>riga</var> &lt; <var>rCar</var>; <var>riga</var>++) {
+         for(<var>colonna</var> = 0, <var>minimo</var> = <var>massimo</var> = <var>matrice</var>[<var>riga</var>][0]; <var>colonna</var> &lt; <var>cCar</var>; <var>colonna</var>++) {
+            if(<var>massimo</var> &lt; <var>matrice</var>[<var>riga</var>][<var>colonna</var>]) {
+               <var>massimo</var> = <var>matrice</var>[<var>riga</var>][<var>colonna</var>];
+            }
+            if(<var>minimo</var> &gt; <var>matrice</var>[<var>riga</var>][<var>colonna</var>]) {
+               <var>minimo</var> = <var>matrice</var>[<var>riga</var>][<var>colonna</var>];
+            }
+         }
+      }
+      <var>risMin</var>.setText(<var>minimo</var> + "");
+      <var>risMax</var>.setText(<var>massimo</var> + "");
+   }
+}</pre>
+<h3>Il re mangia?</h3>
+<p>Viene data una normale scacchiera di 8 righe ed 8 colonne, si dispone il re in una certa posizione e 4 pezzi avversari in altrettante posizioni. Ci si
+   chiede se, una volta individuato il re, questi possa mangiare un pezzo avversario. Anche se è possibile risolvere questo problema in modo meno costoso,
+   si userà una matrice nella quale per convenzione indichiamo il contenuto della cella 0 se questa è vuota; 1 se questa contiene il re in questione ed il
+   2 se contiene uno dei 4 avversari.</p>
+<p>Sebbene la posizione del re si conosca, per risolvere questo esercizio facciamo a meno di tale informazione; andremo quindi a curiosare in ciascuna cella
+   della matrice fino a trovare il re o arrivare alla fine della scacchiera.</p>
+<pre>public class ReMangia extends Application {
+   int <var>scacchiera</var>[][] = new int[8][8];
+   TextField <var>reX</var> = new TextField(); //Contiene il numero di colonna del re
+   TextField <var>reY</var> = new TextField(); //Contiene il numero di riga del re
+   TextField <var>avversarioX</var> = new TextField(); //Contiene il numero di colonna di ciascun avversario (uno alla volta)
+   TextField <var>avversarioY</var> = new TextField(); //Contiene il numero di riga di ciascun avversario (uno alla volta)
+   Text <var>lAvversarioX</var> = new Text("Colonna dell'avversario 1");
+   Text <var>lAvversarioY</var> = new Text("Riga dell'avversario 1");
+   Button <var>impostaAvversario</var> = new Button("Posiziona l'avversario 1");
+   Text <var>ris</var> = new Text("...");
+   int <var>numAvversario</var>;
+   <br/>
+   public void start(Stage <var>primaryStage</var>) {
+      Text <var>lReX</var> = new Text("Colonna del re");
+      Text <var>lReY</var> = new Text("Riga del re");
+      Button <var>impostaRe</var> = new Button("Posiziona il re");
+      Button <var>siMangia</var> = new Button("Verifica se mangia");
+      <var>numAvversario</var> = 5;
+      impostaRe.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+         @Override
+         public void handle(ActionEvent event) {
+            reXY();
+         }
+      });
+      impostaAvversario.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+         @Override
+         public void handle(ActionEvent event) {
+            avversarioXY();
+         }
+      });
+      siMangia.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+         @Override
+         public void handle(ActionEvent event) {
+            mangia();
+         }
+      });
+      GridPane <var>p</var> = new GridPane();
+      <var>p</var>.add(<var>lReX</var>, 0, 0);
+      <var>p</var>.add(<var>reX</var>, 1, 0);
+      <var>p</var>.add(<var>lReY</var>, 0, 1);
+      <var>p</var>.add(<var>reY</var>, 1, 1);
+      <var>p</var>.add(<var>impostaRe</var>, 1, 2);
+      <var>p</var>.add(<var>lAvversarioX</var>, 0, 3);
+      <var>p</var>.add(<var>avversarioX</var>, 1, 3);
+      <var>p</var>.add(<var>lAvversarioY</var>, 0, 4);
+      <var>p</var>.add(<var>avversarioY</var>, 1, 4);
+      <var>p</var>.add(<var>impostaAvversario</var>, 1, 5);
+      <var>p</var>.add(<var>siMangia</var>, 1, 6);
+      <var>p</var>.add(<var>ris</var>, 0, 7, 2, 1);
+      Scene <var>scena</var> = new Scene(p, 400, 400);
+      <var>primaryStage</var>.setTitle("Il re mangia?");
+      <var>primaryStage</var>.setScene(<var>scena</var>);
+      <var>primaryStage</var>.show();
+   }
+   <br/>
+   public void reXY() {   //Quando posiziono il re pulisco prima tutta la matrice da eventuali impostazioni precedenti
+      int <var>riga</var>, <var>colonna</var>;
+      for(<var>riga</var> = 0; <var>riga</var> &lt; 8; <var>riga</var>++) {
+         for(<var>colonna</var> = 0; <var>colonna</var> &lt; 8; <var>colonna</var>++) {
+            <var>scacchiera</var>[<var>riga</var>][<var>colonna</var>] = 0;
+         }
+      }
+      <var>numAvversario</var> = 1;
+      <var>lAvversarioX</var>.setText("Colonna dell'avversario 1");
+      <var>lAvversarioY</var>.setText("Riga dell'avversario 1");
+      <var>impostaAvversario</var>.setText("Posiziona l'avversario 1");
+      <var>riga</var> = Integer.parseInt(<var>reX</var>.getText());
+      <var>colonna</var> = Integer.parseInt(<var>reY</var>.getText());
+      <var>scacchiera</var>[<var>riga</var>][<var>colonna</var>] = 1;
+   }
+   <br/>
+   public void avversarioXY() {
+      int <var>riga</var>, <var>colonna</var>;
+      <var>riga</var> = Integer.parseInt(<var>avversarioX</var>.getText());
+      <var>colonna</var> = Integer.parseInt(<var>avversarioY</var>.getText());
+      if(<var>numAvversario</var> &lt;= 4) {
+         if(<var>scacchiera</var>[<var>riga</var>][<var>colonna</var>] == 0) {
+            <var>scacchiera</var>[<var>riga</var>][<var>colonna</var>] = 2;
+            <var>numAvversario</var>++;
+            <var>lAvversarioX</var>.setText("Colonna dell'avversario " + numAvversario);
+            <var>lAvversarioY</var>.setText("Riga dell'avversario " + numAvversario);
+            <var>impostaAvversario</var>.setText("Posiziona l'avversario " + numAvversario);
+         } else {
+            <var>avversarioX</var>.setText("Posizione");
+            <var>avversarioY</var>.setText("impegnata");
+         }
+      } else {
+            <var>avversarioX</var>.setText("Avversari");
+            <var>avversarioY</var>.setText("posizionati");
+         }
+   }
+   <br/>
+   public void mangia() {
+      int <var>riga</var>, <var>colonna</var>, <var>conta</var>, <var>i</var>, <var>j</var>;
+      for(<var>conta</var> = <var>riga</var> = 0; <var>riga</var> &lt; 8; <var>riga</var>++) {
+         for(<var>colonna</var> = 0; <var>colonna</var> &lt; 8; <var>colonna</var>++) {
+            if(<var>scacchiera</var>[<var>riga</var>][<var>colonna</var>] == 1) {
+               if(<var>riga</var> == 0) {
+                  <var>i</var> = 0;
+               } else {
+                  <var>i</var> = -1;
+               }
+               for(; <var>i</var> &lt; 2 &amp;&amp; <var>riga</var>+<var>i</var> &lt; 8; <var>i</var>++) {
+                  if(<var>colonna</var> == 0) {
+                     <var>j</var> = 0;
+                  } else {
+                     <var>j</var> = -1;
+                  for(; <var>j</var> &lt; 2 &amp;&amp; <var>colonna</var>+<var>j</var> &lt; 8; <var>j</var>++) {
+                     if(<var>scacchiera</var>[<var>riga</var>+<var>i</var>][<var>colonna</var>+<var>j</var>] == 2) {
+                        <var>conta</var>++;
+                  }
+               }
+            }
+         }
+      }
+      if(<var>conta</var> &gt; 0) {
+         <var>ris</var>.setText("Hai " + <var>conta</var> + " possibilità di mangiare.");
+      } else {
+         <var>ris</var>.setText("Non hai possibilità di mangiare.");
+      }
+   }
+}</pre>
+<p>Giunto ormai è il momento di provare da soli.</p>
+<p>Prova ad implementare le due varianti di caricamento di una matrice: tramite matrice di TextField e tramite un'unica TextField.</p>
+<div class="esercizio">
+   Data una matrice di dimensioni note <code><var>n</var>x<var>m</var></code>, caricarla in modo disordinato. Alla pressione di un
+   pulsante individuare il massimo elemento di ogni riga quindi mostrare la media di tali massimi.<br/>
+   Raggiungi la soluzioni adottando un vettore d'appoggio che contenga i massimi di ogni riga.
+</div>
+<div class="esercizio">
+   In una matrice di 6 colonne e 4 righe di TextField ciascuna delle quali larga quanto serve a contenere 7 cifre inserisci in modo
+   predefinito nella prima e nella seconda cella 1; in tutte le altre procedi col seguente algoritmo: in una cella metti la somma del
+   contenuto di tutte le celle precedenti. Così nella cella (0, 2) ci sarà 1+1 = 2; nella cella (0, 3) ci sarà 1+1+2 = 4 e così via.
+</div>
+<div class="esercizio"><h3>Quadrato (un po') magico</h3>
+   Data una matrice quadrata di <var>n</var> righe caricata dall'utente con numeri interi, verificare se per ogni casella la somma degli
+   elementi della riga è uguale alla somma degli elementi della colonna; tale valore deve essere il medesimo per ogni riga e colonna.
+   Personalizza la casella di testo con uno sfumatura colorata, imposta il carattere con un font a tuo piacere e di misura abbastanza
+   grande e di colore abbinato allo sfondo.
+</div>
+   
+<div class="esercizio"><h3>Il sentiero senza fine</h3>
+   Data una matrice quadrata di stringhe di <var>n</var> righe già caricata, sapendo che in una sola cella può esserci scritto "Partenza",
+   individuare tale cella (non mostrare però il risultato ottenuto). Adiacente (su, giù, dx, sx) a tale cella vi è una sola cella
+   contentente il testo "sentiero" che a sua volta avrà adiacente un'altra sola cella contenente "sentiero" e così via. Mostrare la
+   posizione dell'ultima cella del percorso. Imposta tramite css le caratteristiche della TextField nella quale mostri il risultato.
+</div>
+<div class="esercizio"><h3>Battaglia navale</h3>
+   Caricata una matrice quadrata di interi per la battaglia navale di <var>n</var> righe, chiesta all'utente la posizione che vuole colpire,
+   dire se il colpo è caduto in acqua (cella contenente 0) oppure indicare la dimensione della nave colpita (celle adiacenti contenenti 1).
+</div>
+<div class="esercizio"><h3>Vettore nascosto</h3>
+   Data una matrice di <var>n</var> righe ed <var>m</var> colonne e dato un vettore di <var>n</var> elementi, dire se in una qualche colonna
+   della matrice è contenuto il vettore indicato.
+</div>
+</article>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="salutaUtente" group="grafica" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>tela</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>tela</h1>
+<p>disegnare forme geometriche su una superficie</p>
+</header>
+<article>
+<p>Oltre che utilizzare componenti già fatti o caricare immagini da disco adesso vorremmo
+disegnare qualcosa noi da programma... non è una esigenza così singolare!</p>
+
+<p>In verità c'è un componente già fatto che ha lo stesso uso di una tela da disegno e, coincidenza, si chiama Canvas
+(per i più precisi il suo nome completo è javafx.scene.canvas.Canvas), questo componente lo possiamo piazzare
+in una parte della finestra a nostra scelta e ci consente di disegnarci su linee, cerchi, punti e via di seguito.</p>
+
+<p>Vediamo direttamente un esempio:</p>
+
+<p>Il programma, in definitiva e a meno delle importazioni di rito è il seguente:</p>
+<pre>
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+public class HelloCanvas extends Application {
+
+  @Override
+  public void start(Stage primaryStage) {
+    // creiamo un pannello specificando larghezza e altezza
+    Canvas quadro = new Canvas(300, 260);
+    // non possiamo disegnare
+    GraphicsContext gc = quadro.getGraphicsContext2D();
+    gc.setFill(Color.YELLOW);
+    gc.setLineWidth(1);
+    gc.fillOval(50, 50, 200, 200);
+    gc.setFill(Color.BLACK);
+    gc.fillOval(100, 100, 20, 20);
+    gc.fillOval(180, 100, 20, 20);
+    gc.setStroke(Color.RED);
+    gc.setLineWidth(8);
+    gc.strokeLine(100, 200, 150, 220);
+    gc.strokeLine(150, 220, 200, 200);
+
+    GridPane root = new GridPane();
+    // inseriamo il nostro canvas nella finestra
+    root.add(quadro, 0, 0);
+
+    Scene scene = new Scene(root);
+    primaryStage.setTitle("Hello Canvas!");
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  }
+
+  public static void main(String[] args) {
+    launch(args);
+  }
+}</pre>
+
+<p>I <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html">GraphicsContext</a>
+ hanno molte istruzioni per disegnare diversi tipi di forme geometriche come linee, rettangoli cerchi e molte altre</p>
+
+<p>visto che ci siamo vorremmo però disegnare sullo schermo utilizzando il mouse!</p>
+<p>Non è compicatissimo, basta collegare un frammento di programma all'evento "mouse trascinato" e in quella occasione 
+leggere le coordinate in cui si trova il puntatore dle mouse e disegnare un piccolo quadrato li sotto</p>
+
+<pre>
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+public class Pittore extends Application{
+	
+    GraphicsContext gc;
+
+    @Override
+    public void start(Stage primaryStage) {
+        GridPane root = new GridPane();
+        Canvas canvas = new Canvas(300, 300);
+        gc = canvas.getGraphicsContext2D();
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> gestisciMovimento(e));
+        Button pulsante = new Button();
+        pulsante.setText("clicca qui!");
+        pulsante.setOnAction( e-> clickEffetto() );
+        root.add(canvas, 0, 0);
+        root.add(pulsante, 0, 1);
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Picasso");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+				
+    public void gestisciMovimento(MouseEvent e){
+        gc.setFill(Color.RED);
+        gc.fillRect(e.getX() - 2, e.getY() - 2, 5, 5);
+    }
+    
+    public void clickEffetto(){
+        gc.applyEffect(new GaussianBlur(20));
+    }
+    
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+</pre>
+
+<p>Nell programma che disegna è presente anche un pulsante... a cosa servirà?</p>
+
+
+<h2>Le coordinate nell'oggetto Canvas</h2>
+<p>Le coordinate funzionano come quello del piano cartesiano con alcune cose da tenere a mente:</p>
+<ul>
+	<li>L'angolo in alto a sinistra del canvas è il punto (0,0)</li>
+	<li>L'asse delle X cresce verso destra (come per il piano cartesiano usuale)</li>
+	<li>L'asse delle Y cresce verso il basso (al contrario del piano cartesiano usuale)</li>
+</ul>
+
+<p>Nel disegno qui sotto (un Canvas di dimensioni 400x300) abbiamo 2 elementi:</p>
+<ul>
+	<li>Una linea rossa che parte dal punto (0,100) e arriva al punto (400,50)</li>
+	<li>Il cerchio parte dal punto (50,0) 
+	(attenzione: non è il centro ma l'angolo in alto a sinistra del rettangolo che lo contine)
+	è largo 200 e alto 200</li>
+</ul>
+<div><img src="immagini/esempio_canvas.png" alt="Una linea e un cerchio"/></div>
+
+<pre>
+gc.setLineWidth(1);
+gc.setStroke(Color.RED);
+gc.strokeLine(0, 100, 400, 50);
+gc.setStroke(Color.GREEN);
+gc.strokeOval(50, 0, 200, 200);
+</pre>
+</article>
+</body>
+</html>

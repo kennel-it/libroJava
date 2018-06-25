@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="helloWorld" group="grafica" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>css</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>css</h1>
+<p>decorazione degli oggetti nelle finestre con i fogli di stile</p>
+</header>
+<article>
+<p>È possibile gestire alcune caratteristiche riguardo l'aspetto della finestra in un file separato. 
+Il contenuto di questo file sarà nel formato CSS, tant'è che per convenzione avrà estensione <code>css</code></p>
+
+<p>Cominciamo col creare un file css nel nostro progetto: dalla linguetta <span class="ide">Project Explorer</span> 
+che trovi a sinistra nell'ambiente di sviluppo Eclipse, srotola il progetto
+   premendo il triangolo e vedrai il nodo <span class="ide">src</span>; srotola anche questo e ritroverai 
+   i pacchetti che contengono i tuoi programmi. 
+   Click con il tasto destro nel nome del pacchetto che contiene la classe con cui vogliamo lavorare 
+   e nel menu contestuale che si è aperto seleziona la voce <span class="ide">New/Other...</span>, si aprirà un sottomenu, 
+   dal gruppo <span class="ide">Web</span> scegli <span class="ide">CSS file</span>, click su <span class="ide">Next</span>
+   e poi inserisci il nome del file. </p>
+
+<p>Per poter indicare una caratteristica (anche detta proprietà) di un dato controllo o anche un gruppo di controlli bisogna creare un legame tra tali
+controlli della finestra e le rispettive descrizioni nel file css; questo lo si può fare in due modi:</p>
+<ol>
+   <li>tramite le <em>classi</em> per definire in un colpo le proprietà di un insieme di oggetti. Un oggetto può appartenere a più classi contemporaneamente;</li>
+   <li> tramite l'<em>id</em> per definire le proprietà di un solo oggetto.</li>
+</ol>
+<p>Nel file css si adotta la sintassi di sempre; in particolare se il nome della classe o dell'id è composto da più parole, si inserisce tra queste il trattino
+   (<code>-</code>) senza spazi e non la maiuscola come nei programmi Java. Quindi ad esempio</p>
+<pre>.nome-classe {proprietà1: <var>valore</var>;
+              proprietà2: <var>valore</var>;
+              ...}
+#codice-id {proprietà1: <var>valore</var>;
+            proprietà2: <var>valore</var>;
+            ...}</pre>
+
+<!--ToDo Patrizio: descendant classes-->
+
+<p>Nel file java devi indicare a quali classi appartiene ciascun oggetto della finestra di cui si vuole specificare le proprietà nel css tramite il metodo
+<code><var>nomeOggetto</var>.getStyleClass().add("<var>nome-classe</var>")</code> oppure devi specificare qual è l'identificativo del controllo in questione
+tramite il metodo<code><var>nomeOggetto</var>.setId("<var>codice-id</var>")</code>.</p>
+
+<p>Per fare in modo che il foglio di stile venga associato alla finestra basterà aggiungere la 
+seguente riga nel costruttore della classe:</p>
+
+<pre>scene.getStylesheets().add("nomeCartella/nomeFile.css");</pre>
+
+<p>In genere il <code>nomeCartella</code> appena sopra indicato corrisponde al percorso delle cartelle corrispondenti al package. Se per esempio abbiamo
+realizzato il package it.aspix.esempio, scriveremo: <code>scene.getStylesheets().add("it/aspix/esempio/nomeFile.css");</code></p>
+
+<h2>I colori</h2>
+<p>Esistono alcuni modi per indicare i colori. Tutte le volte che troverai la dicitura <code><var>colore</var></code>, potrai applicare a tua scelta una di
+   queste possibilità:</p>
+<ul>
+    <li><code><var>nomeLetterale</var></code> usa la parola inglese che indica il colore che vuoi (es.: , <code><var>purple</var></code>, <code><var>brown</var></code>);</li>
+    <li><code>#<var>codiceEsadecimale</var></code> sono 3 coppie di cifre esadecimali: una per la componente di rosso, una per la verde ed una per la blu;</li>
+    <li><code>rgb(<var>rosso</var>, <var>verde</var>, <var>blu</var>)</code> per fare una tinta con le componenti in decimale;</li>
+    <li><code>linear-gradient(<var>colore1</var>, <var>colore2</var>)</code> per fare una sfumatura dal primo al secondo colore. Se vuoi puoi aggiungere
+        un'altra componente per fare una sfumatura tra 3 colori.</li>
+</ul>
+<h2>Gli attributi</h2>
+<p>Possono essere usati molti degli attributi (sopra indicati come <i>proprietà</i>)dei fogli di stile, i rispettivi nomi devono però avere il prefisso "-fx-", 
+questi sono alcuni attributi utili:</p>
+<dl>
+  <dt>-fx-font-family</dt>
+  <dd>Nome del carattere che si vuole, ad esempio Arial, "Times New Roman"</dd>
+  <dt>-fx-font-weight</dt>
+  <dd>Regola il peso ossia lo spessore del tratto che disegna il carattere. Puoi usare una tra le seguenti possibilità:<br/>
+      <code>lighter</code> | <code>normal</code> | <code>bold</code> | <code>bolder</code> | <code>100</code> | <code>200</code> | <code>300</code> |
+      <code>400</code> | <code>500</code> | <code>600</code> | <code>700</code> | <code>800</code> | <code>900</code></dd>
+  <dt>-fx-font-size</dt>
+  <dd>Imposta la misura del carattere. Può essere impostata in <code>px</code> (pixel) o in <code>pt</code> (punti (tipografici)). L'ambiente Java assume
+      che il dispositivo abbia una risoluzione di 96 dpi (punti per pollice).</dd>
+  <dt>-fx-font-style</dt>
+  <dd>Ti permette di fare il carattere normale (<code>normal</code>), corsivo (<code>italic</code>) o inclinato (<code>oblique</code>)</dd>
+  <dt>-fx-font</dt>
+  <dd>Contiene tutti i precedenti attributi riguardanti i font. Si può descrivere quindi l'aspetto molto più velocemente. Un esempio:<br/>
+      <code>-fx-font: italic bold 16pt "Arial Black";</code></dd>
+  <dt>-fx-background-color</dt>
+  <dd>Esprime il colore dello sfondo</dd>
+  <dt>-fx-text-fill</dt>
+  <dd>Esprime il colore del testo.</dd>
+  <dt>-fx-background-image</dt>
+  <dd>Esprime un'immagine di sfondo. L'immagine la copiamo all'interno della cartella dei sorgenti (<em>src</em>) del progetto che stiamo costruendo. Nel foglio
+      di stile inseriremo poi la funzione <code>url("<var>nomeFile</var>");</code>.</dd>
+  <dt>-fx-background-repeat</dt>
+  <dd>Se l'immagine di sfondo è più stretta e/o più bassa del controllo nel quale viene inserita, bisogna indicare se va ripetuta orizzontalmente e/o
+      verticalmente in modo da riempire l'area. Le possibilità sono: <code>no-repeat</code> per non ripetere né orizzontalmente né verticalmente;<br/>
+      <code>repeat-x</code> ripete solo orizzontalmente in modo da riempire una riga alta quanto l'immagine;<br/>
+      <code>repeat-y</code> ripete solo verticalmente in modo da riempire una colonna larga quanto l'immagine;<br/>
+      <code>repeat</code> è il valore predefinito; ripete sia in orizzontale che in verticale.</dd>
+  <dt>-fx-background-radius</dt>
+  <dd>arrotonda i bordi del controllo.</dd>
+  <dt>-fx-padding</dt>
+  <dd>Imposta la spaziatura intorno al controllo tramite 4 valori numerici separati da spazio per indicare rispettivamente lo spazio sopra a destra in basso e a
+      sinistra.</dd>
+  <dt>-fx-hgap</dt>
+  <dd>Imposta la spaziatura orizzontale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola.</dd>
+  <dt>-fx-vgap</dt>
+  <dd>Imposta la spaziatura verticale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola.</dd>
+</dl>
+</article>
+</body>
+</html>
