@@ -3,6 +3,7 @@
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="interpreti" group="infrastruttura" -->
 <!-- changelog 2017-09-20 inserita bozza iniziale del capitolo -->
+<!-- changelog 2018-06-21 prima bozza per jshell -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -55,6 +56,17 @@ soltanto il nome.</p>
 
 <pre>java Saluto</pre>
 <p>In questo caso l'ouput del programma compare direttamente nel terminale.</p>
+
+<h2>jshell</h2>
+<p><code>jshell</code> è un programma che ci permette di provare "al volo" piccole parti di codice java
+senza dover scrivere tutto il programma... anche una singola espressione!</p>
+<p>Per poterlo usare basta aprire una shell (cmd su Windows o un terminale qualsiasi su Linux/maxOS)
+e scrivere jshell</p> 
+<p>il programma presenta un prompt <code>jshell&gt;</code> che ci permetterà di inserire delle parti
+di codice che verranno compilate ed interpretate al volo. Possiamo ad esempio scrivere 
+<code>10/3</code> e vedere quale è il risultato.<br/>
+Se è la prima operazione che facciamo comparirà <code>$2 ==&gt; 3</code>... potremmo continuare
+scrivendo <code>$2*4</code> oppure scrivendo <code>String x</code> e poi<code>x="ciao"+"mondo"</code>.</p>
 </article>
 </body>
 </html>
