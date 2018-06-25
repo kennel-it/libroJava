@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="condizionale ripetizione booleani while" group="base" -->
 <!-- changelog 2017-09-05 corretti diversi errori nel ciclo for -->
 <!-- changelog 2018-04-17 maggiori dettagli per il condizionale -->
@@ -19,9 +18,6 @@
 		<style type="text/css">
 			.stack { border:3px solid #ddd ; margin-top:0em}
 	
-			.programma { font-family: Courier; background-color: #eee; padding:1em }
-			.programma div { padding-top:0.25em }
-			.programma .esecuzione { background-color:yellow }
 			.i1 { padding-left:0em }
 			.i2 { padding-left:2em }
 			
@@ -195,11 +191,11 @@ dopo l'altra.</p>
 	</div>
 	<div>
 		<h3>codice</h3>
-		<div class="programma">
-			<div class="i1"><span id="seq_10">x =10;</span></div>
-			<div class="i1"><span id="seq_11">y = x+4;</span></div>
-			<div class="i1"><span id="seq_12">y++;</span></div>
-		</div>
+<pre>
+<code class="i1"><span id="seq_10">x =10;</span></code>
+<code class="i1"><span id="seq_11">y = x+4;</span></code>
+<code class="i1"><span id="seq_12">y++;</span></code>
+</pre>
 	</div>
 </div>
 
@@ -230,13 +226,13 @@ anche se ho una sola istruzione).</p>
 	</div>
 	<div>
 		<h3>codice</h3>
-		<div class="programma">
-			<div class="i1"><span id="condizionalei_10">x = 12;</span></div>
-			<div class="i1"><span id="condizionalei_11">y = 1;</span></div>
-			<div class="i1"><span id="condizionalei_12">if( x &lt; 8){</span></div>
-			<div class="i2"><span id="condizionalei_13">y = x+4;</span></div>
-			<div class="i1"><span                     >}</span></div>
-		</div>
+<pre>
+<code class="i1"><span id="condizionalei_10">x = 12;</span></code>
+<code class="i1"><span id="condizionalei_11">y = 1;</span></code>
+<code class="i1"><span id="condizionalei_12">if( x &lt; 8){</span></code>
+<code class="i2"><span id="condizionalei_13">y = x+4;</span></code>
+<code class="i1"><span                     >}</span></code>
+</pre>
 	</div>
 </div>
 
@@ -263,15 +259,15 @@ con l'istruzione successiva.</p>
 	</div>
 	<div>
 		<h3>codice</h3>
-		<div class="programma">
-			<div class="i1"><span id="condizionaleie_10">x = 12;</span></div>
-			<div class="i1"><span id="condizionaleie_11">if( x&gt; 8){</span></div>
-			<div class="i2"><span id="condizionaleie_12">y = x+4;</span></div>
-			<div class="i1"><span                     >}else{</span></div>
-			<div class="i2"><span id="condizionaleie_13">y = x-4;</span></div>
-			<div class="i1"><span                     >}</span></div>
-			<div class="i1"><span id="condizionaleie_14">y = y+1;</span></div>
-		</div>
+<pre>
+<code class="i1"><span id="condizionaleie_10">x = 12;</span></code>
+<code class="i1"><span id="condizionaleie_11">if( x&gt; 8){</span></code>
+<code class="i2"><span id="condizionaleie_12">y = x+4;</span></code>
+<code class="i1"><span                     >}else{</span></code>
+<code class="i2"><span id="condizionaleie_13">y = x-4;</span></code>
+<code class="i1"><span                     >}</span></code>
+<code class="i1"><span id="condizionaleie_14">y = y+1;</span></code>
+</pre>
 	</div>
 </div>
 
@@ -283,15 +279,15 @@ con l'istruzione successiva.</p>
 	</div>
 	<div>
 		<h3>codice</h3>
-		<div class="programma">
-			<div class="i1"><span id="condizionaleie2_10">x = 4;</span></div>
-			<div class="i1"><span id="condizionaleie2_11">if( x&gt; 8){</span></div>
-			<div class="i2"><span id="condizionaleie2_12">y = x+4;</span></div>
-			<div class="i1"><span                     >}else{</span></div>
-			<div class="i2"><span id="condizionaleie2_13">y = x-4;</span></div>
-			<div class="i1"><span                     >}</span></div>
-			<div class="i1"><span id="condizionaleie2_14">y = y+1;</span></div>
-		</div>
+<pre>
+<code class="i1"><span id="condizionaleie2_10">x = 4;</span></code>
+<code class="i1"><span id="condizionaleie2_11">if( x&gt; 8){</span></code>
+<code class="i2"><span id="condizionaleie2_12">y = x+4;</span></code>
+<code class="i1"><span                     >}else{</span></code>
+<code class="i2"><span id="condizionaleie2_13">y = x-4;</span></code>
+<code class="i1"><span                     >}</span></code>
+<code class="i1"><span id="condizionaleie2_14">y = y+1;</span></code>
+</pre>
 	</div>
 </div>
 
@@ -321,15 +317,17 @@ verificata una condizione continuerà fino alla fine dello switch e non si ferme
 	<div style="display:none"></div>
 	<div>
 		<h3>codice</h3>
-		<div class="i1">switch ( <span>x</span> ) {</div>
-		<div class="i1">case 1:</div>
-		<div class="i2">y = 10;<br/>break;</div>
-		<div class="i1">case 2:</div>
-		<div class="i1">case 3:</div>
-		<div class="i2">y = 20;<br/>break;</div>
-		<div class="i1">default:</div>
-		<div class="i2">y = 40;</div>
-		<div class="i1">}</div>
+<pre>
+<code class="i1">switch ( <span>x</span> ) {</code>
+<code class="i1">case 1:</code>
+<code class="i2">y = 10;<br/>break;</code>
+<code class="i1">case 2:</code>
+<code class="i1">case 3:</code>
+<code class="i2">y = 20;<br/>break;</code>
+<code class="i1">default:</code>
+<code class="i2">y = 40;</code>
+<code class="i1">}</code>
+</pre>
 	</div>
 </div>
 <p>Il programma qui sopra assegna il volore 10 alla variabile <var>y</var> se x=1,
@@ -358,12 +356,12 @@ Se non ci fosse stato nessun break avrebbe assegnato sempre il valore 40.</p>
 	</div>
 	<div>
 		<h3>codice</h3>
-		<div class="programma">
-			<div class="i1"><span id="for_10">j = 0;</span></div>
-			<div class="i1">for( <span id="for_11"> x=1 </span>;  <span id="for_12">x&lt;5</span>; <span id="for_13">x++</span> ){</div>
-			<div class="i2"><span id="for_14">j = j + i;</span></div>
-			<div class="i1">}</div>
-		</div>
+<pre>
+<code class="i1"><span id="for_10">j = 0;</span></code>
+<code class="i1">for( <span id="for_11"> x=1 </span>;  <span id="for_12">x&lt;5</span>; <span id="for_13">x++</span> ){</code>
+<code class="i2"><span id="for_14">j = j + i;</span></code>
+<code class="i1">}</code>
+</pre>
 	</div>
 </div>
 
@@ -388,14 +386,14 @@ Se non ci fosse stato nessun break avrebbe assegnato sempre il valore 40.</p>
 	</div>
 	<div>
 		<h3>codice</h3>
-		<div class="programma">
-			<div class="i1"><span id="while_10">y = 0;</span></div>
-			<div class="i1"><span id="while_11">x = 1;</span></div>
-			<div class="i1"><span id="while_12">while( <span id="while_13">x&lt; 4</span> ){</span></div>
-			<div class="i2"><span id="while_14">y = y+x;</span></div>
-			<div class="i2"><span id="while_15">x++;</span></div>
-			<div class="i1"><span              >}</span></div>
-		</div>
+<pre>
+<code class="i1"><span id="while_10">y = 0;</span></code>
+<code class="i1"><span id="while_11">x = 1;</span></code>
+<code class="i1"><span id="while_12">while( <span id="while_13">x&lt; 4</span> ){</span></code>
+<code class="i2"><span id="while_14">y = y+x;</span></code>
+<code class="i2"><span id="while_15">x++;</span></code>
+<code class="i1"><span              >}</span></code>
+</pre>
 	</div>
 </div>
 

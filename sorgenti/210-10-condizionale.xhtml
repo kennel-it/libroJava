@@ -27,7 +27,7 @@ il programma andrà a verificare se il pulsante di spunta è – appunto – spu
 
 <p>Il pulsante di spunta si chiama – in JavaFX – CheckBox e viene dichiarato allo 
 stesso modo degli altri oggetti grafici, quindi:</p>
-<div class="pseudo">CheckBox scontoPresente = new CheckBox();</div>
+<pre>CheckBox scontoPresente = new CheckBox();</pre>
 
 <p>Dove inserisci tale dichiarazione? Nel metodo start() o direttamente nella classe?
 Nella  classe perché con quest'oggetto il programma interagirà sia al momento della sua disposizione 
@@ -35,11 +35,11 @@ nella finestra sia nel momento in cui l'utente avvia il calcolo, quindi alla pre
 <p>Nel metodo start() inseriremo anche il testo che dovrà visualizzare in quanto per ora comparirebbe 
 il solo quadratino senza alcunché di spiegazione. La tecnica per impostare il testo di un oggetto è 
 sempre la stessa: usare il metodo setText(“testo”) che nel nostro esempio sarà:</p>
-<div class="pseudo">scontoPresente.setText(“applica sconto”);</div>
+<pre>scontoPresente.setText(“applica sconto”);</pre>
 
 <p>In alternativa potremmo usare il sistema più compatto che fa indicare il testo direttamente alla costruzione
 dell'oggetto:</p>
-<div class="pseudo">CheckBox scontoPresente = new CheckBox(“applica sconto”);</div>
+<pre>CheckBox scontoPresente = new CheckBox(“applica sconto”);</pre>
 
 <p>La funzione che andremo a scrivere non appena verrà premuto il pulsante di avvio al calcolo si 
 dovrà chiedere se c'è la spunta sullo sconto. In caso affermativo toglie il 5% dalla quantità indicata 

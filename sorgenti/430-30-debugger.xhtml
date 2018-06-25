@@ -18,23 +18,6 @@
 <p>Capita (piuttosto spesso) che il programma che abbiamo scritto non calcoli ciò che vogliamo, 
 in questo caso gli ambienti di sviluppo ci aiutano permettendoci di eseguire passo passo il
 programma con uno strumento chiamato debugger.</p> 
-<h2>sysout</h2>
-<p>Prima però facciamo un piccolo passo indietro... a volte non serve di dover usare uno strumento
-articolato come il debugger ma semplicemente quello che vogliamo e sapere quali sono i vaolori 
-intermedi che il programma calcola: in questo caso fa comodo semplicemente stampare il valore 
-per poterlo vedere. <code>System.out.println("testo")</code> è tutto quello che serve, l'output
-comparirà nel pannello console (solitamente presente nella parte bassa della finestra di eclipse).</p>
-<p>Ad esempio il seguente programma calcola la somma dei primi 10 numeri e stampa il risultato
-nella casella <var>risposta</var>... passo passo però stampa la somma sulla console.</p>
-<pre>
-int somma = 0;
-for(int i=0; i&lt;10; i++){
-    somma += i;
-    <em>System.out.println("i="+i+"   e somma="+somma)</em>;
-}
-risposta.setText(""+somma);
-</pre>
-<h2>debugger</h2>
 <p style="text-align:center"><img src="immagini/debugger_1.png" alt="schermata eclipse sorgente"/></p>
 <p>Nel caso di eclipse per attivare il debugger si può procedere in questo modo:
 prima di tutto diciamo dove il programma deve interrompere la sua esecuzione

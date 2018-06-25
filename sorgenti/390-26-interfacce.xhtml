@@ -28,7 +28,7 @@ che contenga sia le squadre che gli atleti:
 non mi interessa distinguere tra i due in questo contesto.</p>
 
 <p>Proviamo a fare così: creo una classe InterfacciaRubrica con due metodi:</p>
-<pre class="prog">
+<pre>
 class InterfacciaRubrica {
 	/* altri metodi e variabili */
     void visualizzaSquadra(Squadra s){
@@ -96,7 +96,7 @@ public class Atleta <em>implements</em> ElementoRubrica {
 <p>Il vantaggio a questo punto è questo: nella mia classe InterfacciaRubrica
 posso ignorare quale oggetto particolare devo visualizzare, mi interessa soltanto
 che implementi l'opportuna interfaccia <code>ElementoRubrica</code>.</p>
-<pre class="prog">
+<pre>
 class InterfacciaRubrica {
 	/* altri metodi e variabili */
     void visualizzaSquadra(ElementoRubrica e){

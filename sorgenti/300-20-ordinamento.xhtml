@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="vettore" group="algoritmiStruttureDati" -->
 <!-- changelog 2018-03-23 inserita bozza di spiegazione per bubble sort -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,9 +13,6 @@
 <style type="text/css">
 	#stack { border:3px solid #ddd ; margin-top:0em}
 	
-	.programma { font-family: Courier; background-color: #eee; padding:1em }
-	.programma div { padding-top:0.25em }
-	.programma .esecuzione { background-color:yellow }
 	 /* indentazione del programma */
 	.i1 { padding-left:1em }
 	.i2 { padding-left:2em }
@@ -117,17 +113,17 @@ ciclo: superficie da 0 a lunghezza(a)-2
 </div>
 <h2>Visualizzazione variabili <small>[istruzioni eseguite:<span id="pc1"></span></small>]</h2>
 <div id="stack"></div>
-<div class="programma">
-<div class="i1"><span id="lin_10">for(superficie=primo;superficie&lt;=ultimo-1;superficie=superficie+1){</span></div>
-<div class="i2"><span id="lin_15">  for(posizione=ultimo-1;posizione&gt;=superficie;posizione--){</span></div>
-<div class="i3"><span id="lin_16">    if(v[posizione]>v[posizione+1]){</span></div>
-<div class="i4"><span id="lin_17">      appoggio=v[posizione];</span></div>
-<div class="i4"><span id="lin_18">      v[posizione]=v[posizione+1];</span></div>
-<div class="i4"><span id="lin_19">      v[posizione+1]=appoggio;</span></div>
-<div class="i3"><span id="lin_20">    }</span></div>
-<div class="i2"><span id="lin_21">  }</span></div>
-<div class="i1"><span id="lin_22">}</span></div>
-</div>
+<pre>
+<code class="i1"><span id="lin_10">for(superficie=primo;superficie&lt;=ultimo-1;superficie=superficie+1){</span></code>
+<code class="i2"><span id="lin_15">  for(posizione=ultimo-1;posizione&gt;=superficie;posizione--){</span></code>
+<code class="i3"><span id="lin_16">    if(v[posizione]>v[posizione+1]){</span></code>
+<code class="i4"><span id="lin_17">      appoggio=v[posizione];</span></code>
+<code class="i4"><span id="lin_18">      v[posizione]=v[posizione+1];</span></code>
+<code class="i4"><span id="lin_19">      v[posizione+1]=appoggio;</span></code>
+<code class="i3"><span id="lin_20">    }</span></code>
+<code class="i2"><span id="lin_21">  }</span></code>
+<code class="i1"><span id="lin_22">}</span></code>
+</pre>
 
 <h2>Proviamo il programma</h2>
 <p>Per provare il programma ci serve una interfaccia grafica che permetta di inserire una serie di numeri.</p>

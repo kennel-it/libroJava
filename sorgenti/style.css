@@ -1,64 +1,125 @@
-.FIXME {background-color: yellow; color:red; padding:1em}
-
 * {
-  box-sizing:border-box;
+    /* colori di base delle sezioni */
+    --colore-sfondo-noGroup: #b0bec5; /* blue grey 200 */
+    --colore-sfondo-infrastruttura: #90caf9; /* blue 200 */
+    --colore-sfondo-base: #7cb342 ; /* Light Green 600 */
+    --colore-sfondo-grafica: #ffee58 ; /* yellow 400 */
+    --colore-sfondo-file: #f8bbd0 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati: #a1887f ; /* brown 300 */
+    /* i relativi light */
+    --colore-sfondo-noGroup-chiaro: #e2f1f8; /* blue grey 200 */
+    --colore-sfondo-infrastruttura-chiaro: #c3fdff; /* blue 200 */
+    --colore-sfondo-base-chiaro: #aee571 ; /* Light Green 600 */
+    --colore-sfondo-grafica-chiaro: #ffff8b ; /* yellow 400 */
+    --colore-sfondo-file-chiaro: #ffc1e3 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati-chiaro: #d3b8ae ; /* brown 300 */
+    /* i relativi dark */
+    --colore-sfondo-noGroup-scuro: #808e95; /* blue grey 200 */
+    --colore-sfondo-infrastruttura-scuro: #5d99c6; /* blue 200 */
+    --colore-sfondo-base-scuro: #4b830d ; /* Light Green 600 ======= */
+    --colore-sfondo-grafica-scuro: #c9bc1f ; /* yellow 400 */
+    --colore-sfondo-file-scuro: #bf5f82 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati-scuro: #725b53 ; /* brown 300 ======= */
 }
-	
-body {
-	font-family: Verdana, sans-serif;
-	margin:0em;
+* {
+    box-sizing:border-box;
+    --colore-primario: #2e7d32; /* green 600 */
+    --colore-primario-chiaro: #76d275; /* light di green 600 */
+    --colore-primario-scuro: #00701a; /* dark di green 600 */
+    --colore-primario-testo: #ffffff;
+    --colore-primario-chiaro-testo: #000000;
+    --colore-secondario: #f57c00; /* orange 700 */
+    --colore-secondario-testo: #000000; 
 }
 
-header {
-	margin:0 ; padding:0;
+body    { font-family: Verdana, sans-serif; margin:0em }
+/* ------------------------------------------- header ------------------------------------------ */
+body.noGroup                 header { background-color: var(--colore-sfondo-noGroup) }
+body.infrastruttura          header { background-color: var(--colore-sfondo-infrastruttura) }
+body.base                    header { background-color: var(--colore-sfondo-base) }
+body.grafica                 header { background-color: var(--colore-sfondo-grafica) }
+body.file                    header { background-color: var(--colore-sfondo-file) }
+body.algoritmiStruttureDati  header { background-color: var(--colore-sfondo-algoritmiStruttureDati) }
+header  { 	margin:0 ; padding:0 }
+header h1 { margin:0 ; padding:2rem 3em 0.5rem 3em ; text-align: center }
+header p  { margin:0 ; padding: 0.5rem 1rem 2rem 1rem ; text-align: center }
+/* -------------------------- precedente - indice - successiva --------------------------------- */
+body.noGroup                 nav { background-color: var(--colore-sfondo-noGroup-chiaro) }
+body.infrastruttura          nav { background-color: var(--colore-sfondo-infrastruttura-chiaro) }
+body.base                    nav { background-color: var(--colore-sfondo-base-chiaro) }
+body.grafica                 nav { background-color: var(--colore-sfondo-grafica-chiaro) }
+body.file                    nav { background-color: var(--colore-sfondo-file-chiaro) }
+body.algoritmiStruttureDati  nav { background-color: var(--colore-sfondo-algoritmiStruttureDati-chiaro) }
+nav {
+	margin:0; padding: 1rem;
+	display: flex; flex-direction: row 
+} 
+body.noGroup                 nav > * { background-color: var(--colore-sfondo-noGroup-scuro) }
+body.infrastruttura          nav > * { background-color: var(--colore-sfondo-infrastruttura-scuro) }
+body.base                    nav > * { background-color: var(--colore-sfondo-base-scuro) }
+body.grafica                 nav > * { background-color: var(--colore-sfondo-grafica-scuro) }
+body.file                    nav > * { background-color: var(--colore-sfondo-file-scuro) }
+body.algoritmiStruttureDati  nav > * { background-color: var(--colore-sfondo-algoritmiStruttureDati-scuro) }
+nav > * {
+    flex-grow: 1;
+    text-align:center; text-decoration: none;
+    margin:0em 1em; padding:0.5em; 
+    background-color: var(--colore-primario); color: var(--colore-primario-testo);
 }
-
-header h1 {
-	text-align: center; 
-	padding:1em ; margin:0px; 
-	text-shadow: -1px -1px white ,1px -1px white , 1px 1px white, -1px 1px white;
-	background-color: rgba(240,240,240,0.8)
-}
-
-header p {
-	margin-top:0;
-	padding:0.25em 0em ;
-	text-align: center;
-	background-color: rgba(240,240,240,0.9)
-}
-
-#toc { margin:0em 2em }
-#toc img { height: 16px }
 
 article { margin:1em 5% ; padding-bottom:3em}
-
-h2 { text-align: left 
-	margin-top:3em;
-	border-bottom:1px dashed #444; 
+h2 { 
+	text-align: left;
+    margin-top:3em;
+    border-bottom:1px dashed #444; 
 }
 
-h3 { text-align: left 
-	margin-top:2em;
-	border-bottom:1px dotted #999; 
+h3 { 
+    text-align: left; 
+    margin-top:2em;
+    border-bottom:1px dotted #999; 
 }
-
 p {
-	text-align: justify;
-	line-height: 1.5em;
-	text-indent: 2em;
+    text-align: justify;
+    line-height: 1.5em;
+    text-indent: 2em;
+}
+/* ------------------------------------ codice sorgente ---------------------------------------- */
+pre, div.pseudo {
+    padding: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    white-space: pre;
+    font-family: monospace;
+    font-size: 115%;
+    line-height: 100%;
+    overflow: scroll;
+    background-color: #eee;
+    clear: both;
+}
+pre code { white-space: pre; display: inline-block; padding:2px;width: 100%}
+pre .esecuzione { background-color:yellow }
+div.pseudo {
+    /* FIXME: andrebbe messo un colore per distinguere */
+    background-color: #eef;
+}
+code { 
+    font-size: 125%;
+    color: #700;
+    padding-left:0.25em; padding-right:0.25em;
+    white-space: nowrap; 
+    word-wrap: normal;
+    overflow-wrap: normal;
 }
 
-/* FIXME: c'è un div.prog nel capitolo 090-30, 120-20, 120-40, 210-50, 270-30, 300-20 */
-div.prog, div.pseudo, pre {
-	padding: 0.5em;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	white-space: pre;
-	font-family: monospace;
-	font-size: 115%;
-	line-height: 100%;
-	overflow: scroll;
-}
+
+
+
+.FIXME { background-color: yellow; color:red; padding:1em }
+
+nav#toc { margin:0em 2em ; background-color: white }
+nav#toc > * { text-align:left ; background-color: white; color:black }
+
 
 dfn {
 	/* FIXME: trovare una palette decorosa */
@@ -67,39 +128,9 @@ dfn {
 	padding: 0.5em;
 }
 
-div.prog, pre {
-	background-color: #eee;
-	clear: both;
-}
-
-div.pseudo {
-	/* FIXME: andrebbe messo un colore per distinguere */
-}
-
 /* deve stare dopo div.prog per impostare il colore dello sfondo */
 div.errore{
 	background-color: #ffcccc;
-}
-
-div.prog div {
-	white-space: pre;
-}
-
-div.prog .evidenza {
-	background-color: #ffd
-}
-
-div.pseudo {
-	background-color: #eef;
-}
-
-code { 
-	font-size: 125%;
-	color: #700;
-	padding-left:0.25em; padding-right:0.25em;
-	white-space: nowrap; 
-	word-wrap: normal;
-	overflow-wrap: normal;
 }
 
 em {
@@ -230,18 +261,3 @@ div.suggerimentoProgramma {
 .IDE_inutile { display: none }
 
 .ide { font-family: Courier, monospaced }
-
-nav#top {
-    display: flex;
-    flex-direction: row;
-} 
-
-nav#top > * {
-	flex-grow: 1;
-	text-align:center;
-	background-color: #d9f1c6;
-	padding:0.5em;
-	margin:0em 1em;
-	text-decoration: none;
-	color: black;
-}
