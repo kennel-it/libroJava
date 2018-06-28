@@ -1,10 +1,10 @@
 function giusta(obj){
-        obj.style.backgroundColor="#88ff88";
-        obj.className = obj.className + " spiega";
+        obj.classList.add("spiega");
+        obj.classList.add("rispostaGiusta");
 }
 function sbagliata(obj){
-        obj.style.backgroundColor="#ff0000";
-        obj.className = obj.className + " spiega";
+        obj.classList.add("spiega");
+        obj.classList.add("rispostaSbagliata");
 }
 function sistemaIde(){
 	var nome=localStorage.getItem("ide");

@@ -23,12 +23,15 @@
 }
 * {
     box-sizing:border-box;
-    --colore-primario: #2e7d32; /* green 600 */
-    --colore-primario-chiaro: #76d275; /* light di green 600 */
-    --colore-primario-scuro: #00701a; /* dark di green 600 */
-    --colore-primario-testo: #ffffff;
+    --colore-primario: #ffab40; /* orange A700 */
+    --colore-primario-chiaro: #ffdd71; /* light di orange A700 */
+    --colore-primario-scuro: #c77c02; /* dark di orange A700 */
+    --colore-primario-testo: #000000;
     --colore-primario-chiaro-testo: #000000;
-    --colore-secondario: #f57c00; /* orange 700 */
+    --colore-primario-scuro-testo: #000000;
+    
+    --colore-secondario: #f48fb1; /* pink 200 */
+    --colore-secondario-scuro: #bf5f82; /* dark di pink 200 */
     --colore-secondario-testo: #000000; 
 }
 
@@ -40,7 +43,7 @@ body.base                    header { background-color: var(--colore-sfondo-base
 body.grafica                 header { background-color: var(--colore-sfondo-grafica) }
 body.file                    header { background-color: var(--colore-sfondo-file) }
 body.algoritmiStruttureDati  header { background-color: var(--colore-sfondo-algoritmiStruttureDati) }
-header  { 	margin:0 ; padding:0 }
+header    { margin:0 ; padding:0 }
 header h1 { margin:0 ; padding:2rem 3em 0.5rem 3em ; text-align: center }
 header p  { margin:0 ; padding: 0.5rem 1rem 2rem 1rem ; text-align: center }
 /* -------------------------- precedente - indice - successiva --------------------------------- */
@@ -53,7 +56,8 @@ body.algoritmiStruttureDati  nav { background-color: var(--colore-sfondo-algorit
 nav {
 	margin:0; padding: 1rem;
 	display: flex; flex-direction: row 
-} 
+}
+nav a { color: black} 
 body.noGroup                 nav > * { background-color: var(--colore-sfondo-noGroup-scuro) }
 body.infrastruttura          nav > * { background-color: var(--colore-sfondo-infrastruttura-scuro) }
 body.base                    nav > * { background-color: var(--colore-sfondo-base-scuro) }
@@ -64,7 +68,6 @@ nav > * {
     flex-grow: 1;
     text-align:center; text-decoration: none;
     margin:0em 1em; padding:0.5em; 
-    background-color: var(--colore-primario); color: var(--colore-primario-testo);
 }
 
 article { margin:1em 5% ; padding-bottom:3em}
@@ -73,7 +76,6 @@ h2 {
     margin-top:3em;
     border-bottom:1px dashed #444; 
 }
-
 h3 { 
     text-align: left; 
     margin-top:2em;
@@ -84,6 +86,17 @@ p {
     line-height: 1.5em;
     text-indent: 2em;
 }
+em {
+    font-style: normal; font-weight: bold; color: var(--colore-primario-scuro) ;
+}
+dfn {
+	display: block;
+    padding: 0.75em;
+    background-color: var(--colore-primario); color: var(--colore-primario-testo);
+    border-top: 0.5em solid var(--colore-primario-scuro) 
+}
+dfn em { color: var(--colore-primario-testo) }
+img.screen_shot { border:1px solid gray; margin: 0.5em }
 /* ------------------------------------ codice sorgente ---------------------------------------- */
 pre, div.pseudo {
     padding: 0.5em;
@@ -111,153 +124,74 @@ code {
     word-wrap: normal;
     overflow-wrap: normal;
 }
-
-
+li { margin-top:0.2em }
+li a { padding: 0.35em ; display:inline-block; color:black ; width:100% }
+li a strong { font-size:110% }
+dt { font-weight: bold }
+/* --------------------------------------- i test ---------------------------------------------- */
+.test {
+	padding: 1em;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    background-color: var(--colore-primario-chiaro);
+    border-top: 0.5rem solid var(--colore-primario);
+}
+.test p {
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+}
+.test a {
+    display: inline-table;
+    margin: 0.5em; 
+    padding: 0.25em;
+    background-color: var(--colore-primario); color: var(--colore-primario-testo);
+}
+.test a span.spiegazione { display:none ; font-size:85% }
+.test a span.spiegazione:before { content: " (" }
+.test a span.spiegazione:AFTER  { content: ")"  }
+.test a.spiega span.spiegazione { display:inline }
+.test .rispostaGiusta { background-color: lime }
+.test .rispostaSbagliata { background-color: red }
+/* -------------------------------------- gli esercizi ----------------------------------------- */
+.esercizio {
+    margin-top:4em;
+    padding: 0.5rem;
+    background-color: var(--colore-primario-chiaro); color: var(--colore-primario-chiaro-testo);
+}
+.esercizio + .esercizio { margin-top:1em }
+.esercizio p { margin:0 }
+.esercizio h3, .esercizio h1 { margin-top:0; margin-bottom:0 }
+body {
+    counter-reset: section;           /* Set the section counter to 0 */
+}
+div.esercizio:before {
+    counter-increment: section;      /* Increment the section counter */
+    content: "esercizio " counter(section); /* Display the counter */
+    font-size:85%; color: #888;
+    display: block;
+    margin:-0.5rem -0.5rem 0.5rem -0.5rem;
+    background-color: red;
+    padding: 0.25rem;
+    background-color: var(--colore-primario); color: var(--colore-primario-testo);
+}
+/* -------------------------------------- i box a lato ----------------------------------------- */
+div.curiosita, div.suggerimento {
+    float:right; clear:both; width:25%; font-size:85% ;
+    padding:1em ; margin: 1em 0em 1em 2em ; 
+    text-align: left;
+    background-color: var(--colore-secondario); color: var(--colore-secondario-testo);
+}
+div.suggerimento {    
+    white-space: normal !important;
+    overflow:auto; 
+    border-top: 0.5rem solid var(--colore-secondario-scuro);
+}
 
 
 .FIXME { background-color: yellow; color:red; padding:1em }
 
-nav#toc { margin:0em 2em ; background-color: white }
-nav#toc > * { text-align:left ; background-color: white; color:black }
-
-
-dfn {
-	/* FIXME: trovare una palette decorosa */
-	background-color: orange;
-	display: block;
-	padding: 0.5em;
-}
-
-/* deve stare dopo div.prog per impostare il colore dello sfondo */
-div.errore{
-	background-color: #ffcccc;
-}
-
-em {
-	font-style: normal; font-weight: bold; color: #9c0f16;
-}
-
-body#titlepage {
-	text-align: center;
-}
-
-li { margin-top:0.2em }
-li a {padding: 0.35em ; display:inline-block; color:black ; width:100%}
-li a strong { font-size:110% }
-
-h2 { 
-    text-align: left;
-    margin-top:2em;
-    margin-bottom:0.25em
-}
-
-dt {
-	font-weight: bold;
-}
-
-img.screen_shot {
-	border:1px solid gray;
-	margin: 0.5em;
-}
-
-/* esercizi e test */
-.test {
-	background-color: #dce3f9;
-	border: 1px dashed gray;
-	padding: 1em;
-	margin-top:0.5em;
-	margin-bottom:0.5em;
-}
-
-.test p {
-	margin: 0em;
-	padding: 0em;
-	text-indent: 0em;
-}
-
-.test a {
-	display: inline-table;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em; 
-	padding: 0.25em;
-	border:1px solid #aaa;
-	background-color: #eee;
-}
-
-.test a span.spiegazione{
-	display:none ; font-size:85%
-}
-
-.test a span.spiegazione:before {
-	content: " (";
-}
-
-.test a span.spiegazione:AFTER {
-	content: ")";
-}
-
-.test a.spiega span.spiegazione{
-	display:inline
-}
-
-.esercizio {
-	margin-top:4em;
-	border: 2px dashed gray;
-	padding: 0.5em;
-}
-
-.esercizio + .esercizio {
-    margin-top:1em;
-}
-
-.esercizio p {
-	margin:0px;
-}
-
-.esercizio h3 {
-	margin-top:0em; margin-bottom:0em;	
-}
-
-body {
-	counter-reset: section;           /* Set the section counter to 0 */
-}
-div.esercizio:before {
-	counter-increment: section;      /* Increment the section counter */
-	content: "esercizio " counter(section); /* Display the counter */
-	padding-right:1em;
-	font-size:85%; color: #888;
-}
-
-div.curiosita, div.suggerimento, div.suggerimentoProgramma {
-	float:right; clear:both; width:25%; font-size:85% ;
-	padding:1em ; margin: 1em 0em 1em 2em ; 
-	text-align: left;
-}
-
-div.curiosita {   
-	background-color: #fefae3; 
-}
-
-div.suggerimento {   
-	background-color: #c7eacb; 
-	white-space: normal !important;
-	overflow:auto; 
-}
-div.suggerimentoProgramma {   
-	background-color: #c7eacb; 
-	white-space: nowrap;
-	overflow: scroll; 
-	white-space: pre;
-}
-
-.netbeans { 
-	background-color: rgb(240,240,255);
-}
-
-.eclipse { 
-	background-color: rgb(255,240,240);
-}
-
+.netbeans { background-color: rgb(240,240,255) }
+.eclipse { background-color: rgb(255,240,240) }
 .IDE_inutile { display: none }
-
 .ide { font-family: Courier, monospaced }
