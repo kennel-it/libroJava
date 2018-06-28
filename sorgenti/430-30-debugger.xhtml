@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="numeri" group="infrastruttura" -->
+<!-- changelog 2018-06-27 inserita parte sull'uso di system.out.println per il debug -->
+<!-- changelog 2018-06-27 inserita parte per la lettura dello stack trace -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -12,12 +14,98 @@
 <body>
 <header>
 <h1>debugger</h1>
-<p>seguire passo passo l'esecuzione di un programma</p>
+<p>trovare gli errori in un programma</p>
 </header>
 <article>
-<p>Capita (piuttosto spesso) che il programma che abbiamo scritto non calcoli ciò che vogliamo, 
-in questo caso gli ambienti di sviluppo ci aiutano permettendoci di eseguire passo passo il
-programma con uno strumento chiamato debugger.</p> 
+<p>Purtroppo raramente i programmi sono perfetti... almeno alla prima stesura.
+Abbiamo però alcuni modi per trovare cosa non va.</p>
+<h2>Stack trace</h2>
+<p>La rima opportunità è a costo zero: in caso di errore basta leggere con un po' di attenzione
+quello che compare nelle console in caso di errore, non serve farsi impessionare
+dal numero di righe, è piuttosto semplice trovare dove sta il problema.
+Vediamo ad esempio l'output qui sotto:</p>
+<pre>
+Exception in thread "JavaFX Application Thread" <em>java.lang.ArithmeticException: / by zero</em>
+    at <em>it.aspix.librojava.DebuggerEsercizio2.prova(DebuggerEsercizio2.java:32)</em>
+    at it.aspix.librojava.DebuggerEsercizio2.lambda$0(DebuggerEsercizio2.java:22)
+    at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+    at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:238)
+    at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+    at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+    at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+    at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+    at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+    at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+    at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+    at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+    at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+    at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+    at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+    at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8865)
+    at javafx.controls/javafx.scene.control.Button.fire(Button.java:200)
+    at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:206)
+    at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+    at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:218)
+    at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+    at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:238)
+    at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+    at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+    at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+    at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+    at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+    at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+    at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+    at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+    at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+    at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+    at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+    at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3876)
+    at javafx.graphics/javafx.scene.Scene$MouseHandler.access$1300(Scene.java:3604)
+    at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1874)
+    at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2613)
+    at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:397)
+    at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:295)
+    at java.base/java.security.AccessController.doPrivileged(Native Method)
+    at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:434)
+    at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:389)
+    at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:433)
+    at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:556)
+    at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:942)
+    at javafx.graphics/com.sun.glass.ui.mac.MacView.notifyMouse(MacView.java:127)
+</pre>
+<p>Le informazioni che ci interessano sono due:</p>
+<dl>
+<dt>l'eccezione</dt>
+<dd>è la prima riga, il nome stesso dell'eccezione è indicativo (nell'esempio <code>java.lang.ArithmeticException</code>
+ci fa capire che si tratta di un qualche tipo di problema di calcolo) e la sua descrizione che viene dopo i ":" 
+lo è ancora di più (nell'esempio il programma ha eseguito una divisione per zero).</dd>
+<dt>la riga che ha causato errore</dt>
+<dd>questa potrebbe essere meno ovvia da trovare:
+partendo dall'altro la prima riga che riguarda il nostro programma (dopo <code>at</code> 
+c'è il nome del pacchetto e della classe) è quella da guardare, non è detto che sia la prima.
+Da questa riga possiamo vedere in quale pacchetto sta la classe con l'errore e il
+numero di riga dove ci sono stati problemi.</dd>
+</dl>
+
+<h2>sysout</h2>
+<p>Prima però facciamo un piccolo passo indietro... a volte non serve di dover usare uno strumento
+articolato come il debugger ma semplicemente quello che vogliamo e sapere quali sono i vaolori 
+intermedi che il programma calcola: in questo caso fa comodo semplicemente stampare il valore 
+per poterlo vedere. <code>System.out.println("testo")</code> è tutto quello che serve, l'output
+comparirà nel pannello console (solitamente presente nella parte bassa della finestra di eclipse).</p>
+<p>Ad esempio il seguente programma calcola la somma dei primi 10 numeri e stampa il risultato
+nella casella <var>risposta</var>... passo passo però stampa la somma sulla console.</p>
+<pre>
+int somma = 0;
+for(int i=0; i&lt;10; i++){
+    somma += i;
+    <em>System.out.println("i="+i+"   e somma="+somma)</em>;
+}
+risposta.setText(""+somma);
+</pre>
+<h2>debugger</h2>
+<p>Per le situazioni più complicate gli ambienti di sviluppo ci aiutano 
+permettendoci di eseguire passo passo il programma con uno strumento chiamato debugger.</p>
 <p style="text-align:center"><img src="immagini/debugger_1.png" alt="schermata eclipse sorgente"/></p>
 <p>Nel caso di eclipse per attivare il debugger si può procedere in questo modo:
 prima di tutto diciamo dove il programma deve interrompere la sua esecuzione
