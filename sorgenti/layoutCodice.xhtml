@@ -2,10 +2,19 @@
 <!DOCTYPE html>
 <!-- e-pub infrastructure: opf:properties="scripted" TOC:type="toc" order="A00" useInIndex="false" -->
 <!-- grafoIndice requires="" -->
+<!-- changelog 2018-06-30 inseriti esempi giusto/sbagliato -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>layout codicee</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>     
+        <style type="text/css">
+            div.giustoSbagliato {
+                display: grid;
+                grid-template-columns: 50% 50%;
+            }
+            div pre { overflow: auto }
+            h2 {font-size: 1rem; font-weight:normal; margin-bottom:0}
+        </style>
     </head>
     <body>
     	<header>        
@@ -17,18 +26,116 @@
     	<p>Alcune semplici regole aiutano a scrivere codice comprensibile a tutti (noi compresi).</p>
     	<p>con <em>camelCase</em> si intende la tecnica di scrivere più
     	nomi attaccati mettendo in maiuscola soltanto l'iniziale di ogni parola</p> 
-    	<ul>
-    		<li>i condizionali e i cicli devono avere il corpo racchiuso tra graffe</li>
-    		<li>la graffa viene aperta alla destra dell'istruzione a cui attiene (e non a capo)</li>
-    		<li>la graffa chiusa sta sulla stessa colonna del primo carattere dell'istruzione aperta a cui attiene</li>
-    		<li>eccezioni alla regola precedente sono l'else <code>}else{</code> e il do-while <code>}while(...)</code></li> 
-    		<li>il nomi delle variabili e dei metodi iniziano con la minuscola e procedono in camelCase</li>
-    		<li>il nomi delle classi iniziano con la Maiuscola e procedono in camelCase</li>
-    		<li>quando una riga termina con una graffa aperta la successiva rientra di un tab (è possibile impostare gli ambienti di sviluppo in modo che inseriscano un certo numero di spazi al posto dei tab)</li>
-    		<li>lecito lasciare una riga vuota (al massimo due) per separare zone diverse di programma</li>
-    		<li>i nomi delle variabili devono indicare cosa contengono (non il valore)</li>
-    	</ul>
     	
+<h2>i condizionali e i cicli devono avere il corpo racchiuso tra graffe</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">if( x == 10){
+  m=9;
+}</pre>
+<pre class="rispostaSbagliata">if( x == 10)
+  m=9;</pre>
+</div>
+
+<h2>la graffa viene aperta alla destra dell'istruzione a cui attiene (e non a capo)</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">if( x == 10){
+  m=9;
+}</pre>
+<pre class="rispostaSbagliata">if( x == 10)
+{
+  m=9;
+}</pre>
+</div>
+
+<h2>la graffa chiusa sta sulla stessa colonna del primo carattere dell'istruzione aperta a cui attiene</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">if( x == 10){
+  m=9;
+}</pre>
+<pre class="rispostaSbagliata">if( x == 10)
+{
+  m=9;}</pre>
+</div>
+
+<h2>eccezioni alla regola precedente sono l'else <code>}else{</code> e il do-while <code>}while(...)</code></h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">if( x == 10){
+  m=9;
+}else{
+  m=10;
+}</pre>
+<pre class="rispostaSbagliata">if( x == 10){
+  m=9;
+}
+else
+{
+  m=10;
+}</pre>
+</div>
+
+<h2>il nomi delle variabili e dei metodi iniziano con la minuscola e procedono in camelCase</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">latoQuadrato
+nomeProprietarioAutomobile
+calcolaArea()</pre>
+<pre class="rispostaSbagliata">LatoQuadrato
+nome_proprietario_automobile
+CALCOLAarea()</pre>
+</div>
+
+<h2>il nomi delle classi iniziano con la Maiuscola e procedono in camelCase</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">Quadrato
+RuotaAutomobile</pre>
+<pre class="rispostaSbagliata">quadrato
+Ruota_Automobile</pre>
+</div>
+
+<h2>quando una riga termina con una graffa aperta la successiva rientra di un tab 
+(solitamente un tab equivale a 2-3-4 spazi, è possibile impostare gli ambienti di sviluppo 
+in modo che inseriscano un certo numero di spazi al posto dei tab)</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">if( x == 10){
+  m=9;
+}</pre>
+<pre class="rispostaSbagliata">if( x == 10){
+m=9;
+}</pre>
+</div>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">if( x == 10){
+  m=9;
+}</pre>
+<pre class="rispostaSbagliata">if( x == 10){
+                                  m=9;
+}</pre>
+</div>
+
+<h2>lecito lasciare una riga vuota (al massimo due) per separare zone diverse di programma</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">int x;
+
+casellaTesto.setText("ciao");
+</pre>
+<pre class="rispostaSbagliata">int x;
+
+
+
+
+
+casellaTesto.setText("ciao");
+</pre>
+</div>
+
+<h2>i nomi delle variabili devono indicare cosa contengono (non il valore o nomi non significativi)</h2>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">latoQuadrato
+areaQuadrato
+perimetroQuadrato</pre>
+<pre class="rispostaSbagliata">n1
+n2
+sedici</pre>
+</div>
 		</article>
     </body>
 </html>

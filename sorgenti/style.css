@@ -151,8 +151,8 @@ dt { font-weight: bold }
 .test a span.spiegazione:before { content: " (" }
 .test a span.spiegazione:AFTER  { content: ")"  }
 .test a.spiega span.spiegazione { display:inline }
-.test .rispostaGiusta { background-color: lime }
-.test .rispostaSbagliata { background-color: red }
+.rispostaGiusta { background-color: lime }
+.rispostaSbagliata { background-color: red }
 /* -------------------------------------- gli esercizi ----------------------------------------- */
 .esercizio {
     margin-top:4em;
