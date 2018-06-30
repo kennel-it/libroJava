@@ -4,21 +4,77 @@
 <!-- grafoIndice requires="numeri" group="infrastruttura" -->
 <!-- changelog 2018-06-27 inserita parte sull'uso di system.out.println per il debug -->
 <!-- changelog 2018-06-27 inserita parte per la lettura dello stack trace -->
+<!-- changelog 2018-06-30 riorganizzato capitolo e inserita parte per input -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
-        <title>debugger</title>
+        <title>test</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>         
     </head>
 <body>
 <header>
-<h1>debugger</h1>
-<p>trovare gli errori in un programma</p>
+<h1>test</h1>
+<p>come provare i programmi</p>
 </header>
 <article>
 <p>Purtroppo raramente i programmi sono perfetti... almeno alla prima stesura.
 Abbiamo però alcuni modi per trovare cosa non va.</p>
+
+<h2>Input/Output su console</h2>
+<p>La console ci permette di lavorare con una interfaccia a caratteri, nel caso di eclipse 
+compare nella parte bassa dello schermo, se non fosse visibile per 
+aprirla bisogna usare il menu <em>/Window/Show View</em> e selezionare la voce "Termial",
+se non compare direttamente click su <em>"Other..."</em> e dal gruppo <em>Terminal</em>
+selezionare la voce <em>Terminal</em>.</p>
+
+<h3>output</h3>
+<p>A volte quello che vogliamo è semplicemente sapere quali sono i valori 
+intermedi che il programma calcola: in questo caso fa comodo semplicemente stampare il valore 
+per poterlo vedere. <code>System.out.println("testo")</code> è tutto quello che serve, l'output
+comparirà nel pannello console.</p>
+<p>Ad esempio il seguente frammento di programma calcola la somma dei primi 10 numeri e stampa il risultato
+nella TextField <var>risposta</var>... passo passo però stampa la somma sulla console.</p>
+<pre>
+int somma = 0;
+for(int i=0; i&lt;10; i++){
+    somma += i;
+    <em>System.out.println("i="+i+"   e somma="+somma)</em>;
+}
+risposta.setText(""+somma);
+</pre>
+
+<h3>input</h3>
+<p>Se non dobbiamo provare un programma già fatto ma vedere se ad esempio un di algoritmo funziona
+e non vogliamo scrivere l'interfaccia grafica possiamo fare sia input che output da console
+concentrandoci soltanto su questo.</p>
+<p>Abbiamo già visto come si fa l'output nella sezione precedente, per l'input ci aiuta un oggetto
+chiamato <code>Scanner</code> che permette di leggere direttamente un testo o un numero 
+da terminale:</p>
+<pre>Scanner tastiera = new Scanner(System.in);
+int numero = tastiera.nextInt();</pre>
+<p>Arrivato alla seconda riga il programma attenderà che l'utente inserisca un numero e batta invio
+prima di proseguire.</p>
+<p>Quello qui sotto è un programma che calcola il doppio di un numero:</p>
+<pre>import java.util.Scanner;
+public class Doppio {   
+    public static void main(String[] args){
+        <em>Scanner tastiera = new Scanner(System.in);</em>
+        int numero,doppio;
+        System.out.print("Scrivi un numero: ");
+        numero = <em>tastiera.nextInt();</em>
+        doppio = numero * 2;
+        System.out.println("il doppio di "+numero+" è "+doppio);
+        tastiera.close();
+    }
+}</pre>
+<p>Quello che succede nel terminale è (evidenziato l'input inserito dall'utente) quello qui sotto:</p>
+<pre>Scrivi un numero: <em>12</em>
+il doppio di 12 è 24</pre>
+<p>Esistono diversi altri metodi per leggere gli input, ad esempio per leggere un testo 
+possiamo usare <code>nextLine()</code> al posto di <code>nextInt()</code>.</p>
+
+
 <h2>Stack trace</h2>
 <p>La rima opportunità è a costo zero: in caso di errore basta leggere con un po' di attenzione
 quello che compare nelle console in caso di errore, non serve farsi impessionare
@@ -87,22 +143,6 @@ Da questa riga possiamo vedere in quale pacchetto sta la classe con l'errore e i
 numero di riga dove ci sono stati problemi.</dd>
 </dl>
 
-<h2>sysout</h2>
-<p>Prima però facciamo un piccolo passo indietro... a volte non serve di dover usare uno strumento
-articolato come il debugger ma semplicemente quello che vogliamo e sapere quali sono i vaolori 
-intermedi che il programma calcola: in questo caso fa comodo semplicemente stampare il valore 
-per poterlo vedere. <code>System.out.println("testo")</code> è tutto quello che serve, l'output
-comparirà nel pannello console (solitamente presente nella parte bassa della finestra di eclipse).</p>
-<p>Ad esempio il seguente programma calcola la somma dei primi 10 numeri e stampa il risultato
-nella casella <var>risposta</var>... passo passo però stampa la somma sulla console.</p>
-<pre>
-int somma = 0;
-for(int i=0; i&lt;10; i++){
-    somma += i;
-    <em>System.out.println("i="+i+"   e somma="+somma)</em>;
-}
-risposta.setText(""+somma);
-</pre>
 <h2>debugger</h2>
 <p>Per le situazioni più complicate gli ambienti di sviluppo ci aiutano 
 permettendoci di eseguire passo passo il programma con uno strumento chiamato debugger.</p>
