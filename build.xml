@@ -14,6 +14,11 @@
 
 	<target name="generaLibro" description="compila il libro">
 		<echo>output in ${env.BOOK_TARGET_FOLDER}</echo>
-    	<compilaLibro sorgenti="${basedir}/sorgenti/" compilati="${env.BOOK_TARGET_FOLDER}" quiet="true"/>            
+    	<compilaLibro 
+    		sorgenti="${basedir}/sorgenti/" 
+    		compilati="${env.BOOK_TARGET_FOLDER}"
+    		quiet="true"
+		    limiteDataChangelog="2018-01-01"
+    	/>            
     </target>
 </project>
