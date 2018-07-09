@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
-<!-- grafoIndice requires="sintassi" group="infrastruttura" -->
+<!-- grafoIndice requires="" group="infrastruttura" -->
 <!-- changelog 2018-06-25 inglobato il capitolo interpreti -->
+<!-- changelog 2018-07-09 inglobato il capitolo sintassi -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -16,6 +16,91 @@
 <p>perché un linguaggio al posto di un altro</p>
 </header>
 <article>
+
+<h2>sintassi</h2>
+<p>Un linguaggio di programmazione è un linguaggio per mezzo del quale si
+possono scrivere dei programmi che, dopo aver subito alcune
+trasformazioni, verranno eseguiti da un computer. 
+Un linguaggio (informatico o non) è
+caratterizzato dalle sue regole sintattiche e dalle parole che ne
+costituiscono il vocabolario (dette <em>parole chiave</em> quando si parla di
+linguaggi di programmazione). Almeno apparentemente guardando sia la
+sintassi che il vocabolario un linguaggio di programmazione è più
+semplice rispetto ad un linguaggio umano.</p>
+<div class="curiosita">Il linguaggio di programmazione java ha 53 parole chiave, il C++ ne ha 84, VB 178.</div>
+<p>Il vocabolario di un
+linguaggio di programmazione è solitamente molto povero se confrontato
+con un linguaggio umano, per esemplificare la situazione possiamo
+considerare un linguaggio umano formato da alcune migliaia di parole
+mentre un linguaggio di programmazione ha poche decine di parole chiave.
+Oltre a questo le parole di un vocabolario umano sono soggette a
+trasformazioni (pensiamo ad esempio agli aggettivi o ai verbi) mentre le
+parole chiave di un linguaggio di programmazione sono immutabili. Una
+differenza che invece di solito passa inosservata tra i linguaggi umani
+e quelli di programmazione riguarda le maiuscole e le minuscole: per un
+linguaggio umano lo scrivere una parola in maiuscolo o in minuscolo non
+ne cambia il significato (almeno non sempre) e le maiuscole sono
+presenti solo all'inizio di una parola, per un linguaggio di
+programmazione (non tutti ma quasi) le tre parole “Musica”, “musica” e
+“muSIca” sono tutte diverse,
+tutti i linguaggi di programmazione che fanno differenza tra maiuscolo e
+minuscolo si dicono "case sensitive".</p>
+
+<p>Le regole sintattiche in un
+linguaggio di programmazione sono molto semplici e al contempo
+restrittive, un linguaggio umano permette "licenze poetiche" e ci
+consente di scegliere come organizzare una frase mentre un programma che
+non rispetta scrupolosamente le regole sintattiche del linguaggio viene
+semplicemente considerato non valido; è come dire che la frase "Il cane
+è nera" risulterebbe semplicemente sbagliata e nessuno sforzo verrebbe
+fatto per comprenderne il senso. Potremmo per analogia dire, ad esempio,
+che ogni frase che non termina con il punto è sbagliata e che se un
+racconto contiene una frase sbagliata è sbagliato per intero! Il fatto
+di avere delle regole così restrittive implica due cose: la prima è che
+le regole di un linguaggio di programmazione si apprendono più in fretta
+di quelle di un linguaggio umano (sia perché non ci sono "eccezioni"
+come nei linguaggi umani che perché sono molto poche), la seconda è che
+il minimo errore porta alla mancata comprensione di tutto il programma:
+in pratica abbiamo un comportamento binario: un programma o è corretto o
+non lo è, non ci sono vie di mezzo.</p>
+
+<div class="test">
+    <p>Quale tra le seguenti frasi è sintatticamente errata?</p>
+    <a onclick="sbagliata(this)">il cane è azzurro</a> 
+    <a onclick="sbagliata(this)">il mio cane sa volare</a> 
+    <a onclick="sbagliata(this)">sono le ore dieci e trenta</a>
+    <a onclick="giusta(this)">il mio cane è bianca</a>
+</div>
+
+<p>Finora abbiamo parlato si sintassi,
+un discorso diverso vale per la semantica di un programma cioè per il
+suo significato. Per capire il concetto di semantica possiamo considerare alcuni
+esempi. Le due frasi "The book is blue" e "Il libro è blu" hanno
+lo stesso significato (semantica) pur essendo scritte usando vocabolari
+e regole sintattiche diverse. Le frasi "La scuola termina alle una e
+trenta del pomeriggio" e "Alle 13:30 la scuola termina" hanno la stessa
+semantica sebbene espressa con una sintassi diversa. Nel caso di un
+programma la semantica riguarda (volendo semplificare un po') il suo
+risultato cioè il compito che viene svolto dal programma stesso: un
+programma scritto correttamente (dal punto di vista sintattico) potrebbe
+non esserlo dal punto di vista semantico e quindi potrebbe non portare a
+compimento il compito per cui era stato pensato. Facciamo un esempio:
+l'espressione "raggio*raggio*2" è formalmente corretta ma se era stata
+pensata per calcolare l'area di un cerchio non assolverà al suo compito.</p>
+
+<div class="test">
+    <p>Quale tra le seguenti espressioni è semanticamente errata se stiamo parlando di un quadrato?</p>
+    <a onclick="sbagliata(this)">area=lato x lato</a> 
+    <a onclick="sbagliata(this)">perimetro = 4 x lato</a> 
+    <a onclick="giusta(this)">perimetro = (2 + 4) x lato</a>
+    <a onclick="giusta(this)">area = lato + lato</a>
+</div>
+
+<p>Gli errori all'interno dei programmi vengono usualmente chiamati "bug".</p>
+    
+    
+<h2>quale linguaggio scegliere</h2>
+
 <p>Riguardo ai linguaggi di programmazioni è utile osservare che ne 
 esistono una enorme varietà: le differenze tra l'uno e l'altro sono notevoli. 
 Come esempio può essere utile guardare <a href="http://www.levenez.com/lang/">Computer Languages History</a>
