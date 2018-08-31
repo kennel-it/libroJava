@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="helloWorld" group="grafica" -->
 <!-- changelog 2017-11-03 inseriti dettagli per visualizzare immagine -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,7 +7,13 @@
     	<meta charset="UTF-8"/>
         <title>formattazione</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
-        <script type="text/javascript" src="script/test.js"></script>         
+        <script type="text/javascript" src="script/test.js"></script>
+        <style>
+            .codiceEOutput { display: flex; flex-direction: row  ; align-items : flex-start}
+            .codiceEOutput :nth-child(2) { 
+                margin:1em; border:1px solid black;
+            }
+        </style>   
     </head>
     <body>
     	<header>
@@ -26,10 +31,12 @@
 		 pixel
 		di spazio tra ogni lato del bordo della finestra ed i controlli all'interno. Scriveremo:</p>
 
-<div class="prog"><img src="immagini/formattazione_finestra_spaziatura.png" alt="Esempio di pagging e gap" style="float:right; margin:1em; border:1px solid black"/>
-griglia.setPadding(new Insets(10, 10, 10, 10));
+<div class="codiceEOutput">
+<pre>griglia.setPadding(new Insets(10, 10, 10, 10));
 griglia.setHgap(20); 
-griglia.setVgap(40);</div>
+griglia.setVgap(40);</pre>
+<img src="immagini/formattazione_finestra_spaziatura.png" alt="Esempio di pagging e gap" style="margin:1em; border:1px solid black"/>
+</div>
 
 		<h2>Posizionamento del contenuto del pannello</h2>
 		<p>Andiamo ad ingrandire la finestra, ad esempio portiamola a 600x300 e vediamo che succede.</p>
@@ -115,10 +122,11 @@ griglia.setVgap(40);</div>
 		</table>
 		<p>Dimensioniamo orizzontalmente a questo punto la casella di testo ed il pulsante del nostro esempio a 200 punti:</p>
 
-<div class="prog">
-<img src="immagini/formattazione_finestra_dimensioni.png" alt="Dimensioni degli oggetti" style="float:right; margin:1em; border:1px solid black"/>
-pulsante1.setPrefWidth(200.0);
-pulsante3.setPrefWidth(200.0);</div>
+<div class="codieEOutput">
+<pre>pulsante1.setPrefWidth(200.0);
+pulsante3.setPrefWidth(200.0);</pre>
+<img src="immagini/formattazione_finestra_dimensioni.png" alt="Dimensioni degli oggetti"/>
+</div>
 
 		<h3>Un controllo in più celle</h3>
 		<p>Nel momento in cui progetti un'interfaccia grafica può esserti utile la possibilità di far occupare ad un dato controllo più celle della griglia.
@@ -137,8 +145,8 @@ pulsante3.setPrefWidth(200.0);</div>
 		<p>Abbiamo già detto che il <code>GridPane</code> inserisce i vari controlli all'interno di una griglia mettendo in una casella un solo controllo.
 		Si verranno a creare così un certo numero di righe e di colonne. Il <code>GridPane</code> ci offre la possibilità di allineare ciascuna colonna e
 		ciascuna riga. Iniziamo con l'esempio che permette di allineare a destra la prima colonna ed a sinistra la seconda, al centro tutte le righe:</p>
-<div class="prog"><img src="immagini/formattazione_finestra_righeColonne.png" alt="Allineamento nelle righe e nelle colonne" style="float:right; margin:1em; border:1px solid black"/>
-ColumnConstraints colonna0 = new ColumnConstraints();
+<div class="codiceEOutput">
+<pre>ColumnConstraints colonna0 = new ColumnConstraints();
 colonna0.setHalignment(HPos.RIGHT);
 griglia.getColumnConstraints().add(colonna0);
 
@@ -156,7 +164,9 @@ griglia.getRowConstraints().add(riga1);
 
 RowConstraints riga2 = new RowConstraints();
 riga2.setValignment(VPos.CENTER);
-griglia.getRowConstraints().add(riga2);</div>
+griglia.getRowConstraints().add(riga2);</pre>
+<img src="immagini/formattazione_finestra_righeColonne.png" alt="Allineamento nelle righe e nelle colonne" />
+</div>
 		<p>A prima vista sembra complicato ma poi guardandolo meglio risultano 3 righe ripetute tante volte, dobbiamo cioè creare dei vincoli al <code>GridPane</code>:</p>
 		<ol>
 		   <li>Creare l'oggetto dei vincoli orizzontali o verticali tramite <code>ColumnConstraints</code> oppure <code>RowConstraints</code></li>

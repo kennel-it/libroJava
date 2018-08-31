@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="helloWorld" group="base" -->
+<!-- changelog 2018-06-28 rimosso riferimento a java7 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -115,19 +115,6 @@ Vai un pò più giù dove trovi <code>btn.setText("Ciao Mondo!")</code>
    utente = nome.getText();
    messaggio.setText("Signor " + utente + " Le auguro buona giornata!");
 }</pre>
-
-<div class="suggerimentoProgramma">
-/* java 7 */
-btn.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
-    @Override
-    public void handle(ActionEvent event) {
-        saluta();
-    }
-});
-
-/* equivalente in java 8 */
-btn.setOnAction(event -> saluta());
-</div>
 
 <p>In questo metodo possiamo vedere la dichiarazione di una stringa di testo chiamata utente 
 (prima riga) nella quale inserisci ciò che ha scritto l'utente. 

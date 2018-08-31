@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- grafoIndice requires="" group="riferimenti" -->
+<!-- changelog 2018-07-09 inserita prima bozza capitolo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>commenti</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>     
+    </head>
+    <body>
+    	<header>        
+    	<h1>commenti</h1>
+    	<p>come documentare i programmi direttamente nel file sorgente</p>
+    	</header>
+    	<article>
+    	
+<p>Il linguaggio Java mette a disposizione due modalità per inserire
+nel file sorgente del testo che verrà scartato dal compilatore e che serve quindi
+soltanto per chi legge il programma, scrivere questo tipo di testo ad tanti vantaggi
+tra cui: ricordarci come funziona il programma quando lo riguarderemo tra un po' 
+di tempo e permettere ad altri programmatori di capire come funziona il nostro codice.</p>
+<p>Un cosa per cui invece i commenti non servono: sostituire del codice scritto bene!</p>
+
+<h3>commenti singola linea</h3>
+<pre>int lato; <em>// FIXME: un commento </em> </pre>
+<p>Questo tipo di commenti inizia con il simbolo <code>//</code> e termina
+alla fine della linea.</p>
+
+<h3>commenti su più linee</h3>
+<pre><em>/* scambio il contenuto
+di base e altezza */</em> 
+t = base;
+base = altezza;
+altezza = t;
+</pre>    	
+<p>In questo caso il commento inizia con <code>/*</code> e termina 
+con <code>*/</code>.</p> 
+
+<h2><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/javadoc.html#CHDBEFIF">Javadoc</a></h2>
+<p>la piattaforma java ha un modo standard per scrivere commenti in modo che possa
+essere prodotta documentazione in maniera automatica.
+Questi commenti sono dei normali commenti multilinea ma iniziano con
+<code>/**</code> e terminano al solito con <code>*/</code> e contengono al loro interno
+degli speciali marcatori che iniziano con <code>@</code>, questi marcatori devono trovarsi
+all'inizio di una linea (possono essere preceduti da spazi bianchi e eventualmente da un asterisco). </p>
+<p>I commenti javadoc non possono essere messi ovunque, possono comparire prima di:
+dichiarazioni di classi, metodi o campi (variabili al livello di classe).</p> 
+        
+<h3>Classi</h3>
+<p>Prima della dichiarazione di una classe può essere inserito un commento per indicare 
+(tra le altre cose) cosa fa la classe stessa e chi l'ha scritta.</p>
+        
+<pre>/**
+ * Questa classe somma il contenuto di due numeri inseriti dall'utente
+ * <em>@author</em> Pluto
+ */
+public class Sommatore extends Application {</pre>        
+        
+<h3>Metodi</h3>
+<p>Nel caso dei metodi (o funzioni) possiamo ad esempio descrivere i parametri e cosa la funzione
+ritorna (calcola).</p>
+<pre> /**
+ * Calcola l'area del rettangolo
+ * <em>@param</em> base la misura della base del rettangolo
+ * <em>@param</em> altezza la misura dell'altezza del rettangolo
+ * <em>@return</em> la mosura dell'area
+ */
+public int area(int base, int altezza) {</pre>
+
+<div class="FIXME">da completare con altri tag</div>        
+<div class="FIXME">mettiamo cenno a FIXME TODO XXX ?</div>
+        
+		</article>
+    </body>
+</html>

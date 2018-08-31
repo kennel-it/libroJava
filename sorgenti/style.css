@@ -1,232 +1,203 @@
-.FIXME {background-color: yellow; color:red; padding:1em}
-
 * {
-  box-sizing:border-box;
+    /* colori di base delle sezioni */
+    --colore-sfondo-noGroup: #f5f5f5; /* grey 100 */
+    --colore-sfondo-infrastruttura: #90caf9; /* blue 200 */
+    --colore-sfondo-base: #7cb342 ; /* Light Green 600 */
+    --colore-sfondo-grafica: #ffee58 ; /* yellow 400 */
+    --colore-sfondo-file: #f8bbd0 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati: #a1887f ; /* brown 300 */
+    --colore-sfondo-riferimenti: #e53935 ; /* red 600 */
+    /* i relativi light */
+    --colore-sfondo-noGroup-chiaro: #ffffff; /* grey 100 */
+    --colore-sfondo-infrastruttura-chiaro: #c3fdff; /* blue 200 */
+    --colore-sfondo-base-chiaro: #aee571 ; /* Light Green 600 */
+    --colore-sfondo-grafica-chiaro: #ffff8b ; /* yellow 400 */
+    --colore-sfondo-file-chiaro: #ffc1e3 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati-chiaro: #d3b8ae ; /* brown 300 */
+    --colore-sfondo-riferimenti-chiaro: #ff6f60 ; /* red 600 */
+    /* i relativi dark */
+    --colore-sfondo-noGroup-scuro: #c2c2c2; /* grey 100 */
+    --colore-sfondo-infrastruttura-scuro: #5d99c6; /* blue 200 */
+    --colore-sfondo-base-scuro: #4b830d ; /* Light Green 600 */
+    --colore-sfondo-grafica-scuro: #c9bc1f ; /* yellow 400 */
+    --colore-sfondo-file-scuro: #bf5f82 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati-scuro: #725b53 ; /* brown 300 */
+    --colore-sfondo-riferimenti-scuro: #ab000d ; /* red 600 */
 }
-	
-body {
-	font-family: Verdana, sans-serif;
-	margin:0em;
+* {
+    box-sizing:border-box;
+    --colore-primario: #ffab40; /* orange A700 */
+    --colore-primario-chiaro: #ffdd71; /* light di orange A700 */
+    --colore-primario-scuro: #c77c02; /* dark di orange A700 */
+    --colore-primario-testo: #000000;
+    --colore-primario-chiaro-testo: #000000;
+    --colore-primario-scuro-testo: #000000;
+    
+    --colore-secondario: #00bfa5; /* teal A700 */
+    --colore-secondario-scuro: #008e76; /* dark di teal A700 */
+    --colore-secondario-testo: #000000; 
 }
 
-header {
-	margin:0 ; padding:0;
+body    { font-family: Verdana, sans-serif; margin:0em }
+/* ------------------------------------------- header ------------------------------------------ */
+body.noGroup                 header { background-color: var(--colore-sfondo-noGroup) }
+body.infrastruttura          header { background-color: var(--colore-sfondo-infrastruttura) }
+body.base                    header { background-color: var(--colore-sfondo-base) }
+body.grafica                 header { background-color: var(--colore-sfondo-grafica) }
+body.file                    header { background-color: var(--colore-sfondo-file) }
+body.algoritmiStruttureDati  header { background-color: var(--colore-sfondo-algoritmiStruttureDati) }
+body.riferimenti             header { background-color: var(--colore-sfondo-riferimenti) }
+header    { margin:0 ; padding:0 }
+header h1 { margin:0 ; padding:2rem 3em 0.5rem 3em ; text-align: center }
+header p  { margin:0 ; padding: 0.5rem 1rem 2rem 1rem ; text-align: center }
+/* -------------------------- precedente - indice - successiva --------------------------------- */
+body.noGroup                 nav { background-color: var(--colore-sfondo-noGroup-chiaro) }
+body.infrastruttura          nav { background-color: var(--colore-sfondo-infrastruttura-chiaro) }
+body.base                    nav { background-color: var(--colore-sfondo-base-chiaro) }
+body.grafica                 nav { background-color: var(--colore-sfondo-grafica-chiaro) }
+body.file                    nav { background-color: var(--colore-sfondo-file-chiaro) }
+body.algoritmiStruttureDati  nav { background-color: var(--colore-sfondo-algoritmiStruttureDati-chiaro) }
+body.riferimenti             nav { background-color: var(--colore-sfondo-riferimenti-chiaro) }
+nav {
+	margin:0; padding: 1rem;
+	display: flex; flex-direction: row 
 }
-
-header h1 {
-	text-align: center; 
-	padding:1em ; margin:0px; 
-	text-shadow: -1px -1px white ,1px -1px white , 1px 1px white, -1px 1px white;
-	background-color: rgba(240,240,240,0.8)
+nav a { color: white} 
+body.noGroup                 nav > * { background-color: var(--colore-sfondo-noGroup-scuro) }
+body.infrastruttura          nav > * { background-color: var(--colore-sfondo-infrastruttura-scuro) }
+body.base                    nav > * { background-color: var(--colore-sfondo-base-scuro) }
+body.grafica                 nav > * { background-color: var(--colore-sfondo-grafica-scuro) }
+body.file                    nav > * { background-color: var(--colore-sfondo-file-scuro) }
+body.algoritmiStruttureDati  nav > * { background-color: var(--colore-sfondo-algoritmiStruttureDati-scuro) }
+body.riferimenti             nav > * { background-color: var(--colore-sfondo-riferimenti-scuro) }
+nav > * {
+    flex-grow: 1;
+    text-align:center; text-decoration: none;
+    margin:0em 1em; padding:0.5em; 
 }
-
-header p {
-	margin-top:0;
-	padding:0.25em 0em ;
-	text-align: center;
-	background-color: rgba(240,240,240,0.9)
-}
-
-#toc { margin:0em 2em }
-#toc img { height: 16px }
 
 article { margin:1em 5% ; padding-bottom:3em}
-
-h2 { text-align: left }
-
-p {
-	text-align: justify;
-	line-height: 1.5em;
-	text-indent: 2em;
-}
-
-/*c'è un div.prog nel capitolo 090-30, 120-20, 120-40, 210-50, 270-30, 300-20 */
-div.prog, div.pseudo, pre {
-	padding: 0.5em;
-	margin-top: 1em;
-	margin-bottom: 1em;
-	white-space: pre;
-	font-family: monospace;
-	font-size: 115%;
-	line-height: 100%;
-	overflow: scroll;
-}
-
-div.prog, pre {
-	background-color: #eee;
-	clear: both;
-}
-
-div.pseudo {
-	/* FIXME: andrebbe messo un colore per distinguere */
-}
-
-/* deve stare dopo div.prog per impostare il colore dello sfondo */
-div.errore{
-	background-color: #ffcccc;
-}
-
-div.prog div {
-	white-space: pre;
-}
-
-div.prog .evidenza {
-	background-color: #ffd
-}
-
-div.pseudo {
-	background-color: #eef;
-}
-
-code { 
-	font-size: 125%;
-	color: #700;
-	padding-left:0.25em; padding-right:0.25em;
-	white-space: nowrap; 
-	word-wrap: normal;
-	overflow-wrap: normal;
-}
-
-em {
-	font-style: normal; font-weight: bold; color: #9c0f16;
-}
-
-body#titlepage {
-	text-align: center;
-}
-
-li { margin-top:0.2em }
-li a {padding: 0.35em ; display:inline-block; color:black ; width:100%}
-li a strong { font-size:110% }
-
 h2 { 
-    text-align: left;
+	text-align: left;
+    margin-top:3em;
+    border-bottom:1px dashed #444; 
+}
+h3 { 
+    text-align: left; 
     margin-top:2em;
-    margin-bottom:0.25em
+    border-bottom:1px dotted #999; 
 }
-
-dt {
-	font-weight: bold;
+p {
+    text-align: justify;
+    line-height: 1.5em;
+    text-indent: 2em;
 }
-
-img.screen_shot {
-	border:1px solid gray;
-	margin: 0.5em;
+em {
+    font-style: normal; font-weight: bold; color: var(--colore-primario-scuro) ;
 }
-
-/* esercizi e test */
+dfn {
+	display: block;
+    padding: 0.75em;
+    background-color: var(--colore-primario); color: var(--colore-primario-testo);
+    border-top: 0.5em solid var(--colore-primario-scuro) 
+}
+dfn em { color: var(--colore-primario-testo) }
+img.screen_shot { border:1px solid gray; margin: 0.5em }
+/* ------------------------------------ codice sorgente ---------------------------------------- */
+pre, div.pseudo {
+    padding: 0.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    white-space: pre;
+    font-family: monospace;
+    font-size: 115%;
+    line-height: 100%;
+    overflow: scroll;
+    background-color: #eee;
+    clear: both;
+}
+pre code { white-space: pre; display: inline-block; padding:2px;width: 100%}
+pre .esecuzione { background-color:yellow }
+div.pseudo {
+    /* FIXME: andrebbe messo un colore per distinguere */
+    background-color: #eef;
+}
+code { 
+    font-size: 125%;
+    color: #700;
+    padding-left:0.25em; padding-right:0.25em;
+    white-space: nowrap; 
+    word-wrap: normal;
+    overflow-wrap: normal;
+}
+li { margin-top:0.2em }
+li a { padding: 0.35em ; display:inline-block; color:black ; width:100% }
+li a strong { font-size:110% }
+dt { font-weight: bold }
+/* --------------------------------------- i test ---------------------------------------------- */
 .test {
-	background-color: #dce3f9;
-	border: 1px dashed gray;
 	padding: 1em;
-	margin-top:0.5em;
-	margin-bottom:0.5em;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+    background-color: var(--colore-primario-chiaro);
+    border-top: 0.5rem solid var(--colore-primario);
 }
-
 .test p {
-	margin: 0em;
-	padding: 0em;
-	text-indent: 0em;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
 }
-
 .test a {
-	display: inline-table;
-	margin-top: 0.5em;
-	margin-bottom: 0.5em; 
-	padding: 0.25em;
-	border:1px solid #aaa;
-	background-color: #eee;
+    display: inline-table;
+    margin: 0.5em; 
+    padding: 0.25em;
+    background-color: var(--colore-primario); color: var(--colore-primario-testo);
 }
-
-.test a span.spiegazione{
-	display:none ; font-size:85%
-}
-
-.test a span.spiegazione:before {
-	content: " (";
-}
-
-.test a span.spiegazione:AFTER {
-	content: ")";
-}
-
-.test a.spiega span.spiegazione{
-	display:inline
-}
-
+.test a span.spiegazione { display:none ; font-size:85% }
+.test a span.spiegazione:before { content: " (" }
+.test a span.spiegazione:AFTER  { content: ")"  }
+.test a.spiega span.spiegazione { display:inline }
+.rispostaGiusta { background-color: lime !important}
+.rispostaSbagliata { background-color: red !important}
+/* -------------------------------------- gli esercizi ----------------------------------------- */
 .esercizio {
-	margin-top:4em;
-	border: 2px dashed gray;
-	padding: 0.5em;
+    margin-top:4em;
+    padding: 0.5rem;
+    background-color: var(--colore-primario-chiaro); color: var(--colore-primario-chiaro-testo);
 }
-
-.esercizio + .esercizio {
-    margin-top:1em;
-}
-
-.esercizio p {
-	margin:0px;
-}
-
-.esercizio h3 {
-	margin-top:0em; margin-bottom:0em;	
-}
-
+.esercizio + .esercizio { margin-top:1em }
+.esercizio p { margin:0 }
+.esercizio h3, .esercizio h1 { margin-top:0; margin-bottom:0 }
 body {
-	counter-reset: section;           /* Set the section counter to 0 */
+    counter-reset: section;           /* Set the section counter to 0 */
 }
 div.esercizio:before {
-	counter-increment: section;      /* Increment the section counter */
-	content: "esercizio " counter(section); /* Display the counter */
-	padding-right:1em;
-	font-size:85%; color: #888;
+    counter-increment: section;      /* Increment the section counter */
+    content: "esercizio " counter(section); /* Display the counter */
+    font-size:85%; color: #888;
+    display: block;
+    margin:-0.5rem -0.5rem 0.5rem -0.5rem;
+    background-color: red;
+    padding: 0.25rem;
+    background-color: var(--colore-primario); color: var(--colore-primario-testo);
+}
+/* -------------------------------------- i box a lato ----------------------------------------- */
+div.curiosita, div.suggerimento {
+    float:right; clear:both; width:25%; font-size:85% ;
+    padding:1em ; margin: 1em 0em 1em 2em ; 
+    text-align: left;
+    background-color: var(--colore-secondario); color: var(--colore-secondario-testo);
+}
+div.suggerimento {    
+    white-space: normal !important;
+    overflow:auto; 
+    border-top: 0.5rem solid var(--colore-secondario-scuro);
 }
 
-div.curiosita, div.suggerimento, div.suggerimentoProgramma {
-	float:right; clear:both; width:25%; font-size:85% ;
-	padding:1em ; margin: 1em 0em 1em 2em ; 
-	text-align: left;
-}
 
-div.curiosita {   
-	background-color: #fefae3; 
-}
+.FIXME { background-color: yellow; color:red; padding:1em ; margin:1em}
 
-div.suggerimento {   
-	background-color: #c7eacb; 
-	white-space: normal !important;
-	overflow:auto; 
-}
-div.suggerimentoProgramma {   
-	background-color: #c7eacb; 
-	white-space: nowrap;
-	overflow: scroll; 
-	white-space: pre;
-}
-
-.netbeans { 
-	background-color: rgb(240,240,255);
-}
-
-.eclipse { 
-	background-color: rgb(255,240,240);
-}
-
+.netbeans { background-color: rgb(240,240,255) }
+.eclipse { background-color: rgb(255,240,240) }
 .IDE_inutile { display: none }
-
 .ide { font-family: Courier, monospaced }
-
-nav#top {
-    display: flex;
-    flex-direction: row;
-} 
-
-nav#top > * {
-	flex-grow: 1;
-	text-align:center;
-	background-color: #d9f1c6;
-	padding:0.5em;
-	margin:0em 1em;
-	text-decoration: none;
-	color: black;
-}

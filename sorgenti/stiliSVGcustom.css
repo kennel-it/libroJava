@@ -1,6 +1,55 @@
-ellipse.noGroup                 { }
-ellipse.infrastruttura          { fill: #ccf3f5 }
-ellipse.base                    { fill: #b4e6c1 }
-ellipse.grafica                 { fill: #eceabb }
-ellipse.file                    { fill: #f2e0e0 }
-ellipse.algoritmiStruttureDati  { fill: #d4cab9 }
+*{
+    /* colori di base delle sezioni */
+    --colore-sfondo-noGroup: #f5f5f5; /* grey 100 */
+    --colore-sfondo-infrastruttura: #90caf9; /* blue 200 */
+    --colore-sfondo-base: #7cb342 ; /* Light Green 600 */
+    --colore-sfondo-grafica: #ffee58 ; /* yellow 400 */
+    --colore-sfondo-file: #f8bbd0 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati: #a1887f ; /* brown 300 */
+    --colore-sfondo-riferimenti: #e53935 ; /* red 600 */
+    /* i relativi light */
+    --colore-sfondo-noGroup-chiaro: #ffffff; /* grey 100 */
+    --colore-sfondo-infrastruttura-chiaro: #c3fdff; /* blue 200 */
+    --colore-sfondo-base-chiaro: #aee571 ; /* Light Green 600 */
+    --colore-sfondo-grafica-chiaro: #ffff8b ; /* yellow 400 */
+    --colore-sfondo-file-chiaro: #ffc1e3 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati-chiaro: #d3b8ae ; /* brown 300 */
+    --colore-sfondo-riferimenti-chiaro: #ff6f60 ; /* red 600 */
+    /* i relativi dark */
+    --colore-sfondo-noGroup-scuro: #c2c2c2; /* grey 100 */
+    --colore-sfondo-infrastruttura-scuro: #5d99c6; /* blue 200 */
+    --colore-sfondo-base-scuro: #4b830d ; /* Light Green 600 */
+    --colore-sfondo-grafica-scuro: #c9bc1f ; /* yellow 400 */
+    --colore-sfondo-file-scuro: #bf5f82 ; /* pink 200 */
+    --colore-sfondo-algoritmiStruttureDati-scuro: #725b53 ; /* brown 300 */
+    --colore-sfondo-riferimenti-scuro: #ab000d ; /* red 600 */
+}
+
+ellipse.noGroup { 
+	fill: var(--colore-sfondo-noGroup);
+	stroke: var(--colore-sfondo-noGroup-scuro)
+}
+ellipse.infrastruttura { 
+	fill: var(--colore-sfondo-infrastruttura);
+	stroke: var(--colore-sfondo-infrastruttura-scuro)
+}
+ellipse.base { 
+	fill: var(--colore-sfondo-base);
+	stroke: var(--colore-sfondo-base-scuro)
+}
+ellipse.grafica { 
+	fill: var(--colore-sfondo-grafica);
+	stroke: var(--colore-sfondo-grafica-scuro) 
+}
+ellipse.file { 
+	fill: var(--colore-sfondo-file);
+	stroke: var(--colore-sfondo-file-scuro)
+}
+ellipse.algoritmiStruttureDati { 
+	fill: var(--colore-sfondo-algoritmiStruttureDati);
+    stroke: var(--colore-sfondo-algoritmiStruttureDati-scuro)	
+}
+ellipse.riferimenti { 
+    fill: var(--colore-sfondo-riferimenti);
+    stroke: var(--colore-sfondo-riferimenti-scuro)   
+}
