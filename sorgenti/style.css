@@ -103,6 +103,7 @@ dfn {
 }
 dfn em { color: var(--colore-primario-testo) }
 img.screen_shot { border:1px solid gray; margin: 0.5em }
+img.iconaIDE { height: 2ex; }
 /* ------------------------------------ codice sorgente ---------------------------------------- */
 pre, div.pseudo {
     padding: 0.5em;
@@ -197,7 +198,7 @@ div.suggerimento {
 
 .FIXME { background-color: yellow; color:red; padding:1em ; margin:1em}
 
-.netbeans { background-color: rgb(240,240,255) }
-.eclipse { background-color: rgb(255,240,240) }
+/*.netbeans { background-color: rgb(240,240,255) }
+.eclipse { background-color: rgb(255,240,240) } */
 .IDE_inutile { display: none }
 .ide { font-family: Courier, monospaced }
