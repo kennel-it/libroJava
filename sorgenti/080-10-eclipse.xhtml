@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="" group="infrastruttura" -->
+<!-- changelog 2018-08-04 inserito nuovo capitolo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>eclipse</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <style type="text/css">
+            dl {display: grid; grid-template-columns: 2ex 1fr; grid-row-gap:0.5em}
+        </style>         
+    </head>
+<body>
+<header>
+<h1>eclipse</h1>
+<p>l'ambiente di sviluppo</p>
+</header>
+<article>
+
+<p>Eclipse è uno dei tanti IDE (Integrated Development Environment)
+che ci permettono di sviluppare software più agevolmente.</p>
+
+<h2>Avvio dell'IDE</h2>
+<p>Eclipse organizza i progetti all'interno di spazi di lavoro, 
+in ogni sistema possono essere presenti più spazi di lavoro ed Eclipse ci chiede quale 
+vogliamo usare, in pratica è una cartella che contiene dei progetti e delle impostazioni.</p>
+<p style="text-align:center"><img src="immagini/eclipse_0.png" alt="avvio di eclipse"/></p>
+<p>Nel caso questa finestra non compaia è possibile far sì di riaverla al prossimo avvio
+dell'applicazione impostando una preferenza:
+dalla finestra delle preferenze (menu "/Window/preferences..." per Windows o Linux),
+sulla sinistra selezionare General, Startup and Shutdown, Workspaces.
+A questo punto bisogna mettere la spunta su "Prompt for workspace on startup".</p>
+<p>In ogni caso dal menu File di Eclipse è possibile cambiare lo spazio di lavoro usando la voce 
+<em>Switch workspace</em>.</p>
+
+<h2>La finestra di Eclipse</h2>
+<p style="text-align:center"><img src="immagini/eclipse_1.png" alt="schermata di eclipse"/></p>
+<p>La struttura generale della finestra dell'ambiente di sviluppo <em>Eclipse</em>
+è simile a quella di molte altre applicazioni.
+Dall'alto troviamo: la barra del titolo, quella dei menu (con il segnalino "1" nella figura),
+la barra degli strumenti ("2" nella figura), l'area di lavoro e la barra di stato ("3" nella figura).</p>
+
+<p>Nella barra del titolo troviamo nell'ordine: 
+il nome dello spazio di lavoro,
+il percorso del file relativamente alla cartella dello spazio di lavoro
+... e il nome del programma!</p>
+<p>Nella barra di stato per ora ci interessano due informazioni:</p>
+<ul>
+    <li>la prima è <em>Smart Insert</em>, facendoci doppio click diventa <em>Overwrite</em>
+    e il cursore anziché inserire il testo facendo scorrere verso destra quello già presente
+    lo sovrascriverà.</li>
+    <li>le coordinate in cui si trova il cursore, la coppia 14:43 nell'immagine
+    si riferisce alla riga 14 colonna 43</li>
+</ul>
+
+<h2>Barra degli strumenti</h2>
+<p>Vediamo alcuni degli strumenti a nostra disposizione 
+nella configurazione standard partendo da sinistra:</p>
+<dl>
+<dt><img src="immagini/new_con@2x.png" class="iconaIDE"/></dt>
+<dd>Crea un nuovo oggetto (ad esempio un file o un progetto)</dd>
+<dt><img src="immagini/save_edit@2x.png" class="iconaIDE"/></dt>
+<dd>Salva il file su cui si sta lavorando</dd>
+<dt><img src="immagini/run_tool@2x.png" class="iconaIDE"/></dt>
+<dd>Avvia l'oggetto attualmente attivo (ad esempio il programma che stiamo modificando)</dd>
+<dt><img src="immagini/search@2x.png" class="iconaIDE"/></dt>
+<dd>Permette di cercare un all'interno di un progetto e dell'intero workspace</dd>
+<dt><img src="immagini/jperspective@2x.png" class="iconaIDE"/></dt>
+<dd>(sulla destra) questo pulsante e i suoi vicini servono per cambiare l'organizzazione
+dello spazio di lavoro, quando si sta lavorando su un progetto java normalmente è evidenziato.
+Se si vuole ritornare all'organizzazione originale dello spazio di lavoro 
+basta fare click qui con il destro e poi selezionare "reset" dal menu che compare.</dd>
+</dl>
+
+<h2>Lo spazio di lavoro</h2>
+<p>Nello spazio di lavoro i contenuti sono organizzati collezionando delle schede in gruppi 
+come quello qui sotto.</p>
+<p><img src="immagini/eclipse_gruppo_schede.png" style="height:2em"/></p>
+<p>Ogni singola linguetta contiene tre informazioni: la prima icona rappresenta l'oggetto
+visualizzato (ad esempio <img src="immagini/jcu_obj@2x.png" class="iconaIDE"/>
+per un file java) seguito dal nome e da 
+<img src="immagini/remove@2x.png" class="iconaIDE"/> per chiuderla.</p>
+
+<p>Sulla destra l'icona <img src="immagini/thin_min_view@2x.png" class="iconaIDE"/>
+serve per minimizzare il gruppo mentre 
+<img src="immagini/thin_max_view@2x.png" class="iconaIDE"/> ser per massimizzare il gruppo,
+per riportarlo alle dimensioni normali basta fare click su
+<img src="immagini/thin_restore_view@2x.png" class="iconaIDE"/>.</p>
+<p>Se nello spazio di lavoro ci servono ulteriori schede possiamo aprirle dal menu
+"/Windows/Show View" o facendo doppio click sul nome di un file nella scheda "Package explorer".</p>
+
+
+<h2>Creazione di un progetto e dei suoi contenuti</h2>
+<p>Eclipse gestisce molti tipi di progetto (dipende dalla versione che
+abbiamo scaricato e dai plugin installati), vediamo un modo per creare un progetto per sviluppare 
+software Java.</p>
+<ol>
+<li>click sul menu "/File/New/Other...</li>
+<li>dal gruppo "Java" selezionare "Java Project" e poi click su "Next &gt;"</li>
+<li>Scrivere il nome del progetto su "Project name:" e poi "Finish"</li>
+</ol>
+<p><img src="immagini/eclipse_package_explorer.png" style="float:left" class="screen_shot"/>
+Dopo aver creato il progetto dalla scheda "Package explorer" è possibile vederne la struttura 
+cliccando sul triangolo grigio (se non è già rivolto verso il basso).
+Il primo gruppo "JRE System Library" rappresenta la versione di Java che stiamo utilizzando
+mentre "src" contiene i file sorgente.</p>
+<p>Per creare un nuovo pacchetto: click con il tasto destro su "src" poi "New" e "Package" 
+(comparirà una icona <img src="immagini/pack_empty_co@2x.png" class="iconaIDE"/> che indica un pacchetto vuoto,
+diventerà <img src="immagini/package_obj@2x.png" class="iconaIDE"/>quando inseriremo delle classi o altro contenuto), 
+analogamente per creare una nuova classe click con il destro sul nome di un pacchetto e poi 
+"New" e "Class".</p>
+<p style="clear:both"></p>
+</article>
+</body>
+</html>
