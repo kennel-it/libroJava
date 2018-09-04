@@ -4,6 +4,7 @@
 <!-- grafoIndice requires="ereditarieta" group="file" -->
 <!-- changelog 2018-08-31 corretto errore formulazione esercizio eccezioni -->
 <!-- changelog 2018-09-03 dipendenza verso "ereditarieta" -->
+<!-- changelog 2018-09-04 messo in chiaro il discorso delle unchecked exceptions -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -134,6 +135,11 @@ essere gestite dal programma altre no!</p>
     	<span class="spiegazione">giusto!</span>
     </a>
 </div>
+
+<p>La regola da applicare è questa: una eccezione va sempre gestita (con throws o try-catch)
+a meno che non ereditino da java.lang.RuntimeException, in questo caso non è obbligarorio farlo
+(e vengono chiamate <em>unchecked exceptions</em>).</p>
+
 </article>
 </body>
 </html>
