@@ -3,6 +3,7 @@
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="" group="infrastruttura" -->
 <!-- changelog 2018-09-04 inserito nuovo capitolo -->
+<!-- changelog 2018-09-05 aggiunta piccola parte sulle schede fondamentali -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -10,7 +11,7 @@
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>
         <style type="text/css">
-            dl {display: grid; grid-template-columns: 2ex 1fr; grid-row-gap:0.5em}
+            dl.icone {display: grid; grid-template-columns: 2ex 1fr; grid-row-gap:0.5em}
         </style>         
     </head>
 <body>
@@ -59,7 +60,7 @@ il percorso del file relativamente alla cartella dello spazio di lavoro
 <h2>Barra degli strumenti</h2>
 <p>Vediamo alcuni degli strumenti a nostra disposizione 
 nella configurazione standard partendo da sinistra:</p>
-<dl>
+<dl class="icone">
 <dt><img src="immagini/new_con@2x.png" class="iconaIDE"/></dt>
 <dd>Crea un nuovo oggetto (ad esempio un file o un progetto)</dd>
 <dt><img src="immagini/save_edit@2x.png" class="iconaIDE"/></dt>
@@ -91,6 +92,22 @@ per riportarlo alle dimensioni normali basta fare click su
 <img src="immagini/thin_restore_view@2x.png" class="iconaIDE"/>.</p>
 <p>Se nello spazio di lavoro ci servono ulteriori schede possiamo aprirle dal menu
 "/Windows/Show View" o facendo doppio click sul nome di un file nella scheda "Package explorer".</p>
+
+<p>Alcune schede risultano utili nello sviluppo delle applicazioni Java: <em>Package Explorer</em>,
+<em>Console</em> e <em>Problems</em>:</p>
+<dl>
+<dt>Package Explorer</dt>
+<dd>Qui compare la struttura del nostro progetto nascondendo alcune cartelle non essenziali.
+Se vengono copiati dei file nel progetto e non compaiono basta fare click nella
+cartella che li contiene e poi selezionare "refresh".</dd>
+<dt>Console</dt>
+<dd>In cui vengono stampati i messaggi di errore durante il funzionamento del programma (runtime)</dd>
+<dt>Problems</dt>
+<dd>In cui vengono elencati gli errori presenti nello spazio di lavoro, facendo click sull'icona 
+<img src="immagini/view_menu@2x.png" class="iconaIDE"/>
+(sulla destra) è possibile limitare il numero di errori mostrati (ad esempio selezionando
+"Show" e poi "Error/Warnings on project").</dd>
+</dl>
 
 
 <h2>Creazione di un progetto e dei suoi contenuti</h2>
