@@ -4,6 +4,8 @@
 <!-- changelog 2017-08-21 possibile fare copia/incolla del programma in eclipse -->
 <!-- changelog 2018-06-22 inserita definizione di variabile -->
 <!-- changelog 2018-09-04 dipende da eclipse -->
+<!-- changelog 2018-09-12 inserita spiegazione pacchetti -->
+<!-- changelog 2018-09-12 inseriti commenti negli esercizi -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -47,7 +49,7 @@
 		<p>Il file "CiaoMondo", conterrà qualche linea di codice che va cancellata e sostituita con il programma qua sotto:</p>
 	
 <pre>
-package ciaoMondo;
+package ciaomondo;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -101,9 +103,29 @@ public class CiaoMondo extends Application {
 	Quando viene incontrata la doppia barra, tutto il resto della riga è un commento, 
 	quindi si possono anche qui inserire considerazioni. Dato che è fino al termine della riga, non serve una chiusura.</p>
 	
-	<p>La prima riga indica il nome del <em>programma</em> (o meglio il <code>package</code>, pacchetto) che andiamo a realizzare. 
-	In generale un programma java è composto da più file contenuti in più pacchetti,  
-	il nostro semplice programma è un caso particolare ed è composto da un solo file.</p>
+	<p>La prima riga non dice al programma cosa fare ma piuttosto serve ad inserire questo file 
+	in una gerarchia. Noi abbiamo sbrigativamente scritto il nome <code>ciaomondo</code> ma non è questa la pratica: 
+	i programmi sono solitamente fatti da tanti file e usualmente almeno in parte non scritti
+	da noi, per questo avere tutto mantenuto in maniera ordinata è di aiuto allo sviluppo.
+	La strategia standard per gestire i pacchetti è piuttosto semplice: ogni classe (per adesso possiamo
+	considerare che un file sia la stessa cosa) appartiene ad un pacchetto il cui nome possiamo deciderlo noi
+	(al solito scritto tutto in minuscolo), questo pacchetto può essere a sua volta contenuto in altri pacchetti e così
+	via. Ogni pacchetto in pratica è una cartella e la struttura inizia con il nome del dominio 
+	(che vengono registrati pubblicamente) scritto al rovescio... sembra complicato?</p>
+	
+	<div class="test">
+        <p>Il dominio della mia organizzazione è aspix.it e sto scrivendo il programma per una chat 
+        come chiamerò il pacchetto?</p>
+        <a onclick="sbagliata(this)">mio pacchetto<span class="spiegazione">non possono esserci spazi</span></a> 
+        <a onclick="sbagliata(this)">chat <span class="spiegazione">il nome sarebbe sensato ma non contiene il nome del dominio</span></a> 
+        <a onclick="sbagliata(this)">chat.it.aspix <span class="spiegazione">il nome del dominio non va messo in fondo</span></a>
+        <a onclick="giusta(this)">it.aspix.chat<span class="spiegazione">esatto! prima il dominio di primo livello e poi di seguito le altre parti</span></a>
+    </div>
+	
+	<p>Nella pratica i pacchetti sono delle cartelle quindi la classe <code>Prova</code> che sta nel 
+	pacchetto <code>com.azienda.esperimenti</code> sarà un file che si chiama Prova che sta nella
+	cartella esperimenti che a sua volta sta nella cartella azienda contenuta nella cartella com.</p>
+	
 	 
 	<p>Il gruppo successivo indica tutte le funzionalità di cui ha bisogno questa parte di programma per funzionare
 	(detto nei termini di java: gli altri oggetti che useremo); 
@@ -146,10 +168,10 @@ public class CiaoMondo extends Application {
 	
 	<div class="test">
     	<p>Quale istruzione si usa per utilizzare nel nostro programma degli elementi (oggetti) scritti da altri?</p>
-        <a onclick="sbagliata(this)">class</a> 
+        <a onclick="sbagliata(this)">class <span class="spiegazione">la usiamo per definire qualcosa di nuovo noi</span></a> 
         <a onclick="giusta(this)">import</a> 
-        <a onclick="sbagliata(this)">StackPane</a>
-        <a onclick="sbagliata(this)">Copyright</a>
+        <a onclick="sbagliata(this)">StackPane <span class="spiegazione">questo è il nome di uno specifico oggetto</span></a>
+        <a onclick="sbagliata(this)">Copyright <span class="spiegazione">non compare nel nostro programma</span></a>
   	</div>
   	
   	<div class="test">
@@ -179,10 +201,10 @@ public class CiaoMondo extends Application {
 	
 	<div class="test">
     	<p>Uno degli oggetti che si usano come contenitore di altri elementi dell'interfaccia grafica si chiama:</p>
-        <a onclick="sbagliata(this)">Label</a>
-        <a onclick="sbagliata(this)">Button</a> 
+        <a onclick="sbagliata(this)">Label <span class="spiegazione">questa è una singola etichetta (testo non modificabile dall'utente)</span></a>
+        <a onclick="sbagliata(this)">Button <span class="spiegazione">questo è il pulsante</span></a> 
         <a onclick="giusta(this)">StackPane</a> 
-        <a onclick="sbagliata(this)">Scene</a>
+        <a onclick="sbagliata(this)">Scene <span class="spiegazione">questa è l'area interna della finestra</span></a>
   	</div>
 	
 	<p>La riga successiva contiene ancora una dichiarazione:</p>
@@ -198,9 +220,9 @@ public class CiaoMondo extends Application {
 	<div class="test">
     	<p>cosa fa il seguente frammento di programma?</p>
     	<pre>/* StackPane root = new StackPane() */</pre>
-        <a onclick="sbagliata(this)">crea un nuovo StackPane</a>
-        <a onclick="sbagliata(this)">avvia il programma</a> 
-        <a onclick="giusta(this)">niente, è un commento</a> 
+        <a onclick="sbagliata(this)">crea un nuovo StackPane <span class="spiegazione">potrebbe sembrare... ma è contenuta in /* */</span></a>
+        <a onclick="sbagliata(this)">avvia il programma <span class="spiegazione">per avviare un programma bisogna usare altri strumenti</span></a> 
+        <a onclick="giusta(this)">niente <span class="spiegazione">giusto! è un commento</span></a> 
   	</div>
 
 
