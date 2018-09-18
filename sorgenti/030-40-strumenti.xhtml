@@ -6,6 +6,7 @@
 <!-- changelog 2018-06-21 prima bozza per jshell -->
 <!-- changelog 2018-06-28 inserite istruzioni per impostare il path -->
 <!-- changelog 2018-06-30 riorganizzato il contenuto del capitolo -->
+<!-- changelog 2018-09-18 path per javac in windows 8 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -56,12 +57,13 @@ sulla scrivania e un terminale (<code>cmd</code> o <code>PowerShell</code> per W
 un terminale qualsiasi su macOS o Linux) aperto nella stessa cartella.</p>
 
 <h3>path</h3>
-<p>Per poter usare i comandi è necessario informare il sistema operativo sulla loro ubicazione,
-nel caso di Windows 10 dobbiamo fare una sequenza di passi:</p>
+<p>Per poter usare i comandi è necessario informare il sistema operativo sulla loro ubicazione</p>
+
+<h4>nel caso di Windows 10 dobbiamo fare una sequenza di passi:</h4>
 <ul>
 <li>trovare dove si trova l'eseguibile <code>java</code>: usando il file manager,
 ad esempio per il JDK11 il percorso potrebbe essere <code>c:\Program Files\Java\jdk-11\bin\</code></li>
-<li>click con il taasto destro sul menu windows in basso a sinistra</li>
+<li>click con il tasto destro sul menu windows in basso a sinistra</li>
 <li>click su "sistema"</li>
 <li>nella barra di ricerca sulla sinistra scrivere "avanzate"</li>
 <li>click sulla voce "Visualizza impostazioni di istema avanzate"</li>
@@ -69,6 +71,20 @@ ad esempio per il JDK11 il percorso potrebbe essere <code>c:\Program Files\Java\
 <li>nel gruppo "Variabili di sistema" click su "Path" e poi su "Modifica..."</li>
 <li>click su "Nuovo" e inserire il percorso trovato al primo punto</li>
 </ul> 
+
+<h4>nel caso di Windows 8 una sequenza possibile è questa:</h4>
+<ul>
+<li>trovare dove si trova l'eseguibile <code>java</code> usando il file manager, 
+ad esempio per il JDK 8 il percorso potrebbe essere <code>C:\Program Files\Java\jdk1.8.0_181\bin</code></li>
+<li>aprire le configurazioni "sistema" dal pannello di controllo</li>
+<li>click su "sistema"</li> 
+<li>click sulla colonna di sinistra su "impostazioni di sistema avanzate"</li>
+<li>dalla linguetta "avanzate" click su "variabili d'ambiente"</li>
+<li>nel gruppo "Variabili di sistema" click su "Path" e poi su "Modifica..."</li>
+<li>in fondo alla casella "Valore variabile" aggiungere un ";" 
+seguito dal percorso trovato all'inizio</li>
+</ul>
+
 
 <h3>Scrittura</h3>
 <p>Per scrivere il programma serve un editor di testo come ad esempio il <em>Blocco note</em>
