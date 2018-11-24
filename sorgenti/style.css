@@ -23,8 +23,7 @@
     --colore-sfondo-file-scuro: #bf5f82 ; /* pink 200 */
     --colore-sfondo-algoritmiStruttureDati-scuro: #725b53 ; /* brown 300 */
     --colore-sfondo-riferimenti-scuro: #ab000d ; /* red 600 */
-}
-* {
+
     box-sizing:border-box;
     --colore-primario: #ffab40; /* orange A700 */
     --colore-primario-chiaro: #ffdd71; /* light di orange A700 */
