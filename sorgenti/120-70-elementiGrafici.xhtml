@@ -4,6 +4,7 @@
 <!-- grafoIndice requires="salutaUtente" group="grafica" -->
 <!-- changelog 2018-11-24 inserito capitolo -->
 <!-- changelog 2018-11-24 cambiato nome e in inseriti anche altri elementi grafici -->
+<!-- changelog 2018-11-25 aggiunti elementi e sistemato inizio capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -13,18 +14,23 @@
         <style type="text/css">
             .pulsante {
                 color: green ; background-color: rgba(0,200,0,0.5);
-                border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer
+                border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer;
+                clear: both; display: table;
             }
             h2, h3, pre { clear: both }
             h2 { padding-top:2em }
             h3 small { font-size:80%; font-weight: normal }
             pre { display: none }
-            img { float: left ; margin-right: 2em;}
-            .nascondi { color: red }
-            .nascondi { background-color: rgba(255,0,0,0.5) }
+            p { text-indent: 0 }
+            img { float: left ; margin-right: 2em; margin-bottom:1em}
+            .nascondi { color: red ; background-color: rgba(255,0,0,0.5) }
             pre { display:none }
             li { margin:1.5em }
             li a { display: inline }
+            
+            dl { display: grid ; grid-template-columns: auto 1fr}
+            dt,dd { padding-top:0.25em }
+            
         </style> 
         <script type="text/javascript"><![CDATA[
             function mostraNascondiCodice(cosa){
@@ -59,7 +65,9 @@
         <a href="#Label">Label</a>,
         <a href="#ListView">ListView</a>,
         <a href="#RadioButton">RadioButton</a>,
-        <a href="#TextField">TextField</a>.
+        <a href="#TextArea">TextArea</a>,
+        <a href="#TextField">TextField</a>,
+        <a href="#WebView">WebView</a>.
     </li>
     <li><a href="#layout">i pannelli per organizzare gli elementi della finestra</a>:
         <a href="#Accordion">Accordion</a>,
@@ -68,13 +76,32 @@
         <a href="#TabPane">TabPane</a>.
     </li>
 </ul>
+<p>Di tutti gli oggetti mostrati possono essere impostate le dimensioni in maniera esplicita
+se quelle calcolate in automatico non vanno bene (ma di solito vanno bene):</p>
+<dl>
+    <dt>setPrefSize(larghezza, altezza)</dt>
+    <dd>le due dimensioni che il componente dovrebbe avere, questa misura viene di solito
+    calcolata dal componente in modo da poter visualizzare tutto il suo contenuto</dd>
+    <dt>setPrefWidth(larghezza)</dt>
+    <dd>la larghezza che il componente dovrebbe avere</dd>
+    <dt>setPrefHeight(altezza)</dt>
+    <dd>l'altezza che il componente dovrebbe avere</dd>
+    <dt>setMaxfSize(larghezza, altezza)</dt>
+    <dd>le due dimensioni che il componente può avere al massimo, alcuni componenti 
+    impostano questa dimensione al pari di quella preferita altri invece non mettono limiti 
+    (utile per riempire lo spazio a disposizione)</dd>
+    <dt>setMaxWidth(larghezza)</dt>
+    <dd>la larghezza massima che il componente piò avere</dd>
+    <dt>setMaxHeight(altezza)</dt>
+    <dd>l'altezza massima che il componente piò avere</dd>
+</dl>
 
 <h2 id="dati">Elementi per gestire i dati</h2>
 <p>Molti degli elementi che sono elencati qui sotto permettono di gestire diversi tipi di dato...
 ad esempio posso creare una lista che conterrà testi o numeri. Il tipo dei dati
-va inserito tra &lt; e &gt; se nel caso dei testi definire il tipo è piuttosto ovvio (String) 
+va inserito tra &lt; e &gt;. Se nel caso dei testi definire il tipo è piuttosto ovvio (String) 
 potrebbe esserlo di meno nel caso dei numeri interi ad esempio. La teoria qui potrebbe essere lunga 
-ma per farla breve diciamo così: se serv gestire numeri interiu il tipo da usare è
+ma per farla breve diciamo così: se serve gestire numeri interi il tipo da usare è
 <code>Integer</code> mentre per i double è <code>Double</code>.</p>
 
 <section id="Label">
@@ -415,6 +442,54 @@ public class DListView extends Application{
 </pre>
 </section>
 
+<section id="TextArea">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/TextArea.html">
+<small>javafx.scene.control.</small>TextArea</a></h3>
+<p><img src="immagini/dTextArea.png" alt="esempio di interfaccia che usa TextArea"/>
+Non sempre i testi occupano una sola riga, quando ci serve di lavorare con 
+una quantità di testo maggiore è utile il componente <code>TextArea</code>. 
+Questo componente è in grado di gestire testo multilinea aggiungendo delle barre di scorrimento
+all'occorrenza (sia orizzontali che verticali), per mandare a capo il testo è
+possibile inserire un "\n" direttamente nella stringa o impostare la proprietà 
+<em>WrapText</em> a <code>true</code>.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DTextArea extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>TextArea input = new TextArea();</em>
+        GridPane pannello = new GridPane();
+        pannello.add(input, 0, 0);
+        
+        input.setText("Alice cominciava a sentirsi assai stanca"
+                + " di sedere sul poggetto accanto a sua sorella, "
+                + "senza far niente: aveva una o due volte data "
+                + "un’occhiata al libro che la sorella stava leggendo");
+        // il testo va a capo automaticamente 
+        // senza inserire "\n"
+        <em>input.setWrapText(true);</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
 <section id="ComboBox">
 <h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/ComboBox.html">
 <small>javafx.scene.control.</small>ComboBox</a></h3>
@@ -600,6 +675,56 @@ public class DDatePicker extends Application{
                 " dell'anno "+data.getYear());
     }
     
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="WebView">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.web/javafx/scene/web/WebView.html">
+<small>javafx.scene.web.</small>WebView</a></h3>
+<p><img src="immagini/dWebView.png" alt="esempio di interfaccia che usa uno WebView"/>
+Questo componente è in grado di visualizzare una pagina html direttamente tramite una 
+URL e di seguire i link che mostra, oppure può essere più semplicemente usato per 
+visualizzare un documento complesso con testi di diverse misure e colori usanto
+HTML e CSS.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.troppocomplicati;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+
+public class DWebView extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>WebView vistaWeb = new WebView();</em>
+        GridPane pannello = new GridPane();
+        
+        pannello.add(vistaWeb, 0, 0);
+        
+        String testo = "&lt;h1 style='background-color:yellow'&gt;"
+                + "Alice nel paese delle meraviglie&lt;/h1&gt;"
+                + "&lt;p style='font-family:sans-serif'&gt;&lt;b&gt;Alice&lt;/b&gt; "
+                + "cominciava a sentirsi assai stanca "
+                + "di sedere sul poggetto accanto a sua sorella, "
+                + "senza far niente: aveva una o due volte data "
+                + "un’occhiata al libro che la sorella stava leggendo&lt;/p&gt;";
+        
+        // imposto il testo da visualizzare
+        <em>vistaWeb.getEngine().loadContent(testo);</em>
+        
+        Scene scena = new Scene(pannello,200,200);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
     public static void main(String args[]) {
         launch(args);
     }
