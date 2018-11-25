@@ -65,6 +65,7 @@
         <a href="#Label">Label</a>,
         <a href="#ListView">ListView</a>,
         <a href="#RadioButton">RadioButton</a>,
+        <a href="#Slider">Slider</a>,
         <a href="#TextArea">TextArea</a>,
         <a href="#TextField">TextField</a>,
         <a href="#WebView">WebView</a>.
@@ -618,6 +619,99 @@ public class DSpinner extends Application{
 }
 </pre>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="Slider">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/Slider.html">
+<small>javafx.scene.control.</small>Slider</a></h3>
+<p><img src="immagini/dSpinner.png" alt="esempio di interfaccia che usa uno Slider"/>
+Selezionare un numero in un intervallo: lo slider! 
+Questo componente può essere personalizzato impostando il valore iniziale, finale e di 
+partenza direttamente nel costruttore. È possibile anche specificare
+se mostrare le tacche (<code>setShowTickMarks()</code>) 
+e la scala (<code>setShowTickLabels()</code>). L'elemento ha due scale:
+una maggiore e una minore (che può essere praticamente disabilitata impostando
+<code>setMinorTickCount(0)</code>).</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Dx extends Application{
+    
+    Label output = new Label("?");
+    // i parametri del costruttore sono:
+    // minimoValore, massimoValore, valoreIniziale
+    <em>Slider cursore = new Slider(0,10,6);</em>
+    
+    public void start(Stage ps) throws Exception {
+        Button pulsante = new Button("controlla");
+        GridPane pannello = new GridPane();
+        pannello.add(cursore, 0, 0);
+        pannello.add(pulsante, 0, 1);
+        pannello.add(output, 0, 2);
+        pulsante.setOnAction(e->azione());
+        
+        // voglio che mostri le tacche
+        <em>cursore.setShowTickMarks(true);</em>
+        // voglio che mostri le etichette
+        <em>cursore.setShowTickLabels(true);</em>
+        // quanto è grande l'unità principale
+        <em>cursore.setMajorTickUnit(1);</em>
+        // l'unità principale non va suddivisa ulterioremente
+        <em>cursore.setMinorTickCount(0);</em>
+        // deve muoversi a scatti
+        <em>cursore.setSnapToTicks(true);</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    private void azione() {
+        // leggo il valore dal cursore
+        <em>double val = cursore.getValue();</em>
+        output.setText(""+val);
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <section id="DatePicker">
 <h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/DatePicker.html">
