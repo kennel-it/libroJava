@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="timers vettore" group="giochi" -->
+<!-- changelog 2018-12-09 inserito capitolo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>oggettiInMovimento</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>    
+        <style type="text/css">
+            .pulsante {
+                color: green ; background-color: rgba(0,200,0,0.5);
+                border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer;
+                clear: both; display: table;
+            }
+            h2, h3, pre { clear: both }
+            h2 { padding-top:2em }
+            h3 small { font-size:80%; font-weight: normal }
+            pre { display: none }
+            p { text-indent: 0 }
+            img { float: left ; margin-right: 2em; margin-bottom:1em}
+            .nascondi { color: red ; background-color: rgba(255,0,0,0.5) }
+            pre { display:none }
+            li { margin:1.5em }
+            li a { display: inline }
+            
+            dl { display: grid ; grid-template-columns: auto 1fr}
+            dt,dd { padding-top:0.25em }
+        </style>   
+        <script type="text/javascript"><![CDATA[
+            function mostraNascondiCodice(cosa){
+                var sezione = cosa.parentNode;
+                var codice = sezione.querySelectorAll("pre")[0];
+                var pulsante = sezione.querySelectorAll(".pulsante")[0];
+                pulsante.classList.toggle("nascondi");
+                if(codice.style.display=="block"){
+                    codice.style.display = "none";
+                    pulsante.innerHTML="mostra codice";
+                }else{
+                    codice.style.display = "block";
+                    pulsante.innerHTML="nascondi codice";
+                }                
+            }
+        ]]></script>     
+    </head>
+<body>
+<header>
+<h1>oggettiInMovimento</h1>
+<p>postare oggetti nello stage</p>
+</header>
+<article>
+<p>TODO: intro!</p>
+
+<h2>Oggetti a posizioni precise</h2>
+<p>È possibile posizionare gli oggetti in posizioni determinate da coordinate piuttosto
+che da una griglia: 
+<a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/layout/Pane.html">javafx.scene.layout.Pane</a>
+posiziona i suoi elementi figli secondo delle coordinate X-Y.</p>
+<p>A questo elemento possono essere aggiunti quanti figli si vuole in questo modo:
+<code>pannello.getChildren().add( oggetto );</code></p> 
+
+
+<section id="formeEImmagini">
+<h2>Forme geometriche e immagini</h2>
+<p>In un pannello oltre che controlli come i pulsanti si possono aggiungere anche figure geometriche 
+o immagini a posizioni precise, gli oggetti <code>Circle</code>, <code>Rectangle</code>, 
+<code>Polygon</code> e <code>ImageView</code> servono appunto a questo, ciacuno di questi oggetti 
+ha un modo per impostare la sua posizione (ad esempio <code>setCenterX()</code> per Circle
+o <code>setX</code> per il rettangolo) oppure è possibile utilizzare setTranslateX() e setTranslateY()
+che sono due metodi disponibili per tutti gli oggetti di questo genere.</p>
+<p>L'esempio in questa pagina usa ad esempio <code>setX()</code>, per esecizio prova a togliere
+questo tipo di impostazioni e usa invece <code>setTranslateX()</code> e <code>setTranslateY()</code>.</p>
+<p>L'oggetto <code>Image</code> permette di gestire immagini sia in formato jpeg che png (con trasparenze)
+e gif (anche animato).</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Oggetti extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        <em>Pane areaDiGioco = new Pane();</em>
+        areaDiGioco.setPrefSize(300, 300);
+        
+        <em>Rectangle rettangolo = new Rectangle(50,100);</em>
+        rettangolo.setX(200);
+        rettangolo.setY(10);
+        rettangolo.setFill(Color.RED);
+        areaDiGioco.getChildren().add(rettangolo);
+        
+        <em>Circle cerchio = new Circle(20);</em>
+        cerchio.setCenterX(100);
+        cerchio.setCenterY(200);
+        cerchio.setFill( Color.GREEN );
+        areaDiGioco.getChildren().add(cerchio);
+        
+        <em>Polygon poligono = new Polygon(100,100,50,50,50,100);</em>
+        poligono.setFill(Color.YELLOW);
+        areaDiGioco.getChildren().add(poligono);
+        
+        Image iBase = new Image(getClass().getResourceAsStream("asteroide.gif"));
+        <em>ImageView asteroide = new ImageView(iBase);</em>
+        asteroide.setPreserveRatio(true);
+        asteroide.setFitWidth(40);
+        areaDiGioco.getChildren().add(asteroide);
+                
+        Scene scena = new Scene(areaDiGioco);
+        primaryStage.setScene(scena);
+        primaryStage.setTitle("L1");
+        primaryStage.show();
+    }
+}
+</pre>
+</section>
+
+
+<section id="movimentoOrizzontale">
+<h2>Movimento orizzontale</h2>
+<p>La realtà è che gli oggetti non si muovono da soli... dobbiamo spostarli noi un po'
+alla volta e dare l'illusione che si muovano fluidamente. Generare questo tipo di 
+illusione non è difficile basta fare molto frequentemente (almeno una ventina di volte al secondo)
+dei piccoli spostamenti.</p>
+<p>Per fare un lavoro qualsiasi diciamo 40 volte al secondo possiamo usare un Timer e ogni volta sche 
+questo scade porto la pallina un pixel più avanti.</p>
+<p>Questa volta per posizionare la pallina usiamo la proprietà translate al posto di center!</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class MovimentoOrizzontale extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    Pane areaDiGioco = new Pane();
+    Circle pallina = new Circle(20);
+    <em>double pallinaX;</em>
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        areaDiGioco.setPrefSize(200, 80);
+        
+        pallina.setFill(Color.RED);
+        <em>pallinaX = 20;</em>
+        pallina.setTranslateX(pallinaX);
+        pallina.setTranslateY(40);
+        areaDiGioco.getChildren().add(pallina);
+                
+        Scene scena = new Scene(areaDiGioco);
+        primaryStage.setScene(scena);
+        primaryStage.setTitle("L1");
+        primaryStage.show();
+        
+        <em>Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(0.025), // ogni quanto va chiamata la funzione
+                x -> spostaPallina())
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();</em>
+    }
+
+    private void spostaPallina() {
+        <em>pallinaX++;
+        pallina.setTranslateX(pallinaX);</em>
+    }
+}
+</pre>
+</section>
+
+
+
+
+<section id="rimbalzo">
+<h2>Rimbalzo</h2>
+<p>Se spostiamo la pallina sempre più avanti lungo l'asse X ad un certo punto esce dalla finestra.
+Sarebbe più interessante se rimbalzasse tornando indietro! Ovviamente non lo fa in automatico
+ma non è neanche troppo difficile da fare.</p>
+<p>L'idea è questa: all'inizio mando la pallina verso destra (incremento di 1 la posizione), 
+quando la posizione è tale per cui la pallina tocca il bordo la rimando indietro (decremento 
+la posizione), e viceversa quando tocca il bordo sinistro.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class RimbalzoOrizzontale extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    Pane areaDiGioco = new Pane();
+    Circle pallina = new Circle(20);
+    double pallinaX;
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        areaDiGioco.setPrefSize(200, 80);
+        
+        pallina.setFill(Color.RED);
+        pallinaX = 20;
+        pallina.setCenterX(pallinaX);
+        pallina.setCenterY(40);
+        areaDiGioco.getChildren().add(pallina);
+                
+        Scene scena = new Scene(areaDiGioco);
+        primaryStage.setScene(scena);
+        primaryStage.setTitle("CD");
+        primaryStage.show();
+        
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(0.025), // ogni quanto va chiamata la funzione
+                x -> spostaPallina()));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    <em>boolean avanti=true;</em>
+    private void spostaPallina() {
+        <em>if(avanti) {
+            pallinaX++;
+        }else{
+            pallinaX--;
+        }
+        // 20 è il raggio della pallina
+        if (pallinaX &gt;= 200-20) {
+            avanti = false;
+        }
+        if (pallinaX &lt;= 20) {
+            avanti = true;
+        }</em>
+        pallina.setCenterX(pallinaX);
+    }
+}
+</pre>
+</section>
+
+
+
+
+</article>
+</body>
+</html>
