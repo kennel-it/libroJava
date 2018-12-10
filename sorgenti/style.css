@@ -7,6 +7,7 @@
     --colore-sfondo-file: #f8bbd0 ; /* pink 200 */
     --colore-sfondo-algoritmiStruttureDati: #a1887f ; /* brown 300 */
     --colore-sfondo-riferimenti: #e53935 ; /* red 600 */
+    --colore-sfondo-giochi: #ff9229 ;
     /* i relativi light */
     --colore-sfondo-noGroup-chiaro: #ffffff; /* grey 100 */
     --colore-sfondo-infrastruttura-chiaro: #c3fdff; /* blue 200 */
@@ -15,6 +16,7 @@
     --colore-sfondo-file-chiaro: #ffc1e3 ; /* pink 200 */
     --colore-sfondo-algoritmiStruttureDati-chiaro: #d3b8ae ; /* brown 300 */
     --colore-sfondo-riferimenti-chiaro: #ff6f60 ; /* red 600 */
+    --colore-sfondo-giochi-chiaro: #ffae60 ;
     /* i relativi dark */
     --colore-sfondo-noGroup-scuro: #c2c2c2; /* grey 100 */
     --colore-sfondo-infrastruttura-scuro: #5d99c6; /* blue 200 */
@@ -23,6 +25,7 @@
     --colore-sfondo-file-scuro: #bf5f82 ; /* pink 200 */
     --colore-sfondo-algoritmiStruttureDati-scuro: #725b53 ; /* brown 300 */
     --colore-sfondo-riferimenti-scuro: #ab000d ; /* red 600 */
+    --colore-sfondo-giochi-scuro: #e55600 ;
 
     box-sizing:border-box;
     --colore-primario: #ffab40; /* orange A700 */
@@ -46,6 +49,7 @@ body.grafica                 header { background-color: var(--colore-sfondo-graf
 body.file                    header { background-color: var(--colore-sfondo-file) }
 body.algoritmiStruttureDati  header { background-color: var(--colore-sfondo-algoritmiStruttureDati) }
 body.riferimenti             header { background-color: var(--colore-sfondo-riferimenti) }
+body.giochi                  header { background-color: var(--colore-sfondo-giochi) }
 header    { margin:0 ; padding:0 }
 header h1 { margin:0 ; padding:2rem 3em 0.5rem 3em ; text-align: center }
 header p  { margin:0 ; padding: 0.5rem 1rem 2rem 1rem ; text-align: center }
@@ -57,6 +61,7 @@ body.grafica                 nav { background-color: var(--colore-sfondo-grafica
 body.file                    nav { background-color: var(--colore-sfondo-file-chiaro) }
 body.algoritmiStruttureDati  nav { background-color: var(--colore-sfondo-algoritmiStruttureDati-chiaro) }
 body.riferimenti             nav { background-color: var(--colore-sfondo-riferimenti-chiaro) }
+body.giochi                  nav { background-color: var(--colore-sfondo-giochi-chiaro) }
 nav {
 	margin:0; padding: 1rem;
 	display: flex; flex-direction: row 
@@ -69,6 +74,7 @@ body.grafica                 nav > * { background-color: var(--colore-sfondo-gra
 body.file                    nav > * { background-color: var(--colore-sfondo-file-scuro) }
 body.algoritmiStruttureDati  nav > * { background-color: var(--colore-sfondo-algoritmiStruttureDati-scuro) }
 body.riferimenti             nav > * { background-color: var(--colore-sfondo-riferimenti-scuro) }
+body.giochi                  nav > * { background-color: var(--colore-sfondo-giochi-scuro) }
 nav > * {
     flex-grow: 1;
     text-align:center; text-decoration: none;

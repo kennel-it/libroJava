@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
-<!-- grafoIndice requires="salutaUtente" group="grafica" -->
+<!-- grafoIndice requires="salutaUtente" group="giochi" -->
+<!-- changelog 2018-12-06 rimossa parte iniziale inutile sui Thread -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -15,75 +16,7 @@
 <p>eventi temporizzati in javafx</p>
 </header>
 <article>
-<h2>Giusto per iniziare...</h2>
-<p>Proviamo un approccio abbastanza semplice: creo una classe con la finestra che usa
-un thread per aggiornare una etichetta di testo. La classe che implementa il Thread 
-non fa altro che aggiornare scrivere il numero, aspettare un secondo, decrementare e 
-aggiornare di nuovo.</p>
-<p>L'unica parte più intricata è quella che ci serve per perdere un secondo: 
-per adesso la prendiamo così com'è.</p>
-<pre>
-public class Timer1 extends Application{
-  @Override
-  public void start(Stage primaryStage) throws Exception {
-    Label testo = new Label("finestra timer");
-    Scene scene = new Scene(new BorderPane(testo),200,100);
-    primaryStage.setTitle("Timer!"); 
-    primaryStage.setScene(scene);
-    primaryStage.show();
-    Aggiornatore1 a = new Aggiornatore1(testo);
-    a.start();
-  }
-  public static void main(String args[]){
-    launch();
-  }
-}
-</pre>
-<pre class="errore">
-public class Aggiornatore1 extends Thread{
-  Label etichetta;
-  public Aggiornatore1(Label etichetta) {
-    this.etichetta = etichetta;
-  }
-  private void perdiUnSecondo(){
-    // non ci curiamo particolarmente di come funziona!
-    try {
-      synchronized (this) { this.wait(1000); }
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-  }
-  @Override
-  public void run(){
-    int n=100;
-    while(n>=0){
-      etichetta.setText(""+n);
-      perdiUnSecondo();
-      n--;
-    }
-  }
-}
-</pre>
-
-<p>Il problema è che la soluzione sopra non funziona! L'errore sta nel fatto che
-la classe <code>Aggiornatore1</code> tenta di aggiornare l'etichetta ma questo
-non si può fare perché stiamo lavorando in un thread diverso rispetto a quello di JavaFX.
-La soluzione è quella di usare il metodo <code>runLater()</code> di
-<a href="http://docs.oracle.com/javase/8/javafx/api/javafx/application/Platform.html">Platform</a>
-In questo modo il codice verrà eseguito nel thread di JavaFX.</p>
-<p>Il modo più semplice di farlo è questo:</p>
-<pre>
-public void run(){
-  while(n>=0){
-    Platform.runLater(() -> {
-      etichetta.setText(""+n);
-    });
-    perdiUnSecondo();
-    n--;
-  }
-}
-</pre>
-
+<p>TODO: intro!</p>
 <h2>Timeline</h2>
 <p>Una seconda possibilità è quella di usare l'oggetto 
 <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html">Timeline</a> di JavaFX.
