@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <!-- grafoIndice requires="ripetizione assegnazione visibilita numeri" group="base" -->
 <!-- changelog 2018-06-28 corrette virgolette tipografiche -->
+<!-- changelog 2018-12-11 modificata parte iniziale del capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -20,18 +21,41 @@
    realizzato in un pomeriggio di allenamento in piscina. Per le conoscenze informatiche che abbiamo, il compito sembra piuttosto facile: dichiaro un
    certo numero di variabili <code>int</code> ciascuna delle quali rappresenta un tempo. Potremmo per esempio scrivere:<br/>
    <code>int t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;</code><br/>e se di questi tempi vogliamo sapere quanti sono superiori ad un tempo minimo indicato
-   dal coach, come si fa? L'unica soluzione è controllare varibile per variabile il fatto. L'operazione non può essere inserita in un <code>for</code>
-   perché non sono righe idetiche: cambia (solo e soltanto) il nome della variabile, in particolare cambierebbe solo il numero che abbiamo apposto alla
-   variabile. Si può inventare qualcosa per cui le azioni si possono mettere nel ciclo?</p>
+   dal coach, come si fa? L'unica soluzione è controllare variabile per variabile il fatto. L'operazione non può essere inserita in un <code>for</code>
+   perché non sono righe identiche: cambia (solo e soltanto) il nome della variabile, in particolare cambierebbe solo il numero che abbiamo apposto alla
+   variabile. Inoltre se un giorno facciamo 15 vasche anziché 10 dobbiamo modificare il programma.
+   Si può inventare qualcosa per cui le azioni si possono mettere nel ciclo?</p>
+   
 <h2>La soluzione</h2>
-<p>Il vettore non è altro che una variabile che è in grado di contenere <i>contemporaneamente</i> più valori. Quanti? Gli viene detto al momento della
-   creazione. Cominciamo con la dichiarazione: si compone di 2 parti proprio come i controlli della finestra: supponiamo di voler dichiarare un vettore
-   di <code>int</code> chiamato <code>tempi</code> che conterrà 10 elementi, si scriverà:<br/><code>int tempi[] = new int[10];</code><br/>Dove si
-   mette questa dichiarazione? Come al solito, dipende dall'uso: se il vettore deve essere disponibile in più funzioni oppure sarà utile in una sola funzione
-   ma dovrà <i>tenere memoria</i> dei valori precedentemente inseriti, allora la metteremo a livello classe, altrimenti all'interno della funzione.<br/>
-   Altro problema: nel momento in cui stiamo realizzando il programma potremmo non avere la minima idea di quanti saranno gli elementi. In questo caso si
-   rimanderà l'<i>allocazione</i> della memoria a quando si saprà la grandezza, magari dopo averlo chiesto all'utente. Facciamo proprio questo: chiediamo
-   all'utente quante "vasche" ha fatto, quindi dimensioniamo il vettore di conseguenza:</p>
+<p>Il vettore non è altro che una variabile in grado di contenere <i>contemporaneamente</i> più valori. Quanti? Gli viene detto al momento della
+   sua creazione. Andando in ordine: prima di tutto il vettore dobbiamo dichiararlo, 
+   come tutte le dichiarazioni questa è composta da un tipo e un nome...
+   con una piccola aggiunta: <code>[]</code>.
+   Per dichiarare un vettore di interi chiamato <code>tempi</code> possiamo scrivere 
+   <code>int [] tempi;</code> oppure <code>int tempi[];</code> le due dichiarazioni
+   sono del tutto equivalenti.<br/>
+   Dove mettere questa dichiarazione? Come al solito, dipende dall'uso: 
+   se il vettore deve essere disponibile in più funzioni oppure sarà utile in una sola funzione
+   ma dovrà <i>tenere memoria</i> dei valori precedentemente inseriti, 
+   allora la metteremo a livello classe, altrimenti all'interno della funzione.</p>
+   <p>Dopo la sola dichiarazione il vettore non è però ancora utilizzabile dobbiamo
+   crearlo (cosa che facciamo anche con gli oggetti dell'interfaccia grafica) e in
+   questo momento decidiamo quanti elementi deve contenere, ad esempio: <code>tempi = new int[10]</code>, 
+   10 nel nostro caso.<br/>
+   Come nel caso degli altri oggetti dichiarazione e creazione possono essere fatte 
+   contestualmente: <code>int tempi[] = new int[10]</code>.</p>
+   
+   
+   <p>Adesso proviamo a sviluppare il nostro programma che voglio usare in questo modo: 
+   dopo gli allenamenti io indicherò quante vasche ho cronometrato, successivamente
+   immetterò un valore alla volta e poi potrò chiedere quante vasche ho nuotato
+   con un tempo inferiore ad un certo valore.</p>
+   
+   <p>Al momento di scrivere il programma non so quanto dovrà essere grande il vettore,
+   in questo caso si rimanderà l'<i>allocazione</i> della memoria (sarebbe a dire 
+   la creazione del vettore) a quando si saprà la grandezza, cioè dopo che 
+   l'utente l'avrà comunicata scrivendola in una casella e premendo il 
+   pulsante corrispondente: </p>
 <pre>public class Piscina extends Application {
    TextField <var>tNumero</var> = new TextField();
    int <var>tempi</var>[];
