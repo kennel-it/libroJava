@@ -5,6 +5,7 @@
 <!-- changelog 2018-11-24 inserito capitolo -->
 <!-- changelog 2018-11-24 cambiato nome e in inseriti anche altri elementi grafici -->
 <!-- changelog 2018-11-25 aggiunti elementi e sistemato inizio capitolo -->
+<!-- changelog 2019-05-02 aggiunto ImageView -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -55,7 +56,6 @@
 </header>
 <article>
 
-<p>Questo capitolo è diviso in due parti:</p>
 <ul>
     <li><a href="#dati">gli elementi per gestire l'input/output dei dati</a>:
         <a href="#Button">Button</a>,
@@ -76,6 +76,9 @@
         <a href="#GridPane">GridPane</a>,
         <a href="#TabPane">TabPane</a>.
     </li>
+	<li><a href="#grafica">oggetti grafici</a>:
+		<a href="#ImageView">ImageView</a>
+	</li>
 </ul>
 <p>Di tutti gli oggetti mostrati possono essere impostate le dimensioni in maniera esplicita
 se quelle calcolate in automatico non vanno bene (ma di solito vanno bene):</p>
@@ -1059,6 +1062,53 @@ public class DAccordion extends Application{
         ps.show();
     }
 
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<h2 id="grafica">Grafica</h2>
+<p>In questa sezione inseriamo elementi grafici come le immagini</p>
+
+
+<section id="ImageView">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/ImageView.html">
+<small>javafx.scene.image.</small>ImageView</a></h3>
+<p><img src="immagini/dImageView.png" alt="esempio di interfaccia che usa ImageView"/>
+Un <code>ImageView</code> è un elemento che permette di visualizzare una immagine
+bitmap in diversi formati (es: jpeg, png, gif).</p>
+<p>L'unica parte complessa è trovare l'immagine che va visualizzata, 
+per farlo usiamo un ulteriore oggetto
+<a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/Image.html">Image</a>
+a cui indichiamo di caricare l'immagoine dalla cartella in cui sta la nostra classe.</p>  
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DImageView extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        // leggo una immagine che si trova nella stessa cartella di questa classe
+        <em>Image i = new Image(getClass().getResourceAsStream("santoreggia.jpg"));</em>
+        <em>ImageView iw = new ImageView(i);</em>
+        GridPane pannello = new GridPane();
+        pannello.add(iw, 0, 0);
+        
+        Scene scena = new Scene(pannello);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
     public static void main(String args[]) {
         launch(args);
     }
