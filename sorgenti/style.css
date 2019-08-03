@@ -220,11 +220,11 @@ div.suggerimento {
 p.eclipse, p.netbeans {background-position: 0.10em 0.2em;}
 .netbeans { 
 	background-color: rgb(240,240,255);
-	background-image: url(immagini/netbeans.png);
+	background-image: url(immagini/ide_netbeans.png);
 	border-color: rgb(200,200,215);
 }
 .eclipse { 
 	background-color: rgb(255,240,240);
-    background-image: url(immagini/eclipse.png);
+    background-image: url(immagini/ide_eclipse.png);
     border-color: rgb(215,200,200);
 }

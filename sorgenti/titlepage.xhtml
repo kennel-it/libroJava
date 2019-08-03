@@ -24,6 +24,15 @@
         	
         	nav#toc { margin:0em 2em ; background-color: white }
             nav#toc > * { text-align:left ; background-color: white; color:black }
+            
+            #strumenti {
+                display: flex;
+                flex-flow: row;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            #IDE { margin-left:1em ; cursor: pointer;}
         </style>
         <script type="text/javascript">
         //<![CDATA[
@@ -60,28 +69,37 @@
 		    httpRequest.open('GET', 'cerca.php?q='+document.getElementById("q").value);
 		    httpRequest.send();
 		}
+		
+		function cambiaIDE(){
+			var attuale = localStorage.getItem("ide");
+			if(attuale==null){
+				localStorage.setItem("ide", "netbeans");
+			}else if(attuale=="netbeans"){
+                localStorage.setItem("ide", "eclipse");
+			}else{
+				localStorage.removeItem("ide");
+			}
+			// var nuovo = localStorage.setItem("idex",nuovo);
+			document.getElementById("IDE").src= "immagini/ide_"+localStorage.getItem("ide")+".png";
+		}
         //]]>
         </script>       
     </head>
     <body>        
         <img id="copertina" src="immagini/titolo.svg" alt="programming java"/>        
-        <!-- <div id="ideSelector">
-        	<span onclick='localStorage.setItem("ide","netbeans");pulsanti()' id="ide_netbeans">uso NetBeans</span>
-        	<span onclick='localStorage.removeItem("ide");pulsanti()' id="ide_nonso">?</span>
-        	<span onclick='localStorage.setItem("ide","eclipse");pulsanti()' id="ide_eclipse">uso Eclipse</span>
-        </div>  --> 
         
         <div id="pagina"> 
         	<div id="pager">
         		<span onclick="grafo()" id="pg" style="font-weight: bold">grafo</span><span onclick="elenco()" id="pe">elenco</span>
         	</div> 
         	<div id="grafo" style="text-align: center">
-        		<div>
-        		<div id="cerca">
-        			<input type="text" id="q"/>
-        			<label id="eseguiCerca" onclick="eseguiRicerca()" for="q">cerca</label>
-        			<p id="risultatoRicerca"></p>
-        		</div>
+        		<div id="strumenti">
+	        		<div id="cerca">
+	        			<input type="text" id="q"/>
+	        			<label id="eseguiCerca" onclick="eseguiRicerca()" for="q">cerca</label>
+	        			<p id="risultatoRicerca"></p>
+	        		</div>
+	        		<img id="IDE" src="immagini/netbeans.png" alt="IDE" onclick="cambiaIDE()"/>
         		</div>		
         		<!-- placeholder: indice grafo -->
         	</div> 
