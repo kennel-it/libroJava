@@ -70,6 +70,10 @@
 		    httpRequest.send();
 		}
 		
+		function logoIDE(){
+			document.getElementById("IDE").src= "immagini/ide_"+localStorage.getItem("ide")+".png";
+		}
+		
 		function cambiaIDE(){
 			var attuale = localStorage.getItem("ide");
 			if(attuale==null){
@@ -79,13 +83,12 @@
 			}else{
 				localStorage.removeItem("ide");
 			}
-			// var nuovo = localStorage.setItem("idex",nuovo);
-			document.getElementById("IDE").src= "immagini/ide_"+localStorage.getItem("ide")+".png";
+			logoIDE();
 		}
         //]]>
         </script>       
     </head>
-    <body>        
+    <body onload="logoIDE()">        
         <img id="copertina" src="immagini/titolo.svg" alt="programming java"/>        
         
         <div id="pagina"> 
