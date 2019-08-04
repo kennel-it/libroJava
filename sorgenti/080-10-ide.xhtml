@@ -4,27 +4,174 @@
 <!-- grafoIndice requires="" group="infrastruttura" -->
 <!-- changelog 2018-09-04 inserito nuovo capitolo -->
 <!-- changelog 2018-09-05 aggiunta piccola parte sulle schede fondamentali -->
+<!-- changelog 2019-08-04 aggiunta parte per NetBeans -->
+<!-- changelog 2019-08-04 aggiunta configurazione per JDK11+JavaFX su Elcipse e NetBeans -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
         <title>eclipse</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>
+        <script type="text/javascript" src="script/ide.js"></script>  
         <style type="text/css">
             dl.icone {display: grid; grid-template-columns: 2ex 1fr; grid-row-gap:0.5em}
+            .prova { opacity: 0.5 }
         </style>         
     </head>
 <body>
 <header>
-<h1>eclipse</h1>
+<h1>ide</h1>
 <p>l'ambiente di sviluppo</p>
 </header>
 <article>
 
-<p>Eclipse è uno dei tanti IDE (Integrated Development Environment)
+<h2>pulizia!</h2>
+<p>In caso che serva è possibile ripulire l'ambiente di sviluppo prima di installare il
+software che ci serve, sono operazioni da fare con attenzione perché si va ad operare
+direttamente sulle impostazioni del sistema.</p>
+<ul>
+    <li>se non ci sono programmi che necessitano di una specifica versione di java
+    aprire il pannello di controllo e rimuovere tutte le versioni di java installate
+    (potrebbero chiamarsi JDK o JRE)</li>
+    <li>controllare che nella cartella <code>C:\Program Files (x86)</code> 
+    (o <code>c:\Programmi (x86)</code>) non ci siano cartelle "java"</li>
+    <li>controllare che nella cartella nascosta <code>C:\ProgramData</code> 
+    non ci siano cartelle "Oracle" di java (per vedere una cartella nascosta
+    dal nastro "visualizza" bisogna spuntare "Elementi nascosti")</li>
+    <li>rimuovere eventuali variabili di ambiente
+        <ul>
+            <li>aprire pannello di controllo, poi "sistema e sicurezza"</li>
+            <li>aprire "sistema"</li>
+            <li>aprire "impostazioni di sistema avanzate", nella linguetta "avanzate", 
+            click su "variabili di ambiente"</li>
+            <li>nel gruppo variabili di sistema selezionare "Path" e poi click su modifica</li>
+            <li>eliminare i percorsi che includono "java" (attenzione che nelle vecchie versioni di
+            Windows tutto compare in una sola casella, le parti da prendere in considerazione sono
+            separate da ";")</li>    
+        </ul>
+    </li>
+</ul>
+
+<h2>installare java e javafx</h2>
+<ul>
+    <li>scaricare l'installatore di java 11 o successivo da
+    <a href="https://adoptopenjdk.net/">AdoptOpenJDK</a></li>
+    <li>durante l'installazione attivare l'opzione "set JAVA_HOME variable"</li>
+    <li class="prova">per testare se è stato fatto tutto bene basta aprire il CMD e scrivere <code>java</code></li>
+    <li>scaricare la libreria javafx (l'SDK, non jmod) dal 
+    <a href="https://gluonhq.com/products/javafx/">sito di openjfx</a> 
+    (una versione stabile, non le "Early-Access Builds")</li>
+    <li>scompattare il file zip appena scaricato (in una posizione qualsiasi, poniamo sulla scrivania)</li>
+</ul>
+
+<h2>IDE</h2>
+
+
+<p>Per sviluppare i nostri programmi (usando Java o un qualsiasi altro linguaggio)
+è molto comodo usare degli strumenti chiamati IDE (Integrated Development Environment)
 che ci permettono di sviluppare software più agevolmente.</p>
 
-<h2>Avvio dell'IDE</h2>
+<section class="netbeans">
+<p>È possibile scaricare <a href="http://netbeans.apache.org/">NetBeans dal suo sito</a>,
+dalla versione 11.1 è possibile scaricare l'installer ma anche il pacchetto contrassegnato
+come "Binaries" va bene. <span class="prova">Durante l'installazione NetBeans mostra di aver trovato 
+la versione di java corretta sotto l'etichetta "Java environment for the Apache NetBeans IDE".</span></p>
+<p>Al primo avvio è possibile che NetBeans si lamenti per l'impossibilità di impostare "Nashhorn",
+va bene disabilitare i moduli correlati.</p>
+
+<h2>Creare la libreria JavaFX</h2>
+<p>Come spesso accade nella realizzazione di programmi utilizzeremo una libreria scritta da altri, 
+per semplicità impostiamo una volta per tutte in NetBeans i parametri per questa libreria:</p>
+<ul>
+    <li>Menu /Tools/libraries</li>
+    <li>click sul pulsante "New library..."</li>
+    <li>come nome inserire "JavaFX"</li>
+    <li>adesso sulla sinistra deve essere selezionata "JavaFX" e al centro c'è una lista vuota</li>
+    <li>click su "Add JAR/Folder ..."</li>
+    <li>aprire la cartella dell'SDK di JavaFX (quello scaricato prima), aprire poi la cartella 
+    <code>lib</code> al suo interno</li>
+    <li>selezionare tutti i jar presenti e poi click su "Add JAR/Folder"</li>
+    <li>poi click su "OK" per chiudere il progetto</li>
+</ul>
+
+<h2>Creare un progetto</h2>
+<ul>
+    <li>click sul menu /File/New Project...</li>
+    <li>categoria "Java with Ant" (ignorare le sottocategorie) progetto: "Java Application", click su "Next"</li>
+    <li>inserire il nome del progetto poi click su "Finish"</li>
+    <li>configurare il nuovo progetto per utilizzare la libreria di JavaFX
+        <ul>
+            <li>aprire le proprietà del progetto (click ccon il destro sul nome del progetto
+            e poi "properties")</li>
+            <li>selezionare la categoiria "Libraries"</li>
+            <li>nella linguetta compile click sul "+" alla destra di "Classpath" poi "add library"
+            e aggiungere "JavaFX"</li>
+            <li>nella linguetta compile click sul "+" alla destra di "Modulepath" poi "add library"
+            e aggiungere "JavaFX"</li>
+            <li>nella casella "VM Options" inserire "--add-modules javafx.controls,javafx.fxml,javafx.media"</li>
+        </ul>
+    </li>
+</ul>
+<p>A questo punto è possibile creare nuove classi java utilizzando anche gli oggetti di JavaFX.</p>
+</section>
+
+
+<section class="eclipse">
+<p>È possibile scaricare <a href="https://www.eclipse.org/downloads/">Eclipse dal suo sito</a>,
+l'installer va bene ma anche i singoli pacchetti (che sono degli zip e non vanno installati)
+raggiungibili su <a href="https://www.eclipse.org/downloads/packages/">Download Packages</a> 
+vanno bene, in questo caso il pacchetto è "Eclipse IDE for Java Developers". 
+</p>
+<p>Al primo avvio di eclipse compare un pannello di presentazione, bisogna fare click su "Workbech"
+per andare nello spazio di lavoro.</p>
+
+<h2>Creare un ambiente di esecuzione Java+JavaFX</h2>
+<p>Come spesso accade nella realizzazione di programmi utilizzeremo una libreria scritta da altri, 
+per semplicità impostiamo una volta per tutte in Eclipse un ambiente di esecuzione per i nostri
+programmi che include sia gli oggetti base di java che quelli di JavaFX:</p>
+<ul>
+    <li>menu /Window/Preferences</li>
+    <li>selezionare il gruppo "Java" e poi il sottogruppo "Installed JREs"</li>
+    <li>selezionare il JRE che inizia con "jdk-" e la versione di java che hai installato</li>
+    <li>click su "duplicate" e su "JRE name" scrivere "jdk11+fx"</li>
+    <li>click su "Add External JARs..."</li>
+    <li>riaprire la cartella dello zip di javafx che hai scaricato e scompattato in precedenza, 
+    aprire la sottocartella "zip" e selezionare tutti i file ".jar" poi click su "finish"</li>
+    <li>sistemare gli argomenti della VM
+        <ul>
+            <li>la casella dovrebbe essere vuota</li>
+            <li>aggiungere "--add-modules javafx.controls,javafx.fxml,javafx.media"</li>
+            <li>aprire sulla scrivania la cartella scompattata di javafx, aprire la cartella lib</li>
+            <li>copiare il percorso (es: C:\Users\mario\Desktop\javafx-sdk-12.0.2\lib)</li>
+            <li>aggiungere anche "--module-path" seguito da uno spazio e dal percorso copiato al passo precedente</li>
+            <li class="prova">nella casella "Default VM arguments" dovrebbe esserci una cosa del tipo
+            <code>--add-modules javafx.controls,javafx.fxml,javafx.media --module-path C:\Users\test\Desktop\javafx-sdk-12.0.2\lib</code>,
+            attenzione agli spazi!</li>
+            <li>click su "finish"</li>
+            <li>per comodità spuntare il quadratino alla sinistra del JRE appena creato (così verrà usato come predefinito)</li>
+            <li>click su "apply and close"</li>
+        </ul>
+    </li>
+</ul>
+
+<h2>Creare un progetto</h2>
+<ul>
+    <li>click sul menu /File/New/Java Project</li>
+    <li>inserire il nome del progetto</li>
+    <li>nel gruppo "JRE" selezionare "Use a project specific JRE" e assicuratsi che sulla destra
+    sia selezionato "jdk11+fx" che hai creato prima</li>
+    <li>click su finish</li>
+    <li>a questo punto compare la finestra "Create module-info.java", click su "don't Create"</li>
+</ul>
+<p>A questo punto è possibile creare nuove classi java utilizzando anche gli oggetti di JavaFX.</p>
+</section>
+
+
+
+<section class="eclipse">
+<h2>Eclipse</h2>
+
+<h3>Avvio dell'IDE</h3>
 <p>Eclipse organizza i progetti all'interno di spazi di lavoro, 
 in ogni sistema possono essere presenti più spazi di lavoro ed Eclipse ci chiede quale 
 vogliamo usare, in pratica è una cartella che contiene dei progetti e delle impostazioni.</p>
@@ -37,7 +184,7 @@ A questo punto bisogna mettere la spunta su "Prompt for workspace on startup".</
 <p>In ogni caso dal menu File di Eclipse è possibile cambiare lo spazio di lavoro usando la voce 
 <em>Switch workspace</em>.</p>
 
-<h2>La finestra di Eclipse</h2>
+<h3>La finestra di Eclipse</h3>
 <p style="text-align:center"><img src="immagini/eclipse_1.png" alt="schermata di eclipse"/></p>
 <p>La struttura generale della finestra dell'ambiente di sviluppo <em>Eclipse</em>
 è simile a quella di molte altre applicazioni.
@@ -57,7 +204,7 @@ il percorso del file relativamente alla cartella dello spazio di lavoro
     si riferisce alla riga 14 colonna 43</li>
 </ul>
 
-<h2>Barra degli strumenti</h2>
+<h3>Barra degli strumenti</h3>
 <p>Vediamo alcuni degli strumenti a nostra disposizione 
 nella configurazione standard partendo da sinistra:</p>
 <dl class="icone">
@@ -76,7 +223,7 @@ Se si vuole ritornare all'organizzazione originale dello spazio di lavoro
 basta fare click qui con il destro e poi selezionare "reset" dal menu che compare.</dd>
 </dl>
 
-<h2>Lo spazio di lavoro</h2>
+<h3>Lo spazio di lavoro</h3>
 <p>Nello spazio di lavoro i contenuti sono organizzati collezionando delle schede in gruppi 
 come quello qui sotto.</p>
 <p><img src="immagini/eclipse_gruppo_schede.png" style="height:2em"/></p>
@@ -110,7 +257,7 @@ cartella che li contiene e poi selezionare "refresh".</dd>
 </dl>
 
 
-<h2>Creazione di un progetto e dei suoi contenuti</h2>
+<h3>Creazione di un progetto e dei suoi contenuti</h3>
 <p>Eclipse gestisce molti tipi di progetto (dipende dalla versione che
 abbiamo scaricato e dai plugin installati), vediamo un modo per creare un progetto per sviluppare 
 software Java.</p>
@@ -130,6 +277,7 @@ diventerà <img src="immagini/package_obj@2x.png" class="iconaIDE"/>quando inser
 analogamente per creare una nuova classe click con il destro sul nome di un pacchetto e poi 
 "New" e "Class".</p>
 <p style="clear:both"></p>
+</section>
 </article>
 </body>
 </html>

@@ -218,6 +218,8 @@ div.suggerimento {
 	border:1px solid white;  
 }
 p.eclipse, p.netbeans {background-position: 0.10em 0.2em;}
+section.eclipse, section.netbeans {background-position: 0.10em 0.2em; background-size:2em 2em; }
+    
 .netbeans { 
 	background-color: rgb(240,240,255);
 	background-image: url(immagini/ide_netbeans.png);

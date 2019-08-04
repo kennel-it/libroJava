@@ -13,3 +13,4 @@ function sistemaIde(){
 		console.log("nessuna preferenza sull'IDE");
 	}
 }
+window.addEventListener('load', sistemaIde);
