@@ -184,7 +184,8 @@ uno che rappresenta l'Autoveicolo, la cosa che ci interessa in questo contesto �
 <p>Un oggetto in java si definisce in un file che ha lo stesso nome della classe che viene definita 
 utilizzando la parola chiave <code>class</code> seguita da suo nome, 
 al suo interno è possibile trovare dichiarazione di <em>proprietà</em> o <em>metodi</em> 
-che riguardano l'oggetto stesso. 
+che riguardano l'oggetto stesso. Spesso ci si riferisce all'insieme dei valori delle proprietà di un 
+oggetto come al suo <em>stato</em>.
 Le proprietà sono usuali dichiarazioni di variabili fatte al livello di classe e i metodi
 sono delle funzioni che possono far riferimento alle proprietà dell'oggetto.</p>
 
@@ -210,7 +211,18 @@ si definiscono nuovi tipi) ma in realtà non costruiamo nessun oggetto.
 Per costruire un oggetto, operazione che formalmente si chiama <em>creazione di una istanza</em> si usa 
 l'operatore <code>new</code> che crea un nuovo oggetto in memoria con tutte le proprietà associate,
 ovviamente ogni oggetto creato avrà le sue proprietà distinte dagli altri. L'operatore <code>new</code>
-si usa scrivendo dopo di lui il costruttore di un oggetto</p>
+si usa scrivendo dopo di lui il costruttore di un oggetto.<br/>
+Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
+<code>Button pulsante = <em>new Button()</em></code> la parte a destra dell'uguale è quella che ci interessa:
+l'operatore <code>new</code> è seguito dalla chiamata di uno dei costruttori dell'oggetto Button, 
+in particolare in questo caso uno senza parametri.<br/>
+Ma si può fare anche la dichiarazione: <code>Button pulsante = new <em>Button("Premi qui")</em></code>
+e anche questa volta abbiamo invocato un metodo che si chiama come la classe. 
+L'unica differenza è che il primo metodo invocato non aveva argomenti, questo qui ha un argomento di tipo stringa.
+Quale è lo scopo dei 2 costruttori della classe Button? Probabilmente nel primo caso si vuole un pulsante senza testo e nel secondo caso si vuole un pulsante con del
+testo al suo interno.</p>
+
+
 <p>Ogni istanza di una classe avrà le stesse proprietà ma con valori diversi, per accedere a queste proprietà
 (o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
 di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
