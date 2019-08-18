@@ -19,47 +19,20 @@
         	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
         </style>
         <script type="text/javascript"><![CDATA[
-        	function mostra(quale){
-        		var elenco;
-        		elenco = document.getElementsByClassName("new");
-        		for (var i = 0; i < elenco.length; i++) {
-        			if(quale==elenco[i].className){
-        				elenco[i].style.display = "";
-        			}else{
-        				elenco[i].style.display = "none";
-        			}
-        		}
-        		elenco = document.getElementsByClassName("old");
-        		for (var i = 0; i < elenco.length; i++) {
-        			if(quale==elenco[i].className) {
-        				elenco[i].style.display = "";
-        			}else{
-        				elenco[i].style.display = "none";
-        			}
-        		}
-        	}
-        	function mostraThis(quale){
+            function mostraNascondi(mostra,nascondi){
                 var elenco;
-                elenco = document.getElementsByClassName("conThis");
+                elenco = document.getElementsByClassName(mostra);
                 for (var i = 0; i < elenco.length; i++) {
-                    if(quale==elenco[i].className){
-                        elenco[i].style.display = "";
-                    }else{
-                        elenco[i].style.display = "none";
-                    }
+                    elenco[i].style.display = "";
                 }
-                elenco = document.getElementsByClassName("senzaThis");
+                elenco = document.getElementsByClassName(nascondi);
                 for (var i = 0; i < elenco.length; i++) {
-                    if(quale==elenco[i].className) {
-                        elenco[i].style.display = "";
-                    }else{
-                        elenco[i].style.display = "none";
-                    }
+                    elenco[i].style.display = "none";
                 }
             }
         ]]></script>       
     </head>
-<body onload="mostra('new');mostraThis('conThis')" >
+<body onload="mostraNascondi('new','old');mostraNascondi('conThis','senzaThis')" >
 <header>
 <h1>oggetti</h1>
 <p>dalla programmazione procedurale a quella ad oggetti</p>
@@ -267,12 +240,12 @@ per le altre proprietà.</p>
 
 <p>Vediamo cosa cambia facendo un confronto tra due versione dello stesso programma.</p>
 
-<p>La <span onclick="mostra('new')" class="pulsante" id="pulsanteNew">nuova versione ad oggetti</span> 
+<p>La <span onclick="mostraNascondi('new','old')" class="pulsante" id="pulsanteNew">nuova versione ad oggetti</span> 
 usa un <em>oggetto</em>: <code>Autoveicolo</code> con le <em>proprietà</em>
 <code>marca</code>, <code>modello</code> e <code>kmAlLitro</code> 
 mentre i <em>metodi</em> sono: un <em>costruttore</em>  
 un altro per calcolare il costo di un percorso.</p>
-<p>La <span onclick="mostra('old')" class="pulsante" id="pulsanteOld">vecchia versione procedurale</span> del programma non usa gli oggetti</p>
+<p>La <span onclick="mostraNascondi('old','new')" class="pulsante" id="pulsanteOld">vecchia versione procedurale</span> del programma non usa gli oggetti</p>
 
 <div class="new">
 <h3>File: Autoveicolo.java</h3>
@@ -424,21 +397,20 @@ public class Autoveicolo {
     <span class="senzaThis">public Autoveicolo(String t, String m, double l){
         targa = t;
         modello = m;
-        kmAlLitro = l;</span>
-    <span class="conThis">public Autoveicolo(String targa, String modello, double kmAlLitro){
-        // copio il valore della variabile targa passata al costruttore 
-        // nella proprietà "targa" di questo oggetto
+        kmAlLitro = l;</span><span class="conThis">public Autoveicolo(String targa, String modello, double kmAlLitro){
         this.targa = targa;
         this.modello = modello;
         this.kmAlLitro = kmAlLitro;</span>
     }
 }
 </pre>
+<p>L'istruzione <code><em>this.targa = targa</em></code> serve a copiare il valore della variabile <code>targa</code> 
+passata al costruttore nella proprietà <code>targa</code> di questo oggetto (quello che stiamo creando).</p>
 
 <p>Dopo un possibile senso di confusione iniziale il 
-<span onclick="mostraThis('conThis')" class="pulsante" id="pulsanteNew">costruttore che usa this</span>
+<span onclick="mostraNascondi('conThis','senzaThis')" class="pulsante" id="pulsanteNew">costruttore che usa this</span>
 è più chiaro da leggere rispetto a quello che 
-<span onclick="mostraThis('senzaThis')" class="pulsante" id="pulsanteOld">non usa this</span>.</p>
+<span onclick="mostraNascondi('senzaThis','conThis')" class="pulsante" id="pulsanteOld">non usa this</span>.</p>
 
 </article>
 </body>
