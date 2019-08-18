@@ -4,6 +4,7 @@
 <!-- grafoIndice requires="ripetizione salutaUtente" group="algoritmiStruttureDati" -->
 <!-- changelog 2017-10-23 inserito incipit -->
 <!-- changelog 2019-08-16 capitolo riscritto -->
+<!-- changelog 2019-08-18 qggiunto this -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -37,16 +38,35 @@
         			}
         		}
         	}
+        	function mostraThis(quale){
+                var elenco;
+                elenco = document.getElementsByClassName("conThis");
+                for (var i = 0; i < elenco.length; i++) {
+                    if(quale==elenco[i].className){
+                        elenco[i].style.display = "";
+                    }else{
+                        elenco[i].style.display = "none";
+                    }
+                }
+                elenco = document.getElementsByClassName("senzaThis");
+                for (var i = 0; i < elenco.length; i++) {
+                    if(quale==elenco[i].className) {
+                        elenco[i].style.display = "";
+                    }else{
+                        elenco[i].style.display = "none";
+                    }
+                }
+            }
         ]]></script>       
     </head>
-<body onload="mostra('new')" >
+<body onload="mostra('new');mostraThis('conThis')" >
 <header>
 <h1>oggetti</h1>
 <p>dalla programmazione procedurale a quella ad oggetti</p>
 </header>
 <article>
 
-<h2>Un problema</h2>
+<h2>Il problema</h2>
 <p>Vogliamo gestire una certa quantità di autoveicoli dei quali ci interessano alcuni dati: 
 la targa, il modello e quanti km riesce a fare con un litro di carburante, fornendo poi 
 la llunghezza di un percorso vorremmo sapere quanto si spende con un determinato
@@ -166,8 +186,9 @@ E con questo intendiamo sia "cosa caratterizza una autoveicolo" che "quali azion
     <li>può calcolare quanto andremo a spendere dato un numero di km (azione)</li>
 </ul>
 
-<p>Java ci permette di modellare la realtà in questo modo usando le classi. Fino a questo momento abiamo creato
-programmi composti da una sola classe ma quello che succede di solito è avere più classi che usate insieme 
+<p>Java ci permette di modellare la realtà in questo modo usando le classi. Abbiamo già usato le 
+classi ma fino a questo momento abbiamo creato
+programmi composti da una sola classe, quello che succede di solito invece è avere più classi che usate insieme 
 ci permettono di costruire un programma modellando la realtà come un insieme di oggetti.</p> 
 <p>Questo approccio porta alcuni vantaggi che diventano sempre più evidenti all'aumentare della
 dimensione del programma che si sta trattando. Un possibile vantaggio è il fatto che possiamo concentrare in un unico 
@@ -179,20 +200,23 @@ occuparsi di oggetti diversi riducendo la possibilità di interferire l'uno con 
 
 <h2>Come cambia il programma</h2>
 <p>La prima cosa evidente è che anziché un singolo file ne avremo due: uno per l'interfaccia grafica e 
-uno che rappresenta l'Autoveicolo, la cosa che ci interessa in questo contesto è questo ultimo.</p>
+uno che rappresenta l'Autoveicolo, la cosa che ci interessa di più in questo contesto è questo ultimo.</p>
 
-<p>Un oggetto in java si definisce in un file che ha lo stesso nome della classe che viene definita 
-utilizzando la parola chiave <code>class</code> seguita da suo nome, 
-al suo interno è possibile trovare dichiarazione di <em>proprietà</em> o <em>metodi</em> 
+<p>Un oggetto in java si definisce usando la parola chiave <code>class</code> seguita dal nome 
+dell'oggetto stesso e da un blocco di codice racchiuso tra parentesi graffe, al loro interno 
+è possibile trovare dichiarazione di <em>proprietà</em> o <em>metodi</em> 
 che riguardano l'oggetto stesso. Spesso ci si riferisce all'insieme dei valori delle proprietà di un 
-oggetto come al suo <em>stato</em>.
-Le proprietà sono usuali dichiarazioni di variabili fatte al livello di classe e i metodi
+oggetto come al suo <em>stato</em>.</p>
+<p>Una classe Java va dichiarata in un file che ha lo stesso nome della classe.</p>
+<p>Le proprietà sono usuali dichiarazioni di variabili fatte al livello di classe e i metodi
 sono delle funzioni che possono far riferimento alle proprietà dell'oggetto.</p>
 
-<p>Un particolare metodo è il costruttore: è il metodo utilizzato per creare una nuova istanza dell'oggetto e
-si riconosce perché ha lo stesso nome della classe e nessun tipo ritornato (non c'è scritto <code>void</code>, 
-è proprio assente). Se non si definisce nessun costruttore nella classe java ne definisce uno predefinito
-che non accetta nessun parametro.</p>
+
+<p>Un particolare metodo è quello che viene usato quando costruiamo una nuova istanza
+di nuovo oggetto: il costruttore che si riconosce perché ha lo stesso nome della classe e 
+nessun tipo ritornato (non c'è scritto <code>void</code>, 
+è proprio assente). Soltanto se non si definisce nessun costruttore nella classe java 
+ne definisce uno predefinito che non accetta nessun parametro.</p>
 
 <div class="test">
     <p>Quale è un possibile costruttore per la classe <code>Tavolo</code>?</p> 
@@ -210,31 +234,32 @@ che non accetta nessun parametro.</p>
 si definiscono nuovi tipi) ma in realtà non costruiamo nessun oggetto.
 Per costruire un oggetto, operazione che formalmente si chiama <em>creazione di una istanza</em> si usa 
 l'operatore <code>new</code> che crea un nuovo oggetto in memoria con tutte le proprietà associate,
-ovviamente ogni oggetto creato avrà le sue proprietà distinte dagli altri. L'operatore <code>new</code>
-si usa scrivendo dopo di lui il costruttore di un oggetto.<br/>
+ovviamente ogni oggetto creato avrà le sue proprietà distinte dagli altri.<br/>
+
 Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
-<code>Button pulsante = <em>new Button()</em></code> la parte a destra dell'uguale è quella che ci interessa:
+l'operatore <code>new</code> si usa scrivendo dopo di lui il costruttore di un oggetto 
+come ad esempio in <code>Button pulsante = <em>new Button()</em></code>.<br/>
+La parte a destra dell'uguale è quella che ci interessa:
 l'operatore <code>new</code> è seguito dalla chiamata di uno dei costruttori dell'oggetto Button, 
 in particolare in questo caso uno senza parametri.<br/>
-Ma si può fare anche la dichiarazione: <code>Button pulsante = new <em>Button("Premi qui")</em></code>
+Ma si può scrivere anche la dichiarazione: <code>Button pulsante = new <em>Button("Premi qui")</em></code>
 e anche questa volta abbiamo invocato un metodo che si chiama come la classe. 
 L'unica differenza è che il primo metodo invocato non aveva argomenti, questo qui ha un argomento di tipo stringa.
-Quale è lo scopo dei 2 costruttori della classe Button? Probabilmente nel primo caso si vuole un pulsante senza testo e nel secondo caso si vuole un pulsante con del
-testo al suo interno.</p>
+Quale è lo scopo dei 2 costruttori della classe Button? 
+Avere modi diversi per creare dei Button (sono tre), chi ha scritto la classe
+ha deciso in quali modi sia possibile instanziarla, possiamo ipotizzare che nel primo caso si vuole un pulsante senza testo 
+e nel secondo caso si vuole un pulsante con del testo al suo interno.</p>
 
+<p>Quando usiamo l'operatore new stiamo creando nuove istanze di un oggetto:
+Button è in nome di una classe ( e quindi di un tipo ) ma poi
+<code>pulsante</code> o <code>pulsanteCalcola</code> o 
+<code>pulsanteCancella</code> potrebbero essere due sue istanze.</p>
 
 <p>Ogni istanza di una classe avrà le stesse proprietà ma con valori diversi, per accedere a queste proprietà
 (o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
 di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
-si vuole usare.</p>
- 
-<p>Abbiamo già usato molte volte l'operatore new ad esempio con i pulsanti: Button è in nome di una classe ma poi
-pulsanteCalcola o pulsanteCancella potrebbero essere due sue istanze.</p>
-
-<p>Nell'esempio dell'autoveicolo una proprietà sarà targa (di tipo String), un'altra sarà modello 
-(ancora di tipo String) e l'ultima sarà KmAlLitro (di di tipo double).
-Un esempio di metodo è quello che dato un certo numero di km ci dice quanto andremo a spendere con 
-la nostra automobile.</p>
+si vuole usare.
+Posso ad esempio cambiare il testo contenuto in un pulsante scrivendo <code>pulsante.setText("pluto")</code>.</p>
 
 <p>Riferendoci all'esempio degli autoveicoli possiamo pensare che ci saranno più oggetti dello stesso tipo, 
 ciascuno con i propri valori: tutti avranno una targa ma ciascuna targa sarà diversa dalle altre e via così 
@@ -242,9 +267,11 @@ per le altre proprietà.</p>
 
 <p>Vediamo cosa cambia facendo un confronto tra due versione dello stesso programma.</p>
 
-<p>La <span onclick="mostra('new')" class="pulsante" id="pulsanteNew">nuova versione ad oggetti</span> usa invece un <em>oggetto</em>: <code>Autoveicolo</code> con le <em>proprietà</em>
-<code>marca</code>, <code>modello</code> e <code>kmAlLitro</code> mentre i <em>metodi</em> sono: un <em>costruttore</em> (lo vedremo nel capitolo dedicato alle classi) e
-<code>confrontaTarga()</code>.</p>
+<p>La <span onclick="mostra('new')" class="pulsante" id="pulsanteNew">nuova versione ad oggetti</span> 
+usa un <em>oggetto</em>: <code>Autoveicolo</code> con le <em>proprietà</em>
+<code>marca</code>, <code>modello</code> e <code>kmAlLitro</code> 
+mentre i <em>metodi</em> sono: un <em>costruttore</em>  
+un altro per calcolare il costo di un percorso.</p>
 <p>La <span onclick="mostra('old')" class="pulsante" id="pulsanteOld">vecchia versione procedurale</span> del programma non usa gli oggetti</p>
 
 <div class="new">
@@ -379,6 +406,39 @@ autoLuigi.kmAlLitro = 29;
         <span class="spiegazione">il valore della proprietà kmAlLitro di autoLuigi
         è stato modificato</span></a>
 </div>
+
+<h2>me stesso</h2>
+<p>Capita a volte che all'interno di un metodo in una classe serva di far riferimento
+all'oggetto stesso, in questo caso è possibile usare la parola chiave <code>this</code>
+che indica appunto <em>l'oggetto corrente</em>. Perché mai dovrebbe servire? In generale
+per evitare di far confusione tra i nomi delle proprietà e i nomi dei parametri dei metodi.</p>
+
+<p>Proviamo a vedere come è possibile riscrivere il costruttore del nostro Autoveicolo</p>
+<h3>File: Autoveicolo.java aggiornato</h3>
+<pre>
+public class Autoveicolo {
+    String targa;
+    String modello;
+    double kmAlLitro;
+    
+    <span class="senzaThis">public Autoveicolo(String t, String m, double l){
+        targa = t;
+        modello = m;
+        kmAlLitro = l;</span>
+    <span class="conThis">public Autoveicolo(String targa, String modello, double kmAlLitro){
+        // copio il valore della variabile targa passata al costruttore 
+        // nella proprietà "targa" di questo oggetto
+        this.targa = targa;
+        this.modello = modello;
+        this.kmAlLitro = kmAlLitro;</span>
+    }
+}
+</pre>
+
+<p>Dopo un possibile senso di confusione iniziale il 
+<span onclick="mostraThis('conThis')" class="pulsante" id="pulsanteNew">costruttore che usa this</span>
+è più chiaro da leggere rispetto a quello che 
+<span onclick="mostraThis('senzaThis')" class="pulsante" id="pulsanteOld">non usa this</span>.</p>
 
 </article>
 </body>

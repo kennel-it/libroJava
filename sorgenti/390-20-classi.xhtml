@@ -47,12 +47,12 @@
 </header>
 <article>
 
-<p class="FIXME">manca this</p>
+<p class="FIXME">bisogna cambiare titolo al capitolo: "incapsulamento" ?</p>
 
 <h2>Organizzare gli oggetti</h2>
 <p>Un paio di meccanismi ci consentono di tenere organizzati gli oggetti:</p>
 <ul>
-    <li>il primo è il sistema di pacchetti consentono di raggruppare oggetti 
+    <li>uno è il sistema di pacchetti che ci permette di raggruppare oggetti 
     che hanno scopi simili in strutture analoghe alle cartelle</li>
     <li>un altro (e più importante) sistema è quello che consente di specificare
     cosa gli altri oggetti possono vedere dell'oggetto che stiamo definendo</li>
@@ -101,7 +101,7 @@ Se vogliamo scrivere già queste informazioni otterremmo:</p>
 }</pre>
 
 <p>Quali sono le informazioni che deve avere un oggetto appena si crea? 
-Senza pensarci troppo, diremo che vogliamo la possibilità di dire niente all'inizio perché
+Senza pensarci troppo, diremo che vogliamo la possibilità di non dire niente all'inizio perché
 tutte le informazioni verranno impostate successivamente. 
 Vogliamo però anche avere la possibilità di inserire tutte le informazioni al momento della creazione
 dell'oggetto: avremo bisogno di due costruttori.</p>
@@ -149,7 +149,7 @@ dell'oggetto: avremo bisogno di due costruttori.</p>
    }</em>
 }</pre>
 
-<p>SArebbe utile che l'oggetto ci permetta di sapere quanti soldi si guadagneranno allo 
+<p>Sarebbe utile che l'oggetto ci permetta di sapere quanti soldi si guadagneranno allo 
 scadere del periodo e anche quanti soldi si avranno in tutto (sempre alla scadenza del periodo). 
 Affinché il metodo possa fornire il guadagno, numero con la virgola, 
 restituirà un double per avere la massima precisione. 
@@ -262,7 +262,7 @@ Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capita
 <p>Il programma sopra proposto ha un difetto: lascia alla classe <code>InterfacciaGrafica</code> 
 la possibilità di interagire direttamente con le variabili interne alla classe. 
 Nulla vieterebbe quindi che da qualche parte nella classe InterfacciaGrafica, 
-si possa scrivere <code>risparmio.giorno = 44;</code>
+si possa scrivere <code>risparmio.anno = 44;</code>
 oppure <code>risparmio.importo = -12.0;</code>. Chiaramente sono errori.</p>
 
 <p>Per prevenire tali situazioni possiamo impedire che alcune proprietà e/o 
@@ -270,8 +270,8 @@ metodi di una classe siano accessibili da altre classi. Potremmo e dovremmo ad
 esempio impedire che da qualsiasi altra classe diversa da <code>RisparmioVincolato</code> 
 si possa accedere alle sue variabili (le proprietà).</p>
 
-<p>Per definire se una variabile o un metodo sono visibili (e quindi anche modificabili)
-all'esterno dell'oggetto che stiamo definendo possiamo usare due modificatori:
+<p>Per dichiarare se una variabile o un metodo siano visibili (e quindi anche modificabili)
+da parte di altri oggetti rispetto a quello che stiamo definendo possiamo usare due modificatori:
 <code>public</code> e <code>private</code>. 
 Se dichiaro qualcosa come <code>private</code> al difuori della classe non può essere usato, 
 al contrario se lo dichiaro come <code>pubblic</code> in qualsiasi altra classe potrò usarlo; 

@@ -5,6 +5,7 @@
 <!-- changelog 2017-11-21 possibilità di null per FileDialog -->
 <!-- changelog 2017-11-21 inserita possiblità di inserire immagine nel TextInputDialog -->
 <!-- changelog 2017-11-23 abbreviata la modalità per recuperare una immagine -->
+<!-- changelog 2019-08-18 rimosso "this." -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -119,8 +120,8 @@ public class SecondaFinestra extends Stage{
   public SecondaFinestra(){
     Label testo = new Label("finestra aperta");
     Scene scene = new Scene(new BorderPane(testo),200,100);
-    this.setTitle("Seconda finestra!"); 
-    this.setScene(scene); 
+    setTitle("Seconda finestra!"); 
+    setScene(scene); 
   }
 }
 </pre>
