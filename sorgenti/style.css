@@ -203,7 +203,30 @@ div.suggerimento {
 
 .FIXME { background-color: yellow; color:red; padding:1em ; margin:1em}
 
-/*.netbeans { background-color: rgb(240,240,255) }
-.eclipse { background-color: rgb(255,240,240) } */
 .IDE_inutile { display: none }
-.ide { font-family: Courier, monospaced }
+.ide { 
+	font-family: Courier, monospaced ;
+	padding-left:0.25em; padding-right:0.25em
+}
+.ide { text-indent: 0 }
+.eclipse, .netbeans {
+	background-repeat: no-repeat; padding-left:1.35em;
+	background-size:1em 1em;
+	background-position: 0.10em 0.0em;
+	background-position-y: center;
+	text-indent:0;
+	border:1px solid white;  
+}
+p.eclipse, p.netbeans {background-position: 0.10em 0.2em;}
+section.eclipse, section.netbeans {background-position: 0.10em 0.2em; background-size:2em 2em; }
+    
+.netbeans { 
+	background-color: rgb(240,240,255);
+	background-image: url(immagini/ide_netbeans.png);
+	border-color: rgb(200,200,215);
+}
+.eclipse { 
+	background-color: rgb(255,240,240);
+    background-image: url(immagini/ide_eclipse.png);
+    border-color: rgb(215,200,200);
+}
