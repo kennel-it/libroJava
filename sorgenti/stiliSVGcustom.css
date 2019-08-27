@@ -4,28 +4,28 @@
     --colore-sfondo-infrastruttura: #90caf9; /* blue 200 */
     --colore-sfondo-base: #7cb342 ; /* Light Green 600 */
     --colore-sfondo-grafica: #ffee58 ; /* yellow 400 */
-    --colore-sfondo-file: #f8bbd0 ; /* pink 200 */
+    --colore-sfondo-file: #ba68c8 ; /* purple 300 */
     --colore-sfondo-algoritmiStruttureDati: #a1887f ; /* brown 300 */
     --colore-sfondo-riferimenti: #e53935 ; /* red 600 */
-    --colore-sfondo-giochi: #ff9229 ;
+    --colore-sfondo-giochi: #ff9100 ; /* orange A400 */
     /* i relativi light */
     --colore-sfondo-noGroup-chiaro: #ffffff; /* grey 100 */
     --colore-sfondo-infrastruttura-chiaro: #c3fdff; /* blue 200 */
     --colore-sfondo-base-chiaro: #aee571 ; /* Light Green 600 */
     --colore-sfondo-grafica-chiaro: #ffff8b ; /* yellow 400 */
-    --colore-sfondo-file-chiaro: #ffc1e3 ; /* pink 200 */
+    --colore-sfondo-file-chiaro: #ee98fb ; /* purple 300 */
     --colore-sfondo-algoritmiStruttureDati-chiaro: #d3b8ae ; /* brown 300 */
     --colore-sfondo-riferimenti-chiaro: #ff6f60 ; /* red 600 */
-    --colore-sfondo-giochi-chiaro: #ffae60 ;
+    --colore-sfondo-giochi-chiaro: #ffc246 ; /* orange A400 */
     /* i relativi dark */
     --colore-sfondo-noGroup-scuro: #c2c2c2; /* grey 100 */
     --colore-sfondo-infrastruttura-scuro: #5d99c6; /* blue 200 */
     --colore-sfondo-base-scuro: #4b830d ; /* Light Green 600 */
     --colore-sfondo-grafica-scuro: #c9bc1f ; /* yellow 400 */
-    --colore-sfondo-file-scuro: #bf5f82 ; /* pink 200 */
+    --colore-sfondo-file-scuro: #883997 ; /* purple 300 */
     --colore-sfondo-algoritmiStruttureDati-scuro: #725b53 ; /* brown 300 */
     --colore-sfondo-riferimenti-scuro: #ab000d ; /* red 600 */
-    --colore-sfondo-giochi-scuro: #e55600 ;
+    --colore-sfondo-giochi-scuro: #c56200 ; /* orange A400 */
 }
 
 ellipse.noGroup { 
