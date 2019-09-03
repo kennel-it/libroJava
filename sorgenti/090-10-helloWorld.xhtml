@@ -7,6 +7,8 @@
 <!-- changelog 2018-09-12 inserita spiegazione pacchetti -->
 <!-- changelog 2018-09-12 inseriti commenti negli esercizi -->
 <!-- changelog 2019-07-26 modifiche per eclipse/netbeans -->
+<!-- changelog 2019-08-31 corretta definizione di variabile -->
+<!-- changelog 2019-08-31 inserita definizione di istruzione -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -33,7 +35,7 @@
 		Il progetto nuovo comparirà sulla sinistra.</p>
 		
 		<p>Nello svolgere le prossime operazione fai attenzione al Maiuscolo/minuscolo nei nomi degli elementi:
-		apri le cartelle del progetto, diventrà visibile una cartella <span class="eclipse ide">src</span> 
+		apri le cartelle del progetto, diventerà visibile una cartella <span class="eclipse ide">src</span> 
 		<span class="netbeans ide">Source Packages</span>,
 		fai click con il destro e poi click sul menu contestuale <span class="ide">New/class</span>,
 	    chiamala <span class="ide">CiaoMondo</span> (nel campo Name) e scrivi <span class="ide">ciaoMondo</span>
@@ -126,7 +128,10 @@ public class CiaoMondo extends Application {
 	La riga contenente la parola chiave <code>class</code> indica – per ora – la nostra finestra 
 	(il programma in esecuzione appare all'utente come una finestra). 
 	Osserva che a fine riga c'è una <code>{</code> ed in fondo al file c'è la rispettiva <code>}</code>. 
-	Rappresentano rispettivamente l'inizio e la fine di tutto ciò che farà la finestra.</p>
+	Queste parentesi rappresentano rispettivamente l'inizio e la fine di tutto ciò che farà la finestra, 
+	contengono cioè le istruzioni del nostro programma.</p>
+	<dfn>Una <em>istruzione</em> è una parte elementare del programma che viene eseguita 
+	dalla macchina e determina l'avanzamento del processo in memoria.</dfn>
 	
 	<p>Procediamo con la lettura, 
 	la riga contenente <code>start</code> indica la prima funzionalità del nostro programma, 
@@ -139,7 +144,8 @@ public class CiaoMondo extends Application {
 	
 	<p>Si tratta di una dichiarazione di variabile. Le dichiarazioni di variabile hanno la sintassi:</p>
 	<pre>tipo nomeVariabile;</pre>
-	<dfn>Una <em>variabile</em> è una zona di memoria identificata da un nome che contiene una informazione detta valore.</dfn>
+	<dfn>Una <em>variabile</em> è una zona di memoria identificata da un nome che contiene una sola 
+	informazione di un determinato tipo detta valore, questa informazione può variare nel tempo.</dfn>
 	
 	<p>in questo caso il tipo è <code>Button</code> ed il nome della variabile è <var>btn</var>. 
 	Alcune variabili sono ti un <a href="060-2-teo_tipiNumerici.xhtml">tipo</a> 
