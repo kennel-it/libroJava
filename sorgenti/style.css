@@ -230,3 +230,12 @@ section.eclipse, section.netbeans {background-position: 0.10em 0.2em; background
     background-image: url(immagini/ide_eclipse.png);
     border-color: rgb(215,200,200);
 }
+
+/* gli esercizi da completare */
+.riempiSpazi { white-space: pre; font-family: monospace ; font-size:150%; line-height: 1.4em}
+.riempiSpazi span { border:1px solid gray; display:inline-block; vertical-align:baseline }
+.riempiSpazi em { color:red; font-weight: bold }
+.riempiSpazi .giusta { background: green }
+.riempiSpazi .sbagliata { background: red }
+.mostraSoluzione { color:blue ; font-weight: bold}
+.controllaRisposta { color:blue ; font-weight: bold} 
