@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="helloWorld" group="grafica" -->
+<!-- changelog 2019-10-31 inserito link al reference dei css -->
+<!-- changelog 2019-10-31 inserite proprietà del bordo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -98,7 +100,13 @@ questi sono alcuni attributi utili:</p>
       <code>repeat-y</code> ripete solo verticalmente in modo da riempire una colonna larga quanto l'immagine;<br/>
       <code>repeat</code> è il valore predefinito; ripete sia in orizzontale che in verticale.</dd>
   <dt>-fx-background-radius</dt>
-  <dd>arrotonda i bordi del controllo.</dd>
+  <dd>arrotonda lo sfondo del controllo.</dd>
+  <dt>-fx-border-color</dt>
+  <dd>Definisce il colore del bordo</dd>
+  <dt>-fx-border-radius</dt>
+  <dd>Definisce il raggio del bordo</dd>
+  <dt>-fx-border-width</dt>
+  <dd>Definisce lo spessore del bordo</dd>
   <dt>-fx-padding</dt>
   <dd>Imposta la spaziatura intorno al controllo tramite 4 valori numerici separati da spazio per indicare rispettivamente lo spazio sopra a destra in basso e a
       sinistra.</dd>
@@ -107,6 +115,9 @@ questi sono alcuni attributi utili:</p>
   <dt>-fx-vgap</dt>
   <dd>Imposta la spaziatura verticale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola.</dd>
 </dl>
+<p>Esisteno molte altre proprietà elencate nel 
+<a href="https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html">
+documento di riferimento dei fogli di stile per JavaFX</a>.</p>
 </article>
 </body>
 </html>
