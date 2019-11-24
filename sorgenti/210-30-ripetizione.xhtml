@@ -3,6 +3,7 @@
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="assegnazione condizionale numeri" group="base" -->
 <!-- changelog 2017-08-23 corretto esercizio "a&lt;=5" al posto di "a&lt;5" -->
+<!-- changelog 2019-11-23 tiolta doppia inizializzazione dal for -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -97,22 +98,28 @@ for(<var>inizializzazione delle variabili</var>; <var>condizione</var>; <var>inc
 }</pre>
 <p><i>Inizializzare</i> una variabile per la ripetizione (d'ora in poi useremo la parola ciclo per dire ripetizione) significa darle il valore che dovrà
    avere appena parte la ripetizione. Nel programma che stiamo costruendo, quali sono le variabili che vanno inizializzate e a quale valore? Si inizializza
-   <code>n</code> a <code>2</code> e <code>sequenza</code> a <code>"1"</code>. Dato che si tratta di due inizializzazioni, le separiamo col carattere
-   virgola.<br/>Nella parte <i>incremento</i> bisogna indicare come cambiano le variabili che riguardano la ripetizione. In questo caso la variabile da
+   <code>n</code> a <code>2</code> e <code>sequenza</code> a <code>"1"</code>. Dato che si tratta di due inizializzazioni
+   per semplicità inseriremo quella che ci serve per contare all'interno del ciclo e l'altra che contiene
+   la varibile con il risultato del calcolo prima.<br/>
+   Nella parte <i>incremento</i> bisogna indicare come cambiano le variabili che riguardano la ripetizione ogni volta
+   che si arriva in fondo al ciclo. 
+   In questo caso la variabile da
    cambiare sarà <code>n</code> perché è lei che ci dirà quante volte abbiamo ripetuto.<br/> Il corpo del for sarà semplicemente la costruzione di
    <code>sequenza</code><br/>Rimane la parte un pochino più complessa: la <i>condizione (di ripetizione)</i>; poniamoci la domanda: Quand'è che a
    <code>sequenza</code> deve essere aggiunto il nuovo valore di <code>n</code>? La risposta sarà: quando <code>n</code> vale <code>2</code> si ripete; lo
    stesso quando <code>n</code> vale <code>3</code> e così via fino a quando <code>n</code> vale <code>10</code> dopodiché basta, altrimenti ci attaccheremmo
    anche<code>11</code>! In definitiva diciamo che <i>si ripete tutte le volte che</i> <code>n&lt;=10</code>.<br/>Ok, abbiamo detto tutto quindi produciamo
    finalmente il codice:</p>
-<pre>for(n = 2, sequenza = "1"; n &lt;= 10; n++) {
+<pre>sequenza = "1";
+for(n = 2; n &lt;= 10; n++) {
    sequenza += ", " + n;
 }</pre>
 <p>e quindi la funzione completa apparirà come:</p>
 <pre>public void compilaElenco() {
    int n;
    String sequenza;
-   for(n = 2, sequenza = "1"; n &lt;= 10; n++) {
+   sequenza = "1";
+   for(n = 2; n &lt;= 10; n++) {
       sequenza += ", " + n;
    }
    cRisposta.setText(sequenza);
@@ -125,7 +132,8 @@ for(<var>inizializzazione delle variabili</var>; <var>condizione</var>; <var>inc
    int n, massimo;
    String sequenza;
    massimo = Integer.parseInt(tNumero.getText());
-   for(n = 1, sequenza = "0"; n &lt;= massimo; n++) {
+   sequenza = "0";
+   for(n = 1; n &lt;= massimo; n++) {
       sequenza += ", " + n;
    }
    cRisposta.setText(sequenza);
