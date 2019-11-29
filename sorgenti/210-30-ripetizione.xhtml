@@ -3,11 +3,14 @@
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="assegnazione condizionale numeri" group="base" -->
 <!-- changelog 2017-08-23 corretto esercizio "a&lt;=5" al posto di "a&lt;5" -->
-<!-- changelog 2019-11-23 tiolta doppia inizializzazione dal for -->
+<!-- changelog 2019-11-23 tolta doppia inizializzazione dal for -->
+<!-- changelog 2019-11-29 tolte altre due doppie inizializzazioni del for -->
+<!-- changelog 2019-11-29 corretto refuso ""  sul secondo compilaElenco() -->
+<!-- changelog 2019-11-29 corretto titolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
-        <title>Passo dopo passo</title>
+        <title>ripetizione</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>         
     </head>
@@ -58,7 +61,7 @@
    di volta in volta incrementata di 1.</p>
 <pre>public void compilaElenco() {
    int n = 2;
-   String sequenza = ""1";
+   String sequenza = "1";
    sequenza += ", " + n;
    n++;
    sequenza += ", " + n;
@@ -168,7 +171,8 @@ for(n = 2; n &lt;= 10; n++) {
    int numero, contatore;
    String sequenza;
    numero = Integer.parseInt(tNumero.getText());
-   for(contatore = 2, sequenza = "1"; contatore &lt; numero; contatore++) {
+   sequenza = "1";
+   for(contatore = 2; contatore &lt; numero; contatore++) {
       if(numero%contatore == 0) {
          sequenza += ", " + contatore;
       }
@@ -222,7 +226,8 @@ altrimenti rimarrà quello:</p>
 <pre>public void individuaDivisori() {
    int numero, contatore, primo;
    numero = Integer.parseInt(tNumero.getText());
-   for(contatore = 2, primo = 0; contatore &lt; numero; contatore++) {
+   primo = 0
+   for(contatore = 2; contatore &lt; numero; contatore++) {
       if(numero%contatore == 0) {
          primo = contatore;
       }
