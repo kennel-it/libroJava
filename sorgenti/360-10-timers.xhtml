@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- e-pub infrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="salutaUtente" group="giochi" -->
 <!-- changelog 2018-12-06 rimossa parte iniziale inutile sui Thread -->
+<!-- changelog 2019-12-16 inserita introduzione -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -16,16 +17,19 @@
 <p>eventi temporizzati in javafx</p>
 </header>
 <article>
-<p>TODO: intro!</p>
+<p>Succede spesso quando si lavora con la grafica che serva di eseguire un frammento di codice a intervalli
+di tempo precisi, ad esempio quando si vuol realizzare una animazione. I metodi che ci mette a disposizione
+JavaFX ci permettonoi di far chiamare un metodo esattamente come se venisse premuto un pulsante. 
+Abbiamo a disposizione per farlo due modi diversi che vediamo brevemente qui sotto.</p>
 <h2>Timeline</h2>
-<p>Una seconda possibilità è quella di usare l'oggetto 
+<p>Una prima possibilità è quella di usare l'oggetto 
 <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html">Timeline</a> di JavaFX.
 Questo oggetto insieme a 
 <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/animation/KeyFrame.html">KeyFrame</a>
 viene usato per creare animazioni che ad esempio spostano oggetti tra due
-punti sullo schermo, noi lo usiamo più semplicemente per chiamarte una funzione 
-che aggiorna i tempi. Non serve creare un thread perché sarà JavaFX a 
-chiamare la nostra funzione ad intervalli di tempo prefissati.</p>
+punti sullo schermo, noi lo useremo più semplicemente per chiamare una funzione 
+che aggiorna una specie di cronometro. In questo caso JavaFX 
+chiamerà la nostra funzione ad intervalli di tempo prefissati.</p>
 <pre>
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
