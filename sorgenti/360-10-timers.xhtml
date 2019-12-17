@@ -4,6 +4,7 @@
 <!-- grafoIndice requires="salutaUtente" group="giochi" -->
 <!-- changelog 2018-12-06 rimossa parte iniziale inutile sui Thread -->
 <!-- changelog 2019-12-16 inserita introduzione -->
+<!-- changelog 2019-12-17 inseriti GridPane al posto dei Border -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -19,7 +20,7 @@
 <article>
 <p>Succede spesso quando si lavora con la grafica che serva di eseguire un frammento di codice a intervalli
 di tempo precisi, ad esempio quando si vuol realizzare una animazione. I metodi che ci mette a disposizione
-JavaFX ci permettonoi di far chiamare un metodo esattamente come se venisse premuto un pulsante. 
+JavaFX ci permettono di far chiamare un metodo esattamente come se venisse premuto un pulsante. 
 Abbiamo a disposizione per farlo due modi diversi che vediamo brevemente qui sotto.</p>
 <h2>Timeline</h2>
 <p>Una prima possibilità è quella di usare l'oggetto 
@@ -36,18 +37,20 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Timer2 extends Application{	
+public class Timer1 extends Application{    
   Label testo;
   int n=100;
-	
+    
   @Override
   public void start(Stage primaryStage) throws Exception {
     testo = new Label("finestra timer");
-    Scene scene = new Scene(new BorderPane(testo),200,100);
+    GridPane griglia = new GridPane();
+    griglia.add(testo,  0,  0);
+    Scene scene = new Scene(griglia,200,100);
     primaryStage.setTitle("Timer!"); 
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -61,7 +64,7 @@ public class Timer2 extends Application{
   private void aggiornaTimer(){
     testo.setText(""+ (n--));
   }
-	
+    
   public static void main(String args[]){
     launch();
   }
@@ -79,18 +82,20 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class Timer3 extends Application{
+public class Timer2 extends Application{
   private Label testo;
   private AnimationTimer timer;
   private long fine;
-	
+    
   @Override
   public void start(Stage primaryStage) throws Exception {
     testo = new Label("finestra timer");
-    Scene scene = new Scene(new BorderPane(testo),200,100);
+    GridPane griglia = new GridPane();
+    griglia.add(testo,  0,  0);
+    Scene scene = new Scene(griglia,200,100);
     primaryStage.setTitle("Timer!"); 
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -112,7 +117,7 @@ public class Timer3 extends Application{
       timer.stop();
     }
   }
-	
+    
   public static void main(String args[]){
     launch();
   }
