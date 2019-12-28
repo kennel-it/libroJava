@@ -7,6 +7,7 @@
 <!-- changelog 2019-08-18 aggiunto this -->
 <!-- changelog 2019-09-03 inglobato capitolo "incapsulamento" -->
 <!-- changelog 2019-09-03 inserite definizioni di classe, oggetto, proprietà e metodo -->
+<!-- changelog 2019-12-28 riorganizzata la parte teorica -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -50,10 +51,10 @@ autoveicolo (supponendo che il carburante costi 1,5€ al litro).</p>
 e in base alla targa e alla distanza calcolare la spesa del percorso.</p>
 
 <h2>Possibile soluzione</h2>
-<p>Dato che gli autoveicoli potrebbero essere una molti useremo un vettore, visto che però 
+<p>Dato che gli autoveicoli potrebbero essere molti useremo un vettore, visto che però 
 le informazioni da registrare sono almeno tre (targa, modello e km/l) saremo costretti ad usare tre vettori:
 uno di stringhe per la targa, un altro di stringhe per il modello ed uno di double per i consumi.
-Ovviamente tutte le informazioni di un veicolo saranno registrate allo stesso indice per tutti e 3 i vettori.</p>
+Ovviamente tutte le informazioni di un veicolo saranno registrate allo stesso indice in tutti e 3 i vettori.</p>
 
 <p>Quella mostrata qui sotto è una possibile soluzione.</p>
 
@@ -150,9 +151,9 @@ visto che abbiamo parlato di autoveicoli dovremmo creare una loro rappresentazio
 
 <h2>Programmazione ad oggetti</h2>
 <p>Quello che ci proponiamo di fare è di spostare l'attenzione dal 
-"come fare le cose" (programmazione procedurale) al "modellare gli oggetti" (programmazione ad oggetti).<br/>
+"come fare le cose" (programmazione procedurale) al "modellare le entità della realtà" (programmazione ad oggetti).<br/>
 La domanda a cui dobbiamo rispondere nel nostro caso è: "cosa è un Autoveicolo?". 
-E con questo intendiamo sia "cosa caratterizza una autoveicolo" che "quali azioni possiamo fare con una autoveicolo".</p>
+E con questo intendiamo sia "cosa caratterizza una autoveicolo" che "quali azioni possiamo fare con un autoveicolo".</p>
 <p>Visto quanto abbiamo detto finora per noi un Autoveicolo è un un oggetto che:</p>
 <ul>
     <li>ha una targa (caratteristica)</li>
@@ -161,16 +162,22 @@ E con questo intendiamo sia "cosa caratterizza una autoveicolo" che "quali azion
     <li>può calcolare quanto andremo a spendere dato un numero di km (azione)</li>
 </ul>
 
-<p>Java ci permette di modellare la realtà in questo modo usando le classi. Abbiamo già usato le 
-classi ma fino a questo momento abbiamo creato
-programmi composti da una sola classe, quello che succede di solito invece è avere più classi che usate insieme 
-ci permettono di costruire un programma modellando la realtà come un insieme di oggetti.</p> 
+<p>Java ci permette di modellare la realtà in questo modo usando le <em>classi</em>. In effetti le abbiamo già usate 
+ma fino a questo momento abbiamo creato programmi composti da una sola di esse senza prestare particolare 
+attenzione a cosa stavamo rappresentando (solitamente una interfaccia grafica con delle funzionalità), 
+quello che succede di solito invece è avere più classi che usate insieme 
+ci permettono di costruire un programma modellando la realtà come un insieme di entità che interagiscono.</p>
+
 <p>Questo approccio porta alcuni vantaggi che diventano sempre più evidenti all'aumentare della
-dimensione del programma che si sta trattando. Un possibile vantaggio è il fatto che possiamo concentrare in un unico 
-punto tutta la rappresentazione di un oggetto (l'autoveicolo dell'esempio),
-questo ci consentirà in futuro di poter cambiare il nostro modello intervenendo in un punto unico del programma,
-oltre a ciò quando più sviluppatori lavorano sullo stesso progetto possono 
-occuparsi di oggetti diversi riducendo la possibilità di interferire l'uno con l'altro.</p>
+dimensione del programma che si sta trattando. Due tra i più evidenti sono:</p>
+<ul>
+    <li>possiamo concentrare in un unico punto tutta la rappresentazione di una entità (l'autoveicolo dell'esempio),
+    questo ci consentirà in futuro di poter cambiare il nostro modello intervenendo in un punto unico del programma.</li>
+    <li>quando più sviluppatori lavorano sullo stesso progetto possono 
+    occuparsi di entità diversi riducendo la possibilità di interferire l'uno con l'altro.</li>
+</ul>
+
+<p>La struttura che Java ci mette a disposizione per modellare queste entità è la classe:</p>
 
 <dfn>Una <em>classe</em> è un modello per la creazione di oggetti, fornisce i valori iniziali per lo stato e una 
 implementazione del comportamento dell'oggetto. Definendo una classe si definisce un nuovo tipo di dato.</dfn>
@@ -178,21 +185,11 @@ implementazione del comportamento dell'oggetto. Definendo una classe si definisc
 https://docs.oracle.com/javase/tutorial/java/javaOO/classdecl.html
 https://brilliant.org/wiki/classes-oop/ -->
 
-<h2>Come cambia il programma</h2>
-<p>La prima cosa evidente è che anziché un singolo file ne avremo due: uno per l'interfaccia grafica e 
-uno che rappresenta l'Autoveicolo, la cosa che ci interessa di più in questo contesto è questo ultimo.</p>
+<p>Una classe in Java viene definita in un file che ha il suo stesso nome utilizzando la parola chiave
+<code>class</code> seguita dal nome dell'entità e da un blocco di codice racchiuso tra parentesi graffe: 
+al loro interno è possibile trovare dichiarazione di <em>proprietà</em> o <em>metodi</em> 
+che riguardano l'entità.</p>
 
-<p>Un oggetto in java si definisce usando la parola chiave <code>class</code> seguita dal nome 
-dell'oggetto stesso e da un blocco di codice racchiuso tra parentesi graffe, al loro interno 
-è possibile trovare dichiarazione di <em>proprietà</em> o <em>metodi</em> 
-che riguardano l'oggetto stesso. Spesso ci si riferisce all'insieme dei valori delle proprietà di un 
-oggetto come al suo <em>stato</em>.</p>
-
-<dfn>Un <em>oggetto</em> è una istanza di una classe e viene creato a tempo di esecuzione con l'operatore new.</dfn>
-<!-- https://docs.oracle.com/javase/tutorial/java/concepts/object.html
-https://www.edureka.co/blog/java-tutorial/#obj -->
-
-<p>Una classe Java va dichiarata in un file che ha lo stesso nome della classe.</p>
 <p>Le proprietà sono usuali dichiarazioni di variabili fatte al livello di classe e i metodi
 sono delle funzioni che possono far riferimento alle proprietà dell'oggetto.</p>
 
@@ -200,14 +197,44 @@ sono delle funzioni che possono far riferimento alle proprietà dell'oggetto.</p
 (cioè definita in una classe) e concorre a rappresentarne lo stato.</dfn>
 <!-- https://en.wikipedia.org/wiki/Property_(programming) -->
 
+<p>...e quindi lo stato di un oggetto è rappresentato dal valore di tutte le sue proprietà.</p>
+
 <dfn>Un <em>metodo</em> è un blocco di istruzioni identificato da un nome. 
 Viene usato per raggiungere uno specifico obiettivo, può avere uno o più parametri e ritornare o meno un risultato.</dfn>
 <!-- https://www.w3schools.com/java/java_methods.asp
 https://www.geeksforgeeks.org/methods-in-java/ -->
 
+<h3>Istanze</h3>
+<p>Una classe ci permette di definire come si comporta una certa entità... abbiamo ad esempio 
+definito quali caratteristiche ha un Autoveicolo qualsiasi ma come
+posso fare per creare qualcosa che rappresenti la mia particolare automobile che è una "Stelvio" targata "CF876RT" che
+percorre 14km con un litro di carburante?</p>
+
+<dfn>Un <em>oggetto</em> è una istanza di una classe e viene creato a tempo di esecuzione con l'operatore 
+<code>new</code>.</dfn>
+<!-- https://docs.oracle.com/javase/tutorial/java/concepts/object.html
+https://www.edureka.co/blog/java-tutorial/#obj -->
+
+<p>Riferendoci all'esempio degli autoveicoli possiamo pensare che ci saranno più oggetti dello stesso tipo, 
+ciascuno con i propri valori: tutti avranno una targa ma ciascuna targa sarà diversa dalle altre e via così 
+per le altre proprietà.</p>  
+
+<p>Quando usiamo l'operatore <code>new</code> creiamo nuove istanze di un oggetto:
+Button è in nome di una classe ( e quindi di un tipo ) ma poi
+<code>pulsante</code> o <code>pulsanteCalcola</code> o 
+<code>pulsanteCancella</code> potrebbero essere tre sue diverse istanze.</p>
+
+<p>Ogni istanza di una classe avrà le stesse proprietà ma con valori diversi, per accedere a queste proprietà
+(o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
+di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
+si vuole usare.
+Posso ad esempio cambiare il testo contenuto in un pulsante scrivendo <code>pulsante.setText("pluto")</code>.</p>
+
+
+<h2>Costruttore</h2>
 
 <p>Un particolare metodo è quello che viene usato quando costruiamo una nuova istanza
-di nuovo oggetto: il costruttore che si riconosce perché ha lo stesso nome della classe e 
+di una classe: il costruttore. Si riconosce perché ha lo stesso nome della classe e 
 nessun tipo ritornato (non c'è scritto <code>void</code>, 
 è proprio assente). Soltanto se non si definisce nessun costruttore nella classe java 
 ne definisce uno predefinito che non accetta nessun parametro.</p>
@@ -222,15 +249,9 @@ ne definisce uno predefinito che non accetta nessun parametro.</p>
         <span class="spiegazione">giusto, un costruttore senza parametri</span></a>
     <a onclick="giusta(this)">public Tavolo(int gambe){...}
         <span class="spiegazione">giusto, un costruttore che vuol sapere quante gambe ha il tavolo</span></a>
-</div>
+</div>  
 
-<p>Scrivendo una classe definiamo come si comporta un qualsiasi oggetto di quel tipo (in java definendo nuove classi 
-si definiscono nuovi tipi) ma in realtà non costruiamo nessun oggetto.
-Per costruire un oggetto, operazione che formalmente si chiama <em>creazione di una istanza</em> si usa 
-l'operatore <code>new</code> che crea un nuovo oggetto in memoria con tutte le proprietà associate,
-ovviamente ogni oggetto creato avrà le sue proprietà distinte dagli altri.<br/>
-
-Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
+<p>Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
 l'operatore <code>new</code> si usa scrivendo dopo di lui il costruttore di un oggetto 
 come ad esempio in <code>Button pulsante = <em>new Button()</em></code>.<br/>
 La parte a destra dell'uguale è quella che ci interessa:
@@ -244,22 +265,9 @@ Avere modi diversi per creare dei Button (sono tre), chi ha scritto la classe
 ha deciso in quali modi sia possibile instanziarla, possiamo ipotizzare che nel primo caso si vuole un pulsante senza testo 
 e nel secondo caso si vuole un pulsante con del testo al suo interno.</p>
 
-<p>Quando usiamo l'operatore new stiamo creando nuove istanze di un oggetto:
-Button è in nome di una classe ( e quindi di un tipo ) ma poi
-<code>pulsante</code> o <code>pulsanteCalcola</code> o 
-<code>pulsanteCancella</code> potrebbero essere due sue istanze.</p>
-
-<p>Ogni istanza di una classe avrà le stesse proprietà ma con valori diversi, per accedere a queste proprietà
-(o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
-di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
-si vuole usare.
-Posso ad esempio cambiare il testo contenuto in un pulsante scrivendo <code>pulsante.setText("pluto")</code>.</p>
-
-<p>Riferendoci all'esempio degli autoveicoli possiamo pensare che ci saranno più oggetti dello stesso tipo, 
-ciascuno con i propri valori: tutti avranno una targa ma ciascuna targa sarà diversa dalle altre e via così 
-per le altre proprietà.</p>
-
-<p>Vediamo cosa cambia facendo un confronto tra due versione dello stesso programma.</p>
+<h3>Confronto</h3>
+<p>Proviamo a confrontare due programmi che svoilgono lo stesso lavoro: il primo con un approccio ad 
+oggetti, il secondo procedurale.</p>
 
 <p>La <span onclick="mostraNascondi('new','old')" class="pulsante" id="pulsanteNew">nuova versione ad oggetti</span> 
 usa un <em>oggetto</em>: <code>Autoveicolo</code> con le <em>proprietà</em>
