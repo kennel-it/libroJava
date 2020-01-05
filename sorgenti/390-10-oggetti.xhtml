@@ -8,6 +8,7 @@
 <!-- changelog 2019-09-03 inglobato capitolo "incapsulamento" -->
 <!-- changelog 2019-09-03 inserite definizioni di classe, oggetto, proprietà e metodo -->
 <!-- changelog 2019-12-28 riorganizzata la parte teorica -->
+<!-- changelog 2019-01-05 corretti due errori -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -534,7 +535,7 @@ dell'oggetto: avremo bisogno di due costruttori.</p>
       if(a&lt;1970) {
          a = 1970;
       } else if(a&gt;2020) {
-         a = 2025;
+         a = 2020;
       }
       anno = a;
       interessiPercentuale = i;
@@ -726,7 +727,7 @@ public class Primo{
 </pre>
 <div class="test">
     <p>Cosa è <code>Primo</code>?</p>
-    <a onclick="giusta(this)">il nome dell'oggetto</a> 
+    <a onclick="giusta(this)">il nome della classe</a> 
     <a onclick="sbagliata(this)">il nome del pacchetto <span class="spiegazione">il nome del pacchetto è it.esempio</span></a> 
     <a onclick="sbagliata(this)">un nome di variabile <span class="spiegazione">no, segue la parola chiave class</span></a>
     <a onclick="sbagliata(this)">un nome di un metodo <span class="spiegazione">descrivi o check sono nomi di metodi</span></a>
