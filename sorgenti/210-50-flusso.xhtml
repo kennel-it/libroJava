@@ -2,6 +2,7 @@
 <!-- grafoIndice requires="condizionale ripetizione booleani while" group="base" -->
 <!-- changelog 2017-09-05 corretti diversi errori nel ciclo for -->
 <!-- changelog 2018-04-17 maggiori dettagli per il condizionale -->
+<!-- changelog 2020-01-10 piccole correzioni -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -296,7 +297,7 @@ con l'istruzione successiva.</p>
 <p>Il costrutto è un pò elaborato e usa tre parole chiave: <code>switch</code>,
 <code>case</code> e <code>default</code>. Rispetto all'if-else dobbiamo tener presente che l'esecuzione del programma una volta 
 verificata una condizione continuerà fino alla fine dello switch e non si fermerà al <code>case</code>
-(o al <code>default</code>) successivo, per questo si usano i break.</p> 
+(o al <code>default</code>) successivo, per questo si possono usare i break.</p> 
 <div class="istruzione">
 
 	<div class="corpo">
@@ -369,7 +370,7 @@ Se non ci fosse stato nessun break avrebbe assegnato sempre il valore 40.</p>
 <p>Il ciclo <code>while</code> funziona così:<br/>
 1-se la condizione (che è una espressione booleana) è falsa il ciclo finisce<br/>
 2-se la condizione è vera si esegue il corpo del while (le istruzioni contenute)<br/>
-3-arrivati in fondo si torna a testare la condizione all'inizio del ciclo (punto 1)</p>
+3-arrivati in fondo si torna al punto 1 cioè a testare la condizione all'inizio del ciclo...</p>
 <div class="istruzione">
 	<div class="corpo">
 		<div class="text">while(<span>condizione</span>){</div>
@@ -402,7 +403,7 @@ Se non ci fosse stato nessun break avrebbe assegnato sempre il valore 40.</p>
 per il resto si comporta come il while.<br/>
 1-esegue il corpo del ciclo
 2-se la condizione (che è una espressione booleana) è falsa il ciclo finisce<br/>
-2-se la condizione è vera si torna ad eseguire il corpo del ciclo</p>
+2-se la condizione è vera si torna al punto 2, cioè ad eseguire il corpo del ciclo...</p>
 <div class="istruzione">
 	<div class="corpo">
 		<div class="text">do{</div>
