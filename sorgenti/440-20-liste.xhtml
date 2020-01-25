@@ -4,6 +4,7 @@
 <!-- changelog 2017-07-04 inserito capitolo vuoto -->
 <!-- changelog 2020-01-10 inseriti primi contenuti -->
 <!-- changelog 2020-01-14 corretto pila in lista -->
+<!-- changelog 2020-01-25 corretto errore nel programma della lista -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -106,7 +107,7 @@ public class Lista {
     // creo il nuovo elemento della lista
     nuovoElemento = new Nodo();
     nuovoElemento.dato = nuovoDato;
-    nuovoElemento.dato = null;
+    nuovoElemento.successivo = null;
     // controllo se in lista c'è già qualcosa
     if(testa == null){
       // in lista non c'è nulla quindi la lista è costituita 
