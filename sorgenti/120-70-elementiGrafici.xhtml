@@ -6,6 +6,7 @@
 <!-- changelog 2018-11-24 cambiato nome e in inseriti anche altri elementi grafici -->
 <!-- changelog 2018-11-25 aggiunti elementi e sistemato inizio capitolo -->
 <!-- changelog 2019-05-02 aggiunto ImageView -->
+<!-- changelog 2020-02-11 aggiunto Polygon -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -78,6 +79,7 @@
     </li>
 	<li><a href="#grafica">oggetti grafici</a>:
 		<a href="#ImageView">ImageView</a>
+		<a href="#Polygon">Polygon</a>
 	</li>
 </ul>
 <p>Di tutti gli oggetti mostrati possono essere impostate le dimensioni in maniera esplicita
@@ -1102,6 +1104,47 @@ public class DImageView extends Application{
         <em>ImageView iw = new ImageView(i);</em>
         GridPane pannello = new GridPane();
         pannello.add(iw, 0, 0);
+        
+        Scene scena = new Scene(pannello);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="Polygon">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/shape/Polygon.html">
+<small>javafx.scene.shape.</small>Polygon</a></h3>
+<p><img src="immagini/dPolygon.png" alt="esempio di interfaccia che usa Polygon"/>
+Un <code>Polygon</code> è un elemento che rappresenta un poligono qualsiasi, si costruisce
+specificando le coordinate di tutti i vertici.</p>  
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
+
+public class DPolygon extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>Polygon poligono = new Polygon();
+        poligono.getPoints().addAll(new Double[]{
+            0.0, 0.0,
+            60.0, 30.0,
+            40.0, 40.0,
+            30.0, 60.0 });</em>
+        GridPane pannello = new GridPane();
+        pannello.add(poligono, 0, 0);
         
         Scene scena = new Scene(pannello);
         ps.setScene(scena);

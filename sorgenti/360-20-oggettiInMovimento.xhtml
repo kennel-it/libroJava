@@ -4,6 +4,7 @@
 <!-- grafoIndice requires="timers" group="giochi" -->
 <!-- changelog 2018-12-09 inserito capitolo -->
 <!-- changelog 2018-12-10 introduzione e collisioni -->
+<!-- changelog 2020-02-11 collisione per intersezione -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -323,6 +324,64 @@ public class Collisione extends Application {
         Scene scena = new Scene(areaDiGioco);
         primaryStage.setScene(scena);
         primaryStage.show();
+    }
+}
+</pre>
+</section>
+
+<section id="collisioneIntersezione">
+<h2>Collisione per intersezione</h2>
+<img src="immagini/collisioneIntersezioneMancata.png" alt="mancata collisione tra due barre"/>
+<img src="immagini/collisioneIntersezioneAvvenuta.png" alt="collisione tra due barre"/>
+<p>Quando è necessario rilevare una collisione in modo più preciso si può usare una strada diversa:
+Faccio calcolare a javafx un oggetto formato dall'intersezione tra due forme, se questo 
+ha dimensione diversa da -1 allora vuol dire che esiste una sovrapposizione (quindi una collisione)
+altrimenti gli oggetti non si toccano.</p>
+<p>Nella figura qui a fianco l'angolo rosso evidenzia l'area sovrapposta.</p>
+<p>Due aspetti negativi: è più lenta di quella sui bounding box e non funziona sulle immagini
+(però con un po' di fantasia...).</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+import javafx.application.Application;
+import javafx.geometry.Bounds;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.stage.Stage;
+
+public class CollisionePerIntersezione extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Pane areaDiGioco = new Pane();
+        areaDiGioco.setPrefSize(200, 300);
+        
+        Rectangle linea1 = new Rectangle(30,200);
+        linea1.setRotate(60);
+        linea1.setX(50);
+        areaDiGioco.getChildren().add(linea1);
+        
+        Rectangle linea2 = new Rectangle(30,200);
+        areaDiGioco.getChildren().add( linea2 );
+        linea2.setX(120);
+        linea2.setY(75);
+                
+        Scene scena = new Scene(areaDiGioco);
+        primaryStage.setScene(scena);
+        primaryStage.show();
+        
+        <em>Shape intersect = Shape.intersect(linea1, linea2);</em>
+        
+        if (<em>intersect.getBoundsInLocal().getWidth() != -1</em>){
+            primaryStage.setTitle("collisione");
+        }else {
+            primaryStage.setTitle("nessuna collisione");
+        }
     }
 }
 </pre>
