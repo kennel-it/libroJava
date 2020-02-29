@@ -110,6 +110,7 @@ dfn {
 dfn em { color: var(--colore-primario-testo) }
 img.screen_shot { border:1px solid gray; margin: 0.5em }
 img.iconaIDE { height: 2ex; }
+.approfondimento { opacity: 0.50 ; border-left: 0.1em dashed red ; padding-left: 1em}
 /* ------------------------------------ codice sorgente ---------------------------------------- */
 pre, div.pseudo {
     padding: 0.5em;
