@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="vettore" group="base" -->
+<!-- changelog 2020-02-29 riorganizzato per intero il capitolo -->
+<!-- changelog 2020-03-01 corretti errori di battitura -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -39,15 +41,17 @@ a quello qui sotto:</p>
 <h3>Individuazione del massimo</h3>
 <p>L'idea è questa: utilizzare la variabile <var>massimo</var> per tener conto
 del valore massimo trovato fino ad un determinato momento aggiornandola
-man mano sche scorriamo il vettore.</p> 
+man mano che scorriamo il vettore.</p> 
  
 <p>Come valore iniziale diamo a <var>massimo</var> quello della cella di indice 0 del vettore
 (se io avessi un vettore lungo uno il massimo sarebbe il primo elemento... giusto no?) 
 A partire dalla posizione 1 fino all'ultima si farà poi sempre questa operazione:
 se il valore trovato nella cella in esame è più grande di quello contenuto in <var>massimo</var> 
-allora copieremo in tale variabile quanto c'è nella cella del vettore alla posizione corrente.
+significa che questo è il nuovo massimo, allora copieremo in tale variabile quanto 
+c'è nella cella del vettore alla posizione corrente.
 La variabile <var>massimo</var> conterrà così mano il massimo della porzione di
-vettore fino a quel punto analizzata: quando arriveremo all'ultima posizione  
+vettore fino a quel punto analizzata: quando arriveremo all'ultima posizione tale variabile
+<var>massimo</var>
 conterrà il massimo di tutto il vettore. Non rimane che fornire l'algoritmo:</p>
 
 <pre>public void cercaMassimo() {
@@ -171,7 +175,7 @@ se non ha trovato niente (sarebbe a dire se <code>posizioneElemento==-1</code>):
 <p>Possiamo un po' migliorare il codice: mettiamo la condizione della if direttamente 
 all'interno della condizione del <code>for</code> facendo sì che 
 il ciclo vada avanti finche l'indice sta nel vettore e l'elemento attuale non sia quello cercato
-(detto in altre parole quando l'ele,ento attuale è quello cercato escxe dal ciclo).</p>
+(detto in altre parole quando l'elemento attuale è quello cercato escxe dal ciclo).</p>
 <pre>
    for(indice = 0; indice &lt; vet.length <em>&amp;&amp; vet[indice] != numeroCercato</em>; indice++) {
    	 // nel ciclo non rimane nulla da fare
@@ -246,8 +250,8 @@ se invece il vettore è ordinato in modo decrescente il massimo sarà nella prim
 </table>
 <p>Supponiamo di voler cercare il numero 18. Dato che non ho ancora nessuna informazione sul vettore l'intervallo di ricerca va dalla posizione inferiore 0
    alla posizione superiore 14. Questo perché in pratica la ricerca deve avvenire su tutto il vettore. Devo tener memoria di questo quindi utilizzerò 2 variabili
-   e le inzializzo: rispettivamente <code><var>inf</var> = 0</code> e <code><var>sup</var> = 14</code>. Voglio a studiare l'elemento in posizione centrale.
-   Come si calcola la posizione centrale: essendo la posizione centrale o posizione media, si ottiene con la formula della media fra le posizioni inferiore e
+   e le inzializzo: rispettivamente <code><var>inf</var> = 0</code> e <code><var>sup</var> = 14</code>. Vado a studiare l'elemento in posizione centrale.
+   Come si calcola la posizione centrale: essendo la posizione centrale o posizione media, questa si ottiene con la formula della media fra le posizioni inferiore e
    superiore. Il risultato lo metto nella variabile <code><var>metà</var> = (<var>inf</var> + <var>sup</var>) / 2</code>. Valuto se il numero contenuto in
    questa cella è quello cercato. Nell'esempio <code><var>metà</var> = (14 + 0) / 2</code> cioè 7. Il contenuto in 7 è 15. Rispetto al numero
    cercato (18) il 15 è più piccolo e di conseguenza sicuramente non potrà stare nelle posizioni del vettore da 0 a 7. L'intervallo di ricerca sarà allora da 8
