@@ -16,8 +16,24 @@
 <p>distribuire il prodotto finale all'utente</p>
 </header>
 <article>
-<p>Essendo java multipiattaforma non esiste un formato "eseguibile" come per il linguaggi compilati,
-un programma java è un file zip che contiene tutti i file .class che compongono il programma stesso
+
+<p>Ad un certo punto dopo aver fatto il programma bisogna darlo a chi ce lo ha chiesto... come?</p>
+
+<p>Java è nato come linguaggio multipiattaforma e fin dall'inizio della sua storia 
+la modalità per distribuire il software era quella di creare un file che gli utenti potessero
+eseguire su qualsiasi piattaforma soltanto avendo java installato.
+Questo approccio ha l'enorme vantaggio di permettere di avere un solo file che tutti 
+coloro che hanno Java installato (su macOS, Linux o Windows) possono eseguire il programma.
+Ma tutti coloro che non hanno Java installato? La risposta è facile "lo installano".</p> 
+<p>Con l'arrivo di Java14 abbiamo però una alternativa in più: creare una applicazione 
+che gira nativamente senza bisogno di avere Java installato. Questo grazie a nuovi strumenti
+e alla nuova licenza Open Source di Java.</p>
+
+
+<h2>jar</h2>
+<p>La modalità classica di creazione di un file da distribuire all'utente finale 
+è quella di creare un "jar" cioè un file zip strutturato in una maniera particolare
+che contiene tutti i file .class che compongono il programma stesso
 più altri file utili alla sua esecuzione (ad esempio i file css o le immagini che abbiamo inserito).</p>
 
 <p>Quando si fa doppio click cu uno di questi file zippati (che avranno ".jar" come estensione)
@@ -26,6 +42,14 @@ specifica classe presente nel file.</p>
 
 <p>La procedura per generare questo file dipende dall'ambiente di sviluppo utilizzato e include nel
 pacchetto creato tutte le classi presenti nel progetto.</p>
+
+<p>Questo meccanismo un paio di problemi:</p>
+<ul>
+<li>nel caso di javafx le librerie che usa dipendono dalla piattaforma
+(sarebbe a dire che su Windows servono alcuni file e ad esempio su Linux altri).</li>
+<li>l'utente deve avere java installato (e di una versione almeno pari a quella che
+abbiamo usato per lo sviluppo)</li>
+</ul>
 
 <section class="eclipse">
 
@@ -70,6 +94,48 @@ in caso che serva di cambiarla:</p>
 <p>A questo punto ogni volta che un progetto viene compilato viene anche creato il file jar, 
 se non serve l'opzione può essere disattivata.</p>
 </section>
+
+<h2>jpackage</h2>
+<p>Dalla versione 14 di Java nel JDK esistono degli strumenti che permettono di creare un 
+programma direttamente eseguibile senza bisogno di installare prima java.</p>
+<p>Creare molteplici versioni (una per Mac, una per Linux e una per Windows)
+del programma non è difficile, basta crearlo su piattaforma seguendo lo stesso procedimento.</p>
+
+<p>Siccome lo strumento è molto nuovo e versatile non ci sono ancora strumenti automatizzati comodi
+da utilizzare, non è però difficile fare le operazioni manualmente: l'unica richiesta è
+che per poter lavorare con Windows è necessario installare una versione di Bash
+(un interprete dei comandi molto comune sui sistemi Unix) e non va bene quello che fornisce
+Microsoft... per farla breve bastainstallare <a href="https://git-scm.com/downloads">GIT</a>
+e in automatico avremo anche GitBash che va bene per i nostri scopi.</p>
+
+<p>FIXME: rivedi se serve ulteriore programma per windows</p>
+
+<p>Per semplicità supponiamo di avere un progetto gestito da eclipse e di trovarci
+nella cartella in cui sitrovano i file del progetto.</p>
+
+<p>Per prima cosa impostiamo una variabile che tiene traccia di dove abbiamo i file compilati:</p>
+<pre>export CLASSI=target/classes/</pre>
+
+<p>Poi impostiamo il percorso in cui si trovano i file jar di cui abbiamo bisogno,
+se non usiamo maven ma usiamo javafx:</p>
+<pre>export JARS=/opt/javafx-sdk-14/lib/</pre>
+<p>Se usiamo maven e magari abbiamo altre librerie:</p>
+<pre>export JARS=$(ls target/jars/*.jar |  tr '\n' ':')</pre>
+
+<p>In ogni caso bisogna specificare dove si trovano i file jar di javafx</p>
+<pre>export FX_JARS=/opt/javafx-sdk-14/lib/</pre>
+
+<p>Proviamo a vedere se il programma parte</p>
+<pre>/opt/jdk-14+36/Contents/Home/bin/java --add-modules javafx.controls,javafx.media,javafx.fxml \
+--module-path $FX_JARS -cp $JARS:$CLASSI it.edu.iisgubbio.sostituzioni.FinestraPrincipale</pre>
+
+
+<pre>/opt/jdk-14+36/Contents/Home/bin/jpackage --type app-image -n sostituzioni \
+--input target/jars \
+--module-path $FX_JARS \
+--add-modules javafx.controls,javafx.fxml \
+--main-class it.edu.iisgubbio.sostituzioni.FinestraPrincipale --main-jar sostituzioni-0.1.jar</pre>
+ 
 </article>
 </body>
 </html>
