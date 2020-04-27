@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="helloWorld ide" group="infrastruttura" -->
+<!-- changelog 2020-04-27 prima bozza dell'uso di jpackage -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -108,33 +109,46 @@ che per poter lavorare con Windows è necessario installare una versione di Bash
 Microsoft... per farla breve bastainstallare <a href="https://git-scm.com/downloads">GIT</a>
 e in automatico avremo anche GitBash che va bene per i nostri scopi.</p>
 
-<p>FIXME: rivedi se serve ulteriore programma per windows</p>
+<p class="FIXME">vedi se serve ulteriore programma per windows</p>
+<p>Per partire utilizziamo un caso quasi semplice: HelloWorld scritto con JavaFX. 
+Il "quasi" è dovuto al fatto che usiamo una libreria (JavaFX) che non fa parte
+della distribuzione standard di Java.</p>
 
-<p>Per semplicità supponiamo di avere un progetto gestito da eclipse e di trovarci
-nella cartella in cui sitrovano i file del progetto.</p>
+<p>Passo zero: creare la cartella "esportazione" sul Desktop.</p>
 
-<p>Per prima cosa impostiamo una variabile che tiene traccia di dove abbiamo i file compilati:</p>
-<pre>export CLASSI=target/classes/</pre>
+<p>Primo passo: far generare ad Eclipse un file jar del nostro progetto.</p>
+<ol>
+  <li>Menu File/Export...</li>
+  <li>selezionare gruppo "java" e poi voce "Jar File"</li>
+  <li>"Select the resource project to export:" basta selezionare il progetto che interessa, 
+  helloWorld nel nostro caso (compare un "-" perché la cartella settings giustamente non viene esportata)</li>
+  <li>spuntare "export generated class files and resources"</li>
+  <li>nella voce "JAR file:" impostare "helloWorld.jar" nella cartella "esportazione" creata prima</li>
+</ol>
 
-<p>Poi impostiamo il percorso in cui si trovano i file jar di cui abbiamo bisogno,
-se non usiamo maven ma usiamo javafx:</p>
-<pre>export JARS=/opt/javafx-sdk-14/lib/</pre>
-<p>Se usiamo maven e magari abbiamo altre librerie:</p>
-<pre>export JARS=$(ls target/jars/*.jar |  tr '\n' ':')</pre>
+<p>Secondo passo: inserire nella cartella tutte le altre librerie che usiamo.
+QUesto è facile: basta andare nella cartella di javafx e copiare tutti i file
+(non la cartella stessa) della cartella lib in "esportazione".</p>
 
-<p>In ogni caso bisogna specificare dove si trovano i file jar di javafx</p>
-<pre>export FX_JARS=/opt/javafx-sdk-14/lib/</pre>
-
-<p>Proviamo a vedere se il programma parte</p>
+<p>Terzo passo: proviamo. Per farlo è semplice: aprire un terminale posizionarsi 
+nella cartella Desktop. Poi scrivere:</p>
 <pre>/opt/jdk-14+36/Contents/Home/bin/java --add-modules javafx.controls,javafx.media,javafx.fxml \
---module-path $FX_JARS -cp $JARS:$CLASSI it.edu.iisgubbio.sostituzioni.FinestraPrincipale</pre>
+--module-path esportazione -cp $(ls target/jars/*.jar |  tr '\n' ':') helloWorld.CiaoMondo</pre>
+<p>Se il programma non parte abbiamo fatto qualcosa di sbagliato.
+Cosa? dipende dal messaggio di errore.</p>
 
+<p>Quarto passo: l'icona. Dobbiamo copiare sulla scrivania un file hello.icns
+(il tipo di file dipende dalla piattaforma icns va eben per macOS, png va bene per Linux)
+che è l'icona della nostra applicazione.</p>
+<p>NB: la cartella "hello" non deve esistere sul desktop(nel caso di macOS dal Finder... 
+l'applicazione "hello" non deve essistere).</p>
 
-<pre>/opt/jdk-14+36/Contents/Home/bin/jpackage --type app-image -n sostituzioni \
---input target/jars \
---module-path $FX_JARS \
---add-modules javafx.controls,javafx.fxml \
---main-class it.edu.iisgubbio.sostituzioni.FinestraPrincipale --main-jar sostituzioni-0.1.jar</pre>
+<pre>/opt/jdk-14+36/Contents/Home/bin/jpackage --type app-image -n hello \
+--icon hello.icns \
+--input esportazione \
+--module-path esportazione \
+--add-modules javafx.controls \
+--main-class helloWorld.CiaoMondo --main-jar helloWorld.jar</pre>
  
 </article>
 </body>
