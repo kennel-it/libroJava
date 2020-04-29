@@ -6,7 +6,8 @@
 <!-- changelog 2017-10-23 spostata parte dei metodi static in classi -->
 <!-- changelog 2017-11-14 aggiunto esempio -->
 <!-- changelog 2019-08-19 rimosso titolo "Variabili condivise" senza contenuto -->
-<!-- changelog 2020-04-29 correzioni minori-->
+<!-- changelog 2020-04-29 correzioni minori -->
+<!-- changelog 2020-04-29  errore nel tipo di una variabile boolean deve essere byte -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -84,7 +85,7 @@ seguente:</p>
    private String nome, cognome;
    private String ruolo;
    private float stipendio;
-   private boolean categoria;
+   private byte categoria;
    private String classe;
    private String religione;
 
@@ -145,7 +146,7 @@ a questo punto sarà:</p>
    protected String nome, cognome;
    protected String ruolo;
    protected float stipendio;
-   protected boolean categoria;
+   protected byte categoria;
 
    public Persona() {
       nome = cognome = "&lt;indefinito&gt;";
@@ -173,7 +174,7 @@ a questo punto sarà:</p>
       orePotenziamento = 0;
    }
 
-   public Studente(String n, String c, String r, String mat, String orePot) {
+   public Studente(String n, String c, String r, String mat, int orePot) {
       super(n, c, r, 1000.0f, 2);
       materia = mat;
       orePotenziamento = orePot;
