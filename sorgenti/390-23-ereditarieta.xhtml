@@ -6,6 +6,7 @@
 <!-- changelog 2017-10-23 spostata parte dei metodi static in classi -->
 <!-- changelog 2017-11-14 aggiunto esempio -->
 <!-- changelog 2019-08-19 rimosso titolo "Variabili condivise" senza contenuto -->
+<!-- changelog 2020-04-29 correzioni minori-->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -108,7 +109,8 @@ seguente:</p>
 }</pre>
 <p>Nel modo appena proposto non si evidenziano vantaggi dal dire che la classe Studente è una classe che estende Persona, infatti abbiamo ricreato tutte le proprietà
 indistintamente nuove e vecchie. Dato però che il realtà uno studente è anche una persona non è necessario dire che ha un nome, questo è già presente in quanto persona,
-stessa cosa per tutte le proprietà della classe Persona. Allora - ed è anche più logico - le uniche proprietà che andranno dichiarate sono le nuove:</p>
+stessa cosa per tutte le proprietà della classe Persona. Allora - ed è anche più logico - le uniche proprietà che andranno dichiarate sono le nuove:
+<var>classe</var> e <var>religione</var>.</p>
 <h2>In sintesi</h2>
 <p>Quando quello che vogliamo fare non è creare un oggetto nuovo ma aggiungere/modificare delle funzionalità di un oggetto esistente possiamo farlo
 usando la parola chiave <code>extends</code> nella dichiarazione della classe seguita dal nome della classe che si vuole ampliare/cambiare. In questo
