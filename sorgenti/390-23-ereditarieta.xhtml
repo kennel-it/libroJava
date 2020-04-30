@@ -229,6 +229,34 @@ lo estenderemo con qualcosa in più:</p>
       return capitale;
    }
 }</pre>
+<h3>file it/esempi/Primo.java</h3>
+<pre> <!--presente sia in "oggetti" che in "ereditarietà" -->
+package it.esempi;
+
+public class Primo{
+    int x;
+    boolean y;
+    public Primo(int k, boolean p){
+        x=k;
+        y=p;
+    }
+    public int leggiVal(){
+        int p;
+        if(y){
+            p = x;
+        }else{
+            p = -x;
+        }
+        return p;
+    }
+    public String descrivi(){
+        return "n:"+x;
+    }
+    private boolean check(){
+        return x&lt;100;
+    }
+}
+</pre>
 <h3>file it/esempi/Secondo.java</h3>
 <pre>
 package it.esempio;
