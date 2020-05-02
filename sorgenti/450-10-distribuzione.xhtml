@@ -3,6 +3,7 @@
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="helloWorld ide" group="infrastruttura" -->
 <!-- changelog 2020-04-27 prima bozza dell'uso di jpackage -->
+<!-- changelog 2020-05-02 provato jpackage anche su windows -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -102,53 +103,83 @@ programma direttamente eseguibile senza bisogno di installare prima java.</p>
 <p>Creare molteplici versioni (una per Mac, una per Linux e una per Windows)
 del programma non è difficile, basta crearlo su piattaforma seguendo lo stesso procedimento.</p>
 
-<p>Siccome lo strumento è molto nuovo e versatile non ci sono ancora strumenti automatizzati comodi
-da utilizzare, non è però difficile fare le operazioni manualmente: l'unica richiesta è
-che per poter lavorare con Windows è necessario installare una versione di Bash
-(un interprete dei comandi molto comune sui sistemi Unix) e non va bene quello che fornisce
-Microsoft... per farla breve bastainstallare <a href="https://git-scm.com/downloads">GIT</a>
-e in automatico avremo anche GitBash che va bene per i nostri scopi.</p>
-
-<p class="FIXME">vedi se serve ulteriore programma per windows</p>
-<p>Per partire utilizziamo un caso quasi semplice: HelloWorld scritto con JavaFX. 
+<p>Per partire utilizziamo un caso quasi semplice: HelloWorld scritto con JavaFX
+(senza l'uso dei moduli, sarebbe a dire che il file package.info [FIXME controlla nome] non ci deve essere). 
 Il "quasi" è dovuto al fatto che usiamo una libreria (JavaFX) che non fa parte
 della distribuzione standard di Java.</p>
 
-<p>Passo zero: creare la cartella "esportazione" sul Desktop.</p>
+<p>Siccome lo strumento è molto nuovo e versatile non ci sono ancora strumenti automatizzati comodi
+da utilizzare, non è però difficile fare le operazioni manualmente.</p>
 
-<p>Primo passo: far generare ad Eclipse un file jar del nostro progetto.</p>
-<ol>
-  <li>Menu File/Export...</li>
-  <li>selezionare gruppo "java" e poi voce "Jar File"</li>
-  <li>"Select the resource project to export:" basta selezionare il progetto che interessa, 
-  helloWorld nel nostro caso (compare un "-" perché la cartella settings giustamente non viene esportata)</li>
-  <li>spuntare "export generated class files and resources"</li>
-  <li>nella voce "JAR file:" impostare "helloWorld.jar" nella cartella "esportazione" creata prima</li>
-</ol>
 
-<p>Secondo passo: inserire nella cartella tutte le altre librerie che usiamo.
-QUesto è facile: basta andare nella cartella di javafx e copiare tutti i file
-(non la cartella stessa) della cartella lib in "esportazione".</p>
+<p>Lo stesso procedimento va bene sia per Windows che per Linux che per macOS, l'unica richiesta è
+che per poter lavorare con Windows è necessario installare una versione di Bash
+(un interprete dei comandi molto comune sui sistemi Unix) e non va bene quello che fornisce
+Microsoft... per farla breve basta installare <a href="https://git-scm.com/downloads">GIT</a>
+e in automatico avremo anche GitBash che va bene per i nostri scopi.</p>
 
-<p>Terzo passo: proviamo. Per farlo è semplice: aprire un terminale posizionarsi 
-nella cartella Desktop. Poi scrivere:</p>
-<pre>/opt/jdk-14+36/Contents/Home/bin/java --add-modules javafx.controls,javafx.media,javafx.fxml \
---module-path esportazione -cp $(ls target/jars/*.jar |  tr '\n' ':') helloWorld.CiaoMondo</pre>
-<p>Se il programma non parte abbiamo fatto qualcosa di sbagliato.
-Cosa? dipende dal messaggio di errore.</p>
+<p class="FIXME">Download WiX 3.0 or later from https://wixtoolset.org <br/>
+https://dotnet.microsoft.com/download/dotnet-framework
+WiX all'avvio dice di quale versione di .net Framework vuole... e vuole quella non una più recente).</p>
 
-<p>Quarto passo: l'icona. Dobbiamo copiare sulla scrivania un file hello.icns
+<p>Un avviso prima di iniziare: attento alle "/", non fa lo stesso metterle oppure no.</p>
+
+<p>Primo passo: creare la cartella "esportazione" sul Desktop.</p>
+
+<p>Secondo passo: l'icona. Dobbiamo copiare sulla scrivania un file per l'icona, diepnde dal sistema
+operativo hello.icns
 (il tipo di file dipende dalla piattaforma icns va eben per macOS, png va bene per Linux)
 che è l'icona della nostra applicazione.</p>
-<p>NB: la cartella "hello" non deve esistere sul desktop(nel caso di macOS dal Finder... 
-l'applicazione "hello" non deve essistere).</p>
+<p>NB: la cartella "hello" non deve esistere sul Desktop (nel caso di macOS dal Finder... 
+l'applicazione "hello" non deve esistere).</p>
 
-<pre>/opt/jdk-14+36/Contents/Home/bin/jpackage --type app-image -n hello \
---icon hello.icns \
+<p>Terzo passo: far generare ad Eclipse un file jar del nostro progetto.</p>
+<ol>
+  <li>Menu File/Export...</li>
+  <li>selezionare gruppo "Java" e poi voce "JAR file"</li>
+  <li>"Select the resource project to export:" basta selezionare il progetto che interessa, 
+  ciaomondo nel nostro caso (non importa esportare la sotto-cartella settings)</li>
+  <li>spuntare "export generated class files and resources"</li>
+  <li>nella voce "JAR file:" impostare "ciaomondo.jar" nella cartella "esportazione" creata prima</li>
+  <li>premere "finish"</li>
+</ol>
+
+<p>Quarto passo: inserire nella cartella tutte le altre librerie che usiamo.
+Questo è facile: basta andare nella cartella di javafx e copiare tutti i file jar
+(non la cartella stessa) presenti nella cartella lib in "esportazione". Se si usa Windows
+vanno copiati anche tutti i file presenti nella sottocartella bin sempre di JavaFX
+(nel caso di macOS tutti i .dylib presenti nella cartella lib e 
+nel caso di Linux tutti i .so sempre nella cartella lib).</p>
+
+<p>Quinto passo: a questo punto bisogna aprire un terminale (Git Bash nel caso di Windows) 
+e posizionarsi nella cartella Desktop.</p>
+
+<p>Sesto passo: per evitare di impazzire bisogna impostare alcune variabili di ambiente,
+quelli riportati sono esempi presi da un ambiente Windows (ovviamente i percorsi potrebbero
+cambiare, ognuno dovrebbe sapere dove ha messo i diversi pezzi di software).</p>
+<pre>export JBIN=/c/java/jdk-14.0.1+7/bin</pre>
+<p>nel comando successivo attenzione al separatore dell cartelle, nei sistemi Unix serve <em>echo -n "$x:"</em></p>
+<pre>export JARS=$(ls esportazione/*.jar | while read x; do echo -n "$x;"; done)</pre>
+<pre>export FX=/c/java/javafx-sdk-14.0.1/lib/</pre>
+<pre>export ICONA=mondo.ico</pre>
+<p>L'ultima variabile dipende dal sistema operativo: macOS vuole un file .icns, Windows un .ico
+qui supponiamo che sia un file chiamato mondo.ico che si trova sulla scrivania.</p>
+
+<p>Settimo passo: proviamo se va. Per farlo è semplice: aprire un terminale e posizionarsi 
+nella cartella Desktop. Poi scrivere:</p>
+<pre>$JBIN/java --add-modules javafx.controls,javafx.media,javafx.fxml \
+--module-path $FX -cp $JARS ciaomondo.CiaoMondo</pre>
+<p>Se il programma non parte abbiamo fatto qualcosa di sbagliato.
+Cosa? dipende dal messaggio di errore, magari una delle variabili di ambiente o la copia dei file.</p>
+
+<p>Ottavo passo: creazione del programma eseguibile (la cartella hello non deve essere presente 
+perché la vuole creare jpackage )</p>
+<pre>$JBIN/jpackage --type app-image -n hello \
+--icon $ICONA \
 --input esportazione \
---module-path esportazione \
+--module-path $FX \
 --add-modules javafx.controls \
---main-class helloWorld.CiaoMondo --main-jar helloWorld.jar</pre>
+--main-class ciaomondo.CiaoMondo --main-jar ciaomondo.jar</pre>
  
 </article>
 </body>
