@@ -6,8 +6,8 @@
 <!-- changelog 2017-10-23 spostata parte dei metodi static in classi -->
 <!-- changelog 2017-11-14 aggiunto esempio -->
 <!-- changelog 2019-08-19 rimosso titolo "Variabili condivise" senza contenuto -->
-<!-- changelog 2020-04-29 correzioni minori -->
-<!-- changelog 2020-04-29  errore nel tipo di una variabile boolean deve essere byte -->
+<!-- changelog 2020-05-11 corretta spiegazione invocazione super() con argomenti -->
+<!-- changelog 2020-05-11 inserita definizione di ereditarietà singola -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -85,7 +85,7 @@ seguente:</p>
    private String nome, cognome;
    private String ruolo;
    private float stipendio;
-   private byte categoria;
+   private boolean categoria;
    private String classe;
    private String religione;
 
@@ -110,12 +110,17 @@ seguente:</p>
 }</pre>
 <p>Nel modo appena proposto non si evidenziano vantaggi dal dire che la classe Studente è una classe che estende Persona, infatti abbiamo ricreato tutte le proprietà
 indistintamente nuove e vecchie. Dato però che il realtà uno studente è anche una persona non è necessario dire che ha un nome, questo è già presente in quanto persona,
-stessa cosa per tutte le proprietà della classe Persona. Allora - ed è anche più logico - le uniche proprietà che andranno dichiarate sono le nuove:
-<var>classe</var> e <var>religione</var>.</p>
+stessa cosa per tutte le proprietà della classe Persona. Allora - ed è anche più logico - le uniche proprietà che andranno dichiarate sono le nuove:</p>
+
 <h2>In sintesi</h2>
-<p>Quando quello che vogliamo fare non è creare un oggetto nuovo ma aggiungere/modificare delle funzionalità di un oggetto esistente possiamo farlo
-usando la parola chiave <code>extends</code> nella dichiarazione della classe seguita dal nome della classe che si vuole ampliare/cambiare. In questo
-caso l'oggetto definito avrà tutte le proprietà e tutti i comportamenti di quello originale con le aggiunte o le modifiche indicate nella classe.</p>
+<p>Quando quello che vogliamo fare non è creare un oggetto nuovo ma aggiungere/modificare delle funzionalità 
+di un oggetto esistente possiamo farlo usando la parola chiave <code>extends</code> nella dichiarazione della 
+classe seguita dal nome della classe che si vuole ampliare/cambiare. 
+In questo caso l'oggetto definito avrà tutte le proprietà e tutti i comportamenti di quello originale 
+con le aggiunte o le modifiche indicate nella classe.</p>
+
+<dfn>Java è un linguaggio ad <em>ereditarietà singola</em> cioè si può estendere soltanto una classe alla volta.</dfn>
+
 <pre>public class Studente extends Persona {
    private String classe;
    private String religione;
@@ -136,7 +141,10 @@ caso l'oggetto definito avrà tutte le proprietà e tutti i comportamenti di que
 che estende la superclasse si chiama <em>classe estesa</em> o classe figlia. Nel nostro esempio la superclasse è Persona, la classe figlia è Studente. L'invocazione
 di <code>super()</code> come metodo sta ad indicare il costruttore, in effetti si fa riferimento al nome della classe con le parentesi dei metodi...<br/>
 Si utilizza super() in modo tale da invocare il costruttore per le proprietà definite in precedenza, lasciando qui il solo lavoro di dare un valore alle ultime
-definite. Si osserva che ci sono 2 invocazioni di <code>super()</code>: una senza argomenti e l'altra con tanti argomenti quante sono le proprietò della classe padre.</p>
+definite. Si osserva che ci sono 2 invocazioni di <code>super()</code>: 
+una senza argomenti (per chiamare il primo costruttore di Persona, quello senza argomenti)
+e l'altra con tanti argomenti (per chiamare il secondo costruttore di persona, quello con 5 argomenti).</p>
+
 <p>Se provassimo però il codice sopra otterremmo un errore: abbiamo detto infatti che la parola <code>private</code> indica che la proprietà (o il metodo) non può essere
 visto al di fuori della classe. La classe derivata è a tutti gli effetti un'altra classe e quindi nulla traspare. La soluzione viene nella parola chiave
 <code>protected</code>: sta ad indicare che quanto segue (metodo o proprietà) è visibile solo a tutti i metodi della classe stessa (ovviamente) e a tutte le classi che
@@ -146,7 +154,7 @@ a questo punto sarà:</p>
    protected String nome, cognome;
    protected String ruolo;
    protected float stipendio;
-   protected byte categoria;
+   protected boolean categoria;
 
    public Persona() {
       nome = cognome = "&lt;indefinito&gt;";
@@ -174,7 +182,7 @@ a questo punto sarà:</p>
       orePotenziamento = 0;
    }
 
-   public Studente(String n, String c, String r, String mat, int orePot) {
+   public Studente(String n, String c, String r, String mat, String orePot) {
       super(n, c, r, 1000.0f, 2);
       materia = mat;
       orePotenziamento = orePot;
@@ -229,34 +237,6 @@ lo estenderemo con qualcosa in più:</p>
       return capitale;
    }
 }</pre>
-<h3>file it/esempi/Primo.java</h3>
-<pre> <!--presente sia in "oggetti" che in "ereditarietà" -->
-package it.esempi;
-
-public class Primo{
-    int x;
-    boolean y;
-    public Primo(int k, boolean p){
-        x=k;
-        y=p;
-    }
-    public int leggiVal(){
-        int p;
-        if(y){
-            p = x;
-        }else{
-            p = -x;
-        }
-        return p;
-    }
-    public String descrivi(){
-        return "n:"+x;
-    }
-    private boolean check(){
-        return x&lt;100;
-    }
-}
-</pre>
 <h3>file it/esempi/Secondo.java</h3>
 <pre>
 package it.esempio;

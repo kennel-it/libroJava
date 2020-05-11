@@ -4,6 +4,7 @@
 <!-- changelog 2017-07-04 inserito capitolo vuoto -->
 <!-- changelog 2017-08-07 inserito blocco contenuti -->
 <!-- changelog 2017-10-03 corretto riferimento insensato a "clienti" -->
+<!-- changelog 2020-05-11 cambiato nome della classe di esempio da InterfacciaRubrica a VisualizzatoreRubrica -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -14,23 +15,23 @@
 <body>
 <header>
 <h1>interfacce</h1>
-<p>definire punti di accesso comuni</p><!-- FIXME "punti di accesso" "funzionalità" -->
+<p>definire funzionalità comuni</p>
 </header>
 <article>
 
-<p>La realtà che voglio modellare è formata tra gli altri da questi due oggetti:
-Squadra e Atleta. Quello che mi interessa di una squadra è il colore della maglia
-(cosa che non mi interessa degli atleti), in nome e il numero di telefono, di un Atleta mi interessa
-di nuovo il numero di telefono, il nome e il tempo migliore sui 100m.</p>
+<p>Voglio realizzare un programma che gestista delle squadre di atletica,
+tra le altre cose che deve fare deve gestire anche una rubrica telefonica che mi permetta di visualizzare
+i numeri di telefono di diversi soggetti con cui la mia società sportiva ha contatto:
+gli Atleti e le Squadre.</p>
 
-<p>Parte del mio programma prevede la posssibilità di visualizzare una rubrica
-che contenga sia le squadre che gli atleti:
-non mi interessa distinguere tra i due in questo contesto.</p>
+<p>Di una <code>Squadra</code> mi interessa sapere il colore demma maglia, il nome e il numero di telefono,
+di un <code>Atleta</code> mi interessa sapere il numero di telefono il nome e il tempo migiore sui 100m.</p>
 
-<p>Proviamo a fare così: creo una classe InterfacciaRubrica con due metodi:</p>
+<p>Proviamo a fare così: creo una classe VisualizzatoreRubrica con due metodi:</p>
 <pre>
-class InterfacciaRubrica {
+class VisualizzatoreRubrica {
 	/* altri metodi e variabili */
+	
     void visualizzaSquadra(Squadra s){
         campoNome.setText(s.getNome());
         ...
@@ -42,12 +43,14 @@ class InterfacciaRubrica {
 }
 </pre>
 
-<p>E se in futuro esistessero altre entità che io vorrò visualizzare in <code>InterfacciaRubrica</code>?
-Come posso fare in modo che la mia interfaccia funzioni senza doverla stare sempre
+<p>E se in futuro esistessero altre entità (ad esempio un Allenatore o una "Palestra")
+che io vorrò visualizzare? Dovrei di nuovo andare a modificare <code>VisualizzatoreRubrica</code>.
+Come posso fare in modo che la mia interfaccia grafica funzioni senza doverla stare sempre
 a modificare?</p>
 
-<p>Per risolvere questo problema ci vengono in aiuto le interfacce. L'idea è questa: entrambe gli oggetti 
-rappresentano una voce di rubrica e nel contesto di <code>InterfacciaRubrica</code> non ci interessa altro
+<p>Per risolvere questo problema ci vengono in aiuto le interfacce. 
+L'idea è questa: entrambe gli oggetti rappresentano una voce di rubrica 
+e nel contesto di <code>VisualizzatoreRubrica</code> non ci interessa altro
 (non importa il tempo sui 100m per esempio).
 Possiamo esplicitare al livello sintattico questo concetto.</p>
 
@@ -64,7 +67,7 @@ public <em>interface</em> ElementoRubrica {
 <div class="test">
    	<p>Cosa ha di strano questo file?</p> 
 	<a onclick="sbagliata(this)">i metodi sono public<span class="spiegazione">lo possono essere come nelle classi</span></a> 
-	<a onclick="giusta(this)">manca il corpo dei metodi <span class="spiegazione">giusto! ma nelle interfacce i metodi sono fatti così.</span></a>
+	<a onclick="giusta(this)">manca il corpo dei metodi <span class="spiegazione">giusto!</span></a>
 </div>
 
 <p>Le interfacce a differenza delle classi non dicono <em>come</em> svolgere le azioni
@@ -73,13 +76,13 @@ un oggetto deve avere.</p>
 
 <h2>Implementazione di una interfaccia</h2>
 <p>Adesso dobbiamo dichiarare che il nostro Atleta si comporta anche come un ElementoRubrica: 
-dobbiamo <em>implementare</em> l'interfaccia usando la parola chiave <code>implements</code>.</p>
-<p>Un oggetto java può implementare più di una interfaccia, basta elencarle una dopo l'altra
-separandole con una virgola.</p>
+dobbiamo cioè <em>implementare</em> l'interfaccia usando la parola chiave <code>implements</code>.
+
 <pre>
 public class Atleta <em>implements</em> ElementoRubrica {
     private String nome;
     private String numero;
+    private double tempoCentoMetri;
     
     /* tutti gli altri metodi */
     
@@ -93,13 +96,16 @@ public class Atleta <em>implements</em> ElementoRubrica {
 }
 </pre>
 
-<p>Il vantaggio a questo punto è questo: nella mia classe InterfacciaRubrica
+<p>Sebbene in Java è possibile estendere una sola classe si possono però
+implementare quante interfacce si vuole (separandone i nomi da ",").</p>
+
+<p>Il vantaggio a questo punto è questo: nella mia classe VisualizzatoreRubrica
 posso ignorare quale oggetto particolare devo visualizzare, mi interessa soltanto
 che implementi l'opportuna interfaccia <code>ElementoRubrica</code>.</p>
 <pre>
-class InterfacciaRubrica {
+class VisualizzatoreRubrica {
 	/* altri metodi e variabili */
-    void visualizzaSquadra(ElementoRubrica e){
+    void visualizza(ElementoRubrica e){
 	    campoNome.setText(e.getNome());
 	    ...
     }
@@ -113,7 +119,7 @@ la mia interfaccia grafica non avrebbe bisogno di nessuna modifica.</p>
 <li>essere direttamente instanziata cioè non posso 
 creare un oggetto di tipo ElementoRubrica usando <code>new</code> perché nella definizione
 dell'interfaccia io non ho definito il suo comportamento (manca il corpo dei metodi).</li>
-<li>avere variabili di istanza</li>
+<li>avere variabili di istanza (proprietà modificabili della classe)</li>
 </ul> 
 
 </article>
