@@ -126,16 +126,18 @@ bisogna scaricare esattamente quella versione, ad oggi la 3.5.1</p>
 
 <p>Un avviso prima di iniziare: attento alle "/", non fa lo stesso metterle oppure no.</p>
 
-<p>Primo passo: creare la cartella "esportazione" sul Desktop.</p>
+<h3>Primo passo: cartella esportazione</h3>
+<p>Creare la cartella "esportazione" sul Desktop.</p>
 
-<p>Secondo passo: l'icona. Dobbiamo copiare sulla scrivania un file per l'icona, diepnde dal sistema
-operativo hello.icns
-(il tipo di file dipende dalla piattaforma icns va eben per macOS, png va bene per Linux)
+<h3>Secondo passo: l'icona.</h3>
+<p>Dobbiamo copiare sulla scrivania un file per l'icona della mnostra applicazione, 
+il tipo del file dipende dal sistema operativo: hello.ico va bene per Windows 
+(.icns va eben per macOS e .png va bene per Linux)
 che è l'icona della nostra applicazione.</p>
-<p>NB: la cartella "hello" non deve esistere sul Desktop (nel caso di macOS dal Finder... 
+<p>NB: la cartella "hello" non deve esistere sul Desktop (nel caso di macOS, dal Finder, 
 l'applicazione "hello" non deve esistere).</p>
 
-<p>Terzo passo: far generare ad Eclipse un file jar del nostro progetto.</p>
+<h3>Terzo passo: far generare ad Eclipse un file jar del nostro progetto.</h3>
 <ol>
   <li>Menu File/Export...</li>
   <li>selezionare gruppo "Java" e poi voce "JAR file"</li>
@@ -146,36 +148,40 @@ l'applicazione "hello" non deve esistere).</p>
   <li>premere "finish"</li>
 </ol>
 
-<p>Quarto passo: inserire nella cartella tutte le altre librerie che usiamo.
+<h3>Quarto passo: copiare tutte le librerie</h3>
+<p>Bisogna copiare nella cartella <code>esportazione</code> tutte le altre librerie che usiamo.
 Questo è facile: basta andare nella cartella di javafx e copiare tutti i file jar
 (non la cartella stessa) presenti nella cartella lib in "esportazione". Se si usa Windows
 vanno copiati anche tutti i file presenti nella sottocartella bin sempre di JavaFX
 (nel caso di macOS tutti i .dylib presenti nella cartella lib e 
 nel caso di Linux tutti i .so sempre nella cartella lib).</p>
 
-<p>Quinto passo: a questo punto bisogna aprire un terminale (Git Bash nel caso di Windows) 
+<h3>Quinto passo: terminale.</h3>
+<p>A questo punto bisogna aprire un terminale (Git Bash nel caso di Windows) 
 e posizionarsi nella cartella Desktop.</p>
 
-<p>Sesto passo: per evitare di impazzire bisogna impostare alcune variabili di ambiente,
+<h3>Sesto passo: variabili di ambiente</h3>
+<p>Per evitare di impazzire bisogna impostare alcune variabili di ambiente,
 quelli riportati sono esempi presi da un ambiente Windows (ovviamente i percorsi potrebbero
 cambiare, ognuno dovrebbe sapere dove ha messo i diversi pezzi di software).</p>
 <pre>export JBIN=/c/java/jdk-14.0.1+7/bin</pre>
-<p>nel comando successivo attenzione al separatore dell cartelle, nei sistemi Unix serve <em>echo -n "$x:"</em></p>
+<p>nel comando successivo attenzione al separatore dell cartelle, nei sistemi Unix 
+il comando sotto va modificato scrivendo <em>echo -n "$x:"</em></p>
 <pre>export JARS=$(ls esportazione/*.jar | while read x; do echo -n "$x;"; done)</pre>
 <pre>export FX=/c/java/javafx-sdk-14.0.1/lib/</pre>
 <pre>export ICONA=mondo.ico</pre>
-<p>L'ultima variabile dipende dal sistema operativo: macOS vuole un file .icns, Windows un .ico
-qui supponiamo che sia un file chiamato mondo.ico che si trova sulla scrivania.</p>
+<p>L'ultima variabile, come detto al secondo passo, dipende dal sistema operativo.</p>
 
-<p>Settimo passo: proviamo se va. Per farlo è semplice: aprire un terminale e posizionarsi 
-nella cartella Desktop. Poi scrivere:</p>
+<h3>Settimo passo: proviamo se va.</h3>
+<p>Per farlo è semplice: sempre dal terminale terminale,  
+nella cartella Desktop scrivere:</p>
 <pre>$JBIN/java --add-modules javafx.controls,javafx.media,javafx.fxml \
 --module-path $FX -cp $JARS ciaomondo.CiaoMondo</pre>
 <p>Se il programma non parte abbiamo fatto qualcosa di sbagliato.
 Cosa? dipende dal messaggio di errore, magari una delle variabili di ambiente o la copia dei file.</p>
 
-<p>Ottavo passo: creazione del programma eseguibile (la cartella hello non deve essere presente 
-perché la vuole creare jpackage )</p>
+<h3>Ottavo passo: creazione del programma eseguibile.</h3>
+<p>La cartella hello non deve essere presente perché la vuole creare jpackage </p>
 <pre>$JBIN/jpackage --type app-image -n hello \
 --icon $ICONA \
 --input esportazione \
