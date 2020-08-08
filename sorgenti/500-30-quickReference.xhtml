@@ -9,6 +9,7 @@
 <!-- changelog 2017-10-10 cambiato ordine oggetti -->
 <!-- changelog 2017-10-10 inseriti molti oggetti -->
 <!-- changelog 2019-11-12 correzioni su RadioButton, TextField e Togglegroup -->
+<!-- changelog 2020-08-08 inseriti link documentazione -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Riferimento veloce</title>
@@ -18,7 +19,7 @@
 		@media screen and (orientation:portrait) {
 			article{ column-count: 1 }
 		}
-		body > p { margin:0em 2em }
+		body > p , body> dl{ margin:0em 2em }
 		div{ 
 			border:1px solid gray ; margin: 1em ; 
 			padding:0 ; 
@@ -49,7 +50,7 @@
 		nav#top { display:none }
 				
 		@media print {
-             body > p, header { display: none }
+             body > p, header, #links { display: none }
              html, body, article { margin:0pt ; padding:0pt }
 			 div h3   { font-size:10pt }
 			 div h3 a { font-size:11pt }
@@ -69,6 +70,21 @@
 <p>Questa è una scheda-promemoria (i cui contenuti sono volutamente molto semplificati), 
 i link portano al manuale ufficiale con la descrizione per esteso di tutte le 
 funzionalità dei singoli oggetti.</p>
+    <p>Per ulteriori informazioni:</p>
+	<dl id="links">
+	   <dt><a href="https://docs.oracle.com/en/java/javase/11/docs/api/index.html">API Java11</a></dt>
+	   <dd>Contiene la spiegazione per tutti gli oggetti (per trovarli ignorando la gerarchia si
+	   può fare click su link "ALL CLASSES" in alto a sinistra) che fanno parte della libreria di java 
+	   (ad esempio: String, Integer, File...), nella versione 11 sono più di 4000 oggetti.</dd>
+	   
+	   <dt><a href="https://openjfx.io/javadoc/11/">API JavaFX</a></dt>
+	   <dd>JavaFX ha una documentazione separata, qui si trovano i vari Label, 
+	   TextField ecc.. di JavaFX.</dd>
+	   
+	   <dt><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/doc-files/cssref.html">
+	   Fogli di stile in JavaFX</a></dt>
+	   <dd>Gli attributi e le regole dei fogli di stile utilizzabili con JavaFX.</dd>
+	</dl> 
    	
 <article>
 <h2>Interfaccia grafica</h2>

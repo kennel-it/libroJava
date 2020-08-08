@@ -53,6 +53,15 @@ body.giochi                  header { background-color: var(--colore-sfondo-gioc
 header    { margin:0 ; padding:0 }
 header h1 { margin:0 ; padding:2rem 3em 0.5rem 3em ; text-align: center }
 header p  { margin:0 ; padding: 0.5rem 1rem 2rem 1rem ; text-align: center }
+.legenda.noGroup                { background-color: var(--colore-sfondo-noGroup) }
+.legenda.infrastruttura         { background-color: var(--colore-sfondo-infrastruttura) }
+.legenda.base                   { background-color: var(--colore-sfondo-base) }
+.legenda.grafica                { background-color: var(--colore-sfondo-grafica) }
+.legenda.file                   { background-color: var(--colore-sfondo-file) }
+.legenda.algoritmiStruttureDati { background-color: var(--colore-sfondo-algoritmiStruttureDati) }
+.legenda.riferimenti            { background-color: var(--colore-sfondo-riferimenti) }
+.legenda.giochi                 { background-color: var(--colore-sfondo-giochi) }
+.legenda                        { border:1px solid gray; padding:0.5em ; margin-top:1em }
 /* -------------------------- precedente - indice - successiva --------------------------------- */
 body.noGroup                 nav { background-color: var(--colore-sfondo-noGroup-chiaro) }
 body.infrastruttura          nav { background-color: var(--colore-sfondo-infrastruttura-chiaro) }
