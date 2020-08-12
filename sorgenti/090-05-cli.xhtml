@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- grafoIndice requires="ide" group="base" -->
+<!-- changelog 2020-08-10 inserito capitolo  -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>cli</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+    </head>
+    <body>
+    	<header>
+    		<h1>cli</h1>
+    		<p>passo per passo il primo programma funzionante da liena di comando</p>
+		</header>
+    	<article>
+    	<p>Sebbene oggi ci possa sembrare che un programma è una cosa con cui si interagisce
+    	tramite pulsanti o in ognic aso tramite una interfaccia quafica questo non è
+    	stato sempre vero... e non lo è neanche adesso.</p>
+    	
+    	<p>I programmi che non usano una interfaccia grafica in realtà hanno un paio
+    	di enormi vantaggi: sono più brevi e funzionano in maniera lineare (è il programma a
+    	chidere informazioni o a fornirne nel modo che vuole non l'utente premendo dei pulsanti).</p>
+    	
+    	<p>Per esser chiari: non sono più facili da scrivere (far funzionare una interfaccia 
+    	grafica è una roba magari noiosa ma meccanica) e... son più brutti!</p>
+    	
+    	<p>Lo strumento che permette di effettuare l'input e l'output si chiama console
+    	e prevede l'uso della sola tastiera.</p>
+    	
+    	<h2>Input/Output su console</h2>
+		<p>La console ci permette di lavorare con una interfaccia a caratteri, nel caso di eclipse 
+		compare nella parte bassa dello schermo come impostazione predefinita, se non fosse visibile per 
+		aprirla bisogna usare il menu <em>/Window/Show View</em> e selezionare la voce "Termial",
+		se non compare direttamente click su <em>"Other..."</em> e dal gruppo <em>Terminal</em>
+		selezionare la voce <em>Terminal</em>.</p>
+		
+		<h2>Il primo programma</h2>
+		<p>Il nostro programma userà Java, 
+        per la creazione del nostro primo progetto in <span class="eclipse">vai sul menu 
+        <span class="ide">File/New/Project...</span> nella finestra che si apre apri il gruppo 
+        <span class="ide">Java</span> e seleziona <span class="ide">Java Project</span> 
+        e poi premi <span class="ide">Next &gt;</span></span> .
+        Ora indica il nome del progetto (per esempio ciaoMondo) e termina con Finish. 
+        Il progetto nuovo comparirà sulla sinistra.</p>
+        
+        <p>Nello svolgere le prossime operazione fai attenzione al Maiuscolo/minuscolo nei nomi degli elementi:
+        apri le cartelle del progetto, diventerà visibile una cartella <span class="eclipse ide">src</span>
+        fai click con il destro e poi click sul menu contestuale <span class="ide">New/class</span>,
+        chiamala <span class="ide">CiaoMondo</span> (nel campo Name) e scrivi <span class="ide">ciaomondo</span>
+        nel campo Package. A questo punto fai doppio click sulla classe appena creata per aprirla.</p>
+        
+        <p class="eclipse">Il file "CiaoMondo", conterrà qualche linea di codice che va cancellata 
+        e sostituita con il programma qui sotto:</p>
+<pre>
+package ciaomondo;
+
+public class CiaoMondo {
+
+    public static void main(String[] args) {
+        System.out.println("Ciao mondo!");
+    }
+
+}</pre>
+
+<h3>input</h3>
+<p>Abbiamo già visto come si fa l'output nella sezione precedente, per l'input ci aiuta un oggetto
+chiamato <code>Scanner</code> che permette di leggere direttamente un testo o un numero 
+da terminale:</p>
+<pre>Scanner tastiera = new Scanner(System.in);
+String nome = tastiera.next();</pre>
+<p>Arrivato alla seconda riga il programma attenderà che l'utente inserisca un numero e batta invio
+prima di proseguire.</p>
+<p>Quello qui sotto è un programma che chiede il nome di un utente e poi lo saluta:</p>
+<pre>import java.util.Scanner;
+public class SalutaConsole {   
+    public static void main(String[] args){
+        Scanner tastiera = new Scanner(System.in);
+        String utente;
+        System.out.print("Come ti chiami? ");
+        <em>utente = tastiera.nextLine();</em>
+        System.out.println("Signor " + utente + " Le auguro buona giornata!");
+        tastiera.close();
+    }
+}</pre>
+<p>Quello che succede nel terminale è (evidenziato l'input inserito dall'utente) quello qui sotto:</p>
+
+<pre>Come ti chiami? <em>Giovanni</em>
+Signor Giovanni Le auguro buona giornata!</pre>
+
+
+<p>Esistono diversi altri metodi per leggere gli input, ad esempio per leggere un numero 
+possiamo usare <code>nextInt()</code> al posto di <code>nextLine()</code>.</p>
+
+</article>
+</body>
+</html>
