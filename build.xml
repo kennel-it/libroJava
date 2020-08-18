@@ -18,7 +18,7 @@
     		sorgenti="${basedir}/sorgenti/" 
     		compilati="${env.BOOK_TARGET_FOLDER}"
     		quiet="true"
-		    limiteDataChangelog="2019-01-01"
+		    limiteDataChangelog="2020-08-01"
     	/>            
     </target>
 </project>

@@ -11,6 +11,7 @@
 <!-- changelog 2019-01-05 corretti due errori -->
 <!-- changelog 2020-04-29 corretto RisparmioVincolato.getUltimoCodiceUsato() -->
 <!-- changelog 2020-04-30 copiato Primo.java dal capitolo Oggetti perché veniva esteso in un esempio -->
+<!-- changelog 2020-08-18 modificata per dell'operatore new -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -211,7 +212,7 @@ https://www.geeksforgeeks.org/methods-in-java/ -->
 <p>Una classe ci permette di definire come si comporta una certa entità... abbiamo ad esempio 
 definito quali caratteristiche ha un Autoveicolo qualsiasi ma come
 posso fare per creare qualcosa che rappresenti la mia particolare automobile che è una "Stelvio" targata "CF876RT" che
-percorre 14km con un litro di carburante?</p>
+percorre 14km con un litro di carburante? Devo creare un <em>istanza</em> della classe Autoveicolo.</p>
 
 <dfn>Un <em>oggetto</em> è una istanza di una classe e viene creato a tempo di esecuzione con l'operatore 
 <code>new</code>.</dfn>
@@ -219,13 +220,33 @@ percorre 14km con un litro di carburante?</p>
 https://www.edureka.co/blog/java-tutorial/#obj -->
 
 <p>Riferendoci all'esempio degli autoveicoli possiamo pensare che ci saranno più oggetti dello stesso tipo, 
-ciascuno con i propri valori: tutti avranno una targa ma ciascuna targa sarà diversa dalle altre e via così 
-per le altre proprietà.</p>  
+ciascuno con i propri valori: tutti avranno una targa ma ciascuna targa sarà diversa,
+ogni modello sarò diverso così come il consumo.</p>  
 
 <p>Quando usiamo l'operatore <code>new</code> creiamo nuove istanze di un oggetto:
 Button è in nome di una classe ( e quindi di un tipo ) ma poi
 <code>pulsante</code> o <code>pulsanteCalcola</code> o 
 <code>pulsanteCancella</code> potrebbero essere tre sue diverse istanze.</p>
+
+<p>In pratica <code>new</code> riserva dello spazio in memoria per memorizzare le informazioni
+riguardanti una singola istanza di una classe (un oggetto) e quello che ritorna è un riferimento 
+alla zona di memoria appena riservata. Per questo motivo se io creo due oggetti con le stesse 
+proprietà (immaginiamo due Autoveicoli identici) e poi li confronto usando <code>==</code> questo
+mi restituirà falso perché vengono confrontati i due riferimenti (che sono numeri che indicano
+l'indirizzo di memoria in cui si trova l'oggetto) che sono diversi.</p>
+
+<div class="test">
+    <p>Cosa conterrà la variabile <code>falcon</code> dopo la seguente istruzione? 
+    <code>Autoveicolo falcon = new Autoveicolo("xf675ee", "astronave", 4)</code>?</p>
+     
+    <a onclick="sbagliata(this)">tre valori
+        <span class="spiegazione">no, una variabile contiene un solo valore</span></a> 
+    <a onclick="giusta(this)">un riferimento
+        <span class="spiegazione">giusto, alla memoria principale</span></a>
+    <a onclick="sbagliata(this)">la classe Autoveicolo
+        <span class="spiegazione">no, un riferimento ad una sua istanza</span></a>
+</div>  
+
 
 <p>Ogni istanza di una classe avrà le stesse proprietà ma con valori diversi, per accedere a queste proprietà
 (o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà

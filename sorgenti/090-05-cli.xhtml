@@ -12,33 +12,36 @@
     <body>
     	<header>
     		<h1>cli</h1>
-    		<p>passo per passo il primo programma funzionante da liena di comando</p>
+    		<p>passo per passo il primo programma funzionante da console</p>
 		</header>
     	<article>
     	<p>Sebbene oggi ci possa sembrare che un programma è una cosa con cui si interagisce
-    	tramite pulsanti o in ognic aso tramite una interfaccia quafica questo non è
+    	tramite pulsanti o in ogni caso tramite una interfaccia grafica questo non è
     	stato sempre vero... e non lo è neanche adesso.</p>
     	
     	<p>I programmi che non usano una interfaccia grafica in realtà hanno un paio
     	di enormi vantaggi: sono più brevi e funzionano in maniera lineare (è il programma a
-    	chidere informazioni o a fornirne nel modo che vuole non l'utente premendo dei pulsanti).</p>
+    	chidere informazioni o a fornirne nella successione che vuole non l'utente scegliendo 
+    	quale pulsante premere.</p>
     	
-    	<p>Per esser chiari: non sono più facili da scrivere (far funzionare una interfaccia 
-    	grafica è una roba magari noiosa ma meccanica) e... son più brutti!</p>
+    	<p>Per esser chiari: sono meno belli da vedere quando funzionano ma son più corti da scrivere
+    	(far funzionare una interfaccia non è difficile ma potrebbe essere noiso).</p>
     	
     	<p>Lo strumento che permette di effettuare l'input e l'output si chiama console
-    	e prevede l'uso della sola tastiera.</p>
+    	e prevede l'uso della sola tastiera. Come tutti gli altri programmi solitamente
+    	gira in una finestra.</p>
     	
     	<h2>Input/Output su console</h2>
 		<p>La console ci permette di lavorare con una interfaccia a caratteri, nel caso di eclipse 
 		compare nella parte bassa dello schermo come impostazione predefinita, se non fosse visibile per 
-		aprirla bisogna usare il menu <em>/Window/Show View</em> e selezionare la voce "Termial",
-		se non compare direttamente click su <em>"Other..."</em> e dal gruppo <em>Terminal</em>
-		selezionare la voce <em>Terminal</em>.</p>
+		aprirla bisogna usare il menu <span class="ide">/Window/Show View</span> 
+		e selezionare la voce <span class="ide">Console</span>,
+		se non compare direttamente click su <span class="ide">"Other..."</span> e dal gruppo 
+		<span class="ide">General</span> selezionare la voce <span class="ide">Console</span>.</p>
 		
 		<h2>Il primo programma</h2>
-		<p>Il nostro programma userà Java, 
-        per la creazione del nostro primo progetto in <span class="eclipse">vai sul menu 
+		<p>Il nostro programma sarà scritto nel linguaggio Java e per poterlo scrivere dobbiamo
+		creare un nuovo progetto<span class="eclipse">in Eclipse: vai sul menu 
         <span class="ide">File/New/Project...</span> nella finestra che si apre apri il gruppo 
         <span class="ide">Java</span> e seleziona <span class="ide">Java Project</span> 
         e poi premi <span class="ide">Next &gt;</span></span> .
@@ -64,14 +67,16 @@ public class CiaoMondo {
 
 }</pre>
 
+<p>Per eseguire il programma bisogna fare click con il destro sul programma stesso poi
+selezionare il menu <span class="ide">Run As</span> e poi <span class="ide">Java Application</span>.
+Il risultato compare nel pannello 
+</p> 
+
 <h3>input</h3>
-<p>Abbiamo già visto come si fa l'output nella sezione precedente, per l'input ci aiuta un oggetto
-chiamato <code>Scanner</code> che permette di leggere direttamente un testo o un numero 
-da terminale:</p>
-<pre>Scanner tastiera = new Scanner(System.in);
-String nome = tastiera.next();</pre>
-<p>Arrivato alla seconda riga il programma attenderà che l'utente inserisca un numero e batta invio
-prima di proseguire.</p>
+<p>Abbiamo già visto come si fa l'output (scrivere un messaggio) nella sezione precedente, 
+per l'input (leggere una informazione) ci aiuta un oggetto chiamato <code>Scanner</code> 
+che permette di leggere direttamente un testo o un numero da console.</p>
+
 <p>Quello qui sotto è un programma che chiede il nome di un utente e poi lo saluta:</p>
 <pre>import java.util.Scanner;
 public class SalutaConsole {   
