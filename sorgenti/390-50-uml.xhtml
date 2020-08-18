@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE html>
+<!-- grafoIndice requires="ereditarieta" group="algoritmiStruttureDati" -->
+<!-- changelog 2020-08-18 inserito capitolo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>uml</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+    </head>
+<body>
+<header>
+<h1>uml</h1>
+<p>diagrammi per descrivere le classi</p>
+</header>
+<article>
+<p>Prima una precisazione: UML (
+<a href="https://it.wikipedia.org/wiki/Unified_Modeling_Language">Unified Modeling Language</a>) è un linguaggio per modellare 
+molte cose diverse, qui ci occupiamo soltanto della modellazione delle classi.</p>
+
+<p><img src="immagini/UML_1.svg" style="float:right"/>Quello riportato a destra
+è diagramma che rappresenta una classe: nel primo blocco dall'alto ne viene riportato il nome,
+in grassetto, nel secondo le proprietà e nel terzo i metodi.</p>
+
+<p>Ogni nome di proprietà (o di un parametro di un metodo) può essere seguito da un "due punti" 
+e dal nome del tipo, nel caso dei metodi il ": tipo" in fondo a destra rappresenta il 
+tipo ritornato.</p>
+
+<p>Il diagramma della classe rappresentato non riporta una caratteristica: la 
+<a href="https://www.uml-diagrams.org/visibility.html"><em>visibilità</em>
+delle proprietà e dei metodi</a> elencati. I diversi tipi di visibilità si possono facilmente rappresentare 
+mettendo un simbolo prima del nome:</p>
+
+<dl>
+<dt>+</dt>
+<dd>public</dd>
+<dt>~</dt>
+<dd>package (quella che si ottiene non mettendo nulla in java)</dd>
+<dt>#</dt>
+<dd>protected</dd>
+<dt>-</dt>
+<dd>private</dd>
+</dl>  
+
+<p>In UML si possono rapprentare molti altri fatti tra cui:</p>
+<ul>
+    <li>Per disegnare una inerfaccia si procede come per una classe ma
+    scrivendo "interfaccia" prima del nome della class</li>
+    <li>se la classe B estende dalla classe A
+    si traccia una freccia continua che dalla classe B va verso la classe A</li>
+    <li>se la classe B implementa l'interfaccia A
+    si traccia una freccia tratteggiata che dalla classe B va verso la classe A 
+    <span class="FIXME">confermare</span></li>
+</ul>
+
+</article>
+</body>
+</html>
