@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
-<!-- grafoIndice requires="ripetizione salutaUtente" group="algoritmiStruttureDati" -->
+<!-- grafoIndice requires="ripetizione salutaUtente funzioni" group="algoritmiStruttureDati" -->
 <!-- changelog 2017-10-23 inserito incipit -->
 <!-- changelog 2019-08-16 capitolo riscritto -->
 <!-- changelog 2019-08-18 aggiunto this -->
@@ -169,8 +169,9 @@ E con questo intendiamo sia "cosa caratterizza una autoveicolo" che "quali azion
 <p>Java ci permette di modellare la realtà in questo modo usando le <em>classi</em>. In effetti le abbiamo già usate 
 ma fino a questo momento abbiamo creato programmi composti da una sola di esse senza prestare particolare 
 attenzione a cosa stavamo rappresentando (solitamente una interfaccia grafica con delle funzionalità), 
-quello che succede di solito invece è avere più classi che usate insieme 
-ci permettono di costruire un programma modellando la realtà come un insieme di entità che interagiscono.</p>
+quello che succede di solito quando si realizzano programmi più grandi 
+è che si ha a che fare con più classi che usate insieme ci permettono di realizzare le
+funzionalità desiderate modellando la realtà che ci interessa.</p>
 
 <p>Questo approccio porta alcuni vantaggi che diventano sempre più evidenti all'aumentare della
 dimensione del programma che si sta trattando. Due tra i più evidenti sono:</p>
@@ -208,35 +209,62 @@ Viene usato per raggiungere uno specifico obiettivo, può avere uno o più param
 <!-- https://www.w3schools.com/java/java_methods.asp
 https://www.geeksforgeeks.org/methods-in-java/ -->
 
+<div class="test">
+    <p>Quale delle seguenti fa parte dello stato di Autoveicolo?</p>
+     
+    <a onclick="sbagliata(this)">spesa
+        <span class="spiegazione">no, è una azione che può compiere, un <em>metodo</em></span></a> 
+    <a onclick="giusta(this)">targa
+        <span class="spiegazione">giusto, è una delle sue proprietà</span></a>
+    <a onclick="sbagliata(this)">Autoveicolo
+        <span class="spiegazione">no, questo è il nome del suo tipo</span></a>
+    <a onclick="giusta(this)">modello
+        <span class="spiegazione">giusto, è una delle sue proprietà</span></a>
+</div>  
+
+
 <h3>Istanze</h3>
 <p>Una classe ci permette di definire come si comporta una certa entità... abbiamo ad esempio 
 definito quali caratteristiche ha un Autoveicolo qualsiasi ma come
 posso fare per creare qualcosa che rappresenti la mia particolare automobile che è una "Stelvio" targata "CF876RT" che
-percorre 14km con un litro di carburante? Devo creare un <em>istanza</em> della classe Autoveicolo.</p>
+percorre 14km con un litro di carburante? Ciascun particolare autoveicolo
+viene detto <em>istanza</em> della classe Autoveicolo.</p>
+
+<p>Data la nostra classe di esempio Autoveicolo potremmo creare tre sue diverse istanze:
+<code>automobileMario</code>, <code>automobileLucia</code> e 
+<code>automobileLuigi</code>che avranno lo stesso tipo. Ciascuna avrà un proprio stato 
+e quindi una sua targa, un suo modello e un suo consumo.</p>
 
 <dfn>Un <em>oggetto</em> è una istanza di una classe e viene creato a tempo di esecuzione con l'operatore 
 <code>new</code>.</dfn>
 <!-- https://docs.oracle.com/javase/tutorial/java/concepts/object.html
 https://www.edureka.co/blog/java-tutorial/#obj -->
 
-<p>Riferendoci all'esempio degli autoveicoli possiamo pensare che ci saranno più oggetti dello stesso tipo, 
-ciascuno con i propri valori: tutti avranno una targa ma ciascuna targa sarà diversa,
-ogni modello sarò diverso così come il consumo.</p>  
-
-<p>Quando usiamo l'operatore <code>new</code> creiamo nuove istanze di un oggetto:
-Button è in nome di una classe ( e quindi di un tipo ) ma poi
-<code>pulsante</code> o <code>pulsanteCalcola</code> o 
-<code>pulsanteCancella</code> potrebbero essere tre sue diverse istanze.</p>
-
-<p>In pratica <code>new</code> riserva dello spazio in memoria per memorizzare le informazioni
+<p>In pratica <code>new</code> riserva dello spazio in memoria per registrare le informazioni
 riguardanti una singola istanza di una classe (un oggetto) e quello che ritorna è un riferimento 
-alla zona di memoria appena riservata. Per questo motivo se io creo due oggetti con le stesse 
-proprietà (immaginiamo due Autoveicoli identici) e poi li confronto usando <code>==</code> questo
-mi restituirà falso perché vengono confrontati i due riferimenti (che sono numeri che indicano
-l'indirizzo di memoria in cui si trova l'oggetto) che sono diversi.</p>
+alla zona di memoria appena riservata. Per questo motivo se io creo due oggetti che hanno
+gli stessi valori su ogni proprietà (immaginiamo due Autoveicoli identici) 
+e poi li confronto usando <code>==</code> questo mi restituirà falso 
+perché vengono confrontati i due riferimenti (che sono numeri che indicano
+l'indirizzo di memoria in cui si trova l'oggetto) che sono diversi.
+Questo è il motivo per cui gli oggetti String non si confrontano con == ma utilizzando
+il metodo <code>equals()</code>.</p>
 
 <div class="test">
-    <p>Cosa conterrà la variabile <code>falcon</code> dopo la seguente istruzione? 
+    <p>Quale dei seguenti non è un operatore?</p>
+     
+    <a onclick="sbagliata(this)">+
+        <span class="spiegazione">no, più è un operatore che esegue la somma degli operandi</span></a> 
+    <a onclick="sbagliata(this)">new
+        <span class="spiegazione">no, new crea nuovi oggetti</span></a>
+    <a onclick="sbagliata(this)">*
+        <span class="spiegazione">no, esegue il prodotto tra due numeri</span></a>
+    <a onclick="giusta(this)">_
+        <span class="spiegazione">giusto, la linea bassa non è un operatore</span></a>
+</div>  
+
+<div class="test">
+    <p>Cosa conterrà la variabile <code>falcon</code> dopo la seguente istruzione?<br/> 
     <code>Autoveicolo falcon = new Autoveicolo("xf675ee", "astronave", 4)</code>?</p>
      
     <a onclick="sbagliata(this)">tre valori
@@ -252,7 +280,8 @@ l'indirizzo di memoria in cui si trova l'oggetto) che sono diversi.</p>
 (o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
 di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
 si vuole usare.
-Posso ad esempio cambiare il testo contenuto in un pulsante scrivendo <code>pulsante.setText("pluto")</code>.</p>
+Posso ad esempio se ho creato una istanza <code>automobileMario</code> di <code>Autoveicolo</code>
+posso impostare la sua targa scrivendo <code>automobileMario.targa="xd987tt"</code>.</p>
 
 
 <h2>Costruttore</h2>

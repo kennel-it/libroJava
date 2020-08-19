@@ -15,33 +15,38 @@
     		<p>passo per passo il primo programma funzionante da console</p>
 		</header>
     	<article>
+    	<h2>Premessa</h2>
     	<p>Sebbene oggi ci possa sembrare che un programma è una cosa con cui si interagisce
     	tramite pulsanti o in ogni caso tramite una interfaccia grafica questo non è
     	stato sempre vero... e non lo è neanche adesso.</p>
     	
     	<p>I programmi che non usano una interfaccia grafica in realtà hanno un paio
     	di enormi vantaggi: sono più brevi e funzionano in maniera lineare (è il programma a
-    	chidere informazioni o a fornirne nella successione che vuole non l'utente scegliendo 
-    	quale pulsante premere.</p>
+    	chiedere informazioni o a fornirle nella successione che vuole non l'utente scegliendo 
+    	quale pulsante premere).</p>
     	
     	<p>Per esser chiari: sono meno belli da vedere quando funzionano ma son più corti da scrivere
     	(far funzionare una interfaccia non è difficile ma potrebbe essere noiso).</p>
-    	
-    	<p>Lo strumento che permette di effettuare l'input e l'output si chiama console
-    	e prevede l'uso della sola tastiera. Come tutti gli altri programmi solitamente
-    	gira in una finestra.</p>
+    
     	
     	<h2>Input/Output su console</h2>
-		<p>La console ci permette di lavorare con una interfaccia a caratteri, nel caso di eclipse 
-		compare nella parte bassa dello schermo come impostazione predefinita, se non fosse visibile per 
+    	<p><img src="immagini/console_1.png" style="float:right; margin-left:0.5em" alt="poszione console in eclipse"/>
+    	Lo strumento che permette di effettuare l'input e l'output si chiama console
+        e prevede l'uso della sola tastiera per inserire i dati e di avere l'output
+        soltanto in formato testo. Come tutti gli altri programmi solitamente
+        gira in una finestra.</p>
+        
+		<p>Nel caso di eclipse la console compare nella parte bassa dello schermo 
+		come impostazione predefinita, se non fosse visibile per 
 		aprirla bisogna usare il menu <span class="ide">/Window/Show View</span> 
-		e selezionare la voce <span class="ide">Console</span>,
-		se non compare direttamente click su <span class="ide">"Other..."</span> e dal gruppo 
-		<span class="ide">General</span> selezionare la voce <span class="ide">Console</span>.</p>
+		e selezionare la voce <span class="ide">Console</span>
+		(se la voce "console" non compare direttamente click su 
+		<span class="ide">/Window/Show View/Other...</span> e dal gruppo 
+		<span class="ide">General</span> selezionare la voce <span class="ide">Console</span>).</p>
 		
 		<h2>Il primo programma</h2>
 		<p>Il nostro programma sarà scritto nel linguaggio Java e per poterlo scrivere dobbiamo
-		creare un nuovo progetto<span class="eclipse">in Eclipse: vai sul menu 
+		creare un nuovo progetto <span class="eclipse">in Eclipse: vai sul menu 
         <span class="ide">File/New/Project...</span> nella finestra che si apre apri il gruppo 
         <span class="ide">Java</span> e seleziona <span class="ide">Java Project</span> 
         e poi premi <span class="ide">Next &gt;</span></span> .
@@ -69,7 +74,7 @@ public class CiaoMondo {
 
 <p>Per eseguire il programma bisogna fare click con il destro sul programma stesso poi
 selezionare il menu <span class="ide">Run As</span> e poi <span class="ide">Java Application</span>.
-Il risultato compare nel pannello 
+Il risultato compare nel pannello <span class="ide">Console</span>.
 </p> 
 
 <h3>input</h3>
@@ -89,14 +94,14 @@ public class SalutaConsole {
         tastiera.close();
     }
 }</pre>
-<p>Quello che succede nel terminale è (evidenziato l'input inserito dall'utente) quello qui sotto:</p>
+<p>Quello che succede nel terminale (evidenziato l'input inserito dall'utente) 
+è quello che si vede qui sotto:</p>
 
 <pre>Come ti chiami? <em>Giovanni</em>
 Signor Giovanni Le auguro buona giornata!</pre>
 
-
-<p>Esistono diversi altri metodi per leggere gli input, ad esempio per leggere un numero 
-possiamo usare <code>nextInt()</code> al posto di <code>nextLine()</code>.</p>
+<p>L'oggetto <code>Scanner</code> ci permette di leggere diversi altri tipi di informazioni
+come ada esempio i numeri interi: <code>numero = tastiera.nextInt()</code>.</p>
 
 </article>
 </body>
