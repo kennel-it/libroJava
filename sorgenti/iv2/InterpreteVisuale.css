@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+
+.aijs_frame { box-sizing:border-box; margin:0.1em 0em; background: #fffcb8 ; border: 1px solid #777; border-collapse: collapse; width:100%}
+.aijs_frame tr:FIRST-CHILD td { background-color: rgba(255,155,0,0.25) ; padding:0.15em}
+.aijs_frame td { vertical-align: bottom }	
+.aijs_frame table.aijs_vettore { background-color: #e0efd9 }
+.aijs_frame table.aijs_vettore :first-child{ text-align: center }
+.aijs_frame table.aijs_vettore div { width:2em ; margin:2px; background-color: #71b555; text-align: center; padding:2px; color: white}
+.aijs_frame table.aijs_vettore div.aijs_enfasi1 { width:2em ; margin:2px; background-color: #1a5a00; text-align: center; padding:2px; color: white}
+.aijs_var { background:orange; margin:0.25em ; padding:0.05em ; width:5em; height:2.5em}

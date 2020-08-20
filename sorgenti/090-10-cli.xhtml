@@ -72,37 +72,60 @@ public class CiaoMondo {
 
 }</pre>
 
-<p>Per eseguire il programma bisogna fare click con il destro sul programma stesso poi
-selezionare il menu <span class="ide">Run As</span> e poi <span class="ide">Java Application</span>.
-Il risultato compare nel pannello <span class="ide">Console</span>.
-</p> 
-
-<h3>input</h3>
-<p>Abbiamo già visto come si fa l'output (scrivere un messaggio) nella sezione precedente, 
-per l'input (leggere una informazione) ci aiuta un oggetto chiamato <code>Scanner</code> 
-che permette di leggere direttamente un testo o un numero da console.</p>
-
-<p>Quello qui sotto è un programma che chiede il nome di un utente e poi lo saluta:</p>
+		<p>Per eseguire il programma bisogna fare click con il destro sul programma stesso poi
+		selezionare il menu <span class="ide">Run As</span> e poi <span class="ide">Java Application</span>.
+		Il risultato compare nel pannello <span class="ide">Console</span>.
+		</p> 
+		
+		<h3>input</h3>
+		<p>Abbiamo già visto come si fa l'output (scrivere un messaggio) nella sezione precedente, 
+		per l'input (leggere una informazione) ci aiuta un oggetto chiamato <code>Scanner</code> 
+		che permette di leggere direttamente un testo o un numero da console.</p>
+		
+		<p>Quello qui sotto è un programma che chiede il nome di un utente e poi lo saluta:</p>
+		<pre>import java.util.Scanner;
+		public class SalutaConsole {   
+		    public static void main(String[] args){
+		        Scanner tastiera = new Scanner(System.in);
+		        String utente;
+		        System.out.print("Come ti chiami? ");
+		        <em>utente = tastiera.nextLine();</em>
+		        System.out.println("Signor " + utente + " Le auguro buona giornata!");
+		        tastiera.close();
+		    }
+		}</pre>
+		<p>Quello che succede nel terminale (evidenziato l'input inserito dall'utente) 
+		è quello che si vede qui sotto:</p>
+		
+<pre>Come ti chiami? <em>Giovanni</em>
+Signor Giovanni Le auguro buona giornata!</pre>
+		
+	<section class="approfondimento">
+	   <p>Con l'oggetto <code>Scanner</code> è possibile leggere anche altri tipi dati oltre
+	   ai testi: l'esempio qui sotto serve per calcolare l'area del quadrato e legge dei 
+	   numeri interi usando <code>nextInt()</code>, è in maniera analoga possibile usare 
+	   anche <code>nextDouble</code> per leggere i numeri decimali.</p>  
+	   
 <pre>import java.util.Scanner;
-public class SalutaConsole {   
+
+public class Quadrato {   
     public static void main(String[] args){
         Scanner tastiera = new Scanner(System.in);
-        String utente;
-        System.out.print("Come ti chiami? ");
-        <em>utente = tastiera.nextLine();</em>
-        System.out.println("Signor " + utente + " Le auguro buona giornata!");
+        int lato;
+        System.out.print("Misura del lato? ");
+        lato = tastiera.nextInt();
+        
+        int area = lato * lato;
+        System.out.println("L'are del quadrato è "+area);
         tastiera.close();
     }
 }</pre>
-<p>Quello che succede nel terminale (evidenziato l'input inserito dall'utente) 
-è quello che si vede qui sotto:</p>
-
-<pre>Come ti chiami? <em>Giovanni</em>
-Signor Giovanni Le auguro buona giornata!</pre>
-
-<p>L'oggetto <code>Scanner</code> ci permette di leggere diversi altri tipi di informazioni
-come ada esempio i numeri interi: <code>numero = tastiera.nextInt()</code>.</p>
-
+        <p>È possibile trovare ulteriori informazioni sull'oggetto <code>Scanner</code>
+        su tanti siti tra cui: 
+        <a href="https://www.w3schools.com/java/java_user_input.asp">w3schools.com</a>,
+        <a href="http://www.labsquare.it/?p=5218">LabSquare.it</a> oltre che sul 
+        <a href="500-30-quickReference.xhtml">manuale</a>.</p>
+    </section>
 </article>
 </body>
 </html>
