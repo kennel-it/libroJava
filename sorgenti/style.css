@@ -128,6 +128,9 @@ img.iconaIDE { height: 2ex; }
     margin-top: 2em;
     color: #613515;
 }
+.approfondimento:before {
+	font-size:200%; content: "🔍 "; 
+}
 /* ------------------------------------ codice sorgente ---------------------------------------- */
 pre, div.pseudo {
     padding: 0.5em;

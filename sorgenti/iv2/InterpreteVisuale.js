@@ -600,7 +600,7 @@ class Funzione {
                 workaroundVisualizzazioneValoreRitornato.testo = x.target+"="+x.target;
                 workaroundVisualizzazioneValoreRitornato.linea = x.linea; 
                 workaroundVisualizzazioneValoreRitornato.enfasi = false;
-                workaroundVisualizzazioneValoreRitornato.didascalia = "il valre restituito verrà copiato in "+x.target;
+                workaroundVisualizzazioneValoreRitornato.didascalia = "il valore restituito viene copiato in "+x.target;
                 this.body.push(workaroundVisualizzazioneValoreRitornato);
             }
         });
