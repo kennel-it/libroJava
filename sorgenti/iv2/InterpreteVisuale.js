@@ -479,20 +479,19 @@ class InterpreteVisuale {
         frameAmbiente.replaceChild(preparate, rigaContenuto);
     }
     
-    /************************************************************************
-     * rimuove tutti gli attributi "class" 
-     */
     pulisci(){
-        this.idRappresentazioneCodiceInDOM.forEach( x => 
-            document.getElementById(x).classList.remove("esecuzione")
-        );
-        this.vDidascalie.innerText = "";
+        this.idRappresentazioneCodiceInDOM.forEach( x => {
+            document.getElementById(x).classList.remove("esecuzione");
+        });
+        if(this.vDidascalie){
+            this.vDidascalie.innerText = "";
+        }
     }
     
     evidenzia(elemento){
         this.pulisci();
         document.getElementById(elemento.linea).classList.add("esecuzione");
-        if( elemento.didascalia ){
+        if( elemento.didascalia && this.vDidascalie){
             this.vDidascalie.innerText = elemento.didascalia;
         }
     }
@@ -623,12 +622,25 @@ class Programma {
         let nomiFunzioni = Object.keys(this.codice);
         let nomi = [];
         nomiFunzioni.forEach( x => {
-            this.codice[x].body.forEach( y => {
-                if(y.linea){   
-                    nomi.push( y.linea );
-                }
-            })
+            nomi = nomi.concat( this._eod( this.codice[x].body ) );
         });
         return nomi;
+    }
+    
+    _eod(body){ // serve funzione ricorsiva, serve metodo privato https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_class_fields
+        let n = [];
+        body.forEach( y => {
+            if(y.linea){   
+                n.push( y.linea );
+            }
+            if(y.tipo=="if"){
+                n = n.concat( this._eod(y.allora));
+                n = n.concat( this._eod(y.altrimenti));
+            }
+            if(y.tipo=="while"){
+                n = n.concat( this._eod(y.corpo));
+            }
+        });
+        return n;
     }
 }

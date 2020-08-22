@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- grafoIndice requires="vettore" group="algoritmiStruttureDati" -->
+<!-- grafoIndice requires="vettore ricorsione" group="algoritmiStruttureDati" -->
 <!-- changelog 2018-03-23 inserita bozza di spiegazione per bubble sort -->
+<!-- changelog 2020-08-22 sistemato Bubble e inserito diagramma per Merge -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8"/>
     <title>ordinamento</title>
     <link type="text/css" rel="stylesheet" href="style.css"/>
     <script type="text/javascript" src="script/test.js"></script>
-	<link type="text/css" rel="stylesheet" href="iv/InterpreteVisuale.css"/>
-	<script src="iv/InterpreteVisuale.js" type="text/javascript"></script>
+	<link type="text/css" rel="stylesheet" href="iv2/InterpreteVisuale.css"/>
+	<script src="iv2/InterpreteVisuale.js" type="text/javascript"></script>
 <style type="text/css">
 	#stack { border:3px solid #ddd ; margin-top:0em}
+	
+	.interpreteVisuale { background-color: #eeeeee ; border: 2px solid #ccc }
+	.interpreteVisuale > * { border-bottom: 2px solid #ccc ; margin: 0}
+	.interpreteVisuale > *:last-child { border-bottom: 0 }
+	.interpreteVisuale .variabili h2 { margin:0 }
+    .interpreteVisuale .bloccoPulsanti {
+        display: flex;
+        flex-direction: row;
+    }
+    .interpreteVisuale .didascalia { 
+        background-color: yellow; height:3em ; padding:0.2em;
+        margin:0; text-indent: 0
+    }
 	
 	 /* indentazione del programma */
 	.i1 { padding-left:1em }
 	.i2 { padding-left:2em }
 	.i3 { padding-left:3em }
 	.i4 { padding-left:4em }
-	.bloccoPulsanti {
-		display: flex;
-       	flex-direction: row;
-       	margin: 1em 0em;
-	}
+
 	.bloccoPulsanti > div{
 		border-radius: 0.35em;
 		background-color: #ddd;
@@ -37,40 +47,32 @@
 </style>
 <!--  FIXME il vecchio sistema aveva un parametro in più in [ "decl", "v", "mostra", "aijs_i>=superficie" ]  -->
 <script type="text/javascript">//<![CDATA[
-	scriptBubbleSort = [
-		{	"main": [
-				[ "decl", "v", "mostra"],
-				[ "decl", "superficie", "mostra" ],
-				[ "decl", "posizione", "mostra" ],
-				[ "decl", "appoggio", "mostra" ],
-				[ "istr", "v=[16,15,11,17,14,13,12,10]" ],
-				[ "istr", "superficie=0" ],
-				[ "while", "superficie<v.length-1", [
-					[ "istr", "posizione=v.length-1" ],
-					[ "while", "posizione>=superficie", [
-						[ "if", "v[posizione]>v[posizione+1]",
-							[	// allora
-								["istr", "appoggio=v[posizione]", "lin_17"],
-								["istr", "v[posizione]=v[posizione+1]", "lin_18"],
-								["istr", "v[posizione+1]=appoggio", "lin_19"]
-							] ,
-							[],	// altrimenti
-							"lin_16"
-						],
-					    [ "istr", "posizione--", "lin_15" ], 
-					], "lin_15"
-					],
-					[ "istr", "superficie++", "lin_10" ], 
-				],"lin_10"
-				]
-			],
-		}
-	];
-	
+	let scriptBubbleSort = new Programma(new Funzione("main",
+			new Decl("v", "mostra"),
+			new Decl("superficie", "mostra"),
+			new Decl("posizione", "mostra"),
+			new Decl("appoggio", "mostra"),
+			new Istr("v=[16,15,11,17,14,13,12,10]"),
+			new Istr("superficie=0"),
+			new While("superficie<v.length-1",[
+				new Istr("posizione=v.length-1"),
+				new While("posizione>=superficie",[
+					new If("v[posizione]>v[posizione+1]",[
+						// allora
+                        new Istr("appoggio=v[posizione]", "lin_17", "scambio i due elementi adiacenti"),
+                        new Istr("v[posizione]=v[posizione+1]", "lin_18", "scambio i due elementi adiacenti"),
+                        new Istr("v[posizione+1]=appoggio", "lin_19", "scambio i due elementi adiacenti")
+					],[
+						// altrimenti
+					],"lin_16"),
+					new Istr("posizione--", "lin_15")
+				],"lin_15"),
+				new Istr("superficie++", "lin_10")
+			],"lin_10")
+	));
 	var interpreteBubbleSort;
 	function eseguiBubbleSort(){
-		var p1 = new Programma(scriptBubbleSort);
-		interpreteVisuale = new InterpreteVisuale(p1, "pc1", "stack");
+		interpreteVisuale = new InterpreteVisuale(scriptBubbleSort, "pc1", "stack", "didascalia");
 		interpreteVisuale.interpreta("main");
 	}
 //]]>
@@ -78,42 +80,50 @@
 </head>
 <body>
 <header>
-<h1>ordinamento</h1>
-<p>algoritmi di ordinamento</p>
+    <h1>ordinamento</h1>
+    <p>algoritmi di ordinamento</p>
 </header>
 <article>
-<p>Una delle operazioni che possono essere fatte su un elenco di oggetti è metterli in fila: dal numero più piccolo
-al più grande se sitratta di numeri, in ordine alfabetico se si tratta di parole o seguendo una regola di altro tipo!</p>
-<p>Potrebbe essere sorprendente ma esistono molte soluzioni per mettere in ordine gli elementi
-di un vettore, ne vedremo alcune.</p>
+    <p>Molto spesso dato un elenco di informazioni serve metterlo in ordine (ad esempio perché
+    cercare un elemento su un elenco ordinato è molto più facile che in uno non ordinato),
+    se si tratta di numeri dal più piccolo al più grande (o viceversa), se si tratta di parole
+    in ordine alfabetico o altro ordinamento per altri tipi di oggetti.</p>
+    
+    <p>Potrebbe essere sorprendente ma esistono molte soluzioni per mettere in ordine gli elementi
+    di un vettore, alcune sono più veloci, altre meno, alcune usano più memoria, altre meno...</p>
 
-<h2>Bubble Sort</h2>
-<p>L'idea è quella di <em>portare a galla gli elementi più leggeri</em>.</p>
-<p>Poniamo che a sia il vettore di interi da ordinare:
-l'agoritmo inizia confrontando gli ultimi due elementi, se l'ultimo
-è più piccolo del penultimo li scambia poi procede spostandosi verso l'alto e
-applicando il procedimento al terzultimo e il penultimo e così via fino ad
-arrivare a 	quelli ai primi due posti.
-A questo punto avremo in posizione zero l'elemento più piccolo.</p>
-<p>Procedendo alla stessa maniera (ma fermandomi al posto uno anziché al posto zero 
-perché nel posto zero sappiamo già esserci l'elemento più piccolo) "porto a galla" il secondo elemento.
-Via di seguito facciamo la stessa cosa ogni volta fermandoci una posizione prima.</p>
-<p>In pseudocodice:</p>
-<div class="pseudo">
-ciclo: superficie da 0 a lunghezza(a)-2
-  ciclo: m da lunghezza(a)-2 a superficie
-    se a[m] >a[m+1]
-      scambia a[m] e a[m+1]
-</div>
-<div class="bloccoPulsanti">
-<div onclick='interpreteVisuale.velocita=2' class="velocita">lento</div>
-<div onclick='interpreteVisuale.velocita=0.5' class="velocita">normale</div>
-<div onclick='interpreteVisuale.velocita=0.1' class="velocita">veloce</div>
-<div onclick='eseguiBubbleSort();' class="start">avvia bubble sort</div>
-</div>
-<h2>Visualizzazione variabili <small>[istruzioni eseguite:<span id="pc1"></span></small>]</h2>
-<div id="stack"></div>
-<pre>
+    <h2>Bubble Sort</h2>
+    <p>L'idea è quella di <em>portare a galla gli elementi più leggeri</em>.</p>
+    <p>Poniamo che <var>a</var> sia il vettore di interi da ordinare:
+    l'agoritmo inizia confrontando gli ultimi due elementi, se l'ultimo
+    è più piccolo del penultimo li scambia poi procede spostandosi verso l'alto e
+    applicando il procedimento al terzultimo e il penultimo e così via fino ad
+    arrivare a 	quelli ai primi due posti.
+    A questo punto avremo in posizione zero l'elemento più piccolo.</p>
+    <p>Procedendo alla stessa maniera (ma fermandomi al posto uno anziché al posto zero 
+    perché nel posto zero sappiamo già esserci l'elemento più piccolo) "porto a galla" 
+    il secondo elemento. 
+    Via di seguito facciamo la stessa cosa ogni volta fermandoci una posizione prima.</p>
+    <p>In pseudocodice:</p>
+    <div class="pseudo">
+    ciclo: superficie da 0 a lunghezza(a)-2
+        ciclo: m da lunghezza(a)-2 a superficie
+            se a[m] >a[m+1]
+                scambia a[m] e a[m+1]
+    </div>
+
+<div class="interpreteVisuale">    
+	<div class="bloccoPulsanti">
+		<div onclick='eseguiBubbleSort();' class="start">avvia bubble sort</div>
+		<div onclick='interpreteVisuale.velocita=2' class="velocita">lento</div>
+		<div onclick='interpreteVisuale.velocita=0.5' class="velocita">normale</div>
+		<div onclick='interpreteVisuale.velocita=0.1' class="velocita">veloce</div>
+	</div>
+	<div class="variabili">
+		<h2>Visualizzazione variabili <small>[istruzioni eseguite:<span id="pc1"></span></small>]</h2>
+		<div id="stack"></div>
+	</div>
+	<pre>
 <code class="i1"><span id="lin_10">for(superficie=primo;superficie&lt;=ultimo-1;superficie=superficie+1){</span></code>
 <code class="i2"><span id="lin_15">  for(posizione=ultimo-1;posizione&gt;=superficie;posizione--){</span></code>
 <code class="i3"><span id="lin_16">    if(v[posizione]>v[posizione+1]){</span></code>
@@ -123,17 +133,20 @@ ciclo: superficie da 0 a lunghezza(a)-2
 <code class="i3"><span id="lin_20">    }</span></code>
 <code class="i2"><span id="lin_21">  }</span></code>
 <code class="i1"><span id="lin_22">}</span></code>
-</pre>
+	</pre>
+	<p class="didascalia" id="didascalia"></p>
+</div>
 
-<h2>Proviamo il programma</h2>
-<p>Per provare il programma ci serve una interfaccia grafica che permetta di inserire una serie di numeri.</p>
 
 <h2>Merge sort</h2>
-<p>L'idea base è quella di ordinare.</p>
-<div class="esercizio">
-	<p>Crea un programma che permetta di inserire una serie di numeri e che poi li mostri dal 
-	più piccolo al più grande.</p>
-	<pre>public class Sort {
+<p>Avendo due vettori già ordinati fonderli in un unico vettore ordinato è una cosa facile:
+basta guardare l'elemento di testa di ogni vettore e decidere se prendere l'uno o l'altro, una volta
+preso lo togo e torno a fare la stessa operazione.</p>
+
+<p class="FIXME">inserire spiegazione</p>
+
+<img src="immagini/mergeSort.svg" alt="diagramma Merge Sort" style="width:50%"/>
+<pre>public class Sort {
 	private static void scomponi(int[] vettore, int[] temporaneo, int inferiore, int superiore) {
 	   if (inferiore &lt; superiore) {
 	      int centro = (inferiore + superiore) /2;
@@ -178,8 +191,9 @@ ciclo: superficie da 0 a lunghezza(a)-2
 			vettore[i]=temporaneo[i];
 		}
 	}</pre>
-	<p>Per far eseguire l'algoritmo basterà inserire nel proprio codice <code>Sort.mergeSort(vett);</code></p>
-</div>
+
+<p>FIXME: Per far eseguire l'algoritmo basterà inserire nel proprio codice <code>Sort.mergeSort(vett);</code></p>
+
 </article>
 </body>
 </html>
