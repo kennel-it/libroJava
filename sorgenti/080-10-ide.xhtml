@@ -8,6 +8,7 @@
 <!-- changelog 2019-08-04 aggiunta configurazione per JDK11+JavaFX su Elcipse e NetBeans -->
 <!-- changelog 2019-08-27 spostata qui configurazione per SceneBuilder e rimosso capitolo "installazione" -->
 <!-- changelog 2020-02-11 corretta descrizione per reperire i jar di javafx in eclipse -->
+<!-- changelog 2020-08-24 insetita parte iniziale su JDK-IDE -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -26,6 +27,64 @@
 <p>l'ambiente di sviluppo</p>
 </header>
 <article>
+
+<h2>Gli strumenti essenziali</h2>
+<p>Per poter sviluppare programmi ci servono degli strumenti, nel caso di quelli che vogliamo
+sviluppare noi abbiamo bisogno di tre cose: il "Java Development Kit", una libreria per
+sviluppare applicazioni con interfaccia grafica e un ambiente di sviluppo (una specie
+di editor di testo più sofisticato).</p>
+
+<h3>Java Development Kit</h3>
+<p>Letteralmente "Kit di sviluppo Java" è più conosciuto come <em>JDK</em>, e contiene un lungo
+elenco di programmi utilizzati dagli sviluppatori per creare e gestire programmi con java.
+Noi useremo soltanto alcuni di questi strumenti ma il JDK va comunque installato.</p>
+
+<p>In realtà non va installato "il" JDK ma "un" JDK perché ce ne sono molte versioni  e 
+di diversi produttori.</p>
+
+<p>Per quanto riguarda la versione per noi sarebbe sufficiente una qualsiasi dalla 11 in poi,  
+bisogna anche tener conto del fatto che chi ha sistemi funzionanti normalmente usa (ma non è un obbligo)
+una delle versioni chiamate "LTS" cioè con supporto a lungo termine, l'ultima di questo tipo 
+è la versione 11. Altre esigenze (ad esempio strumenti che funzionano soltanto con vecchie versioni)
+potrebbero costringerci ad usare una versione precedente del JDK.</p>
+
+<p>Per via della licenza Open del JDK (è cambiata da poco tempo) 
+si può scegliere anche da quale produttore scaricare il JDK: funzionano tutti fondamentalmente
+allo stesso modo ma possono avere strumenti in più o assistenza più o meno lunga e in alcuni casi 
+a pagamento (con garanzie aggiuntive in questi casi).
+Ad esempio fanno una versione del JDK: 
+<a href="https://adoptopenjdk.net/">AdoptOpenJDK</a>,
+<a href="https://www.oracle.com/it/java/technologies/javase-downloads.html">Oracle</a>,
+<a href="https://aws.amazon.com/it/corretto/">Amazon</a> 
+<a href="https://bell-sw.com/">Liberica</a>).</p>
+
+<h3>Libreria grafica</h3>
+<p>Questa non è sempre necessaria ma noi ne useremo una sviluppata sempre dallo stesso gruppo
+che sviluppa java e che si chiama <a href="https://openjfx.io/">JavaFX</a>, fino poco tempo fa 
+era inclusa nel JDK ma adesso va presa separatamene.</p>
+
+<h3>Ambiente di sviluppo</h3>
+<p>Questi programmi normalmente tutt'altro che piccoli normalmente vengono chiamati <em>IDE</em> 
+(Integrated Development Environment) e ci aiutano molto nella scrittura dei programmi... 
+in pratica sono indispensabili. Ne esistono molti ma per Java i più usati sono 
+<a href="https://www.eclipse.org/">Eclipse</a>,
+<a href="http://netbeans.apache.org/">NetBeans</a> e
+<a href="https://www.jetbrains.com/idea/">Intellij IDEA</a>.
+I primi due sono Open Source e il terzo no ma è molto usato.</p>
+
+<h2>Il nostro ambiente</h2>
+<p>Va bene una qualsiasi combinazione di JDK+IDE+JavaFX che consenta di sviluppare applicazioni,
+qui riportiamo la soluzione più semplice che usa tutto software Open: Eclipse come IDE e il JDK 
+di Liberica (perché include già JavaFX e ci risparmia un po' di lavoro e di seccature).</p>
+<p>In prtatica:</p>
+<ol>
+    <li>Verificare di non avere nessuna versione del JDK installato</li>
+    <li>Scaricare e installare il JDK Liberica dal sito di 
+        <a href="https://bell-sw.com/">Bell Soft</a>: versione 14 (o 15), 
+        attenzione a scegliere<em>Full JDK</em> come Package.</li>
+    <li>Scaricare <a href="Eclipse IDE for Enterprise Java Developers">Eclipse</a>:
+        va bene il file zip nella versione "Eclipse IDE for Enterprise Java Developers"</li>
+</ol>
 
 <h2>pulizia!</h2>
 <p>In caso che serva è possibile ripulire l'ambiente di sviluppo prima di installare il
@@ -54,8 +113,8 @@ direttamente sulle impostazioni del sistema.</p>
     </li>
 </ul>
 
-<p class="FIXME">Dal sito https://bell-sw.com/pages/downloads/ scaricando "Full JDK"
-(attenzione: non lo lo standard) le applicazioni javafx vanno senza nessuna impostazione</p>
+
+<p class="FIXME">sistemare parte qui sotto</p>
 
 <h2>installare java e javafx</h2>
 <ul>
