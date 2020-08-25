@@ -12,6 +12,7 @@
 <!-- changelog 2020-04-29 corretto RisparmioVincolato.getUltimoCodiceUsato() -->
 <!-- changelog 2020-04-30 copiato Primo.java dal capitolo Oggetti perché veniva esteso in un esempio -->
 <!-- changelog 2020-08-18 modificata per dell'operatore new -->
+<!-- changelog 2020-08-25 revisione intero capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -156,7 +157,7 @@ visto che abbiamo parlato di autoveicoli dovremmo creare una loro rappresentazio
 <h2>Programmazione ad oggetti</h2>
 <p>Quello che ci proponiamo di fare è di spostare l'attenzione dal 
 "come fare le cose" (programmazione procedurale) al "modellare le entità della realtà" (programmazione ad oggetti).<br/>
-La domanda a cui dobbiamo rispondere nel nostro caso è: "cosa è un Autoveicolo?". 
+Continuando con il nostro esempio la prima domanda a cui dobbiamo rispondere è: "cosa è un Autoveicolo?". 
 E con questo intendiamo sia "cosa caratterizza una autoveicolo" che "quali azioni possiamo fare con un autoveicolo".</p>
 <p>Visto quanto abbiamo detto finora per noi un Autoveicolo è un un oggetto che:</p>
 <ul>
@@ -166,15 +167,17 @@ E con questo intendiamo sia "cosa caratterizza una autoveicolo" che "quali azion
     <li>può calcolare quanto andremo a spendere dato un numero di km (azione)</li>
 </ul>
 
-<p>Java ci permette di modellare la realtà in questo modo usando le <em>classi</em>. In effetti le abbiamo già usate 
-ma fino a questo momento abbiamo creato programmi composti da una sola di esse senza prestare particolare 
-attenzione a cosa stavamo rappresentando (solitamente una interfaccia grafica con delle funzionalità), 
+<p>Java ci permette di modellare la realtà in questo modo usando le <em>classi</em>. 
+In effetti le abbiamo già create ogni volta che abbiamo scritto un programma  
+ma fino a questo momento i programmi erano composti da una sola di esse e le abbiamo
+scritte senza prestare particolare attenzione a cosa stavamo rappresentando 
+(solitamente una interfaccia grafica con delle funzionalità), 
 quello che succede di solito quando si realizzano programmi più grandi 
 è che si ha a che fare con più classi che usate insieme ci permettono di realizzare le
 funzionalità desiderate modellando la realtà che ci interessa.</p>
 
 <p>Questo approccio porta alcuni vantaggi che diventano sempre più evidenti all'aumentare della
-dimensione del programma che si sta trattando. Due tra i più evidenti sono:</p>
+dimensione del programma che si sta trattando, due tra i più evidenti sono:</p>
 <ul>
     <li>possiamo concentrare in un unico punto tutta la rappresentazione di una entità (l'autoveicolo dell'esempio),
     questo ci consentirà in futuro di poter cambiare il nostro modello intervenendo in un punto unico del programma.</li>
@@ -184,11 +187,13 @@ dimensione del programma che si sta trattando. Due tra i più evidenti sono:</p>
 
 <p>La struttura che Java ci mette a disposizione per modellare queste entità è la classe:</p>
 
-<dfn>Una <em>classe</em> è un modello per la creazione di oggetti, fornisce i valori iniziali per lo stato e una 
-implementazione del comportamento dell'oggetto. Definendo una classe si definisce un nuovo tipo di dato.</dfn>
+<dfn>Una <em>classe</em> è un costrutto usato come modello per creare oggetti. 
+Il modello comprende attributi e metodi e fornisce i valori iniziali per lo stato. 
+In Java definendo una classe si definisce un nuovo tipo di dato.</dfn>
 <!-- https://www.techopedia.com/definition/3214/class-java
 https://docs.oracle.com/javase/tutorial/java/javaOO/classdecl.html
-https://brilliant.org/wiki/classes-oop/ -->
+https://brilliant.org/wiki/classes-oop/ 
+https://it.wikipedia.org/wiki/Classe_(informatica) -->
 
 <p>Una classe in Java viene definita in un file che ha il suo stesso nome utilizzando la parola chiave
 <code>class</code> seguita dal nome dell'entità e da un blocco di codice racchiuso tra parentesi graffe: 
@@ -198,16 +203,29 @@ che riguardano l'entità.</p>
 <p>Le proprietà sono usuali dichiarazioni di variabili fatte al livello di classe e i metodi
 sono delle funzioni che possono far riferimento alle proprietà dell'oggetto.</p>
 
-<dfn>Una <em>proprietà</em> è una variabile utilizzata all'interno di un oggetto 
-(cioè definita in una classe) e concorre a rappresentarne lo stato.</dfn>
+<pre>class Nome {
+    // proprietà
+    
+    // metodi 
+}</pre>
+
+<dfn>Una <em>proprietà</em> è una variabile dichiarata all'interno di una classe 
+e concorre a rappresentarne lo stato.</dfn>
 <!-- https://en.wikipedia.org/wiki/Property_(programming) -->
 
-<p>...e quindi lo stato di un oggetto è rappresentato dal valore di tutte le sue proprietà.</p>
+<p>...e quindi lo stato di un oggetto è rappresentato dal valore di tutte le sue proprietà.
+Nel nostro esempio lo stato di un Autoveicolo sono i valori della sua targa, del modello e
+del consumo.</p>
 
 <dfn>Un <em>metodo</em> è un blocco di istruzioni identificato da un nome. 
-Viene usato per raggiungere uno specifico obiettivo, può avere uno o più parametri e ritornare o meno un risultato.</dfn>
+Viene usato per raggiungere uno specifico obiettivo, può avere zero o più parametri e ritornare o meno un risultato.</dfn>
 <!-- https://www.w3schools.com/java/java_methods.asp
 https://www.geeksforgeeks.org/methods-in-java/ -->
+<p>Nell'esempio dell'autoveicolo un metodo ci consente data una distanza (parametro) di calcolare
+quanto spenderemo per il percorso (risultato). In pratica un metodo è una funzione definita in una 
+classe che oltre ai parametri può utilizzare anche i valori presenti nello stato, per calcolare
+la spesa servirà anche di utilizzare il consumo di un determinato autoveicolo
+(cioè il valore della sua proprietà "consumo").</p>
 
 <div class="test">
     <p>Quale delle seguenti fa parte dello stato di Autoveicolo?</p>
@@ -217,7 +235,7 @@ https://www.geeksforgeeks.org/methods-in-java/ -->
     <a onclick="giusta(this)">targa
         <span class="spiegazione">giusto, è una delle sue proprietà</span></a>
     <a onclick="sbagliata(this)">Autoveicolo
-        <span class="spiegazione">no, questo è il nome del suo tipo</span></a>
+        <span class="spiegazione">no, questo è il nome della classe</span></a>
     <a onclick="giusta(this)">modello
         <span class="spiegazione">giusto, è una delle sue proprietà</span></a>
 </div>  
@@ -226,13 +244,13 @@ https://www.geeksforgeeks.org/methods-in-java/ -->
 <h3>Istanze</h3>
 <p>Una classe ci permette di definire come si comporta una certa entità... abbiamo ad esempio 
 definito quali caratteristiche ha un Autoveicolo qualsiasi ma come
-posso fare per creare qualcosa che rappresenti la mia particolare automobile che è una "Stelvio" targata "CF876RT" che
-percorre 14km con un litro di carburante? Ciascun particolare autoveicolo
-viene detto <em>istanza</em> della classe Autoveicolo.</p>
+posso fare per creare qualcosa che rappresenti la mia particolare automobile che è una 
+"Stelvio" targata "CF876RT" che percorre 14km con un litro di carburante? 
+Posso farlo creando una particolare <em>istanza</em> della classe Autoveicolo.</p>
 
-<p>Data la nostra classe di esempio Autoveicolo potremmo creare tre sue diverse istanze:
+<p>Data la nostra classe di esempio potremmo creare tre sue diverse istanze:
 <code>automobileMario</code>, <code>automobileLucia</code> e 
-<code>automobileLuigi</code>che avranno lo stesso tipo. Ciascuna avrà un proprio stato 
+<code>automobileLuigi</code>che avranno lo stesso tipo ma ciascuna avrà un proprio stato 
 e quindi una sua targa, un suo modello e un suo consumo.</p>
 
 <dfn>Un <em>oggetto</em> è una istanza di una classe e viene creato a tempo di esecuzione con l'operatore 
@@ -243,12 +261,12 @@ https://www.edureka.co/blog/java-tutorial/#obj -->
 <p>In pratica <code>new</code> riserva dello spazio in memoria per registrare le informazioni
 riguardanti una singola istanza di una classe (un oggetto) e quello che ritorna è un riferimento 
 alla zona di memoria appena riservata. Per questo motivo se io creo due oggetti che hanno
-gli stessi valori su ogni proprietà (immaginiamo due Autoveicoli identici) 
+gli stessi valori su ogni proprietà (immaginiamo due Autoveicoli con stessa targa, stesso modello e stesso consumo) 
 e poi li confronto usando <code>==</code> questo mi restituirà falso 
 perché vengono confrontati i due riferimenti (che sono numeri che indicano
-l'indirizzo di memoria in cui si trova l'oggetto) che sono diversi.
-Questo è il motivo per cui gli oggetti String non si confrontano con == ma utilizzando
-il metodo <code>equals()</code>.</p>
+l'indirizzo di memoria in cui si trova l'oggetto) che sono diversi 
+(questo è il motivo per cui gli oggetti String non si confrontano con == ma utilizzando
+il metodo <code>equals()</code>).</p>
 
 <div class="test">
     <p>Quale dei seguenti non è un operatore?</p>
@@ -280,7 +298,7 @@ il metodo <code>equals()</code>.</p>
 (o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
 di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
 si vuole usare.
-Posso ad esempio se ho creato una istanza <code>automobileMario</code> di <code>Autoveicolo</code>
+Se ho creato una istanza <code>automobileMario</code> di <code>Autoveicolo</code>
 posso impostare la sua targa scrivendo <code>automobileMario.targa="xd987tt"</code>.</p>
 
 
@@ -289,7 +307,10 @@ posso impostare la sua targa scrivendo <code>automobileMario.targa="xd987tt"</co
 <p>Un particolare metodo è quello che viene usato quando costruiamo una nuova istanza
 di una classe: il costruttore. Si riconosce perché ha lo stesso nome della classe e 
 nessun tipo ritornato (non c'è scritto <code>void</code>, 
-è proprio assente). Soltanto se non si definisce nessun costruttore nella classe java 
+è proprio assente). Per ogni classe è possibile definire molteplici costruttori con parametri diversi,
+posso per esempio pensare ad un costruttore di Autoveicolo che voglia il solo numero di targa e 
+uno diverso che voglia sia numero di targa che il modello. 
+Se non si definisce nessun costruttore nella classe java 
 ne definisce uno predefinito che non accetta nessun parametro.</p>
 
 <div class="test">
@@ -305,11 +326,11 @@ ne definisce uno predefinito che non accetta nessun parametro.</p>
 </div>  
 
 <p>Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
-l'operatore <code>new</code> si usa scrivendo dopo di lui il costruttore di un oggetto 
-come ad esempio in <code>Button pulsante = <em>new Button()</em></code>.<br/>
-La parte a destra dell'uguale è quella che ci interessa:
-l'operatore <code>new</code> è seguito dalla chiamata di uno dei costruttori dell'oggetto Button, 
-in particolare in questo caso uno senza parametri.<br/>
+<code>Button pulsante = <em>new Button()</em></code>. Con questa istruzione abbiamo creato 
+una nuova istanza (un oggetto) della classe <code>Button</code> usando l'operatore <code>new</code>
+e chiamando dopo di lui uno dei suoi costruttori.<br/>
+
+
 Ma si può scrivere anche la dichiarazione: <code>Button pulsante = new <em>Button("Premi qui")</em></code>
 e anche questa volta abbiamo invocato un metodo che si chiama come la classe. 
 L'unica differenza è che il primo metodo invocato non aveva argomenti, questo qui ha un argomento di tipo stringa.
@@ -457,7 +478,7 @@ autoLuigi.kmAlLitro = 29;
     <a onclick="sbagliata(this)">29 e 29
         <span class="spiegazione">nella terza riga abbiamo modificato soltanto il valore
         delle proprietà kmAlLitro di autoLuigi</span></a> 
-    <a onclick="sbagliata(this)">22 e 21
+    <a onclick="sbagliata(this)">11 e 21
         <span class="spiegazione">il valore della proprietà kmAlLitro di autoLuigi
         è stato modificato</span></a>
 </div>
@@ -468,7 +489,8 @@ all'oggetto stesso, in questo caso è possibile usare la parola chiave <code>thi
 che indica appunto <em>l'oggetto corrente</em>. Perché mai dovrebbe servire? In generale
 per evitare di far confusione tra i nomi delle proprietà e i nomi dei parametri dei metodi.</p>
 
-<p>Proviamo a vedere come è possibile riscrivere il costruttore del nostro Autoveicolo</p>
+<p>Proviamo a vedere come è possibile riscrivere il costruttore del nostro Autoveicolo
+(in effetti normalmente vengono scritti così):</p>
 <h3>File: Autoveicolo.java aggiornato</h3>
 <pre>
 public class Autoveicolo {
@@ -495,18 +517,35 @@ passata al costruttore nella proprietà <code>targa</code> di questo oggetto (qu
 <span onclick="mostraNascondi('senzaThis','conThis')" class="pulsante" id="pulsanteOld">non usa this</span>.</p>
 
 <h2>Organizzare gli oggetti</h2>
-<p>Un paio di meccanismi ci consentono di tenere organizzati gli oggetti:</p>
+<p>Abbiamo già detto che un programma è spesso formato da molte classi, 
+un paio di meccanismi ci consentono di tenerle organizzate:</p>
 <ul>
-    <li>uno è il sistema di pacchetti che ci permette di raggruppare oggetti 
+    <li>uno è il sistema di pacchetti che ci permette di raggruppare classi 
     che hanno scopi simili in strutture analoghe alle cartelle</li>
-    <li>un altro (e più importante) sistema è quello che consente di specificare
+    <li>un altro è quello che consente di specificare
     cosa gli altri oggetti possono vedere dell'oggetto che stiamo definendo</li>
 </ul>
 
 <p>I modificatori <code>public</code> o <code>private</code> che vengono scritti
 prima del tipo nella dichiarazione delle variabili o dei metodi servono per definire
-se una proprietà (o un metodo) possono essere visti al di fuori dell'oggetto, 
-una buona strategia generale è quella di evitare che gli altri oggetti possano 
+se una proprietà (o un metodo) possono essere visti al di fuori della classe che si sta
+definendo, in realtà questi modificatori sono quattro: <code>public</code>, <code>protected</code>,
+<code>private</code> e uno senza nome, sono però facilmente comprensibili:</p>
+
+<table>
+    <tr>
+        <th rowspan="2">modificatore</th><th colspan="4">la proprità/metodo si può usare nella</th>
+    </tr>
+    <tr><th>classe</th><th>pacchetto</th><th>sottoclasse</th><th>tutti</th></tr>
+    <tr><th><code>public</code></th><td>si</td><td>si</td><td>si</td><td>si</td></tr>
+    <tr><th><code>protected</code></th><td>si</td><td>si</td><td>si</td><td>no</td></tr>
+    <tr><th><code></code></th><td>si</td><td>si</td><td>no</td><td>no</td></tr>
+    <tr><th><code>private</code></th><td>si</td><td>no</td><td>no</td><td>no</td></tr>
+</table>
+
+<p>Attenzione alla terza riga: se non scrivo nulla faccio una scelta ben precisa e diversa dalle altre!</p>
+ 
+<p>Una buona strategia generale è quella di evitare che gli altri oggetti possano 
 modificare lo stato (cioè una delle proprietà) degli oggetti direttamente ma
 di creare appositi metodi che chiedano all'oggetto di modificare il suo stato.
 Doppio vantaggio:</p>
@@ -519,7 +558,6 @@ Per un approfondimento vedi <a href="https://docs.oracle.com/javase/tutorial/jav
     <li>se chi usa l'oggetto decide di impostare un valore errato si
     possono fare i controlli</li>
 </ul>
-
 
 
 <h2>Esempio: il risparmio vincolato</h2>
@@ -710,18 +748,10 @@ Nulla vieterebbe quindi che da qualche parte nella classe InterfacciaGrafica,
 si possa scrivere <code>risparmio.anno = 44;</code>
 oppure <code>risparmio.importo = -12.0;</code>. Chiaramente sono errori.</p>
 
-<p>Per prevenire tali situazioni possiamo impedire che alcune proprietà e/o 
-metodi di una classe siano accessibili da altre classi. Potremmo e dovremmo ad
+<p>Per prevenire tali situazioni possiamo regolare la visibilità di alcune proprietà e/o 
+metodi di una classe. Dovremmo ad
 esempio impedire che da qualsiasi altra classe diversa da <code>RisparmioVincolato</code> 
 si possa accedere alle sue variabili (le proprietà).</p>
-
-<p>Per dichiarare se una variabile o un metodo siano visibili (e quindi anche modificabili)
-da parte di altri oggetti rispetto a quello che stiamo definendo possiamo usare due modificatori:
-<code>public</code> e <code>private</code>. 
-Se dichiaro qualcosa come <code>private</code> al difuori della classe non può essere usato, 
-al contrario se lo dichiaro come <code>pubblic</code> in qualsiasi altra classe potrò usarlo; 
-se non scrivo nulla sarà visibile soltanto dagli oggetti dello stesso pacchetto. 
-Per ora concentriamoci sulle 2 parole chiave appena indicate.</p>
 
 <p>Se rendiamo private tutte le proprietà di <code>RisparmioVincolato</code>,
 come si può fare ad impostare il capitale o la percentuale di interessi al di là
@@ -871,6 +901,7 @@ la forma <code>RisparmioVincolato.getTasse()</code> oppure
 <code>RisparmioVincolato.setTasse(5.0f)</code> cioè si fa riferimento direttamente alla classe
 piuttosto che ad una sua istanza.</p>
 
+<div class="approfondimento">
 <p>Un altro possibile utilizzo delle variabili statiche lo potremmo pensare
 sul numero del risparmio vincolato. Perché il numero lo dovremmo considerare come un progressivo
 che parte da 1 e ogni nuovo risparmio vincolato aggiungerà 1 al precedente. 
@@ -971,6 +1002,7 @@ se lo calcolerà da solo:</p>
 
 <p>Nella classe <code>Interfaccia</code> si può conoscere quale è stato l'ultimo
 codice assegnato invocando <code>RisparmioVincolato.getUltimoCodiceUsato()</code>.</p>
+</div>
 
 <p>In definitiva esiste un modo per far sì che tutti gli oggetti della stessa 
 classe condividano un valore: usare il modificatore <code>static</code>. 

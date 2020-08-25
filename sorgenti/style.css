@@ -185,6 +185,9 @@ dt { font-weight: bold }
 .test a.spiega span.spiegazione { display:inline }
 .rispostaGiusta { background-color: lime !important}
 .rispostaSbagliata { background-color: red !important}
+
+table { border-collapse: collapse }
+td,th { border:1px solid #444 ; padding:0.25em}
 /* -------------------------------------- gli esercizi ----------------------------------------- */
 .esercizio {
     margin-top:4em;
