@@ -4,6 +4,7 @@
 <!-- grafoIndice requires="numeri vettore" group="base" -->
 <!-- changelog 2020-08-20 ristrutturato l'intero capitolo -->
 <!-- changelog 2020-08-21 ristrutturato inseriti ulteriori contenuti -->
+<!-- changelog 2020-08-25 corretto errore chiamata funzione daStringaAVettore -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -236,9 +237,9 @@ int[] daStringaAVettore(<span class="rip">String testo</span>){
 <p>In questo caso per usare la funzione sarà necessario fare un passaggio in più perché la funzione 
 vuole un dato in input (un testo) quindi leggerò un testo e lo fornirò come input (in realtà
 si dice che "lo passerò come parametro"):</p>
-<pre>
-<span class="rip">String testoCasella = valori.getText();
-int numeri[] = leggiDati(testoCasella)</span>;
+
+<pre>String testoCasella = valori.getText();
+<span class="rip">int numeri[] = daStringaAVettore(testoCasella)</span>;
 </pre>
 
 <p>Adesso possiamo riassumere: una dichiarazione di funzione è un tipo seguito da un nome
