@@ -13,6 +13,7 @@
 <!-- changelog 2020-04-30 copiato Primo.java dal capitolo Oggetti perché veniva esteso in un esempio -->
 <!-- changelog 2020-08-18 modificata per dell'operatore new -->
 <!-- changelog 2020-08-25 revisione intero capitolo -->
+<!-- changelog 2020-08-28 corretto commento su risparmivicolato che faceva riferimento al controllo di mese e giorno che non ci sono -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -620,13 +621,12 @@ dell'oggetto: avremo bisogno di due costruttori.</p>
       cognome = c;
       codice = cod;
       importo = euro;
-      // Ci mettiamo anche un banale controllo sulle date: l'anno dal 1970 al 2025, 
-      // il mese da 1 a 12, il giorno da 1 a 31
+      // Ci mettiamo anche un banale controllo sulle date: l'anno dal 1970 al 2025 
       if(a&lt;1970) {
          a = 1970;
       } else if(a&gt;2020) {
          a = 2020;
-      }
+      }      
       anno = a;
       interessiPercentuale = i;
    }</em>
