@@ -14,6 +14,7 @@
 <!-- changelog 2020-08-18 modificata per dell'operatore new -->
 <!-- changelog 2020-08-25 revisione intero capitolo -->
 <!-- changelog 2020-08-28 corretto commento su risparmivicolato che faceva riferimento al controllo di mese e giorno che non ci sono -->
+<!-- changelog 2020-08-29 corretto esercizio in fondo al capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -1014,26 +1015,26 @@ Attenzione ad una cosa: i metodi <code>static</code> possono vedere soltanto le 
 possono vedere le varaibili di istanza (quelle non <code>static</code>) 
 le quali vengono create, appunto, col <code>new</code>.</p>
 
-<h3>file it/esempi/Terzo.java</h3>
+<h3>file it/esempi/Esempio.java</h3>
 <pre>
 package it.esempio;
 
-public class Terzo extends Secondo{
+public class Esempio {
     public static n;
     public int w;
     String c;
-    public Terzo(String u){
+    public Esempio(String u){
         c=u;
     }
     public String descrivi(){
-        return c+x+c;
+        return n+c;
     }
 }
 </pre>
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Terzo t1=new Terzo("1");<br/>Terzo t2=new Terzo("2");<br/>t1.n=5;<br/>t2.n=7;</code><br/>
+    <code>Esempio t1=new Esempio("1");<br/>Esempio t2=new Esempio("2");<br/>t1.n=5;<br/>t2.n=7;</code><br/>
     Quanto vale t1.n?
     </p> 
     <a onclick="sbagliata(this)">5 <span class="spiegazione">essendo <code>n</code> static t2.n=7 la sovrascrive</span></a> 
@@ -1042,7 +1043,7 @@ public class Terzo extends Secondo{
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Terzo t1=new Terzo("1");<br/>Terzo t2=new Terzo("2");<br/>t1.w=5;<br/>t2.w=7;</code><br/>
+    <code>Esempio t1=new Esempio("1");<br/>Esempio t2=new Esempio("2");<br/>t1.w=5;<br/>t2.w=7;</code><br/>
     Quanto vale t1.w?
     </p> 
     <a onclick="giusta(this)">5 <span class="spiegazione">essendo <code>w</code> una variabile di istanza (non static) t2.n=7 non la sovrascrive</span></a> 
@@ -1051,12 +1052,12 @@ public class Terzo extends Secondo{
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Terzo t1=new Terzo("1");<br/>Terzo t2=new Terzo("2");<br/>Terzo.n=10;</code><br/>
+    <code>Esempio t1=new Esempio("1");<br/>Esempio t2=new Esempio("2");<br/>Esempio.n=10;</code><br/>
     Quanto vale t1.n?
     </p>
-    <a onclick="sbagliata(this)">il frammento è errato</a>
+    <a onclick="sbagliata(this)">il frammento è errato <span class="spiegazione">no, anzi, le variabili static di solito si usano facendo riferimento alla classe piuttosto che alle sue istanze</span></a>
     <a onclick="sbagliata(this)">non si sa</a>  
-    <a onclick="giusta(this)">10 <span class="spiegazione">giusto, Terzo.n è il modo giusto
+    <a onclick="giusta(this)">10 <span class="spiegazione">giusto, Esempio.n è il modo giusto
     per accedere ad una variabile static</span></a> 
 </div>
 
