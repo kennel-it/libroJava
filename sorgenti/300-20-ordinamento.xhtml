@@ -3,6 +3,7 @@
 <!-- grafoIndice requires="vettore ricorsione" group="algoritmiStruttureDati" -->
 <!-- changelog 2018-03-23 inserita bozza di spiegazione per bubble sort -->
 <!-- changelog 2020-08-22 sistemato Bubble e inserito diagramma per Merge -->
+<!-- changelog 2020-09-07 confronto tra merge e bubble -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8"/>
@@ -139,13 +140,22 @@
 
 
 <h2>Merge sort</h2>
-<p>Avendo due vettori già ordinati fonderli in un unico vettore ordinato è una cosa facile:
+<p>L'idea di partenza è che avendo due vettori già ordinati fonderli 
+in un unico vettore ordinato è una cosa facile:
 basta guardare l'elemento di testa di ogni vettore e decidere se prendere l'uno o l'altro, una volta
-preso lo togo e torno a fare la stessa operazione.</p>
+preso lo togo e torno a fare la stessa operazione sugli elementi che restano.</p>
 
-<p class="FIXME">inserire spiegazione</p>
+<p>Proviamo a limitarci alla parte gialla del giagramma qui sotto.
+Devo fondere i vettori [3,8] e [1,5]. Guardo gli elementi di testa "3" e "1" e prendo uno, 
+successivamente guardo gli elementi che restano in cima cioè "3" e "5" e prendo 3, continuo così
+finche non fininscono tutti gli elementi.</p>
+
+<p>Questo algoritmo è ricorsivo cioè richiama se stesso su diverse parti del problema fino a che
+non viene risolto del tutto.</p>
 
 <img src="immagini/mergeSort.svg" alt="diagramma Merge Sort" style="width:50%"/>
+<p>Qui sotto è riportato il codice che implementa l'algoritmo, per utilizzarlo va
+chiamato il metodo <code>mergeSort()</code> passando come parametro il vettore da ordinare.</p>
 <pre>public class Sort {
 	private static void scomponi(int[] vettore, int[] temporaneo, int inferiore, int superiore) {
 	   if (inferiore &lt; superiore) {
@@ -192,7 +202,35 @@ preso lo togo e torno a fare la stessa operazione.</p>
 		}
 	}</pre>
 
-<p>FIXME: Per far eseguire l'algoritmo basterà inserire nel proprio codice <code>Sort.mergeSort(vett);</code></p>
+<h2>Confronto</h2>
+<p>Perché mai usare MergeSort che è così complicato quando BubbleSort funziona e è tanto semplice?</p>
+
+<p>Perché MergeSort è molto, molto, molto più veloce di BubbleSort! Ad esempio su un i7 a 2.5GH
+per ordinare 1000 nomi Merge impiega 1msec mentre Bubble 21msec... sembra una differenza trascurabile
+ma vediamo qualche caso reale: l'anagrafe di un comune vuole creare un elenco di cittadini ordinati per nome,
+cosa succederebbe in comuni di diverse dimensioni?</p>
+
+<table>
+    <tr>
+        <th>Comune</th><th>abitanti</th><th>tempo Bubble</th><th>tempo Merge</th>
+    </tr>
+    <tr>
+        <td>Fossato di Vico</td><td>2700</td><td>53 millisecondi</td><td>3 millisecondi</td>
+    </tr>
+    <tr>
+        <td>Gubbio</td><td>32000</td><td>7 secondi</td><td>25 millisecondi</td>
+    </tr>
+    <tr>
+        <td>Perugia</td><td>167000</td><td>6 minuti</td><td>0,1 secondi</td>
+    </tr>
+    <tr>
+        <td>Bologna</td><td>390000</td><td>35 minuti</td><td>0,25 secondi</td>
+    </tr>
+</table>
+
+<p>Senza addentrarci nella spiegazione formale (che esiste, basta cercare "calcolo della complessità")
+sul perché Merge è più veloce di Bubble in questo contesto ci basta notare che scrivere un programma 
+in modi diversi cambia di molto la sua velocità di esecuzione.</p>
 
 </article>
 </body>
