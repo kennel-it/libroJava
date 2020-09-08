@@ -4,6 +4,7 @@
 <!-- changelog 2018-03-23 inserita bozza di spiegazione per bubble sort -->
 <!-- changelog 2020-08-22 sistemato Bubble e inserito diagramma per Merge -->
 <!-- changelog 2020-09-07 confronto tra merge e bubble -->
+<!-- changelog 2020-09-08 inserito un Merge più chiaro -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8"/>
@@ -150,57 +151,82 @@ Devo fondere i vettori [3,8] e [1,5]. Guardo gli elementi di testa "3" e "1" e p
 successivamente guardo gli elementi che restano in cima cioè "3" e "5" e prendo 3, continuo così
 finche non fininscono tutti gli elementi.</p>
 
-<p>Questo algoritmo è ricorsivo cioè richiama se stesso su diverse parti del problema fino a che
-non viene risolto del tutto.</p>
-
 <img src="immagini/mergeSort.svg" alt="diagramma Merge Sort" style="width:50%"/>
 <p>Qui sotto è riportato il codice che implementa l'algoritmo, per utilizzarlo va
 chiamato il metodo <code>mergeSort()</code> passando come parametro il vettore da ordinare.</p>
+
 <pre>public class Sort {
-	private static void scomponi(int[] vettore, int[] temporaneo, int inferiore, int superiore) {
-	   if (inferiore &lt; superiore) {
-	      int centro = (inferiore + superiore) /2;
-	      scomponi(vettore, temporaneo, inferiore, centro);
-	      scomponi(vettore, temporaneo, centro+1, superiore);
-	      unisci(vettore, temporaneo, inferiore, centro+1, superiore);
-	   }
-	}
+
+    public static void mergeSort(int[] vettore) {
+        ordina (vettore, 0, vettore.length-1);
+    }
+
+    /************************************************************************
+     * Funzione che implementa l'algoritmo Merge Sort,
+     * divide (soltanto dal punto di vista logico) il vettore in due parti
+     * le ordina e poi le fonde 
+     * @param v      il vettore da ordinare
+     * @param primo  il primo elemento da ordinare del vettore (es: 0)
+     * @param ultimo l'ultimo elemento da ordinare del vettore (es: v.length-1)
+     ***********************************************************************/
+    public static void ordina(int[] v, int primo, int ultimo){
+        int medio;
+        if(primo&lt;ultimo){
+            medio=(ultimo+primo)/2;
+            ordina(v,primo,medio);
+            ordina(v,medio+1,ultimo);
+            merge(v,primo,ultimo,medio);
+        }
+    }
  
-	public static void mergeSort(int[] vettore) {
-	    //Creo un vettore di appoggio che chiamo temporaneo lungo come quello da ordinare
-		int temporaneo[] = new int[vettore.length];
-		scomponi (vettore, temporaneo, 0, vettore.length-1);
-	}
- 
-	private static void unisci(int[] vettore, int[] temporaneo, int inizioPrimo, int inizioSecondo, int fineSecondo) {
-		int finePrimo = inizioSecondo -1;
-		int posDestinazione = inizioPrimo;
-		int numElementi = fineSecondo - inizioPrimo+1;
-		while (inizioPrimot &lt;= finePrimo &amp;&amp; inizioSecondo &lt;= fineSecondo) {
-			if ((vettore[inizioPrimo]) &lt; (vettore[inizioSecondo])) {
-				temporaneo[posDestinazione] = vettore[inizioPrimo];
-				inizioPrimo++;
-			} else {
-				temporaneo[posDestinazione] = vettore[inizioSecondo];
-				inizioSecondo++;
-			}
-			posDestinazione++;
-		}
-		//Una volta terminata la fusione di uno dei due vettori, l'altro si copia così com'è
-		while (inizioPrimo &lt;= finePrimo) {
-			temporaneo[posDestinazione]=vettore[inizioPrimo];
-			posDestinazione++;
-			inizioPrimo++;
-		}
-		while (inizioSecondo &lt;= fineSecondo) {
-			temporaneo[posDestinazione]=vettore[inizioSecondo];
-			posDestinazione++;
-			inizioSecondo++;
-		}
-		for (int i=0;i&lt;vettore.length;i++) {
-			vettore[i]=temporaneo[i];
-		}
-	}</pre>
+    /************************************************************************
+     * Fonde due semi-vettori, 
+     * il primo va da "primo" a "medio"
+     * il secondo da "medio+1" a "ultimo"
+     * @param v     vettore che contiene le due parti da fondere
+     * @param primo primo elemento del primo semi-vettore
+     * @param ultimo    ultimo elemento del secondo semi-vettore
+     * @param medio ultimo elemento del primo semi-vettore
+     ***********************************************************************/
+    private static void merge(int[] v, int primo, int ultimo, int medio){
+        int appoggio[] = new int [ultimo-primo+1];
+        int inserimento=0;
+        int indicePrimo=primo;
+        int indiceSecondo=medio+1;
+        int i;
+        
+        // fondo la parte iniziale dei due vettori
+        while(indicePrimo&lt;=medio &amp;&amp; indiceSecondo&lt;=ultimo){
+            if(v[indicePrimo]&lt;v[indiceSecondo]){
+                appoggio[inserimento]=v[indicePrimo];
+                indicePrimo=indicePrimo+1;
+            }else{
+                appoggio[inserimento]=v[indiceSecondo];
+                indiceSecondo=indiceSecondo+1;
+            }
+            inserimento=inserimento+1;
+        }
+        // a questo punto potrebbe essere restata una parte del primo o del secondo pezzo
+        // ma non di entrambe
+        if(indicePrimo&lt;=medio){
+            // bisogna finire di inserire il primo vettore
+            for(i=indicePrimo;i&lt;=medio;i=i+1){
+                appoggio[inserimento]=v[i];
+                inserimento=inserimento+1;
+            }
+        }else{
+            // bisogna finire di inserire il secondo vettore
+            for(i=indiceSecondo;i&lt;=ultimo;i=i+1){
+                appoggio[inserimento]=v[i];
+                inserimento=inserimento+1;
+            }
+        }
+        // copio il vettore di appoggio nel vettore originale
+        for(i=0;i&lt;appoggio.length;i=i+1){
+            v[primo+i]=appoggio[i];
+        }
+    }
+}</pre>
 
 <h2>Confronto</h2>
 <p>Perché mai usare MergeSort che è così complicato quando BubbleSort funziona e è tanto semplice?</p>
