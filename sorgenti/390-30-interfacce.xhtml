@@ -5,6 +5,7 @@
 <!-- changelog 2017-08-07 inserito blocco contenuti -->
 <!-- changelog 2017-10-03 corretto riferimento insensato a "clienti" -->
 <!-- changelog 2020-05-11 cambiato nome della classe di esempio da InterfacciaRubrica a VisualizzatoreRubrica -->
+<!-- changelog 2020-09-19 fatte diverse sistemazioni nel capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -15,35 +16,40 @@
 <body>
 <header>
 <h1>interfacce</h1>
-<p>definire funzionalità comuni</p>
+<p>definire aspetti comuni</p>
 </header>
 <article>
 
-<p>Voglio realizzare un programma che gestista delle squadre di atletica,
+<p>Capita piuttosto spesso che classi diverse abbiano in realtà funzionalità comuni e che non si possa
+far si che queste siano sottoclassi di una classe comnune, altre volte questo non è neanche desiderabile:
+proviamo a vedere un esempio.</p>
+
+<p>Vogliamo realizzare un programma che gestisca delle squadre di atletica,
 tra le altre cose che deve fare deve gestire anche una rubrica telefonica che mi permetta di visualizzare
 i numeri di telefono di diversi soggetti con cui la mia società sportiva ha contatto:
 gli Atleti e le Squadre.</p>
 
-<p>Di una <code>Squadra</code> mi interessa sapere il colore demma maglia, il nome e il numero di telefono,
+<p>Di una <code>Squadra</code> mi interessa sapere il colore della maglia, il nome e il numero di telefono,
 di un <code>Atleta</code> mi interessa sapere il numero di telefono il nome e il tempo migiore sui 100m.</p>
 
-<p>Proviamo a fare così: creo una classe VisualizzatoreRubrica con due metodi:</p>
+<p>Il mio programma ha anche una classe che permette di visualizzare i numeri di telefono che
+si chiama VisualizzatoreRubrica, per adesso qeusta classe ha due soli metodi pubblici:</p>
 <pre>
 class VisualizzatoreRubrica {
 	/* altri metodi e variabili */
 	
-    void visualizzaSquadra(Squadra s){
+    public void visualizzaSquadra(Squadra s){
         campoNome.setText(s.getNome());
         ...
     }
-    void visualizzaAtleta(Atleta a){
+    public void visualizzaAtleta(Atleta a){
         campoNome.setText(a.getNome());
         ...
     }
 }
 </pre>
 
-<p>E se in futuro esistessero altre entità (ad esempio un Allenatore o una "Palestra")
+<p>E se in futuro esistessero altre entità (ad esempio un "Allenatore" o una "Palestra")
 che io vorrò visualizzare? Dovrei di nuovo andare a modificare <code>VisualizzatoreRubrica</code>.
 Come posso fare in modo che la mia interfaccia grafica funzioni senza doverla stare sempre
 a modificare?</p>
@@ -76,7 +82,7 @@ un oggetto deve avere.</p>
 
 <h2>Implementazione di una interfaccia</h2>
 <p>Adesso dobbiamo dichiarare che il nostro Atleta si comporta anche come un ElementoRubrica: 
-dobbiamo cioè <em>implementare</em> l'interfaccia usando la parola chiave <code>implements</code>.
+dobbiamo cioè <em>implementare</em> l'interfaccia usando la parola chiave <code>implements</code>.</p>
 
 <pre>
 public class Atleta <em>implements</em> ElementoRubrica {
@@ -96,10 +102,14 @@ public class Atleta <em>implements</em> ElementoRubrica {
 }
 </pre>
 
-<p>Sebbene in Java è possibile estendere una sola classe si possono però
-implementare quante interfacce si vuole (separandone i nomi da ",").</p>
+<p>Sebbene in Java sia possibile estendere una sola classe si possono però
+implementare quante interfacce si vuole (separandone i nomi da ",").
+Bisogna però tener presente che una interfaccia non può essere direttamente instanziata 
+cioè non posso creare un oggetto di tipo ElementoRubrica usando <code>new</code> 
+perché nella definizione dell'interfaccia io non ho definito il suo comportamento 
+(manca il corpo dei metodi).</p>
 
-<p>Il vantaggio a questo punto è questo: nella mia classe VisualizzatoreRubrica
+<p>Il vantaggio a questo punto è questo: nella mia classe <code>VisualizzatoreRubrica</code>
 posso ignorare quale oggetto particolare devo visualizzare, mi interessa soltanto
 che implementi l'opportuna interfaccia <code>ElementoRubrica</code>.</p>
 <pre>
@@ -113,14 +123,6 @@ class VisualizzatoreRubrica {
 </pre>
 <p>Se volessi implementare questa interfaccia anche nell'oggetto Allenatore
 la mia interfaccia grafica non avrebbe bisogno di nessuna modifica.</p>
-
-<p>Una interfaccia non può:</p>
-<ul>
-<li>essere direttamente instanziata cioè non posso 
-creare un oggetto di tipo ElementoRubrica usando <code>new</code> perché nella definizione
-dell'interfaccia io non ho definito il suo comportamento (manca il corpo dei metodi).</li>
-<li>avere variabili di istanza (proprietà modificabili della classe)</li>
-</ul> 
 
 </article>
 </body>
