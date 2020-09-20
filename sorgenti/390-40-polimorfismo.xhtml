@@ -4,6 +4,7 @@
 <!-- changelog 2017-07-04 inserito capitolo vuoto -->
 <!-- changelog 2017-08-07 inserito blocco contenuti -->
 <!-- changelog 2017-08-22 aggiunto costruttore come esempio di polimorfismo -->
+<!-- changelog 2020-09-20 definizione iniziale e riscritta parte sui generics -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -18,11 +19,12 @@
 </header>
 <article>
 
-<h2>TODO: da dividere? </h2>
+<p class="FIXME">[serve revisione] Usando il termine <em>polimorfismo</em> facciamo riferimento a un metodo
+o una classe che può operare su oggetti di tipo diverso.</p>
 
 <h2>Metodi</h2><!-- Ad hoc polymorphism, function overloading -->
 <p>Questo tipo di polimorfismo è noto anche come <em>function overloading</em>.</p>
-<p>All'interno di una classe possiamo vere più metodi con lo stesso
+<p>All'interno di una classe possiamo avere più metodi con lo stesso
 nome: l'importante è che il numero degli argomenti o il loro tipo non coincidano.
 Detto in altri termini due metodi sono diversi se hanno un numero di argomenti diversi
 o se hanno lo stesso numero di argomenti ma di tipi diversi.</p>
@@ -64,18 +66,34 @@ class Persona {
 } 
 </pre>
 
-<h2>Classi (generics)</h2>
-<p class="FIXME">ci andiamo a impelagare in un discorso complicato? come facciamo
-per evitarlo visto che si usa almeno nelle ListView?</p>
-<p>Java ha un modo per definire dei tipi parametrici: ad esempio nell interfacce grafiche 
-posso dire di avere una ListView di String oppure di Integer...</p>
-<p>Per specificare questo fatto il tipo degli oggetti contenuti va specifivato tra 
-&lt;&gt;</p> 
-<p>Ad esempio per creare una lista che contiene dei testi usiamo il tipo
-<code>ListView&lt;String&gt;</code> e più precisamente per creare l'oggetto<br/>
-<code>ListView&lt;String&gt; l = new ListView&lt;&gt;()</code><br/>
-nella creazione dell'oggetto (dopo il new) non è necessario inserire di nuovo il tipo dell'oggetto contenuto.</p>
+<section class="approfondimento">
+    <h2>Classi (generics)</h2>
+    <p>Oltre che nei metodi si possono definire anche degli oggetti (classi) parametrici: proviamo
+    a pensare ad un oggetto che rappresenta un insieme, sarebbe comodo poter fare insiemi di numeri,
+    di nomi, o di colori senza dover creare tre classi diverse. 
+    Questo si fa utilizzando dei tipi (classi nel nostro caso) parametrici.
+    Nelle interfacce grafiche 
+    posso dire di avere una ListView di String oppure di Integer o altro, in molti altri
+    contesti torna utile un meccanismo simile e nella libreria di java ci sono
+    tantissime classi parametriche.</p>
 
+    <p>Qui non impareremo a definire oggetti fatti in questo modo ma ci limitiamo soltanto
+    a vedere come si usano.</p>
+        
+    <p>Per utilizzare i tipi parametrici  
+    si inserisce <em>&lt;</em> dopo il nome della classe, <em>il tipo parametrico</em> e poi un <em>&gt;</em>,
+    potrebbe sembrare complicato ma con un esempio si capisce subito:</p>
+
+     
+    <p>Nel mio programma che usa JavaFX voglio creare una lista che visualizzi dei testi: uso
+    <code>ListView&lt;String&gt;</code> e più precisamente per creare l'oggetto<br/>
+    <code>ListView&lt;String&gt; l = new ListView&lt;String&gt;()</code><br/>
+    queste cose si fanno così tanto comunemente che nel costruttore (quello dopo il new!)
+    per comodità non è necessario inserire di nuovo il tipo dell'oggetto contenuto, quindi in genere avremo:<br/>
+    <code>ListView&lt;String&gt; l = new <em>ListView&lt;&gt;</em>()</code>
+    </p>
+    
+</section>
 
 </article>
 </body>

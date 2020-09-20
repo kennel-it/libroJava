@@ -6,6 +6,7 @@
 <!-- changelog 2017-10-03 corretto riferimento insensato a "clienti" -->
 <!-- changelog 2020-05-11 cambiato nome della classe di esempio da InterfacciaRubrica a VisualizzatoreRubrica -->
 <!-- changelog 2020-09-19 fatte diverse sistemazioni nel capitolo -->
+<!-- changelog 2020-09-20 aggiunta definizione di interfaccia e pulito ulteriormente -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -33,7 +34,7 @@ gli Atleti e le Squadre.</p>
 di un <code>Atleta</code> mi interessa sapere il numero di telefono il nome e il tempo migiore sui 100m.</p>
 
 <p>Il mio programma ha anche una classe che permette di visualizzare i numeri di telefono che
-si chiama VisualizzatoreRubrica, per adesso qeusta classe ha due soli metodi pubblici:</p>
+si chiama VisualizzatoreRubrica, per adesso questa classe ha due soli metodi pubblici:</p>
 <pre>
 class VisualizzatoreRubrica {
 	/* altri metodi e variabili */
@@ -49,16 +50,26 @@ class VisualizzatoreRubrica {
 }
 </pre>
 
-<p>E se in futuro esistessero altre entità (ad esempio un "Allenatore" o una "Palestra")
-che io vorrò visualizzare? Dovrei di nuovo andare a modificare <code>VisualizzatoreRubrica</code>.
+<p>E se in futuro esistessero altre entità (ad esempio "Allenatore" o "Palestra")
+che io vorrò visualizzare? Dovrei di nuovo andare a modificare <code>VisualizzatoreRubrica</code>
+cosa tutt'altro che comoda perché ad esempio ad occuparsi dell'interfaccia grafica potrebbe essere un
+programmatore che fa solo quello mente a gestire Squadra, Atleta, Allenatore e simili è un altro.
 Come posso fare in modo che la mia interfaccia grafica funzioni senza doverla stare sempre
 a modificare?</p>
 
 <p>Per risolvere questo problema ci vengono in aiuto le interfacce. 
-L'idea è questa: entrambe gli oggetti rappresentano una voce di rubrica 
+L'idea è questa: entrambe gli oggetti (Atleta e Squadra) rappresentano oltre alle loro peculiari
+caratteristiche anche una voce di rubrica 
 e nel contesto di <code>VisualizzatoreRubrica</code> non ci interessa altro
 (non importa il tempo sui 100m per esempio).
-Possiamo esplicitare al livello sintattico questo concetto.</p>
+Possiamo esplicitare al livello sintattico questo concetto usando le <em>interfacce</em>.</p>
+
+
+<dfn>Una <em>interfaccia</em> è un tipo astratto (cioè di cui non si possono creare istanze usando new)
+usato per specificare il comportamento che deve avere una classe che lo implementa.</dfn>  
+
+<p>Quindi dalla definizione si capisce che da qualche parte l'interfaccia viene dichiarata e da qualche
+altra implementata.</p>
 
 <h2>Dichiarazione di una interfaccia</h2>
 <p>Una interfaccia si dichiara in un file come una normale classe ma sostituendo
@@ -111,18 +122,21 @@ perché nella definizione dell'interfaccia io non ho definito il suo comportamen
 
 <p>Il vantaggio a questo punto è questo: nella mia classe <code>VisualizzatoreRubrica</code>
 posso ignorare quale oggetto particolare devo visualizzare, mi interessa soltanto
-che implementi l'opportuna interfaccia <code>ElementoRubrica</code>.</p>
+che implementi l'opportuna interfaccia <code>ElementoRubrica</code>. Il nostro
+codice diventa:</p>
 <pre>
 class VisualizzatoreRubrica {
-	/* altri metodi e variabili */
+    /* altri metodi e variabili */
     void visualizza(ElementoRubrica e){
 	    campoNome.setText(e.getNome());
 	    ...
     }
 }
 </pre>
-<p>Se volessi implementare questa interfaccia anche nell'oggetto Allenatore
-la mia interfaccia grafica non avrebbe bisogno di nessuna modifica.</p>
+<p>Adesso al metodo <code>visualizza()</code> non interessa quale tipo di oggetto viene passato ma
+soltanto che implementi l'interfaccia <code>ElementoRubrica</code>.
+Se volessi implementare questa interfaccia anche nell'oggetto Allenatore
+la mia interfaccia grafica non avrebbe bisogno di nessuna modifica e funzionerebbe comunque.</p>
 
 </article>
 </body>
