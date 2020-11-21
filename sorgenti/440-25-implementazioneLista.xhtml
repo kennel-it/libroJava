@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- grafoIndice requires="oggetti flusso" group="algoritmiStruttureDati" -->
+<!-- grafoIndice requires="struttureDinamiche" group="algoritmiStruttureDati" -->
 <!-- changelog 2017-07-04 inserito capitolo vuoto -->
 <!-- changelog 2020-01-10 inseriti primi contenuti -->
 <!-- changelog 2020-01-14 corretto pila in lista -->
@@ -10,22 +10,22 @@
     	<meta charset="UTF-8"/>
         <title>liste</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
-        <script type="text/javascript" src="script/test.js"></script>         
+        <script type="text/javascript" src="script/test.js"></script>
+        <style>
+            h2 { clear: both }
+            img { padding:1.25em; border: 1px solid gray; margin:0.5em }
+            div.test {clear:both }
+        </style>         
     </head>
 <body>
 <header>
-<h1>liste</h1>
-<p>first in first out</p>
+    <h1>struttureDinamiche</h1>
+    <p>gestire un numero indefinito di dati</p>
 </header>
 <article>
-  <p>Le strutture dati <em>dinamiche</em> sono essenziali per sviluppare software:
-  come sarebbe possibile creare un programma che elabora un elenco di numeri senza usare i vettori?</p>
-  <p>Questa struttura dati ha però un limite: la sua lunghezza viene stabilita al momento della creazione
-  e non può più essere variata né tanto meno posso essere rimossi elementi da un vettore. 
-  Quando queste condizioni risultano essere limitanti si può far ricorso a delle strutture dati che
-  possono cambiare la loro dimensione durante l'esecuzione del programma.</p>
-  
-  <p>Prima di addentrarci nella loro realizzazione dobbiamo 
+ 
+    
+    <p>Prima di addentrarci nella loro realizzazione dobbiamo 
   ricordare che in Java le variabili di tipo non base sono in pratica dei riferimenti
   a zone di memoria in cui l'oggetto viene memorizzato. 
   Questi riferimenti non sono però direttamente manipolabili come in altri linguaggi.</p>
