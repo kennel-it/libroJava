@@ -57,9 +57,10 @@ x = a.getText();
   <p>L'elemento base viene chiamato <em>Nodo</em> e contiene una informazione (ad esempio un numero)
   e un modo per raggiungere l'elemento successivo.</p>
 
-  <p>Quando dichiariamo la variabile <code>Button b</code> in pratica stiamo dicendo che <code>b</code></p>
+  <p>Quando dichiariamo la variabile <code>Button b</code> in pratica stiamo dicendo che <code>b</code>
+  indicherà una zona di memoria in cui è descritto un oggetto di tipo Button.</p>
 
-  <p>Proviamo a vedere come possiamo dichiarare il <code>Nodo</code> nel caso di una lista che 
+  <p>Proviamo a vedere come possiamo dichiarare il <code>Nodo</code> nel caso di una coda che 
   memorizzi delle stringhe:</p>
 <pre>
 public class Nodo {
@@ -75,7 +76,7 @@ public class Nodo {
   
   
   <h2>Coda</h2>
-  <p>Avendo il singolo blocchetto implementiamo la lista cercando di fare il meno possibile!
+  <p>Avendo il singolo blocchetto implementiamo la coda cercando di fare il meno possibile!
   Sarebbe a dire che implementeremo soltanto le funzionalità strettamente necessarie.</p>
   <p>La coda di per se deve mantenere un riferimento
   al suo primo elemento (che è tradizionalmente chiamato testa), e poi due metodi per inserire
@@ -83,7 +84,6 @@ public class Nodo {
   si inseriscono gli elementi: l'importante è che vengano estratti dalla parte opposta.</p>
   <p>La nostra implementazione inserisce in coda e estrae in testa, per esercizio è possibile fare
   l'inverso.</p> 
-
 
 <pre>
 public class Coda {

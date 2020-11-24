@@ -67,11 +67,10 @@ System.out.println(elenco.size()); // stamperà "3"
 elenco.remove(1);       // elenco conterrà ["pollo", "gatto"]
 System.out.println(elenco.size()); // stamperà "2"
 </pre>   
-    
-    
     <h2>Le code</h2>
-    <p>Una <em>coda</em> è in pratica l'implemantazione informatica di una coda alla cassa
-    del supermercato: può contenere un elenco di oggetti di lunghezza indefinita 
+    <p>Una <em>coda</em> (a volte chiamata anche lista) è in pratica l'implemantazione informatica 
+    di una coda alla cassa del supermercato: 
+    può contenere un elenco di oggetti di lunghezza indefinita 
     (nel senso che si espande e contra all'occorrenza) e nella sua forma più elementare ci consente 
     soltanto due operazioni: inserire oggetti ad un estremo ed astrarli dall'altro.
     Questa struttura è normalmente classificata come "FIFO": First In First Out, 
@@ -126,6 +125,13 @@ System.out.println(elenco.size()); // stamperà "2"
         <dd>inserisce un elemento in testa alla pila</dd>
         <dt>estrai</dt>
         <dd>estrae un elemento dalla testa della pila (una volta estratto non si trova più nella pila)</dd>
+    </dl>
+    <p>È possibile che una implementazione della pila prevada due ulteriori operazioni:</p>
+    <dl>
+        <dt>leggiTesta</dt>
+        <dd>legge l'elemento in testa alla pila senza estrarlo</dd>
+        <dt>vuota</dt>
+        <dd>ritorna true se la pila è vuota</dd>
     </dl>
     
     <p>Nella foto di esempio sono stati inserirti nell'ordine i numeri 44, 31, 17 e alla fine 10.
