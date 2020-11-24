@@ -35,8 +35,39 @@
     Quando queste condizioni risultano essere limitanti si può far ricorso ad altre strutture
     che possono cambiare la loro dimensione durante l'esecuzione del programma.</p>
     
-    <p>Nelle sezioni successive vedremo la varsione base si alcune strutture dati dinamiche:
-    liste, pile ed alberi.</p>
+    <h3>ArrayList</h3>
+    <p>Molto spesso quando serve avere una struttura che si espande dinamicamente in java
+    si usa <code>java.util.ArrayList</code>. Questo oggetto è molto flessibile e permette di 
+    inserire/rimuovere/leggere elementi da qualsiasi punto dell'elenco che implementa.
+    Alcuni metodi utili dell'<code>ArrayList</code> sono:</p>
+    
+    <dl>
+        <dt>add( elemento )</dt>
+        <dd>aggiunge "elemento" in fondo alla coda</dd>
+        <dt>add( posizione, elemento)</dt>
+        <dd>inserisce "elemento" alla posizione specificata</dd>
+        <dt>size()</dt>
+        <dd>ritorna il numero di elementi presenti nella lista</dd>
+        <dt>remove(posizione)</dt>
+        <dd>rimuove l'elemento presente alla posizione specificata</dd>
+    </dl>
+    <p>Proviamo a vedere un esempio:</p>
+<pre>// alla creazione di un ArrayiList specifico il tipo degli oggetti che conterrà
+ArrayList&lt;String&gt; elenco = new ArrayList&lt;String&gt;();
+elenco.add("cane");     // elenco conterrà ["cane"] 
+elenco.add("gatto");    // elenco conterrà ["cane", "gatto"]
+nome = elenco.get(0);
+System.out.println(nome); // stamperà "cane"
+nome = elenco.get(1);
+System.out.println(nome); // stamperà "gatto"
+elenco.add(0,"pollo");  // elenco conterrà ["pollo", "cane", "gatto"]
+nome = elenco.get(0);
+System.out.println(nome); // stamperà pollo 
+System.out.println(elenco.size()); // stamperà "3" 
+elenco.remove(1);       // elenco conterrà ["pollo", "gatto"]
+System.out.println(elenco.size()); // stamperà "2"
+</pre>   
+    
     
     <h2>Le code</h2>
     <p>Una <em>coda</em> è in pratica l'implemantazione informatica di una coda alla cassa
@@ -74,40 +105,7 @@
     
     <h3>Le code nella libreria standard java</h3>
     <p>Formalmente nella libreria standard java ci sono diversi oggetti che implementano le code,
-    va bene ad esempio <code>java.util.Deque</code>.</p>
-    
-    <h3>ArrayList</h3>
-    <p>Molto spesso quando serve avere una struttura che si espande dinamicamente in java
-    si usa <code>java.util.ArrayList</code>. Questo oggetto è molto flessibile e permette di 
-    inserire/rimuovere/leggere elementi da qualsiasi punto dell'elenco che implementa.
-    Alcuni metodi utili dell'<code>ArrayList</code> sono:</p>
-    
-    <dl>
-        <dt>add( elemento )</dt>
-        <dd>aggiunge "elemento" in fondo alla coda</dd>
-        <dt>add( posizione, elemento)</dt>
-        <dd>inserisce "elemento" alla posizione specificata</dd>
-        <dt>size()</dt>
-        <dd>ritorna il numero di elementi presenti nella lista</dd>
-        <dt>remove(posizione)</dt>
-        <dd>rimuove l'elemento presente alla posizione specificata</dd>
-    </dl>
-    <p>Proviamo a vedere un esempio:</p>
-<pre>// alla creazione di un ArrayiList specifico il tipo degli oggetti che conterrà
-ArrayList&lt;String&gt; elenco = new ArrayList&lt;String&gt;();
-elenco.add("cane");     // elenco conterrà ["cane"] 
-elenco.add("gatto");    // elenco conterrà ["cane", "gatto"]
-nome = elenco.get(0);
-System.out.println(nome); // stamperà "cane"
-nome = elenco.get(1);
-System.out.println(nome); // stamperà "gatto"
-elenco.add(0,"pollo");  // elenco conterrà ["pollo", "cane", "gatto"]
-nome = elenco.get(0);
-System.out.println(nome); // stamperà pollo 
-System.out.println(elenco.size()); // stamperà "3" 
-elenco.remove(1);       // elenco conterrà ["pollo", "gatto"]
-System.out.println(elenco.size()); // stamperà "2"
-</pre>    
+    va bene ad esempio <code>java.util.Deque</code>.</p> 
 
     
     <h2>Le pile</h2>
