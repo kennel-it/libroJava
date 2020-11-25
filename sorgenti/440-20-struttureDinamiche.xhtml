@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <!-- grafoIndice requires="oggetti flusso" group="algoritmiStruttureDati" -->
 <!-- changelog 2020-11-21 inserito capitolo con code e pile -->
+<!-- changelog 2020-11-25 inserito esempio sulle code -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -104,8 +105,20 @@ System.out.println(elenco.size()); // stamperà "2"
     
     <h3>Le code nella libreria standard java</h3>
     <p>Formalmente nella libreria standard java ci sono diversi oggetti che implementano le code,
-    va bene ad esempio <code>java.util.Deque</code>.</p> 
-
+    va bene ad esempio <code>java.util.LinkedList</code> che in realtà ha qualche metodo
+    in più rispetto all'implemtazione di base, vediamo un esempio:</p> 
+<pre>String nome;
+LinkedList&lt;String&gt; codaDiNomi = new LinkedList&lt;String&gt;();
+codaDiNomi.add("mario"); // la coda ha un solo elemento: "mario"
+codaDiNomi.add("lucia"); // in fondo alla coda adesso c'è "lucia"
+codaDiNomi.add("paola"); // in fondo alla coda adesso c'è "paola"
+nome = codaDiNomi.remove();  // "mario" perché è l'elemento in testa alla coda
+System.out.println( nome );
+nome = codaDiNomi.element(); // "lucia" perché è l'elemento in testa alla coda
+System.out.println( nome );
+nome = codaDiNomi.remove();  // ancora "lucia" perché element() non lo aveva estratto
+System.out.println( nome );</pre>
+    
     
     <h2>Le pile</h2>
     <p>Una <em>pila</em> gestisce gli oggetti un po' come... la pila dei piatti: l'ultimo piatto 
@@ -165,7 +178,7 @@ nome = pilaDiNomi.pop();  // "paola" perché è l'elemento in testa alla pila
 System.out.println( nome );
 nome = pilaDiNomi.peek(); // "lucia" perché è l'elemento in testa alla pila
 System.out.println( nome );
-nome = pilaDiNomi.pop();  // ancora "lucia" perchpeek non lo aveva estratto
+nome = pilaDiNomi.pop();  // ancora "lucia" perché peek() non lo aveva estratto
 System.out.println( nome );
 nome = pilaDiNomi.pop();  // "mario", quello rimasto in cima alla pila
 System.out.println( nome );
