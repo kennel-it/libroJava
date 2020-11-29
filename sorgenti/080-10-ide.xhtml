@@ -79,22 +79,17 @@ I primi due sono Open Source e il terzo no ma è molto usato.</p>
 <p>Va bene una qualsiasi combinazione di JDK+IDE+JavaFX che consenta di sviluppare applicazioni,
 qui riportiamo la soluzione più semplice che usa tutto software Open: Eclipse come IDE e il JDK 
 di Liberica (perché include già JavaFX e ci risparmia un po' di lavoro e di seccature).</p>
-<p>In prtatica:</p>
-<ol>
-    <li>Verificare di non avere nessuna versione del JDK installato</li>
-    <li>Scaricare e installare il JDK Liberica dal sito di 
-        <a href="https://bell-sw.com/">Bell Soft</a>: versione 14 (attenzione: 
-        dopo l'uscita della 15 la versione 14 è più difficile da reperire, 
-        dalla pagina di download fare click su "ALL VERSIONS" e scegliere l'ultima release dalla 14), 
-        attenzione a scegliere<em>Full JDK</em> come Package.</li>
-    <li>Scaricare <a href="https://www.eclipse.org/downloads/packages/">Eclipse IDE for Enterprise Java Developers</a>:
-        va bene il file zip nella versione "Eclipse IDE for Enterprise Java Developers"</li>
-</ol>
+<p>Il lavoro da fare cambia a seconda del fatto che il sistema abbia già o meno una versione
+del JDK installato ma questo è facile da verificare: basta aprire un terminale, scrivere "java"
+e battere invio, se il comando da errore il JDK non c'è.</p>
 
-<h2>pulizia!</h2>
+<h2>In caso sia utile: pulizia</h2>
 <p>In caso che serva è possibile ripulire l'ambiente di sviluppo prima di installare il
 software che ci serve, sono operazioni da fare con attenzione perché si va ad operare
 direttamente sulle impostazioni del sistema.</p>
+<p style="color:red">Queste operazioni vanno fatte soltanto se si è assolutamente sicuri si
+poter rimuovere java, ad esempio se si vuole usare Minecraft non bisogna farlo. 
+Dopo aver rimosso java alcuni programmi potrebbero non funzionare più.</p>
 <ul>
     <li>se non ci sono programmi che necessitano di una specifica versione di java
     aprire il pannello di controllo e rimuovere tutte le versioni di java installate
@@ -118,123 +113,92 @@ direttamente sulle impostazioni del sistema.</p>
     </li>
 </ul>
 
+<h2>Installazione ambiente di sviluppo</h2>
+<h3>In assenza di un JDK</h3>
+<ol>
+    <li>Scaricare e installare il JDK versione 14 di Liberica dal sito di 
+        <a href="https://bell-sw.com/">Bell Soft</a>:  
+        dopo l'uscita della 15 la versione 14 è più difficile da reperire
+        <ul>
+            <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
+            fare click su "ALL VERSIONS"</li>
+            <li>scegliere come "Java Version" la 14</li>
+            <li>scegliere come "Release Version" la più recente (es: 14.0.2+13 è più recente di 14.0.1+8)</li>
+            <li>proseguire scegliendo il sistema operativo e l'architettura</li>
+            <li>come "Package type" scegliere "Full JDK"</li>
+            <li>scaricare il pacchetto installabile (ad esempio "MSI" per windows)</li>
+            <li>installare il pacchetto</li>
+        </ul> 
+    </li>
+    <li>Scaricare Eclipse
+        <ul>
+            <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
+            pagina dei download di Eclipse</a></li>
+            <li>Scaricare "Eclipse IDE for Enterprise Java Developers", è un file zip</li>
+            <li>Scompattare il file .zip appena scricato sulla scrivania</li>
+        </ul>
+    </li>
+</ol>
+<p>Ovviamente Eclipse può essere scompattato dove si preferisce ma 
+il file eseguibile di eclipse non va spostato dalla sua cartella.</p>
+    
+<h3>Se c'è un jdk installato (più facile)</h3>
+<ol>
+    <li>Scaricare il JDK versione 14 di Liberica dal sito di 
+        <a href="https://bell-sw.com/">Bell Soft</a>:  
+        dopo l'uscita della 15 la versione 14 è più difficile da reperire
+        <ul>
+            <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
+            fare click su "ALL VERSIONS"</li>
+            <li>scegliere come "Java Version" la 14</li>
+            <li>scegliere come "Release Version" la più recente (es: 14.0.2+13 è più recente di 14.0.1+8)</li>
+            <li>proseguire scegliendo il sistema operativo e l'architettura</li>
+            <li>come "Package type" scegliere "Full JDK"</li>
+            <li>scaricare il file zip</li>
+            <li>scompattare il file sulla scrivania</li>
+        </ul> 
+    </li>
+    <li>Scaricare Eclipse
+        <ul>
+            <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
+            pagina dei download di Eclipse</a></li>
+            <li>Scaricare "Eclipse IDE for Enterprise Java Developers", è un file zip</li>
+            <li>Scompattare il file .zip appena scricato sulla scrivania</li>
+        </ul>
+    </li>
+    <li>Configurare eclipse
+        <ul>
+            <li>Necessario solo per macOS: avviare Eclipse che darà errore ma va bene così</li> 
+            <li>Aprire la cartella scompattata del JDK e all'interno di questa aprire la
+            cartella "bin"</li>
+            <li>Copiare il percorso della cartella</li>
+            <li>Aprire il file eclipse.ini che sta nella stessa cartella dell'eseguibile di eclipse
+            con un editor di testo.</li>
+            <li>prima della riga "-vmargs" aggiungere due righe:</li>
+            <li>nella prima va scritto soltanto "-vm"</li>
+            <li>nella seconda riga va incollato il path copiato prima aggiungendo una backslash e "javaw.exe",
+            alla fine si dovrebbe avere una cosa tipo
+            <pre>
+            [altre cose qui sopra]
+            --launcher.appendVmargs
+            <em>-vm</em>
+            <em>C:\Users\pluto\Desktop\java\liberica-jdk-14.0.1-full\bin\javaw.exe</em>
+            -vmargs
+            [altre cose qui sotto]
+            </pre>
+            </li>
+        </ul>
+    </li>
+</ol>
+<p>Ovviamente Eclipse può essere scompattato dove si preferisce ma 
+il file eseguibile di eclipse non va spostato dalla sua cartella.</p>
 
-<p class="FIXME">la parte qui sotto è vecchia e non è stata rivista, per ora è da ignorare</p>
-
-<h2>installare java e javafx</h2>
-<ul>
-    <li>scaricare l'installatore di java 11 o successivo da
-    <a href="https://adoptopenjdk.net/">AdoptOpenJDK</a></li>
-    <li>durante l'installazione attivare l'opzione "set JAVA_HOME variable"</li>
-    <li class="prova">per testare se è stato fatto tutto bene basta aprire il CMD e scrivere <code>java</code></li>
-    <li>scaricare la libreria javafx (l'SDK, non jmod) dal 
-    <a href="https://gluonhq.com/products/javafx/">sito di openjfx</a> 
-    (una versione stabile, non le "Early-Access Builds")</li>
-    <li>scompattare il file zip appena scaricato (in una posizione qualsiasi, poniamo sulla scrivania)</li>
-</ul>
 
 <h2>IDE</h2>
 
 <p>Per sviluppare i nostri programmi (usando Java o un qualsiasi altro linguaggio)
 è molto comodo usare degli strumenti chiamati IDE (Integrated Development Environment)
 che ci permettono di sviluppare software più agevolmente.</p>
-
-<section class="netbeans">
-<p>È possibile scaricare <a href="http://netbeans.apache.org/">NetBeans dal suo sito</a>,
-dalla versione 11.1 è possibile scaricare l'installer ma anche il pacchetto contrassegnato
-come "Binaries" va bene. <span class="prova">Durante l'installazione NetBeans mostra di aver trovato 
-la versione di java corretta sotto l'etichetta "Java environment for the Apache NetBeans IDE".</span></p>
-<p>Al primo avvio è possibile che NetBeans si lamenti per l'impossibilità di impostare "Nashhorn",
-va bene disabilitare i moduli correlati.</p>
-
-<h2>Creare la libreria JavaFX</h2>
-<p>Come spesso accade nella realizzazione di programmi utilizzeremo una libreria scritta da altri, 
-per semplicità impostiamo una volta per tutte in NetBeans i parametri per questa libreria:</p>
-<ul>
-    <li>Menu /Tools/libraries</li>
-    <li>click sul pulsante "New library..."</li>
-    <li>come nome inserire "JavaFX"</li>
-    <li>adesso sulla sinistra deve essere selezionata "JavaFX" e al centro c'è una lista vuota</li>
-    <li>click su "Add JAR/Folder ..."</li>
-    <li>aprire la cartella dell'SDK di JavaFX (quello scaricato prima), aprire poi la cartella 
-    <code>lib</code> al suo interno</li>
-    <li>selezionare tutti i jar presenti e poi click su "Add JAR/Folder"</li>
-    <li>poi click su "OK" per chiudere il progetto</li>
-</ul>
-
-<h2>Creare un progetto</h2>
-<ul>
-    <li>click sul menu /File/New Project...</li>
-    <li>categoria "Java with Ant" (ignorare le sottocategorie) progetto: "Java Application", click su "Next"</li>
-    <li>inserire il nome del progetto poi click su "Finish"</li>
-    <li>configurare il nuovo progetto per utilizzare la libreria di JavaFX
-        <ul>
-            <li>aprire le proprietà del progetto (click ccon il destro sul nome del progetto
-            e poi "properties")</li>
-            <li>selezionare sulla sinistra la categoria "Libraries"</li>
-            <li>nella linguetta "compile" click sul "+" alla destra di "Classpath" poi "add library"
-            e aggiungere "JavaFX"</li>
-            <li>nella linguetta "run" click sul "+" alla destra di "Modulepath" poi "add library"
-            e aggiungere "JavaFX"</li>
-            <li>selezionare sulla sinistra la categoiria "run"</li>
-            <li>nella casella "VM Options" inserire "--add-modules javafx.controls,javafx.fxml,javafx.media"</li>
-        </ul>
-    </li>
-</ul>
-<p>A questo punto è possibile creare nuove classi java utilizzando anche gli oggetti di JavaFX.</p>
-</section>
-
-
-<section class="eclipse">
-<p>È possibile scaricare <a href="https://www.eclipse.org/downloads/">Eclipse dal suo sito</a>,
-l'installer va bene ma anche i singoli pacchetti (che sono degli zip e non vanno installati)
-raggiungibili su <a href="https://www.eclipse.org/downloads/packages/">Download Packages</a> 
-vanno bene, in questo caso il pacchetto è "Eclipse IDE for Java Developers". 
-</p>
-<p>Al primo avvio di eclipse compare un pannello di presentazione, bisogna fare click su "Workbech"
-per andare nello spazio di lavoro.</p>
-
-<h2>Creare un ambiente di esecuzione Java+JavaFX</h2>
-<p>Come spesso accade nella realizzazione di programmi utilizzeremo una libreria scritta da altri, 
-per semplicità impostiamo una volta per tutte in Eclipse un ambiente di esecuzione per i nostri
-programmi che include sia gli oggetti base di java che quelli di JavaFX:</p>
-<ul>
-    <li>menu /Window/Preferences</li>
-    <li>selezionare il gruppo "Java" e poi il sottogruppo "Installed JREs"</li>
-    <li>selezionare il JRE che inizia con "jdk-" e la versione di java che hai installato</li>
-    <li>click su "duplicate" e su "JRE name" scrivere "jdk11+fx"</li>
-    <li>click su "Add External JARs..."</li>
-    <li>riaprire la cartella di javafx che hai scaricato e scompattato in precedenza, 
-    aprire la sottocartella "lib" e selezionare tutti i file ".jar" poi click su "finish"</li>
-    <li>sistemare gli argomenti della VM
-        <ul>
-            <li>la casella dovrebbe essere vuota</li>
-            <li>aggiungere <code>--add-modules javafx.controls,javafx.fxml,javafx.media</code></li>
-            <li>aprire sulla scrivania la cartella scompattata di javafx, aprire la cartella lib</li>
-            <li>copiare il percorso (es: C:\Users\mario\Desktop\javafx-sdk-12.0.2\lib)</li>
-            <li>aggiungere anche "--module-path" seguito da uno spazio e dal percorso copiato al passo precedente</li>
-            <li class="prova">nella casella "Default VM arguments" dovrebbe esserci una cosa del tipo
-            <code>--add-modules javafx.controls,javafx.fxml,javafx.media --module-path C:\Users\test\Desktop\javafx-sdk-12.0.2\lib</code>,
-            attenzione agli spazi!</li>
-            <li>click su "finish"</li>
-            <li>per comodità spuntare il quadratino alla sinistra del JRE appena creato (così verrà usato come predefinito)</li>
-            <li>click su "apply and close"</li>
-        </ul>
-    </li>
-</ul>
-
-<h2>Creare un progetto</h2>
-<ul>
-    <li>click sul menu /File/New/Java Project</li>
-    <li>inserire il nome del progetto</li>
-    <li>nel gruppo "JRE" selezionare "Use a project specific JRE" e assicuratsi che sulla destra
-    sia selezionato "jdk11+fx" che hai creato prima</li>
-    <li>click su finish</li>
-    <li>a questo punto compare la finestra "Create module-info.java", click su "don't Create"</li>
-</ul>
-<p>A questo punto è possibile creare nuove classi java utilizzando anche gli oggetti di JavaFX.</p>
-</section>
-
 
 
 <section class="eclipse">
@@ -252,6 +216,15 @@ sulla sinistra selezionare General, Startup and Shutdown, Workspaces.
 A questo punto bisogna mettere la spunta su "Prompt for workspace on startup".</p>
 <p>In ogni caso dal menu File di Eclipse è possibile cambiare lo spazio di lavoro usando la voce 
 <em>Switch workspace</em>.</p>
+
+<h3>Creare un progetto</h3>
+<ul>
+    <li>click sul menu /File/New/Java Project</li>
+    <li>inserire il nome del progetto</li>
+    <li>click su finish</li>
+    <li>a questo punto compare la finestra "Create module-info.java", click su "don't Create"</li>
+</ul>
+<p>A questo punto è possibile creare nuove classi java utilizzando anche gli oggetti di JavaFX.</p>
 
 <h3>La finestra di Eclipse</h3>
 <p style="text-align:center"><img src="immagini/eclipse_1.png" alt="schermata di eclipse"/></p>
