@@ -5,6 +5,7 @@
 <!-- changelog 2018-12-09 inserito capitolo -->
 <!-- changelog 2018-12-10 introduzione e collisioni -->
 <!-- changelog 2020-02-11 collisione per intersezione -->
+<!-- changelog 2020-12-09 aggiunti commenti sui costruttori delle forme -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -102,19 +103,19 @@ public class Oggetti extends Application {
         <em>Pane areaDiGioco = new Pane();</em>
         areaDiGioco.setPrefSize(300, 300);
         
-        <em>Rectangle rettangolo = new Rectangle(50,100);</em>
+        <em>Rectangle rettangolo = new Rectangle(50,100); // 50 è la larghezza e 100 l'altezza</em>
         rettangolo.setX(200);
         rettangolo.setY(10);
         rettangolo.setFill(Color.RED);
         areaDiGioco.getChildren().add(rettangolo);
         
-        <em>Circle cerchio = new Circle(20);</em>
+        <em>Circle cerchio = new Circle(20); // 20 è il raggio</em>
         cerchio.setCenterX(100);
         cerchio.setCenterY(200);
         cerchio.setFill( Color.GREEN );
         areaDiGioco.getChildren().add(cerchio);
         
-        <em>Polygon poligono = new Polygon(100,100,50,50,50,100);</em>
+        <em>Polygon poligono = new Polygon(100,100,50,50,50,100); // x,y di ogni vertice</em>
         poligono.setFill(Color.YELLOW);
         areaDiGioco.getChildren().add(poligono);
         
