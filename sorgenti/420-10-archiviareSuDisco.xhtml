@@ -9,6 +9,7 @@
 <!-- changelog 2017-09-19 inserita parte sui path -->
 <!-- changelog 2017-09-19 corretta parte evidenziata nei programmi -->
 <!-- changelog 2020-11-29 cambiato nome (era "archiviareOggetti") e riscritto il capitolo -->
+<!-- changelog 2021-01-08 cambiati nomi sezioni e inserita parte per scrivere una riga di testo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -67,7 +68,7 @@
 System.out.println(mioFile.exists());</pre>
   
   
-  <h2>Stream</h2>
+  <h2>Leggere/scrivere bytes</h2>
   <p>Java ci mette a disposizione molti oggetti nel pacchetto <code>java.io</code> per poter leggere
   o scrivere informazioni su disco: gli Stream sono oggetti che permettono di lavorare
   con dei flussi di byte, ne esistono molti diversi e si possono distinguere dal loro nome due grandi categorie:
@@ -102,7 +103,7 @@ flussoBytes.close();</pre>
     <code>FileOutputStream flussoBytes = new FileOutputStream("c:\\Users\\pluto\\esempio.txt")</code>.</p>
 
 
-    <h2>Reader/Writer</h2>
+    <h2>Leggere/scrivere caratteri</h2>
     <p>Queste due categorie di oggetti ci consentono di leggere/scrivere dei caratteri e possiamo
     crearli o partendo da uno Stream o usando una scorciatoia...</p>
     
@@ -159,8 +160,9 @@ flussoCaratteri.close();
 <pre>FileReader flussoCaratteri = new FileReader("percorso.txt",Charset.forName("UTF-8"))</pre>    
 
 
-    <h2>BufferedReader</h2>
-    <p>Siamo finalmente arrivati al nostro obiettivo: leggere una riga alla volta! 
+    <h2>Leggere/scrivere righe di testo</h2>
+    <p>Siamo finalmente arrivati al nostro obiettivo: leggere una riga (cioè una sequenza
+    di caratteri terminata da un "a capo") alla volta! 
     Ci viene in aiuto un oggetto chiamato <code>BufferedReader</code> che basandosi su 
     un altro Reader (ad esempio un <code>FileReader</code>) ci permette di leggere una riga
     intera e non un vettore di caratteri. Vediamo subito un esempio di un programma
@@ -172,6 +174,14 @@ BufferedReader lettoreDiRighe = new BufferedReader(flussoCaratteri);
 String testo = lettoreDiRighe.readLine();
 System.out.println(testo);
 lettoreDiRighe.close();
+flussoCaratteri.close();</pre>
+
+    <p>Scrivere una riga alla volta si può fare semplicemente usando un FileWriter
+    (o un OutputStreamWriter) in questo modo:</p>
+    
+    <pre>String testo="Questa è una riga";
+FileWriter flussoCaratteri = new FileWriter("c:\\Users\\pluto\\esempio.txt");
+flussoCaratteri.write(testo+"\n");
 flussoCaratteri.close();</pre>
 
     <div class="test">
