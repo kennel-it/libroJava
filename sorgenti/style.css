@@ -128,7 +128,7 @@ img.iconaIDE { height: 2ex; }
     color: #613515;
 }
 .approfondimento:before {
-	font-size:200%; content: "🔍 "; 
+	font-size:150%; content: "🔍 per saperne di più"; background-color:orange; padding:0.2em
 }
 /* ------------------------------------ codice sorgente ---------------------------------------- */
 pre, div.pseudo {
