@@ -236,10 +236,10 @@ altrimenti rimarrà quello:</p>
    int numero, contatore;
    boolean primo;
    numero = Integer.parseInt(tNumero.getText());
-   primo = false;
+   primo = true;
    for(contatore = 2; contatore &lt; numero; contatore++) {
       if(numero%contatore == 0) {
-         primo = true;
+         primo = false;
       }
    }
    if( primo ) {
