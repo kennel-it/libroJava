@@ -8,6 +8,8 @@
 <!-- changelog 2019-11-29 corretto refuso ""  sul secondo compilaElenco() -->
 <!-- changelog 2019-11-29 corretto titolo -->
 <!-- changelog 2021-01-19 specificato meglio funzionamento esercizio 2 -->
+<!-- changelog 2021-01-21 rinominato t_risultato in tRisultato -->
+<!-- changelog 2021-01-25 corretto ultimo esercizio per usare boolean -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -182,7 +184,7 @@ for(n = 2; n &lt;= 10; n++) {
       }
    }
    sequenza += ", " + numero;
-   t_risultato.setText(sequenza);
+   tRisultato.setText(sequenza);
 }</pre>
 <p>Ultimo esempio molto simile (ma solo in apparenza!) al precedente: dato un numero fornito dall'utente, dire se è primo oppure no. Un modo di procedere
    sbagliato può essere questo: prendo ogni numero (col for) da <code>2</code> a <code>numero-1</code>. Mi chiedo per ciascuno se il resto è <code>0</code>,
@@ -197,15 +199,18 @@ for(n = 2; n &lt;= 10; n++) {
    numero = Integer.parseInt(tNumero.getText());
    for(contatore = 2; contatore &lt; numero; contatore++) {
       if(numero%contatore == 0) {
-         t_risultato.setText("Il numero non è primo");
+         tRisultato.setText("Il numero non è primo");
       } else {
-         t_risultato.setText("Il numero è primo!");
+         tRisultato.setText("Il numero è primo!");
       }
    }
 }</pre>
 
 <div class="test">
-   	<p>Quanto varrà la variabile n alla fine del seguente frammento di programma?</p><div>for(n=0,a=0;a==5;a++){<br/>n++;<br/>}</div>
+   	<p>Quanto varrà la variabile n alla fine del seguente frammento di programma?</p>
+<pre>for(n=0,a=0;a==5;a++){
+  n++;
+}</pre>
 	<a onclick="giusta(this)">0</a> 
 	<a onclick="sbagliata(this)">1</a>
 	<a onclick="sbagliata(this)">5</a>  
@@ -217,10 +222,10 @@ altrimenti rimarrà quello:</p>
 <pre>public void individuaDivisori() {
    int numero, contatore;
    numero = Integer.parseInt(tNumero.getText());
-   t_risultato.setText("Il numero è primo!");
+   tRisultato.setText("Il numero è primo!");
    for(contatore = 2; contatore &lt; numero; contatore++) {
       if(numero%contatore == 0) {
-         t_risultato.setText("Il numero non è primo");
+         tRisultato.setText("Il numero non è primo");
       }
    }
 }</pre>
@@ -228,24 +233,26 @@ altrimenti rimarrà quello:</p>
    dell'ultimo divisore. Partirà col valore <code>0</code> che starà a significare che non ci sono divisori. Dopo il <code>for</code> ci chiederemo semplicemente
    se è <code>0</code> nel qual caso diremo che il numero è primo altrimenti non lo è.</p>
 <pre>public void individuaDivisori() {
-   int numero, contatore, primo;
+   int numero, contatore;
+   boolean primo;
    numero = Integer.parseInt(tNumero.getText());
-   primo = 0
+   primo = false;
    for(contatore = 2; contatore &lt; numero; contatore++) {
       if(numero%contatore == 0) {
-         primo = contatore;
+         primo = true;
       }
    }
-   if(primo == 0) {
-      t_risultato.setText("Il numero è primo!");
+   if( primo ) {
+      tRisultato.setText("Il numero è primo!");
    } else {
-      t_risultato.setText("Il numero non è primo");
+      tRisultato.setText("Il numero non è primo");
    }
 }</pre>
 
 <div class="test">
    	<p>Cosa apparirà nella casella alla fine di questo frammento di programma?</p>
-   	<pre>int i,n=0;
+   	<pre>int i;
+int n=0;
 for(i=0;i&lt;5;i++){
 	for(i=0;i&lt;5;i++){
 		tf.setText(""+n);
