@@ -5,6 +5,7 @@
 <!-- changelog 2018-09-03 esplicitata definizione di indentazione -->
 <!-- changelog 2018-09-03 esplicitata sinistra corretto destra sbagliato -->
 <!-- changelog 2018-09-06 corretti molti errori di battitura nella spiegazione della formattazione -->
+<!-- changelog 2021-03-02 inserita convenzione per nomi dei pacchetti -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>layout codice</title>
@@ -103,12 +104,29 @@ nome_proprietario_automobile
 CALCOLAarea()</pre>
 </div>
 
+<h3>i nomi delle variabili devono indicare cosa contengono (non il valore o nomi non significativi)</h3>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">latoQuadrato
+areaQuadrato
+perimetroQuadrato</pre>
+<pre class="rispostaSbagliata">n1
+n2
+sedici</pre>
+</div>
+
 <h3>il nomi delle classi iniziano con la Maiuscola e procedono in camelCase</h3>
 <div class="giustoSbagliato">
 <pre class="rispostaGiusta">Quadrato
 RuotaAutomobile</pre>
 <pre class="rispostaSbagliata">quadrato
 Ruota_Automobile</pre>
+</div>
+
+<h3>il nomi dei pacchetti sono scritti in tutto minuscolo</h3>
+<div class="giustoSbagliato">
+<pre class="rispostaGiusta">org.canili.quecia.bracchetti</pre>
+<pre class="rispostaSbagliata">org.canili.quecia.Bracchetti<br/>
+org.canili.quecia.bracchettiAlti</pre>
 </div>
 
 <h3>quando una riga termina con una graffa aperta la successiva rientra di un tab 
@@ -147,15 +165,6 @@ casellaTesto.setText("ciao");
 </pre>
 </div>
 
-<h3>i nomi delle variabili devono indicare cosa contengono (non il valore o nomi non significativi)</h3>
-<div class="giustoSbagliato">
-<pre class="rispostaGiusta">latoQuadrato
-areaQuadrato
-perimetroQuadrato</pre>
-<pre class="rispostaSbagliata">n1
-n2
-sedici</pre>
-</div>
 		</article>
     </body>
 </html>
