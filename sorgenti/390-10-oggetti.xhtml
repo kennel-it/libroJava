@@ -16,6 +16,7 @@
 <!-- changelog 2020-08-28 corretto commento su risparmivicolato che faceva riferimento al controllo di mese e giorno che non ci sono -->
 <!-- changelog 2020-08-29 corretto esercizio in fondo al capitolo -->
 <!-- changelog 2020-10-12 scritto esplicitamente "modificatori di visibilità" -->
+<!-- changelog 2021-04-08 rimossi tutti i "float" in favore di "double" -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -601,9 +602,9 @@ dell'oggetto: avremo bisogno di due costruttori.</p>
    String nome;
    String cognome;
    int codice;
-   float importo;
+   double importo;
    short anno;
-   float interessiPercentuale;
+   double interessiPercentuale;
 
    /* Imposto tutti valori scelti da me senza nessun significato particolare
     * ma che chiaramente non possono riferirsi ad alcun vincolo 
@@ -618,7 +619,7 @@ dell'oggetto: avremo bisogno di due costruttori.</p>
       interessiPercentuale = 0.0;
    }</em>
 
-   <em>public RisparmioVincolato(String n, String c, int cod, float euro, short a, float i) {
+   <em>public RisparmioVincolato(String n, String c, int cod, double euro, short a, double i) {
       nome = n;
       cognome = c;
       codice = cod;
@@ -716,8 +717,8 @@ Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capita
        String sNome = tNome.getText();
        String sCognome = tCognome.getText();
        int iCodice = Integer.parseInt(tCodice.getText());
-       float fImporto = Float.parseFloat(tImporto.getText());
-       float fInteressi = Float.parseFloat(tInteressiPercentuale.getText());
+       double fImporto = Double.parseDouble(tImporto.getText());
+       double fInteressi = Double.parseDouble(tInteressiPercentuale.getText());
        short iAnno = (short) Integer.parseInt(tAnno.getText());
        // La new la facciamo qui piuttosto che insieme agli altri oggetti di tipo 
        // TextField perché solo qui sappiamo quali valori usare nel costruttore
@@ -764,16 +765,16 @@ Serviranno poi altri metodi che forniscono il valore di queste variabili private
 (ogni metodo ne fornisce una): sono i getters.</p>
 
 <p>Facciamo l'esempio con la sola proprietà <code>importo</code>:</p>
-<pre>private float importo;
+<pre>private double importo;
 
-public void setImporto(float euro) {
+public void setImporto(double euro) {
    if(euro>0) {
       importo = euro; //Anche se la proprietà è privata, il metodo della stessa classe accede a tutte le variabili
    } else {
       importo = 0;
 }
 
-public float getImporto() {
+public double getImporto() {
    return Importo;
 }</pre>
 <p>Eclipse può aiutarci nella generazione dei getters and setters: 
@@ -874,27 +875,27 @@ ha tasse per 5€ perché lascia sott'intendere che tutti gli altri risparmi
 possono avere valori diversi. 
 Quello che vogliamo dire è che <em>tutti gli oggetti della classe RisparmioVincolato 
 hanno tasse per 5€</em>.<br/>
-Quindi, ipotizzando di avere la proprietà <code>private float tasse;</code> 
-e relativi metodi <code>public void setTasse(float cifra)</code> e <code>public float getTasse()</code>:</p>
+Quindi, ipotizzando di avere la proprietà <code>private double tasse;</code> 
+e relativi metodi <code>public void setTasse(double cifra)</code> e <code>public double getTasse()</code>:</p>
 <pre>RisparmioVincolato risparmiDiLuca = new RisparmioVincolato("Luca", "Pecci", 123321, 5000.0f, 2017, 0.005f);
 risparmioVincolato.setTasse(5.0f);
 </pre>
 
 <p>Lo consideriamo concettualmente sbagliato perché ogni oggetto ha una sua tassazione cosa
 he invece secondo il nostro modello non è vera (le tasse sono uguali per tutti gli importi).
-Consideriamo invece corretta la proprietà <code>private <em>static</em> float tasse;</code> 
+Consideriamo invece corretta la proprietà <code>private <em>static</em> double tasse;</code> 
 e osserviamo la nuova parola chiave <em>static</em> che significa appunto che non viene creata 
 una variabile per ogni oggetto ma ce n'è una sola condivisa da tutti. 
 I metodi potrebbero essere gli stessi riportati qualche riga più su ma noi vogliamo 
 enfatizzare il fatto che quella proprietà è indipendente dal singolo oggetto e si 
 riferisce piuttosto alla classe:</p>
-<pre>private static float tasse;
+<pre>private static double tasse;
 
-    public static float getTasse() {
+    public static double getTasse() {
         return tasse;
     }
 
-    public static void setTasse(float t) {
+    public static void setTasse(double t) {
         tasse = t;
     }</pre>
     
@@ -917,11 +918,11 @@ se lo calcolerà da solo:</p>
    <em>private</em> String nome;
    <em>private</em> String cognome;
    <em>private</em> int codice;
-   <em>private</em> float importo;
+   <em>private</em> double importo;
    <em>private</em> short anno;
-   <em>private</em> float interessiPercentuale;
+   <em>private</em> double interessiPercentuale;
    <em>private</em> static int ultimoAssegnato = 1;
-   <em>private</em> static float tasse;
+   <em>private</em> static double tasse;
 
    //Dato che devo fare la stessa cosa in 2 punti creo un metodo privato
    <em>private boolean impostaDataCorretta(short a) { 
@@ -943,7 +944,7 @@ se lo calcolerà da solo:</p>
       interessiPercentuale = 0.0;
    }
 
-   public RisparmioVincolato(String n, String c, float euro, short a, float i) {
+   public RisparmioVincolato(String n, String c, double euro, short a, double i) {
       nome = n;
       cognome = c;
       codice = ultimoAssegnato;
@@ -989,11 +990,11 @@ se lo calcolerà da solo:</p>
       return capitale;
    }
 
-   <em>public static float getTasse() {
+   <em>public static double getTasse() {
       return tasse;
    }
 
-   public static void setTasse(float t) {
+   public static void setTasse(double t) {
       tasse = t;
    }
 
