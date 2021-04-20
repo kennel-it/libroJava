@@ -8,6 +8,7 @@
 <!-- changelog 2019-08-19 rimosso titolo "Variabili condivise" senza contenuto -->
 <!-- changelog 2020-05-11 corretta spiegazione invocazione super() con argomenti -->
 <!-- changelog 2020-05-11 inserita definizione di ereditarietà singola -->
+<!-- changelog 2021-04-20 corretto esercizio fondo pagina -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -237,7 +238,22 @@ lo estenderemo con qualcosa in più:</p>
       return capitale;
    }
 }</pre>
-<h3>file it/esempi/Secondo.java</h3>
+<h3>Primo.java</h3>
+<pre>
+package it.esempio;
+
+public class Primo {
+	boolean p;
+	int x;
+	public int leggiVal(){
+		return x;
+	}
+	public String descrivi(){
+		return "n:"+x;
+	}
+}
+</pre>
+<h3>Secondo.java</h3>
 <pre>
 package it.esempio;
 
