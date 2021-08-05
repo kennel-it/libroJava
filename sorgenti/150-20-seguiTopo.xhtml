@@ -81,7 +81,7 @@ public class Pittore extends Application{
 	<li>specifichiamo esplicitamente di quale evento vogliamo occuparci: 
 	<code>MouseEvent.MOUSE_CLICKED</code> cioè il click del mouse</li>
 	<li>il metodo che chiamiamo (quello dopo <code>-&gt;</code>) adesso ha un parametro
-	tra le parentesi (delle informazioni che poi il gestore userà per fare il suo lavoro, 
+	tra le parentesi (il parametro conterrà delle informazioni che poi il gestore userà per fare il suo lavoro, 
 	ad esempio per sapere il punto in cui è stato fatto click)
 	mentre <code>setOnAction</code> non ne aveva.</li>
 </ul>
@@ -89,7 +89,7 @@ public class Pittore extends Application{
 <h2>Ulteriori eventi</h2>
 <p>Non siamo limitati alla gestione del singolo click (premo e rilascio il pulsante)
 ma anche il semplice movimento o il trascinamento del mouse.
-Per fare un esperimento potremmo creare un programma (prendendo spunto da quello qui sopra)
+Per fare un esperimento scriviamo un programma (prendendo spunto da quello qui sopra)
 che contiene un Canvas chiamato <code>tela</code> a cui collegheremo 3 gestori di eventi:</p>
 
 <pre>
