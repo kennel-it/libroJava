@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="tela" group="giochi" -->
-<!-- changelog 2021-08-04 riorganizzato capito, la parte per la gestione del mouse per disegnare è tutta qui -->
+<!-- changelog 2021-08-05 riorganizzato capito, la parte per la gestione del mouse per disegnare è tutta qui -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -20,9 +20,9 @@
 <p>Visto che abbiamo imparato a disegnare da programma perché non permettere all'utente di farlo
 usando il mouse? </p>
 
-<p>Non è molto complicato: è possibile intercettare molte azioni che l'utente esegue su un oggetto,
+<p>È possibile intercettare molte azioni che l'utente esegue su un oggetto oltre la pressione di un pulsante:
 qui faremo esempi con il mouse ma si possono intercettare anche altre azioni. 
-Si fa un po' come si gestisce la pressione di un pulsante soltanto che in questo caso 
+Si fa in maniera molto simile a come si fa per gestire la pressione di un pulsante soltanto che in questo caso 
 ci serve sapere qualche informazione sull'evento: 
 di un pulsante ci interessava soltanto il fatto che qualcuno lo avesse premuto,
 se un utente fa click su un punto della tela vogliamo sapere anche su quale punto ha fatto click.</p>
@@ -37,15 +37,13 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Pittore extends Application{
-	
+    
     GraphicsContext gc;
 
     @Override
@@ -53,22 +51,21 @@ public class Pittore extends Application{
         GridPane root = new GridPane();
         Canvas canvas = new Canvas(300, 300);
         gc = canvas.getGraphicsContext2D();
-        <em>canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> gestisciMovimento(e));</em>
-        Button pulsante = new Button();
-        pulsante.setText("clicca qui!");
+        <em>canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, e -&gt; gestisciClick(e));</em>
         root.add(canvas, 0, 0);
-        root.add(pulsante, 0, 1);
         Scene scene = new Scene(root);
         primaryStage.setTitle("Picasso");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-				
-    public void gestisciMovimento(MouseEvent evento){
+                
+    public void gestisciClick(<em>MouseEvent evento</em>){
+        double posizioneX = evento.getX();
+        double posizioneY = evento.getY();
         gc.setFill(Color.RED);
         // disegno un piccolo quadrato intorno al punto in cui
         // è stato fatto click
-        gc.fillRect(evento.getX() - 2, evento.getY() - 2, 5, 5);
+        gc.fillRect(posizioneX - 2, posizioneY - 2, 5, 5);
     }
     
     public static void main(String[] args) {
@@ -77,40 +74,44 @@ public class Pittore extends Application{
 }
 </pre>
 
-<p>La parte evidenziata è diversa da quella solita che usiamo che i pulsanti:</p>
+<p>La parte evidenziata è diversa da quella solita che usiamo con i pulsanti:</p>
 <ul>
-	<li>il metodo inizia con "add" e non con "set" per enfatizzare che in questo caso possiamo mettere più
+	<li>il metodo inizia con "add" e non con "set" per enfatizzare il fatto che in questo caso possiamo mettere più
 	gestori degli eventi, usando <code>setOnAction</code> ne potevamo mettere soltanto uno</li>
 	<li>specifichiamo esplicitamente di quale evento vogliamo occuparci: 
-	<code>MouseEvent.MOUSE_DRAGGED</code></li>
+	<code>MouseEvent.MOUSE_CLICKED</code> cioè il click del mouse</li>
 	<li>il metodo che chiamiamo (quello dopo <code>-&gt;</code>) adesso ha un parametro
-	tra le parentesi mentre in <code>setOnAction</code> non ne aveva.</li>
+	tra le parentesi (delle informazioni che poi il gestore userà per fare il suo lavoro, 
+	ad esempio per sapere il punto in cui è stato fatto click)
+	mentre <code>setOnAction</code> non ne aveva.</li>
 </ul>
 
 <h2>Ulteriori eventi</h2>
 <p>Non siamo limitati alla gestione del singolo click (premo e rilascio il pulsante)
 ma anche il semplice movimento o il trascinamento del mouse.
-Per fare un esperimento potremmo creare un programma che contiene un canvas
-chiamaro <code>tela</code> a cui collegheremo 3 gestori di eventi:</p>
+Per fare un esperimento potremmo creare un programma (prendendo spunto da quello qui sopra)
+che contiene un Canvas chiamato <code>tela</code> a cui collegheremo 3 gestori di eventi:</p>
 
 <pre>
+tela.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> gestisciClick(e));
 tela.addEventHandler(MouseEvent.MOUSE_MOVED, e -> gestisciMovimento(e));
 tela.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> gestisciTrascinamento(e));
-tela.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> gestisciClick(e));
 </pre>
 
-<p>Il metodo che gestisce il movimento del mouse disegna semplicemente un
-quadratino giallo sotto al puntatore.</p>
+<p>Al click del mouse il programma deve disegnare un cerchio blu di diametro 9 pixel.</p> 
+
+<p>Il metodo che gestisce il movimento del mouse disegna un
+quadratino giallo sotto al puntatore:</p>
 <pre>
 public void gestisciMovimento(MouseEvent e) {
 	gc.setFill(Color.YELLOW);
 	gc.fillRect(e.getX() - 2, e.getY() - 2, 5, 5);
 }
 </pre>
+
 <p><code>gestisciTrascinamento(e)</code> fa esattamente la stessa cosa soltanto che 
-il quadratino è di colore rosso.</p>
-<p>Anche <code>gestisciClick(e)</code> fa un lavoro analogo soltanto che 
-disegna un cerchio blu di diametro 9 pixel.</p> 
+il quadratino è di colore verde.</p>
+
 
 <p>Provando il programma sarà possibile vedere le differenze tra i diversi eventi.</p>
 
