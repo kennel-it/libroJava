@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="numeri" group="base" -->
+<!-- changelog 2021-08-10 sistemazioni minori in tutto il capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -60,10 +61,10 @@ FINE SE</div>
 
 <p>Se quanto sopra scritto in italiano è chiaro puoi passare direttamente alla versione 
 Java che è pari pari quello sopra riportato a meno della scrittura nello specifico linguaggio:</p>
-<pre>if(scontoPresente.isSelecteded()) {
+<pre><em>if(scontoPresente.isSelecteded()) {</em>
    //fai il calcolo dello sconto
-   //sottrai lo sconto
-}</pre>
+   //sottrai lo sconto dal costo
+<em>}</em></pre>
 
 <p>Saltano subito all'occhio alcune cose sulla <code>if</code> ed una sulla spunta. Cominciamo da quest'ultima: 
 il metodo <code>isSelected()</code> vale vero se è visuazzata la spunta, altrimenti varrà falso; 
@@ -126,33 +127,35 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
    }
 }</pre>
 
+<h2>Altrimenti</h2>
 <p>Non basta quanto fin qui visto. Spesso accade che verificando un fatto si debba fare 
 qualcosa se questo è vero ma anche qualcos'altro se questo è falso. Ritornando all'italiano diremo:</p>
-<div class="pseudo">SE fatto da verificare è vero ALLORA
+<pre>SE fatto da verificare è vero ALLORA
    fai tutto ciò che serve per il caso vero
 ALTRIMENTI
    fai tutto ciò che serve per il caso falso
-FINE SE
-e osserveremo che in ALTRIMENTI non c'è la condizione, mai. In Java si traduce con:
-if(condizione) {
+FINE SE</pre>
+<p>e osserveremo che in ALTRIMENTI non c'è la condizione, mai. In Java si traduce con:</p>
+<pre>if(condizione) {
    //fai tutto ciò che serve per il caso vero
 } else {
    //fai tutto ciò che serve per il caso falso
-}</div>
+}</pre>
 <p>qui (nell'else) di condizione non c'è traccia.</p>
 
-<h2>Pari o dispari?</h2>
-<p>Abbandoniamo il problema precedente, per altro risolto, e poniamoci il nuovo.</p>
+<h3>Pari o dispari?</h3>
+<p>Abbandoniamo il problema dello scontrino, per altro risolto, e poniamocene uno nuovo.</p>
 <p>Matematica: dato un numero, dire se questi è pari o dispari. 
 È noto che per essere pari è necessario che sia divisibile per 2. 
-Detto così sembra di difficile soluzione; ci chiediamo allora quando un numero è divisibile per 2 
-e la risposta sarà: un numero è divisibile per 2 se il resto della divisione intera è 0, 
+Detto così sembra di difficile soluzione: ci chiediamo allora quando un numero è divisibile per 2 
+e la risposta sarà: un numero è divisibile per 2 se il resto della divisione 
+(stiamo parlando di divisione tra numeri interi) è 0, 
 altrimenti non è divisibile per 2, quindi non è pari e cioè è dispari:</p>
 
 <div class="pseudo">SE il resto della divisione tra il numero e 2 è uguale a 0 ALLORA
-   scrivi “il numero è pari”
+   scrivi "il numero è pari"
 ALTRIMENTI
-   scrivi “il numero è dispari”
+   scrivi "il numero è dispari"
 FINE SE
 </div>
 
@@ -169,11 +172,11 @@ Bene. Posto di aver già realizzato la funzione start(), scriviamo qui la funzio
 <pre>public void verificaPari() {
    int num;
    num = Integer.parseInt(numero.getText());  //numero è il nome della TextBox
-   if(num%2 == 0) {
-      messaggio.setText(“il numero è pari”);  //messaggio è il nome della TextBox
+   <em>if(num%2 == 0) {
+      messaggio.setText("il numero è pari");  //messaggio è il nome della TextBox
    } else {
-      messaggio.setText(“il numero è dispari”);
-   }
+      messaggio.setText("il numero è dispari");
+   }</em>
 }</pre>
 
 <h2>Radio</h2>
@@ -191,7 +194,7 @@ un messaggio diverso a seconda che chi lo sta usando è maschio o femmina.
 Innanzi tutto la dichiarazione è ormai intuitiva 
 (<code>RadioButton nomePulsante = new RadioButton()</code>), 
 così come il metodo per impostarne il testo (
-<code>nomePulsante.setText(“testo da visualizzare”)</code>) e quello per 
+<code>nomePulsante.setText("testo da visualizzare")</code>) e quello per 
 verificare se un dato pulsante radio è selezionato (<code>nomePulsante.isSelected()</code>). 
 Va invece detto che per impostare una selezione su di un pulsante radio si usa il metodo 
 <code>setSelected()</code> e nelle parentesi va indicato true (vero) o false (falso) la presenza della scelta; 
@@ -201,34 +204,34 @@ metodo vale pari anche per le <code>CheckBox</code>; puoi quindi mettere o togli
 programma come meglio credi. Passiamo finalmente al codice:</p>
 
 <pre>TextField nome = new TextField();
-RadioButton maschio = new RadioButton();
-RadioButton femmina = new RadioButton();
+<em>RadioButton maschio = new RadioButton();
+RadioButton femmina = new RadioButton();</em>
 TextField saluto = new TextField();
 
 @Override
 public void start(Stage primaryStage) {
    Button dimmiCiao = new Button();
-   ToggleGroup genere = new ToggleGroup();
-   Label l_nome = new Label();
-   Label l_saluto = new Label();
+   <em>ToggleGroup genere = new ToggleGroup();</em>
+   Label lNome = new Label();
+   Label lSaluto = new Label();
    dimmiCiao.setText("Ti voglio salutare");
    maschio.setText("Maschio");
    femmina.setText("Femmina");
-   maschio.setToggleGroup(genere);
+   <em>maschio.setToggleGroup(genere);
    femmina.setToggleGroup(genere);
-   maschio.setSelected(true);
+   maschio.setSelected(true);</em>
    l_nome.setText("Ti chiami");
    l_saluto.setText("Dirò");
    dimmiCiao.setOnAction( e -&gt; calcolaSconto() );
    GridPane pannello = new GridPane();
    pannello.setHgap(10);
    pannello.setVgap(7);
-   pannello.add(l_nome, 0, 0);
+   pannello.add(lNome, 0, 0);
    pannello.add(nome, 1, 0);
    pannello.add(maschio, 0, 1);
    pannello.add(femmina, 1, 1);
    pannello.add(dimmiCiao, 0, 2);
-   pannello.add(l_saluto, 0, 3);
+   pannello.add(lSaluto, 0, 3);
    pannello.add(saluto, 1, 3);
    
    Scene scene = new Scene(pannello, 550, 200);        

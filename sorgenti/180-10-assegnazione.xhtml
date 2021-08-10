@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
-<!-- grafoIndice requires="" group="base" -->
+<!-- grafoIndice requires="gui" group="base" -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="assegnazione"/>
@@ -16,9 +16,10 @@
 </header>
 <article>
 <p>In java il simbolo <em>=</em> ci permette di assegnare un valore ad una variabile,
-non è da confondere con il simbolo usato per fare il confronto che invece è <em>==</em></p>
+non è da confondere con il simbolo usato per fare il confronto che invece è <em>==</em>
+ne con il concetto di uguaglianza della matematica ad esempio.</p>
 
-<p>La struttura di una assegnazione è sempre la seguente</p>
+<p>La struttura di una assegnazione è sempre la seguente:</p>
 
 <pre> nomeVariabile = espressione </pre>
 
@@ -26,7 +27,7 @@ non è da confondere con il simbolo usato per fare il confronto che invece è <e
 
 <pre> x = x+4;</pre>
 
-<p>Questa istruzione prende il valore della variabile x, ci aggiunge 4 e <em>poi</em> scrive il risultato sempre nella
+<p>questa istruzione prende il valore della variabile x, ci aggiunge 4 e <em>poi</em> scrive il risultato sempre nella
 variabile x</p>
 
 <p>visto che questa scrittura è molto comune abbiamo un modo per abbreviarla:</p>
@@ -48,10 +49,10 @@ k++;
 
 <div class="test">
    	<p>Come posso fare per incrementare il valore di una variabile di 5 unità?</p>
-	<a onclick="giusta(this)">a+=5;</a> 
-	<a onclick="sbagliata(this)">a==5;</a>
-	<a onclick="sbagliata(this)">a*=5;</a>
-	<a onclick="giusta(this)">a=a+5;</a>  
+	<a onclick="giusta(this)">a+=5;<span class="spiegazione">uno dei modi possibili!</span></a> 
+	<a onclick="sbagliata(this)">a==5;<span class="spiegazione">questo è un modo per vedere se a è uguale a 5</span></a>
+	<a onclick="sbagliata(this)">a=5;<span class="spiegazione">così si assegna il valore 5 alla variabile a</span></a>
+	<a onclick="giusta(this)">a=a+5;<span class="spiegazione">uno dei modi possibili!</span></a>  
 </div>
 </article>
 </body>
