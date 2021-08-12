@@ -6,6 +6,7 @@
 <!-- changelog 2019-08-31 inserita definizione di operatore -->
 <!-- changelog 2019-11-08 corretta minuscola iniziale in parseDouble e parseFloat -->
 <!-- changelog 2020-08-20 corretto link alla pagina dei tipi numerici -->
+<!-- changelog 2020-08-12 definizione di espressioni e riorganizzato il contenuto -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -21,29 +22,30 @@
 <article>
 <p>Supponiamo ora di voler calcolare il prodotto di due numeri interi forniti dall'utente.  
 Ragionevolmente dovremo procedere in questo modo: leggere i due numeri, fare il prodotto e quindi visualizzerai i risultati.
-Bene. L'unica differenza è che quando leggi il contenuto di un campo testo, 
-questo è di <em><a href="180-30-numeri.xhtml">tipo</a></em>, appunto, testo altrimenti detto stringa (<code>String</code>);
-serve quindi una esplicita conversione da stringa a intero. Questo è possibile grazie al metodo 
-statico parseInt() dell'oggetto Integer, che in pratica si usa scrivendo:  
-<code>Integer.parseInt(stringa)</code>.</p>
+Bene. L'unico problema è che quando leggiamo il contenuto di un campo testo, 
+questo è di <em>tipo</em> testo (il nome del tipo per Java è <code>String</code>) e Java non consente di sommare 
+o moltiplicare due testi, consente di farlo soltanto utilizzando delle informazioni di tipo numerico.</p>
+<p>Per ottenere la rappresentazione numerica (parliamo adesso di numeri interi)
+di un testo si fa così: <code>numero = Integer.parseInt( testo )</code>.</p>
 
 <p>Nella funzione che gestirà l'evento, posto che i campi testo degli operandi si chiamino 
-rispettivamente <var>op1</var> ed <var>op2</var> mentre il campo testo per mostrare il risultato si chiami risultato, 
-immetteremo il seguente frammento di codice:</p>
+rispettivamente <var>operando1</var> ed <var>operando2</var> 
+mentre il campo testo per mostrare il risultato si chiami <var>risultato</var>, immetteremo il seguente frammento di codice:</p>
 <pre>public void calcola() {
-   String op1, op2, ris;
-   int n1, n2, tot;
-   op1 = operando1.getText();
-   op2 = operando2.getText();
-   n1 = Integer.parseInt(op1);
-   n2 = Integer.parseInt(op2);
-   tot = n1 * n2;
-   ris = "" + tot;
-   risultato.setText(ris);
+   String testo1, testo2, risposta;
+   int numero1, numero2, prodotto;
+   testo1 = operando1.getText();
+   testo2 = operando2.getText();
+   <em>numero1 = Integer.parseInt(op1);
+   numero2 = Integer.parseInt(op2);</em>
+   prodotto = numero1 * numero2;
+   <em>risposta = "" + prodotto</em>;
+   risultato.setText(risposta);
 }</pre>
 
-<p>Puoi senz'altro osservare che particolare risulta l'operazione inversa, 
-cioè la conversione in testo del risultato a partire dall'intero tot. Il procedimento ha questa logica: 
+<p>Da osservare come si fa l'operazione inversa, 
+cioè la conversione in testo del risultato a partire dall'intero prodotto. 
+Stiamo parlando dell'ultima riga evidenziata, il procedimento ha questa logica: 
 l'operatore + ha due significati diversi a seconda che si riferisca a numeri o a stringhe; 
 nel primo caso infatti esegue la normale addizione mentre nel secondo caso – 
 come visto in un precedente capitolo – esegue una concatenazione di testi. 
@@ -51,7 +53,7 @@ Osservando la riga in questione (la penultima) vedrai che un argomento dell'oper
 di tipo stringa e l'altro è di tipo intero. Quando uno degli operandi è di tipo stringa, 
 Java cercherà di far diventare anche l'altro operando stringa, eseguendo così una conversione 
 implicita da intero a testo. Dato che la stringa vuota concatenata ad una seconda stringa 
-(che è il risultato della trasformazione in stringa di tot) rende esattamente la seconda stringa, 
+(che è il risultato della trasformazione in stringa di <var>prodotto</var>) rende esattamente la seconda stringa, 
 abbiamo ottenuto ciò che si voleva.</p>
 
 <div class="test">
@@ -64,17 +66,16 @@ abbiamo ottenuto ciò che si voleva.</p>
 
 <p>Per terminare prova ad analizzare la seguente funzione analoga alla precedente:</p>
 <pre>public void calcola() {
-   int n1, n2, tot;
-   n1 = Integer.parseInt(operando1.getText());
-   n2 = Integer.parseInt(operando2.getText());
-   tot = n1 * n2;
-   risultato.setText("" + tot);
+   int numero1, numero2, prodotto;
+   <em>numero1 = Integer.parseInt(operando1.getText());
+   numero2 = Integer.parseInt(operando2.getText());</em>
+   prodotto = n1 * n2;
+   <em>risultato.setText("" + prodotto);</em>
 }</pre>
 
-<p>Dedurrai che si tratta della sola eliminazione delle variabili stringa. 
-Allo stesso modo <code>Float.parseFloat(stringa)</code> e 
-<code>Double.parseDouble(stringa)</code> convertono la stringa in un numero reale a 
-singola (float) o doppia (double) precisione.</p> 
+<p>Come si vede si tratta della sola eliminazione delle variabili stringa che erano state utilizzate
+per leggere i valori (in questo caso l'istruzione per leggere è stata inserita direttamente in Ineger.parseInt() )
+o per calcolare il risultato che andava poi visualizzato.</p>
 
 <div class="esercizio">
 	<p>Crea un programma che calcola l'area e il perimetro di un quadrato, 
@@ -82,13 +83,13 @@ singola (float) o doppia (double) precisione.</p>
 </div>
 
 <h2>tipi numerici</h2>
-<p>I tipi fondamentali di Java che 8 in tutto, di questi ben 6 servono a memorizzare dei numeri,
+<p>I tipi fondamentali di Java sono 8 in tutto: di questi ben 6 servono a memorizzare dei numeri,
 con o senza parte decimale.</p>
-<p>I tipi senza parte decimale si diffenziano in base al numero più grande che possono contenere, 
-quelli con la parte decimale in base alla precisione che hanno nella mantissa e nell'esponente
-(per capire: quante cifre prendono in considerazione in entrabe le parti).</p>
+<p>I tipi senza parte decimale si diffenziano in base al numero più grande (in valore assoluto) che possono contenere, 
+quelli con la parte decimale in base alla precisione che hanno (tecnicamente il numero di cifre nella
+mantissa e nell'esponente).</p>
 
-<h3>Tipi numerici interi</h3>
+<h3>Numeri interi</h3>
 <dl>
 	<dt>byte</dt>
 	<dd>un numero intero (con segno), occupa 8 bit bit in memoria, i suoi valori vanno da -128 a 127</dd>
@@ -98,7 +99,7 @@ quelli con la parte decimale in base alla precisione che hanno nella mantissa e 
 
 	<dt class="importante">int</dt>
 	<dd>numero intero (con segno), occupa 32 bit in memoria, i suoi valori vanno da -2147483648 ... 2147483647,
-	per ricordarci facilmente nell'ordine di ± due miliardi</dd>
+	per ricordarci facilmente nell'ordine di ± due miliardi, i numeri di tipo int si scrivono normalmente.</dd>
 
 	<dt>long</dt>
 	<dd>numero intero (con segno), occupa in memoria 64 bit, i suoi valori vanno da -9223372036854775808 a 9223372036854775807,
@@ -106,7 +107,7 @@ quelli con la parte decimale in base alla precisione che hanno nella mantissa e 
 	I numeri di tipo long si scrivono postponendo una "L" al numero intero, "14456L" è un valore long valido.</dd>
 </dl>
 
-<h3>Tipi numerici in virgola mobile</h3>
+<h3>Numeri in virgola mobile</h3>
 <dl>	
 	<dt>float</dt>
 	<dd>numero in virgola mobile, in memoria occupa 32 bit, il numero più piccolo memorizzabile è circa ±1,45x10<sup>-45</sup>
@@ -120,23 +121,29 @@ quelli con la parte decimale in base alla precisione che hanno nella mantissa e 
 	I numeri di tipo double si scrivono utilizzando il "." per separare la parte decimale, "14.456" è un valore double valido.</dd>
 </dl>
 
+<p>Analogamente a quanto visto per i numeri interi è possibile trasformare
+un testo in un numero float o double utilizzando rispettivamente <code>Float.parseFloat(stringa)</code> e 
+<code>Double.parseDouble(stringa)</code>.</p> 
+
+
 <div class="test">
    	<p>Quale dei seguenti tipi può contenere valori con la parte decimale?</p>
-	<a onclick="sbagliata(this)">byte</a> 
+	<a onclick="sbagliata(this)">byte <span class="spiegazione">no, numeri interi molto piccoli</span></a> 
 	<a onclick="giusta(this)">float</a>
-	<a onclick="sbagliata(this)">short</a>
+	<a onclick="sbagliata(this)">long <span class="spiegazione">no, numero interi molto grandi</span></a>
 	<a onclick="giusta(this)">double</a>  
 </div>
-	
-<p>I tipi numerici vengono utilizzati anche per fare calcoli, quindi per scrivere espressioni, insieme agli 
-operatori.</p> 
+
+
+<h2>Operatori numerici</h2>	
+<p>I valori numerici vengono utilizzati anche per fare calcoli, quindi per scrivere espressioni
+(le tratteremo nel dettaglio poco più avanti in questo capitolo), insieme agli operatori.</p> 
 
 <dfn>Un <em>operatore</em> è un simbolo (formato da uno o più caratteri) 
 che serve a produrre un risultato combinando il valore di uno o più operandi.</dfn>
 <!-- https://en.wikipedia.org/wiki/Operator_(computer_programming)
 https://www.tutorialspoint.com/computer_programming/computer_programming_operators -->
 
-<h2>Operatori numerici</h2>
 <dl>
 	<dt>+</dt>
 	<dd>è il solito operatore per l'addizione: <code>4 + 7</code> è una espressione ammissibile, 
@@ -159,32 +166,14 @@ https://www.tutorialspoint.com/computer_programming/computer_programming_operato
 	<dd>resto della divisione, anche chiamato modulo. <code>10 / 3</code> fa <code>1</code></dd>
 </dl>
 
+<p>Il risultato di una operazione (l'applicazione di un operatore) è del tipo più preciso tra quelli coinvolti.
+Se per esempio sommo due int ottengo un int, se sommo un int e un double ottengo un double.</p>
+
 <div class="test">
 	<p>Quanto vale <code>6 + 4 / 2</code> ?</p>
     <a onclick="giusta(this)">8<span class="spiegazione">esatto</span></a> 
     <a onclick="sbagliata(this)">5<span class="spiegazione">no, viene fatta prima la divisione</span></a> 
 </div>
-
-<h2>conversione di tipo</h2>
-<p>Non è possibile assegnare un valore più preciso ad un tipo meno preciso... sarebbe a dire
-che non posso mettere un valore in virgola mobile (ad esempio un double) in una variabile di tipo
-intero perché si rischierebbe di perdere informazioni.</p>
-<p>È possibile però forzare questa operazione usando l'operazione di <em>cast</em> che si fa 
-racchiudendo tra parentesi tonde il nome di un tipo prima di un espessione.</p>
-<p>Poniamo che la variabile x sia di tipo int: <code>x=(int) 10.8</code> converte il
-valore 10.8 ad un intero (non arrotondando ma troncando il valore), questa operazione può essere
-fatta tra i diversi tipi numerici, attenzione però che la converisone tra i tipi interi viene fatta
-semplicemente scartando dei byte.</p>
-
-<div class="test">
-	<p>Quanto vale <code>(byte) 257</code> ?</p>
-    <a onclick="sbagliata(this)">257<span class="spiegazione">no, 257 non è rappresentabile in un byte</span></a> 
-    <a onclick="sbagliata(this)">255<span class="spiegazione">no, i byte per Java hanno un segno... 255 è troppo grande</span></a>
-    <a onclick="sbagliata(this)">127<span class="spiegazione">no, sarebbe rappresentabile ma i cast non fanno arrotondamenti tra numeri interi</span></a>
-    <a onclick="giusta(this)">1<span class="spiegazione">giusto! 257 in binario è 100000001, siccome viene preso il solo byte più a destra il risultato è 1</span></a> 
-</div>
-
-<p>L'operazione di cast può essere fatta anche in altri contesti, qui ci siamo limitati a trattarla tra tipi base</p>
 
 <h2>operatori di pre/post incremento</h2>
 <dl>
@@ -200,7 +189,7 @@ semplicemente scartando dei byte.</p>
 	se posto dopo i nome della variabile prima usa il valore della variabile stessa per calcolare il resto 
 	dell'espressione e poi ne decrementa il valore</dd>
 </dl>
-Gli operatori di pre (post incremento possono comparire all'interno di operazioni che come istruzioni a se).
+Gli operatori di pre (o post) incremento possono comparire all'interno di operazioni che come istruzioni a se.
 
 <div class="test">
 	<p>Quanto vale x dopo il seguente frammento di programma?</p>
@@ -225,12 +214,75 @@ Gli operatori di pre (post incremento possono comparire all'interno di operazion
     <a onclick="sbagliata(this)">x=3 e y=9<span class="spiegazione">no, va decrementata la x e poi calcolata l'espressione</span></a>  
 </div>
 
-<h2>Considerazioni generali</h2>
-<p>È possibile utilizzare soltanto le parentesi tonde per modificare la precedenza degli operatori.</p>
-<p>Se in una espressione vengono mescolati valori (o variabili) di più tipi il tipo del risultato sarà quello
-più preciso possibile, questo tipo di conversione viene fatta un operatore alla volta.
-Nell'espressione <code>(45 / 10) * 2.5</code>
-prima viene eseguito 45/10 che fa 4 e poi la moltiplicazione per 2.5 che fa 10.0, un valore double.</p>
+<h2>conversione di tipo</h2>
+<p>Non è possibile assegnare un valore più preciso ad un tipo meno preciso... sarebbe a dire
+che non posso mettere un valore in virgola mobile (ad esempio un double) in una variabile di tipo
+intero perché si rischierebbe di perdere informazioni quindi se lo faccio java mi rileva un errore.</p>
+<p>È possibile però forzare questa operazione quando si è sicuri che il 
+valore sia convertibile usando l'operazione di <em>cast</em> che si fa 
+racchiudendo tra parentesi tonde il nome di un tipo prima di un espessione.</p>
+<p>Poniamo che la variabile x sia di tipo int: <code>x=(int) 10.8</code> converte il
+valore 10.8 ad un intero (non arrotondando ma troncando il valore) ottenendo quindi 10, questa operazione può essere
+fatta tra i diversi tipi numerici, attenzione però che la converisone tra i tipi interi viene fatta
+semplicemente scartando dei byte.</p>
+
+<div class="test">
+	<p>Quanto vale <code>(byte) 257</code> ?</p>
+    <a onclick="sbagliata(this)">257<span class="spiegazione">no, 257 non è rappresentabile in un byte</span></a> 
+    <a onclick="sbagliata(this)">255<span class="spiegazione">no, i byte per Java hanno un segno... 255 è troppo grande</span></a>
+    <a onclick="sbagliata(this)">127<span class="spiegazione">no, sarebbe rappresentabile ma i cast non fanno arrotondamenti tra numeri interi</span></a>
+    <a onclick="giusta(this)">1<span class="spiegazione">giusto! 257 in binario è 100000001, siccome viene preso il solo byte più a destra il risultato è 1</span></a> 
+</div>
+
+<p>L'operazione di cast può essere fatta anche in altri contesti, qui ci siamo limitati a trattarla tra tipi base.</p>
+
+<h2>Espressioni</h2>
+<dfn>Una <em>espressione</em> è una combinazione di valori e funzioni da cui si ottiene un nuovo valore.
+Il tipo dell'espressione è il tipo del risultato ottenuto.</dfn>
+<p>Sembra complicato? forse risulterà più semplice facendo alcuni esempi, teniamo conto soltanto delle seguenti
+dichiarazioni:</p>
+<pre>
+int x = 5;
+int y = 7;
+double m = 2.00;
+String s = "11";
+</pre>
+<p>E proviamo a vedere alcune espressioni e il loro tipo:</p>
+<dl>
+	<dt><code>x + y</code></dt>
+	<dd>Questa espressione combina due informazioni (variabili) di tipo int e quindi è una espressione di tipo int,
+	il suo valore è 12</dd>
+	
+	<dt><code>x * 3</code></dt>
+	<dd>Questa espressione combina due informazioni (una variabile e una costante) di tipo int 
+	e quindi è una espressione di tipo int, il suo valore è 10</dd>
+	
+	<dt><code>4</code></dt>
+	<dd>Anche questa è una espressione, ha una sola costante di tipo int e quindi è un espressione di tipo int,
+	il suo valore è 4</dd>
+	
+	<dt><code>Integer.parseInt(s)</code></dt>
+	<dd>Integer.parseInt() è una funzione che da un risultato di tipo int: di nuovo una espressione int, 
+	il suo valore è 11</dd>
+	
+	<dt><code>Integer.parseInt(s) + 18 </code></dt>
+	<dd>Integer.parseInt() è una funzione che da un risultato di tipo int, sommato ad un 
+	altro int... di nuovo una espressione intera, 29 per la precisione.</dd>
+	
+	<dt><code>y * m</code></dt>
+	<dd>siccome le due variabili sono di tipi diversi il risultato è del tipo più "ampio",
+	cioè che consente di rappresentare il numero più grande: double, il suo valore è 14.00</dd>
+	
+	<dt><code>(int)(m*1.3)</code></dt>
+	<dd>m e 1.3 sono double quindi il risultato è double ma c'è un cast: il tipo dell'espressione è int e il suo 
+	valore è 2</dd>
+	
+	<dt><code>y + x++</code></dt>
+	<dd>tutte variabili int, il suo tipo è int, il valore è 12, questa espressione cambia anche il valore di x che 
+	diventerà 6</dd>
+</dl>
+
+<p>Nella scrittura delle espressioni possono essere utilizzate soltanto le parentesi tonde.</p>
 
 <div class="test">
 	<p>Quanto vale <code>[6 + (2 * 2) ] / 2</code> ?</p>
@@ -239,12 +291,6 @@ prima viene eseguito 45/10 che fa 4 e poi la moltiplicazione per 2.5 che fa 10.0
     <a onclick="giusta(this)">errore<span class="spiegazione">giusto, le parentesi quadre non posso essere usate</span></a> 
 </div>
 
-<div class="test">
-	<p>Quanto vale <code>8 / 3</code> ?</p>
-    <a onclick="giusta(this)">2<span class="spiegazione">giusto! è una divisione tra interi</span></a> 
-    <a onclick="sbagliata(this)">2.66666<span class="spiegazione">no, le divisioni tra interi non hanno una parte decimale</span></a>
-    <a onclick="sbagliata(this)">3<span class="spiegazione">no, le divisioni tra interi non vengono arrotondate</span></a> 
-</div>
 </article>
 </body>
 </html>
