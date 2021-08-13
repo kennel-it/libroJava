@@ -42,9 +42,10 @@ linguaggio umano lo scrivere una parola in maiuscolo o in minuscolo non
 ne cambia il significato (almeno non sempre) e le maiuscole sono
 presenti solo all'inizio di una parola, per un linguaggio di
 programmazione (non tutti ma quasi) le tre parole “Musica”, “musica” e
-“muSIca” sono tutte diverse,
-tutti i linguaggi di programmazione che fanno differenza tra maiuscolo e
-minuscolo si dicono "case sensitive".</p>
+“muSIca” sono tutte diverse.</p>
+
+<dfn>Si dice <em>case sensitive</em> un linguaggio che distingue le lettere
+maiuscole dalle minuscole.</dfn>
 
 <p>Le regole sintattiche in un
 linguaggio di programmazione sono molto semplici e al contempo
@@ -66,12 +67,13 @@ non lo è, non ci sono vie di mezzo.</p>
 
 <div class="test">
     <p>Quale tra le seguenti frasi è sintatticamente errata?</p>
-    <a onclick="sbagliata(this)">il cane è azzurro</a> 
-    <a onclick="sbagliata(this)">il mio cane sa volare</a> 
-    <a onclick="sbagliata(this)">sono le ore dieci e trenta</a>
-    <a onclick="giusta(this)">il mio cane è bianca</a>
+    <a onclick="sbagliata(this)">il cane è azzurro <span class="spiegazione">magari è improbabile ma la sintassi è corretta</span></a> 
+    <a onclick="sbagliata(this)">il mio cane sa volare <span class="spiegazione">magari è improbabile ma la sintassi è corretta</span></a> 
+    <a onclick="sbagliata(this)">sono le ore dieci e trenta <span class="spiegazione">forse non in questo momento ma la sintassi è corretta</span></a>
+    <a onclick="giusta(this)">il mio cane è bianca <span class="spiegazione">si</span></a>
 </div>
 
+<h2>Semantica</h2>
 <p>Finora abbiamo parlato si sintassi,
 un discorso diverso vale per la semantica di un programma cioè per il
 suo significato. Per capire il concetto di semantica possiamo considerare alcuni
@@ -90,16 +92,16 @@ pensata per calcolare l'area di un cerchio non assolverà al suo compito.</p>
 
 <div class="test">
     <p>Quale tra le seguenti espressioni è semanticamente errata se stiamo parlando di un quadrato?</p>
-    <a onclick="sbagliata(this)">area=lato x lato</a> 
-    <a onclick="sbagliata(this)">perimetro = 4 x lato</a> 
-    <a onclick="giusta(this)">perimetro = (2 + 4) x lato</a>
-    <a onclick="giusta(this)">area = lato + lato</a>
+    <a onclick="giusta(this)">area = lato x lato</a> 
+    <a onclick="giusta(this)">perimetro = 4 x lato</a> 
+    <a onclick="sbagliata(this)">perimetro = (2 + 4) x lato</a>
+    <a onclick="sbagliata(this)">area = lato + lato</a>
 </div>
 
 <p>Gli errori all'interno dei programmi vengono usualmente chiamati "bug".</p>
     
     
-<h2>quale linguaggio scegliere</h2>
+<h2>Quale linguaggio scegliere</h2>
 
 <p>Riguardo ai linguaggi di programmazioni è utile osservare che ne 
 esistono una enorme varietà: le differenze tra l'uno e l'altro sono notevoli. 
@@ -140,8 +142,8 @@ class Ciao {
    } 
 }
 </pre>
-<div class="suggerimento">...e non è neanche detto che la lunghezza dei programmi sia l'unico parametro per valutare un linguaggio.</div>
-<p>Se però volessimo avere un programma con una interfaccia grafica non è detto che Perl resti il più semplice.</p>
+<p>Se però volessimo avere un programma con una interfaccia grafica non è detto che Perl resti il più semplice
+...e non è neanche detto che la lunghezza dei programmi sia l'unico parametro per valutare un linguaggio</p>
 
 <h2>Alto o basso livello?</h2>
 <p>I linguaggi di programmazione sono classificabili seguendo diversi parametri, 
@@ -182,6 +184,7 @@ main:
 <p>Si vede facilmente che sebbene la sintassi di entrambe i linguaggi sia sconosciuta 
 il frammento di codice java è molto più comprensibile del frammento di assembler!</p>
 
+<h2>Esecuzione dei programmi</h2>
 <p>Dopo aver visto cosa è un linguaggio di programmazione vediamo ora come un computer 
 può eseguire le azioni specificate nel programma stesso iniziando subito dalle note dolenti: 
 un computer non è direttamente in grado di comprendere nessun programma sia questo scritto 
@@ -220,31 +223,39 @@ ma chiede al sistema operativo di farlo per suo conto.
 Anche in questo caso le modalità con cui questo servizio va richiesto a 
 Windows sono diverse da quelle con cui va richiesto a Linux o a macOS.</p>
 
+<dfn>Una <em>macchina</em> è definita dall'architettura hardware che la costituisce e dal sistema 
+operativo in esecuzione.</dfn>
+
 <p>Per poter eseguire un programma scritto in un determinato 
 linguaggio di programmazione su una determinata macchina (che esegue un dato sistema operativo) 
 è necessario 
 un passo di traduzione: il nostro programma deve cioè essere reso comprensibile 
 per il computer su cui dovrà essere eseguito. Le strade possibili per 
-effettuare questa traduzione sono due:<br/>
-a) traduco il programma per intero in linguaggio macchina e lo salvo su file così 
-che chiunque abbia tale (o tali) file possa eseguirlo semplicemente facendoci doppio click;<br/>
-b) lo leggo con un apposito programma istruzione per istruzione 
-e per ognuna tale programma chiede alla macchina di eseguire l'azione richiesta dall'istruzione letta.</p>
+effettuare questa traduzione sono due:</p>
+<ol>
+	<li>traduco il programma per intero in linguaggio macchina e lo salvo su file così 
+	che chiunque abbia tale (o tali) file possa eseguirlo semplicemente avviandolo 
+	(ad esempio con un doppio click sull'icona)</li>
+	<li>salvo il programma così come lo ho scritto poi per eseguirlo utilizzerò un apposito programma
+	che istruzione per istruzione chiederà alla macchina di instraprendere il compito
+	richiesto</li>
+</ol>
 
-<p>Per chiarezza di trattazione chiameremo da qui in avanti <em>programma sorgente</em> 
-il nostro programma scritto in un linguaggio qualsiasi (C, Perl, Java... e non Inglese, Italiano...) 
-che dovrà essere eseguito da una macchina. Il programma sorgente è un
-semplice file di testo, di quelli che su Windows si possono scrivere con il blocco note 
-(non con Word o OpenOffice), solitamente per scrivere questi file si usano però programmi
+<dfn>Si chiama <em>programma sorgente</em> un file (comunemente in formato testo) che contiene 
+un programma o sue parti scritto in un linguaggio di programmazione 
+qualsiasi.</dfn>
+<p>Per chiarezza di trattazione un file di testo è uno di quei file che su Windows 
+si possono scrivere con il blocco note (non con Word o OpenOffice), 
+solitamente per scrivere questi file si usano però programmi
 più complicati del blocco note come 
 <a href="https://netbeans.org/">NetBeans</a> o 
 <a href="http://www.eclipse.org/">Eclipse</a>.</p>
 
-<h2>Compilatori</h2>
+<h3>Compilatori</h3>
 <p>La prima soluzione che analizziamo è quella detta "compilativa" 
 in cui un programma (detto appunto compilatore) si occupa della traduzione 
 del nostro programma da "programma sorgente" in un formato direttamente 
-comprensibile alla macchina, tradizionalmente alla famiglia dei linguaggi 
+comprensibile alla macchina detto "programma compilato", tradizionalmente alla famiglia dei linguaggi 
 compilati appartengono C e Pascal. Un ovvio vantaggio della soluzione compilativa 
 sta nel fatto che la traduzione una volta fatta non va ripetuta 
 e questo ci consente di avere programmi più efficienti (pensa ad una traduzione 
@@ -253,14 +264,14 @@ se a tradurre è un interprete la persona che parla di tanto in tanto deve ferma
 per permettere all'interprete di tradurre), un ulteriore vantaggio è dato 
 dalla possibilità che hanno i compilatori di ottimizzare il 
 "programma in linguaggio macchina" generato, cioè di organizzare il programma 
-“tradotto” in modo da sfruttare a fondo la macchina su cui andrà a funzionare. 
+"tradotto" in modo da sfruttare a fondo la macchina su cui andrà a funzionare. 
 D'altro canto è anche vero che se compilo il mio programma per una macchina 
 (ad esempio windows con processori della famigli Intel) poi non posso 
 eseguirlo su un'altra (ad esempio macOS con processore della famiglia intel)
 per via del fatto che, come abbiamo visto, un programma 
 in linguaggio macchina è eseguibile solamente su una macchina specifica.</p> 
 
-<h2>Interpreti</h2>
+<h3>Interpreti</h3>
 <div class="suggerimento">I sistemi operativi moderni permettono di avviare anche programmi
 da interpretare semplicemente facendoci doppio click: chiamano automaticamente
 l'interprete opportuno.</div>
@@ -268,26 +279,27 @@ l'interprete opportuno.</div>
 sorgente non viene tradotto in una unica soluzione ma ogni volta che deve essere 
 eseguito un apposito programma (detto appunto interprete) legge ogni singola istruzione 
 del programma sorgente e chiede alla macchina di intraprendere le azioni opportune. 
-A questo gruppo di linguaggi appartiene ad esempio Javascript. 
+A questo gruppo di linguaggi appartiengono ad esempio Javascript e Python. 
 Anche questa soluzione ha dei vantaggi meno visibili ma altrettanto rilevanti: 
 alcuni linguaggi fanno uso di tecniche che traggono grande beneficio dalla presenza 
 degli interpreti (sempre per tornare all'esempio di prima se ho un interprete 
 posso cambiare il mio discorso durante la conferenza), il mio programma sorgente
-potrà funzionare su qualsiasi macchina in cui esiste l'opportuno interprete. 
+potrà funzionare su qualsiasi macchina in cui esiste l'opportuno interprete
+senza che io deba compilarlo separatamente. 
 Javascript viene ad esempio 
 scritto nelle pagine html ed eseguito dagli interpreti presenti nei diversi browsers: 
 in questo caso io sapendo che qualsiasi macchina connessa ad internet ha un browser 
 capace di comprendere javascript semplicemente inserisco nella pagina web 
 il programma sorgente, sarà poi il browser ad interpretarlo e quindi ad eseguirlo.</p>
 
-<h2>Un po' e un po'</h2>
+<h3>Un po' e un po'</h3>
 <p>Tra queste due soluzioni estreme ne esiste anche una ibrida, 
 è anche vero che negli esempi visti finora non abbiamo incontrato java 
 (che non ha nulla a che vedere con javascript).
 Un programma può essere compilato in un linguaggio intermedio tra un 
 linguaggio ad alto livello e il linguaggio macchina 
 (più semplice dal punto di vista del computer ma non ancora direttamente comprensibile) 
-che verrà poi interpretato, questo è il caso di java e di tanti altri linguaggi di programmazione.</p>
+che verrà poi interpretato, questo è il caso di java e di altri linguaggi di programmazione.</p>
 
 <p>Conviene a questo punto chiarire un punto riguardo la velocità di esecuzione 
 di un programma interpretato: in linea di principio più un programma è di alto livello 
@@ -310,6 +322,7 @@ che non è legato ad una determinata macchina, il secondo passo (quello di inter
 si trova a lavorare su un programma scritto in maniera molto più semplice 
 e quindi potrà eseguire più in fretta le operazioni richieste.</p>
 
+<h3>Conclusioni</h3>
 <p>Ogni linguaggio in realtà può essere sia compilato che interpretato, 
 nessuno vieta per principio di avere un interprete "C" ma per varie ragioni (anche storiche) 
 il "C" è un linguaggio compilato mentre il "Basic" è un linguaggio interpretato. 
