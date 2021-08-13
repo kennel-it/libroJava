@@ -3,6 +3,9 @@
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="numeri" group="base" -->
 <!-- changelog 2021-08-10 sistemazioni minori in tutto il capitolo -->
+<!-- changelog 2021-08-10 corretti nomi di funzione e variabili nell'esempio del ToggleButton -->
+<!-- changelog 2021-08-13 rimosso l'esempio su pari/dispari e spostato in booleani -->
+<!-- changelog 2021-08-13 piccoli aggiustamenti sull'uso dei ToggleButton -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -30,13 +33,23 @@ il programma andrà a verificare se il pulsante di spunta è – appunto – spu
 stesso modo degli altri oggetti grafici, quindi:</p>
 <pre>CheckBox scontoPresente = new CheckBox();</pre>
 
-<p>Dove inserisci tale dichiarazione? Nel metodo start() o direttamente nella classe?
-Nella  classe perché con quest'oggetto il programma interagirà sia al momento della sua disposizione 
+<p>Dove inserisci tale dichiarazione?
+Così nel metodo start():</p>
+<pre>public class Sconto extends Application { 
+  @Override
+  public void start(Stage primaryStage) {
+    CheckBox scontoPresente = new CheckBox();</pre>
+<p>Oppure così direttamente nella classe fuori dai qualsiasi metodo?</p>
+<pre>public class Sconto extends Application { 
+  CheckBox scontoPresente = new CheckBox();
+  @Override
+  public void start(Stage primaryStage) {</pre>
+<p>Al livello di classe (fuori dai metodi) perché con quest'oggetto il programma interagirà sia al momento della sua disposizione 
 nella finestra sia nel momento in cui l'utente avvia il calcolo, quindi alla pressione del pulsante.</p>
 <p>Nel metodo start() inseriremo anche il testo che dovrà visualizzare in quanto per ora comparirebbe 
 il solo quadratino senza alcunché di spiegazione. La tecnica per impostare il testo di un oggetto è 
-sempre la stessa: usare il metodo setText(“testo”) che nel nostro esempio sarà:</p>
-<pre>scontoPresente.setText(“applica sconto”);</pre>
+sempre la stessa: usare il metodo setText("testo") che nel nostro esempio sarà:</p>
+<pre>scontoPresente.setText("applica sconto");</pre>
 
 <p>In alternativa potremmo usare il sistema più compatto che fa indicare il testo direttamente alla costruzione
 dell'oggetto:</p>
@@ -69,11 +82,11 @@ Java che è pari pari quello sopra riportato a meno della scrittura nello specif
 <p>Saltano subito all'occhio alcune cose sulla <code>if</code> ed una sulla spunta. Cominciamo da quest'ultima: 
 il metodo <code>isSelected()</code> vale vero se è visuazzata la spunta, altrimenti varrà falso; 
 questo vuol dire che la parte contenuta nelle parentesi tonde letteralmente la puoi leggere così: 
-"c'è la spunta sull'oggetto scontoPresente". Passiamo all'if. Il fatto da verificare è sempre racchiuso 
+"c'è la spunta sull'oggetto scontoPresente". Passiamo all'if: il fatto da verificare è sempre racchiuso 
 nelle parentesi tonde. Dell'espressione che qui si va a scrivere si dovrà sempre poter dire se questa
 è vera o falsa; nell'esempio infatti si dice che <var>scontoPresente</var> è spuntato, tale espressione 
 diciamo che è vera se in effetti la spunta c'è altrimenti è falsa.</p>
-<p>Questa espressione che deve essere valutata da if si chiama 
+<p>L'espressione che deve essere valutata da if si chiama 
 <a href="210-20-booleani.xhtml">condizione</a> e – come detto – è sempre racchiusa 
 tra parentesi tonde. A seguire osservi delle parentesi graffe: proprio come quando hai scritto le tue funzioni, 
 le graffe racchiudono una sequenza di istruzioni. Nel nostro caso raccoglieranno tutte e sole quelle istruzioni 
@@ -137,59 +150,24 @@ ALTRIMENTI
 FINE SE</pre>
 <p>e osserveremo che in ALTRIMENTI non c'è la condizione, mai. In Java si traduce con:</p>
 <pre>if(condizione) {
-   //fai tutto ciò che serve per il caso vero
+   // [1] fai tutto ciò che serve per il caso vero
 } else {
-   //fai tutto ciò che serve per il caso falso
+   // [2] fai tutto ciò che serve per il caso falso
 }</pre>
-<p>qui (nell'else) di condizione non c'è traccia.</p>
+<p>qui (nell'else) di condizione non c'è traccia. Il programma eseguirà sicuramente o la parte di codice [1]
+o la [2] ma in nessun caso entrambe.</p>
 
-<h3>Pari o dispari?</h3>
-<p>Abbandoniamo il problema dello scontrino, per altro risolto, e poniamocene uno nuovo.</p>
-<p>Matematica: dato un numero, dire se questi è pari o dispari. 
-È noto che per essere pari è necessario che sia divisibile per 2. 
-Detto così sembra di difficile soluzione: ci chiediamo allora quando un numero è divisibile per 2 
-e la risposta sarà: un numero è divisibile per 2 se il resto della divisione 
-(stiamo parlando di divisione tra numeri interi) è 0, 
-altrimenti non è divisibile per 2, quindi non è pari e cioè è dispari:</p>
-
-<div class="pseudo">SE il resto della divisione tra il numero e 2 è uguale a 0 ALLORA
-   scrivi "il numero è pari"
-ALTRIMENTI
-   scrivi "il numero è dispari"
-FINE SE
-</div>
-
-<div class="test">
-   	<p>La parte else in un condizionale...</p>
-	<a onclick="sbagliata(this)">è obbligatoria<span class="spiegazione">no, può essere omessa</span></a> 
-	<a onclick="sbagliata(this)">deve specificare la condizione contraria dell'if<span class="spiegazione">no, l'else non ha una condizione: viene eseguita se la condizione dell'if è falsa</span></a>
-	<a onclick="giusta(this)">è opzionale</a>
-</div>
-
-<p>In Java per calcolare il resto si usa l'operatore <b>%</b>. 
-Ad esempio 17%10 dà come risultato 7, 8%3 dà come risultato 2 e 55%5 dà come risultato 0. 
-Bene. Posto di aver già realizzato la funzione start(), scriviamo qui la funzione del calcolo:</p>
-<pre>public void verificaPari() {
-   int num;
-   num = Integer.parseInt(numero.getText());  //numero è il nome della TextBox
-   <em>if(num%2 == 0) {
-      messaggio.setText("il numero è pari");  //messaggio è il nome della TextBox
-   } else {
-      messaggio.setText("il numero è dispari");
-   }</em>
-}</pre>
-
-<h2>Radio</h2>
+<h3>Radio</h3>
 <p>La casella di spunta si adopera in genere per attivare o meno una certa opzione. 
 Caso diverso invece è il bisogno di fornire all'utente una rosa di possibilità tra cui poterne 
 scegliere esattamente una. Questo significa che quando si apre il programma una scelta 
 deve essere già impostata e sarà poi l'utente – eventualemente – a modificarla. 
 La soluzione è l'uso dei pulsanti radio (<code>RadioButton</code> in JavaFX). 
 L'esempio classico è maschio o femmina: ogni utente apparterrà al primo od al secondo caso; 
-il programma, al momento della visualizzazione (in start()), 
+il programma, al momento della visualizzazione ( in start() ), 
 può proporre maschio e poi eventualmente chi lo usa lo cambierà.</p>
 
-<p>Modifichiamo il programma di saluto visto nelle prime pagine in modo tale che dia 
+<p>Modifichiamo il programma di saluto visto nelle prime sezioni in modo tale che dia 
 un messaggio diverso a seconda che chi lo sta usando è maschio o femmina. 
 Innanzi tutto la dichiarazione è ormai intuitiva 
 (<code>RadioButton nomePulsante = new RadioButton()</code>), 
@@ -220,9 +198,9 @@ public void start(Stage primaryStage) {
    <em>maschio.setToggleGroup(genere);
    femmina.setToggleGroup(genere);
    maschio.setSelected(true);</em>
-   l_nome.setText("Ti chiami");
-   l_saluto.setText("Dirò");
-   dimmiCiao.setOnAction( e -&gt; calcolaSconto() );
+   lNome.setText("Ti chiami");
+   lSaluto.setText("Dirò");
+   dimmiCiao.setOnAction( e -&gt; saluta() );
    GridPane pannello = new GridPane();
    pannello.setHgap(10);
    pannello.setVgap(7);
@@ -240,7 +218,7 @@ public void start(Stage primaryStage) {
    primaryStage.show();
 }
 
-public void calcolaSconto(){
+public void saluta(){
    if(maschio.isSelected()){
       saluto.setText ("Egregio sig. " + nome.getText() + " benvenuto!");
    } else {
@@ -262,11 +240,12 @@ ad esempio uno indica il genere (maschio/femmina) ed un altro l'essere maggioren
 È per noi intuitivo che l'essere maschio o femmina porta alla selezione di una delle due possibilità e non 
 ha alcuna influenza sull'altra scelta, quella della maggiore età; non è ovvio però per il computer che quindi 
 non sa quali sono i pulsanti legati da un senso logico e quali sono invece indipendenti. 
-Per questo si crea un gruppo di pulsanti nei quali si inseriscono tutti quelli legati tra di loro, 
-in cui può essere una sola la selezione attiva. Se ci sono più gruppi si dichiarano più oggetti 
-<code>ToggleGroup</code> e ciascun pulsante radio si legherà al proprio gruppo. 
+Per questo si crea un gruppo di pulsanti e poi si dice ai singoli pulsanti a quale gruppo appartengono, 
+in ogni gruppo soltanto un pulsante può essere selezionato (es: se si seleziona "femmina" maschio viene automaticamente 
+deselezionato). Se ci sono più gruppi si dichiarano più oggetti 
+<code>ToggleGroup</code> e ciascun pulsante radio andrà legato al proprio gruppo. 
 Per legare un pulsante radio ad un gruppo è sufficiente usare il metodo <code>setToggleGroup()</code> in questo modo:</p>
-<pre>nomePulsanteRadio.setToggleGroup(nomeGruppo);</pre>
+<code>nomePulsanteRadio.setToggleGroup(nomeGruppo);</code>
 
 <div class="esercizio">
 	<p>Esercizio: il fantomatico dott. Finger ha inventato la formula per calcolare 

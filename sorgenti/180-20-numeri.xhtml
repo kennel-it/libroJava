@@ -285,6 +285,20 @@ String s = "11";
 <p>Nella scrittura delle espressioni possono essere utilizzate soltanto le parentesi tonde.</p>
 
 <div class="test">
+   	<p>Quanto vale l'espressione <code>4+5*2</code>?</p>
+	<a onclick="sbagliata(this)">18<span class="spiegazione">no, prima si fa il prodotto</span></a> 
+	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è corretta</span></a>
+	<a onclick="giusta(this)">14</a>
+</div>
+
+<div class="test">
+   	<p>Quale è il tipo dell'espressine <code>4+5*2</code>?</p>
+	<a onclick="sbagliata(this)">double<span class="spiegazione">no, non sono numeri con una parte decimale</span></a>
+	<a onclick="giusta(this)">int</a> 
+	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è corretta e ha un tipo</span></a>
+</div>
+
+<div class="test">
 	<p>Quanto vale <code>[6 + (2 * 2) ] / 2</code> ?</p>
     <a onclick="sbagliata(this)">5<span class="spiegazione">no, le parentesi quadre non posso essere usate</span></a> 
     <a onclick="sbagliata(this)">4<span class="spiegazione">no, le parentesi quadre non posso essere usate</span></a>
