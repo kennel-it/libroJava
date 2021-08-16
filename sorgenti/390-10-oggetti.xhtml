@@ -18,6 +18,7 @@
 <!-- changelog 2020-10-12 scritto esplicitamente "modificatori di visibilità" -->
 <!-- changelog 2021-04-08 rimossi tutti i "float" in favore di "double" -->
 <!-- changelog 2021-08-10 modificata prima parte sul cosa chiedersi per fare un programma ad oggetti -->
+<!-- changelog 2021-08-16 correzioni su risparmio vincolato -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -188,7 +189,7 @@ funzionalità desiderate modellando la realtà che ci interessa.</p>
 dimensione del programma che si sta trattando, due tra i più evidenti sono:</p>
 <ul>
     <li>possiamo concentrare in un unico punto tutta la rappresentazione di una entità (l'autoveicolo dell'esempio),
-    questo ci consentirà in futuro di poter cambiare il nostro modello intervenendo in un punto unico del programma.</li>
+    questo ci consentirà in futuro di poter cambiare il nostro modello intervenendo in un punto unico del programma</li>
     <li>quando più sviluppatori lavorano sullo stesso progetto possono 
     occuparsi di entità diversi riducendo la possibilità di interferire l'uno con l'altro.</li>
 </ul>
@@ -569,17 +570,23 @@ Per un approfondimento vedi <a href="https://docs.oracle.com/javase/tutorial/jav
 
 
 <h2>Esempio: il risparmio vincolato</h2>
-<p>Quando otteniamo del denaro tra le possibilità che ci sono, oltre a spenderli tutti e subito, 
-c'è quella di vincolarlo per un periodo di tempo predeterminato (ad esempio un anno) 
-sapendo sin dal momento del deposito e quindi del vincolo quale è la percentuale di interessi 
-(guadagno) che avrò e da questa la somma in effetti guadagnata.</p>
+<p>Nel momento in cui otteniamo del denaro si presentano varie opportunità: la prima è quella di spenderlo tutto e subito, 
+un'altra è quella di investirlo in modo che produca del guadagno. Tra le possibilità di investimento c'è quella di vincolarlo
+per un periodo di tempo predeterminato (ad esempio un anno), in tal caso verremo messi a conoscenza, nel momento del deposito,
+e quindi nel momento della creazione del vincolo quale è la percentuale di interessi (percentuale di guadagno) che avrò e da
+questa percentuale si calcola la somma in effetti guadagnata.</p>
 
 <p>Quali sono le informazioni che caratterizzano un risparmio vincolato?<br/>
-Innanzi tutto chi è il possessore di tale risparmio, quindi il nome ed il cognome. 
-Segue il numero del risparmio vincolato che deve essere unico, la cifra vincolata,
-la percentuale di interessi garantita, la data di inizio del vincolo (nel nostro caso il
-solo anno visto che i nostri importi sono vincolabili soltanto il primo gennaio). 
-Se vogliamo scrivere già queste informazioni otterremmo:</p>
+Innanzi tutto chi è il possessore di tale risparmio, quindi il nome ed il cognome. Si potrebbe aggiungere qualcosa come il
+codice fiscale per identificare in modo unico colui a cui si riferisce tale risparmio vincolato perché ci sono alcune persone
+con lo stesso nome e cognome (omonimi). Visto lo scopo puramente esemplificativo possiamo comunque ipotizzare che gli omonimi
+non esistono e quindi per capire di quale individuo si tratta è sufficiente il nome e cognome.
+Un'altra informazione necessaria è il numero del risparmio vincolato e questo deve essere unico; una persona può avere più
+risparmi vincolati e quindi serve un sistema per distinguerli. Seguono la cifra vincolata, la percentuale di interessi garantita,
+l'anno del vincolo. Anche in quest'ultima informazione, per semplificare, ipotizziamo una cosa che non accade nella realtà:
+i soldi verranno vincolati solo il primo gennaio di un dato anno (i soldi andranno chiaramente consegnati prima).<br/>
+Abbiamo ora fatto l'analisi della realtà che andava modellata avendo scelto ciò che è importante registrare, andiamo a scrivere
+intanto queste informazioni ottenendo:</p>
 
 <h3>file RisparmioVincolato.java</h3>
 <pre>public class RisparmioVincolato {
@@ -591,17 +598,19 @@ Se vogliamo scrivere già queste informazioni otterremmo:</p>
    double interessiPercentuale;
 }</pre>
 
-<p>Quali sono le informazioni che deve avere un oggetto appena si crea? 
-Senza pensarci troppo, diremo che vogliamo la possibilità di non dire niente all'inizio perché
-tutte le informazioni verranno impostate successivamente. 
-Vogliamo però anche avere la possibilità di inserire tutte le informazioni al momento della creazione
-dell'oggetto: avremo bisogno di due costruttori.</p>
-
-<p>Ricordiamo che la sintassi per creare dei costruttori è piuttosto semplice: 
+<p>Quali sono le informazioni che deve avere un oggetto appena si crea?<br/>
+Stabiliamo 2 alternative:
+<ul>
+    <li>nella prima vogliamo la possibilità di creare un oggetto senza che sia specificato alcun dato perché tutte le
+    informazioni verranno impostate successivamente. In tal caso le proprietà avranno valori particolari</li>
+    <li>nella seconda vogliamo la possibilità di impostare tutti i dati perché si conoscono già tutte le informazioni. In
+    tal caso è possibile verificare che i valori forniti verifichino determinate condizioni.</li>
+</ul> 
+avendo previsto le 2 alternative sopra descritte avremo bisogno di due costruttori la cui sintassi, lo ricordiamo, è piuttosto semplice:
 <code>NomeClasse(tipo argomento, tipo argomento, ...) { ... }</code>.</p>
 <p>La classe sopra con in più i costruttori sarà:</p>
 
-<h3>file RisparmioVincolato.java aggiornato</h3>
+<h3>file RisparmioVincolato.java con i costruttori</h3>
 <pre>public class RisparmioVincolato {
    String nome;
    String cognome;
@@ -623,30 +632,30 @@ dell'oggetto: avremo bisogno di due costruttori.</p>
       interessiPercentuale = 0.0;
    }</em>
 
-   <em>public RisparmioVincolato(String n, String c, int cod, double euro, short a, double i) {
-      nome = n;
-      cognome = c;
-      codice = cod;
-      importo = euro;
+   <em>public RisparmioVincolato(String nome, String cognome, int codice, double importo, short anno, double interessiPercentuale) {
+      this.nome = nome;
+      this.cognome = cognome;
+      this.codice = codice;
+      this.importo = importo;
       // Ci mettiamo anche un banale controllo sulle date: l'anno dal 1970 al 2025 
-      if(a&lt;1970) {
-         a = 1970;
-      } else if(a&gt;2020) {
-         a = 2020;
+      if(anno &lt; 1970) {
+         anno = 1970;
+      } else if(anno &gt; 2025) {
+         anno = 2025;
       }      
-      anno = a;
-      interessiPercentuale = i;
+      this.anno = anno;
+      this.interessiPercentuale = interessiPercentuale;
    }</em>
 }</pre>
 
-<p>Sarebbe utile che l'oggetto ci permetta di sapere quanti soldi si guadagneranno allo 
-scadere del periodo e anche quanti soldi si avranno in tutto (sempre alla scadenza del periodo). 
-Affinché il metodo possa fornire il guadagno, numero con la virgola, 
-restituirà un double per avere la massima precisione. 
-Il metodo ha bisogno di argomenti? La risposta è no perché tutte le informazioni necessarie 
-sono già memorizzate nelle proprietà della classe: 
-l'importo ed il tasso (la percentuale) di interessi; discorso analogo per il capitale 
-(cioè i soldi posseduti) totale.</p>
+<p>Sarebbe utile che l'oggetto ci permetta di sapere sia quanto si guadagnerà allo scadere del periodo, sia quanti soldi
+si avranno in totale (la somma vincolata alla quale si aggiungono gli interessi). Affinché il metodo possa fornire il
+guadagno, che è un numero con la virgola, dobbiamo scegliere tra i tipi <code>float</code> e <code>double</code>.
+La preferennza ricade su <code>double</code> per avere la massima precisione. 
+Il metodo ha bisogno di argomenti? Detto in modo diverso, il metodo ha bisogno di ulteriori informazioni per poter calcolare
+il risultato? La risposta è no perché tutte le informazioni necessarie sono già memorizzate nelle proprietà della classe: 
+sono necessari sia l'importo che il tasso (la percentuale) di interessi.<br/>
+Discorso analogo per il capitale (cioè i soldi posseduti) totale.</p>
 
 <pre>public class RisparmioVincolato {
 
@@ -658,17 +667,17 @@ l'importo ed il tasso (la percentuale) di interessi; discorso analogo per il cap
    }</em>
 
    <em>public double fornisciCapitale() {
-      double guadagno = fornisciGuadagno(); //anziché rifare il calcolo invochiamo il metodo
+      double guadagno = fornisciGuadagno(); //anziché rifare il calcolo invochiamo il metodo sopra
       double capitale = guadagno + importo;
       return capitale;
    }</em>
 }</pre>
 
-<p>Ora, dopo aver dichiarato quali sono tutte le caratteristiche della classe RisparmioVincolato, 
-usiamola in un programma normale. Possiamo pensare di avere un form per l'inserimento dei dati 
-rispetto ad un investimento. Al click di un pulsante per l'acquisizione dei dati tutto ciò 
-che è presente nel form verrà usato per costruire un oggetto della classe definita qui sopra,
-si puliranno tutti i campi e si farà una sintesi di quanto letto in una etichetta.<br/>
+<p>Ora, dopo aver dichiarato la classe RisparmioVincolato con tutte le sue caratteristiche, usiamola in un programma
+normale. Possiamo pensare di avere un form per l'inserimento dei dati relativi ad un investimento di tipo risparmio
+vincolato. Al click di un pulsante per l'acquisizione dei dati, tutto ciò che è presente nel form verrà usato per costruire
+un oggetto della classe definita qui sopra, subito dopo si puliranno tutti i campi e si farà una sintesi di quanto letto in
+una etichetta.<br/>
 Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capitale totale alla fine del periodo.</p>
 <pre>public class InterfacciaGrafica extends Application {
     TextField tNome = new TextField();
@@ -680,7 +689,7 @@ Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capita
     Label lNomeCognome = new Label("Nome e cognome");
     Label lData = new Label("Data vincolo");
     Label lGuadagnoETotale = new Label("Guadagno in €");
-    RisparmioVincolato risparmio;
+    <em>RisparmioVincolato risparmio;</em>
 
     public void start(Stage finestra) {
        Label lNome = new Label("Nome");
@@ -727,7 +736,8 @@ Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capita
        // La new la facciamo qui piuttosto che insieme agli altri oggetti di tipo 
        // TextField perché solo qui sappiamo quali valori usare nel costruttore
        <em>risparmio = new RisparmioVincolato(sNome, sCognome, iCodice, fImporto, iAnno, fInteressi);</em>
-       // In questo momento tutte le informazioni lette sono memorizzate nelle proprietà dell'oggetto risparmio
+       // In questo momento tutte le informazioni lette sono memorizzate nelle proprietà dell'oggetto risparmio,
+       // non sevono più i dati nel form che quindi viene pulito per un prossimo eventuale inserimento
        tNome.setText("");
        tCognome.setText("");
        tCodice.setText("");
@@ -735,7 +745,7 @@ Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capita
        tInteressiPercentuale.setText("");
        tAnno.setText("");
        lNomeCognome.setText("Vincolo di " + risparmio.nome + " " + risparmio.cognome);
-       lData.setText("fatto l'anno " + risparmio.anno+ "con interessi del " + risparmio.interessiPercentuale + "%");
+       lData.setText("fatto l'anno " + risparmio.anno + "con interessi del " + risparmio.interessiPercentuale + "%");
     }
 
     public void mostra() {
@@ -749,30 +759,67 @@ Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capita
     }
 }</pre>
 
-<p>Il programma sopra proposto ha un difetto: lascia alla classe <code>InterfacciaGrafica</code> 
-la possibilità di interagire direttamente con le variabili interne alla classe. 
-Nulla vieterebbe quindi che da qualche parte nella classe InterfacciaGrafica, 
-si possa scrivere <code>risparmio.anno = 44;</code>
-oppure <code>risparmio.importo = -12.0;</code>. Chiaramente sono errori.</p>
+<p>Nel metodo <code>acquisisci()</code> del programma sopra proposto, vengono prima lette tutte le informazioni del form, poste in delle
+variabili e poi queste vengono usate per invocare il costruttore opportuno nel quale vengono eseguiti dei controlli sulla correttezza
+dei dati. Più avanti, nelle ultime 2 righe del metodo, si accede in lettura alle proprietà poco sopra impostate.<br/>
+Segue ora una alternativa del metodo <code>acquisisci()</code> che vuole raggiungere lo stesso obiettivo utilizzando però l'altro
+costruttore:</p>
 
-<p>Per prevenire tali situazioni possiamo regolare la visibilità di alcune proprietà e/o 
-metodi di una classe. Dovremmo ad
-esempio impedire che da qualsiasi altra classe diversa da <code>RisparmioVincolato</code> 
-si possa accedere alle sue variabili (le proprietà).</p>
+<pre>public class InterfacciaGrafica extends Application {
+[...]
 
-<p>Se rendiamo private tutte le proprietà di <code>RisparmioVincolato</code>,
-come si può fare ad impostare il capitale o la percentuale di interessi al di là
-del costruttore?<br/>
-La soluzione è fornire dei metodi pubblici che impostano, 
-dopo aver effettuato controlli di correttezza, le variabili private: sono i setters. 
-Serviranno poi altri metodi che forniscono il valore di queste variabili private 
-(ogni metodo ne fornisce una): sono i getters.</p>
+    public void acquisisci() {
+       String sNome = tNome.getText();
+       String sCognome = tCognome.getText();
+       int iCodice = Integer.parseInt(tCodice.getText());
+       double fImporto = Double.parseDouble(tImporto.getText());
+       double fInteressi = Double.parseDouble(tInteressiPercentuale.getText());
+       short iAnno = (short) Integer.parseInt(tAnno.getText());
+       // Alternativa, utilizziamo il costruttore senza argomenti
+       <em>risparmio = new RisparmioVincolato();</em>
+       // A questo punto vanno impostati i valori delle proprietà
+       risparmio.nome = sNome;
+       risparmio.cognome = sCognome;
+       risparmio.codice = iCodice;
+       risparmio.importo = fImporto;
+       risparmio.anno = iAnno;
+       risparmio.interessiPercentuale = fInteressi;
+       // E, come prima, si puliscono i campi del form
+       tNome.setText("");
+       tCognome.setText("");
+       tCodice.setText("");
+       tImporto.setText("");
+       tInteressiPercentuale.setText("");
+       tAnno.setText("");
+       lNomeCognome.setText("Vincolo di " + risparmio.nome + " " + risparmio.cognome);
+       lData.setText("fatto l'anno " + risparmio.anno + "con interessi del " + risparmio.interessiPercentuale + "%");
+    }
 
-<p>Facciamo l'esempio con la sola proprietà <code>importo</code>:</p>
+[...]
+}</pre>
+
+<p>La variante sopra proposta ha un difetto: lascia alla classe <code>InterfacciaGrafica</code> la possibilità di modificare
+direttamente le variabili interne alla classe. In questo modo dalla classe <code>RisparmioVincolato</code> non è possibile
+eseguire alcun controllo sulla validità dei valore che vengono loro assegnati. Se ad esempio un utente inserisse nella casella
+anno del form il valore 44, per il programma in esecuzione tutto sarebbe corretto, così come tutto funzionerebbe se il
+solito utente, stavolta nel campo importo, inserisse il valore -12.0. Chiaramente tutto ciò è concettualmente sbagliato.</p>
+
+<p>Per prevenire tali situazioni è necessario un sistema per cui risulti impossibile accedere direttamente alle proprietà della
+classe <code>RisparmioVincolato</code> da qualsiasi altra classe, come nel caso di <code>InterfacciaGrafica</code>.</p>
+
+<p>Se rendiamo private tutte le proprietà di <code>RisparmioVincolato</code>, come si può fare ad impostare il capitale o la
+percentuale di interessi al di là del costruttore?<br/>
+La soluzione è fornire dei metodi che impostano, dopo aver effettuato controlli di correttezza, le variabili private: tali
+metodi vengono chiamati setters. Serviranno poi altri metodi che forniscono il valore di queste variabili private (ogni metodo
+ne fornisce una): sono i getters.</p>
+
+<p>Facciamo l'esempio con la sola proprietà <code>importo</code>, chiaramente il lavoro fatto su questa proprietà va replicato
+per tutte le altre. La riga della dichiarazione della proprietà differisce per la sola aggiunta della parola chiave
+<code>private</code> mentre compaiono in  più i metodi <code>setImporto()</code> e <code>getImporto()</code>:</p>
 <pre>private double importo;
 
 public void setImporto(double euro) {
-   if(euro>0) {
+   if(euro > 0) {
       importo = euro; //Anche se la proprietà è privata, il metodo della stessa classe accede a tutte le variabili
    } else {
       importo = 0;
@@ -781,6 +828,46 @@ public void setImporto(double euro) {
 public double getImporto() {
    return Importo;
 }</pre>
+
+<p>A questo punto il metodo <code>acquisisci()</code> sopra riportato non funzionerebbe più (provare per credere). La nuova
+versione sostituisce necessariamente l'accesso alle proprietà con l'accesso ai metodo setters e getters:</p>
+
+<pre>public class InterfacciaGrafica extends Application {
+[...]
+
+    public void acquisisci() {
+       String sNome = tNome.getText();
+       String sCognome = tCognome.getText();
+       int iCodice = Integer.parseInt(tCodice.getText());
+       double fImporto = Double.parseDouble(tImporto.getText());
+       double fInteressi = Double.parseDouble(tInteressiPercentuale.getText());
+       short iAnno = (short) Integer.parseInt(tAnno.getText());
+       // Alternativa, utilizziamo il costruttore senza argomenti
+       <em>risparmio = new RisparmioVincolato();</em>
+       // A questo punto vanno impostati i valori tramite l'invocazione dei setters
+       risparmio.setNome(sNome);
+       risparmio.setCognome(sCognome);
+       risparmio.setCodice(iCodice);
+       risparmio.setImporto(fImporto);
+       risparmio.setAnno(iAnno);
+       risparmio.setInteressiPercentuale(fInteressi);
+       // Come prima, si puliscono i campi del form
+       tNome.setText("");
+       tCognome.setText("");
+       tCodice.setText("");
+       tImporto.setText("");
+       tInteressiPercentuale.setText("");
+       tAnno.setText("");
+       // A questo punto anche per la lettura dei dati non si può accedere alle proprietà
+       // ma bisogna usare i metodi: i getters
+       lNomeCognome.setText("Vincolo di " + risparmio.getNome() + " " + risparmio.getCognome());
+       lData.setText("fatto l'anno " + risparmio.getAnno() + "con interessi del " + risparmio.getInteressiPercentuale() + "%");
+    }
+
+[...]
+}</pre>
+
+
 <p>Eclipse può aiutarci nella generazione dei getters and setters: 
 click col destro sulla classe nel Package Explorer o sullo sfondo nella finestra del sorgente quindi
 click sulla voce Generate getters and setters...<br/>
