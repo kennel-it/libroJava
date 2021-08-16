@@ -10,6 +10,8 @@
 <!-- changelog 2021-01-19 specificato meglio funzionamento esercizio 2 -->
 <!-- changelog 2021-01-21 rinominato t_risultato in tRisultato -->
 <!-- changelog 2021-01-25 corretto ultimo esercizio per usare boolean -->
+<!-- changelog 2021-08-10 inserita dipendenza verso capitolo boolean -->
+<!-- changelog 2021-08-16 riorganizzato in sezioni il capitolo, corretti diversi errori di scrittura, nomi, e simili -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -26,7 +28,7 @@
 <p>Per risolvere alcuni problemi è comodo (o indispensabile) ripetere alcune righe di codice. Esempio? dato un intero, mostrare tutti gli interi da 0 al
    numero indicato dall'utente. Per risolvere questo problema passiamo prima per un problema più semplice: mostrare un elenco dei primi 10 numeri naturali.
    La soluzione che potrei proporre potrebbe essere: "ok, dichiaro una stringa, ci inserisco i 10 numeri e ho risolto". Certo, ma se invece fossero 1.000?
-   O 10.000? O più?</p>
+   O 10.000? O più? Proviamo a vedere...</p>
 <pre>public void compilaElenco() {
    String sequenza = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10";
    cRisposta.setText(sequenza);
@@ -65,7 +67,7 @@
 <pre>public void compilaElenco() {
    int n = 2;
    String sequenza = "1";
-   sequenza += ", " + n;
+   <em>sequenza += ", " + n;
    n++;
    sequenza += ", " + n;
    n++;
@@ -81,41 +83,57 @@
    n++;
    sequenza += ", " + n;
    n++;
-   sequenza += ", " + n;
+   sequenza += ", " + n;</em>
    cRisposta.setText(sequenza);
 }</pre>
-<p>Il programma sarà diventato tanto più lungo ma possiamo osservare che a parte le prime 2 righe e l'ultima le altre sono 2 righe ripetute. Detto in modo
-diverso si desume che le righe:</p>
+<p>Il programma sarà diventato tanto più lungo ma possiamo osservare che a parte le prime 2 righe e l'ultima 
+le altre sono 2 righe ripetute. Detto in modo diverso si desume che le righe:</p>
 <pre>public void compilaElenco() {
    int n = 2;
    String sequenza = "1";</pre>
-<p>vanno eseguite una sola volta; le righe</p>
+<p>vanno eseguite una sola volta; mentre le righe</p>
 <pre>sequenza += ", " + n;
    n++;</pre>
-<p>vanno ripetute 9 volte in quanto l'1 è già stato fatto, queste due righe si dovranno ripetere per tutti gli interi a partire dal 2 al 10. L'ultima riga
-   non andrà ripetuta perché si tratta della sola impostazione del testo nella <code>TextField</code>. Per esprimere il fatto che deve ripetere si usa
+<p>vanno ripetute 9 volte in quanto l'1 è già stato fatto; queste due righe si dovranno ripetere 
+   per tutti gli interi a partire dal 2 fino ad arrivare al 10. Un lettore attento avrà notato che in effetti nel
+   programma l'istruzione <code>n++</code> in fondo manca ma volendocela mettere non
+   cambierebbe asolutamente nulla. L'ultima riga
+   non andrà ripetuta perché si tratta della sola impostazione del testo nella <code>TextField</code>.</p>
+
+<h2>Il ciclo for</h2>
+   <p>Per esprimere il fatto che un gruppo di comandi va ripetuto si usa
    l'istruzione <code>for</code> con la seguente sintassi:</p>
 <pre>
-for(<var>inizializzazione delle variabili</var>; <var>condizione</var>; <var>incremento</var>) {
-   <var>istruzione 1 da ripetere</var>;  \
-   <var>istruzione 2 da ripetere</var>;   \
-   <var>istruzione 3 da ripetere</var>;   /  Corpo del for
+for(inizializzazione delle variabili ; condizione ; incremento) {
+   istruzione 1 da ripetere;  \
+   istruzione 2 da ripetere;   \
+   istruzione 3 da ripetere;   /  Corpo del for
    ...                        /
 }</pre>
-<p><i>Inizializzare</i> una variabile per la ripetizione (d'ora in poi useremo la parola ciclo per dire ripetizione) significa darle il valore che dovrà
-   avere appena parte la ripetizione. Nel programma che stiamo costruendo, quali sono le variabili che vanno inizializzate e a quale valore? Si inizializza
-   <code>n</code> a <code>2</code> e <code>sequenza</code> a <code>"1"</code>. Dato che si tratta di due inizializzazioni
-   per semplicità inseriremo quella che ci serve per contare all'interno del ciclo e l'altra che contiene
-   la varibile con il risultato del calcolo prima.<br/>
-   Nella parte <i>incremento</i> bisogna indicare come cambiano le variabili che riguardano la ripetizione ogni volta
-   che si arriva in fondo al ciclo. 
-   In questo caso la variabile da
-   cambiare sarà <code>n</code> perché è lei che ci dirà quante volte abbiamo ripetuto.<br/> Il corpo del for sarà semplicemente la costruzione di
-   <code>sequenza</code><br/>Rimane la parte un pochino più complessa: la <i>condizione (di ripetizione)</i>; poniamoci la domanda: Quand'è che a
-   <code>sequenza</code> deve essere aggiunto il nuovo valore di <code>n</code>? La risposta sarà: quando <code>n</code> vale <code>2</code> si ripete; lo
-   stesso quando <code>n</code> vale <code>3</code> e così via fino a quando <code>n</code> vale <code>10</code> dopodiché basta, altrimenti ci attaccheremmo
-   anche<code>11</code>! In definitiva diciamo che <i>si ripete tutte le volte che</i> <code>n&lt;=10</code>.<br/>Ok, abbiamo detto tutto quindi produciamo
-   finalmente il codice:</p>
+   <p>Vediamo una per una tutte le parti che compongono questa istruzione:
+   <em>inizializzare</em> una variabile vuol semplicemente dire darle un valore iniziale,
+   per la ripetizione (d'ora in poi useremo la parola ciclo per dire ripetizione) significa darle il valore 
+   che dovrà avere appena prima che inizi la parte che andrà ripetuta.
+   Nel programma che stiamo costruendo quali sono le variabili che vanno inizializzate e a quale valore? Si inizializza
+   <var>n</var> a 2 (perché come dicevamo questo è il primo numero da cui vogliamo iniziare 
+   a ripetere le stesse operazioni) e <var>sequenza</var> a "1" (visto che il numero uno deve comparire nel risultato).
+   Dato che si tratta di due inizializzazioni per semplicità inseriremo quella che ci serve per contare 
+   (la variabile <var>n</var>) all'interno del ciclo e l'altra che contiene
+   la variabile con il risultato del calcolo prima del ciclo stesso.</p>
+   <p>Nella parte <em>incremento</em> bisogna indicare come cambiano le variabili che riguardano 
+   la ripetizione ogni volta che si arriva in fondo al ciclo. 
+   In questo caso la variabile da cambiare sarà <var>n</var>: andrà incrementata di uno perché è lei che 
+   tiene il conto quante volte abbiamo ripetuto il corpo del ciclo.</p>
+   <p>Il corpo del for sarà semplicemente la costruzione di
+   <var>sequenza</var>.</p>
+   <p>Rimane la parte un pochino più complessa: la <em>condizione (di ripetizione)</em>. 
+   Per poterla scrivere dobbiamo porci la domanda: quand'è che a
+   <var>sequenza</var> deve essere concatenato il nuovo valore di <var>n</var>? 
+   La risposta è: quando <var>n</var> vale 2 va fatto; lo
+   stesso quando <var>n</var> vale 3 e così via fino a quando <var>n</var> vale 10 dopodiché basta, 
+   altrimenti ci attaccheremmo anche 11! In definitiva diciamo che <em>si ripete tutte le volte che</em> 
+   <code>n&lt;=10</code>. 
+   Ok, abbiamo detto tutto quindi produciamo finalmente il codice:</p>
 <pre>sequenza = "1";
 for(n = 2; n &lt;= 10; n++) {
    sequenza += ", " + n;
@@ -132,7 +150,7 @@ for(n = 2; n &lt;= 10; n++) {
 }</pre>
 <p>Certo, non è corto come la prima versione che abbiamo proposto, ma se anziché 10 elementi ne volessi 10.000, cosa cambia in quello e in questo?</p>
 <p>Veniamo allora al nostro primo quesito. Al momento della redazione del programma non abbiamo idea di quale sia il numero che l'utente vuole. Lo si
-   chiederà allora con una <code>TextField</code> e si userà come estremo. Ultima considerazione: <code>n</code> non partirà da <code>1</code> ma da
+   chiederà allora con una <code>TextField</code> e lo si userà come estremo. Ultima considerazione: <code>n</code> non partirà da <code>1</code> ma da
    <code>0</code>.</p>
 <pre>public void compilaElenco() {
    int n, massimo;
@@ -145,12 +163,26 @@ for(n = 2; n &lt;= 10; n++) {
    cRisposta.setText(sequenza);
 }</pre>
 
+<dfn>L'<em>istruzione for</em> è composta da 4 parti: una inizializzazione, una condizione, un incremento e un corpo
+secondo la sintassi:<br/>
+<pre>for( inizializzazione ; condizione ; incremento ){
+  corpo;
+}</pre>
+L'inizializzazione viene eseguita per prima e una sola volta, poi viene controllata la condizione e se è vera 
+si esegue il corpo altrimenti si prosegue con l'istruzione successiva al for, alla fine del corpo 
+si esegue l'incremento e si torna a controllare la condizione per procedere allo stesso modo di prima.</dfn>
+
 <div class="test">
-   	<p>Quanto varrà la variabile n alla fine del seguente frammento di programma?</p><div>for(n=0,a=0;a&lt;=5;a++){<br/>  n+=a;<br/>}</div>
-	<a onclick="sbagliata(this)">0</a> 
-	<a onclick="sbagliata(this)">1</a>
-	<a onclick="sbagliata(this)">11</a>
-	<a onclick="giusta(this)">15</a>  
+   	<p>Quanto varrà la variabile <var>n</var> alla fine del seguente frammento di programma?</p>
+   	
+<pre>n=0;
+for(a=0;a&lt;=5;a++){
+  n+=a;
+}</pre>
+	<a onclick="sbagliata(this)">0 <span class="spiegazione">no, vengono aggiunti i valori di a che non è sempre zero</span></a> 
+	<a onclick="sbagliata(this)">1 <span class="spiegazione">no, a non assume soltanto il valore 1</span></a>
+	<a onclick="sbagliata(this)">11 <span class="spiegazione">no, vengono sommati tutti i valori da 1 a 5 compresi gli estremi</span></a>
+	<a onclick="giusta(this)">15 <span class="spiegazione">giusto</span></a>  
 </div>
 
 <div class="esercizio">
@@ -169,8 +201,9 @@ for(n = 2; n &lt;= 10; n++) {
 	<p>Scrivi un programma calcola il valore di n! (n fattoriale). n!=1*2*...*n</p>
 </div>
 
-<p>Più difficile. Supponiamo che tu voglia mostrare tutti i divisori di un dato numero fornito dall'utente. Come si risolve? Prima di tutto si trasformi quel
-   numero in intero. Si prende poi ogni intero a partire da 2 (tanto 1 ed il numero stesso lo sono sempre) fino ad arrivare al precedente del numero dato e si
+<h2>Divisori</h2>
+<p>Più difficile. Supponiamo che tu voglia mostrare tutti i divisori di un dato numero fornito dall'utente. Come si risolve? Prima di tutto si trasforma quel
+   numero in intero. Si prende poi ogni intero a partire da 2 (1 ed il numero stesso lo sono sempre quindi non ci interessano) fino ad arrivare al precedente del numero dato e si
    verifica per ciascuno se è divisibile. In altri termini si verifica se il resto della divisione intera tra il numero dato ed il numero in questione dà
    resto uguale a zero. Se lo è, lo si aggiunge alla stringa della sequenza dei divisori altrimenti... niente:</p>
 <pre>public void individuaDivisori() {
@@ -186,15 +219,22 @@ for(n = 2; n &lt;= 10; n++) {
    sequenza += ", " + numero;
    tRisultato.setText(sequenza);
 }</pre>
-<p>Ultimo esempio molto simile (ma solo in apparenza!) al precedente: dato un numero fornito dall'utente, dire se è primo oppure no. Un modo di procedere
+
+<h2>Numero primo</h2>
+<p>Ultimo esempio molto simile (ma solo in apparenza!) al precedente: dato un numero fornito dall'utente, dire se è primo oppure no.</p>
+
+   <h3>Primo tentativo</h3>
+   <p>Un modo di procedere
    sbagliato può essere questo: prendo ogni numero (col for) da <code>2</code> a <code>numero-1</code>. Mi chiedo per ciascuno se il resto è <code>0</code>,
-   nel qual caso scriverò "Il numero è primo!" altrimenti scriverò "Il numero non è primo". Perché tale programma è sbagliato?<br/>Il risultato sarà sempre
-   che il numero è primo<br/>Il problema è che una volta visto che il numero è non primo in quanto hai trovato un divisore dovresti interrompere il ciclo e
+   nel qual caso scriverò "Il numero è primo!" altrimenti scriverò "Il numero non è primo". Perché tale programma è sbagliato?<br/>
+   Perché il risultato sarà sempre che il numero è primo.</p>
+   
+   <p>Il problema è che una volta visto che il numero è non primo in quanto hai trovato un divisore dovresti interrompere il ciclo e
    non continuare altrimenti il tuo messaggio di non primo sulla <code>TextField</code> verrà sovrascritto con un messaggio di numero primo. Chi sarà che
    scrive per l'ultima volta? Questa domanda te la propongo perché solo l'ultimo messaggio scritto dal programma sarà quello presente nella <code>TextField</code>
    e quindi visibile dall'utente. Bene, l'ultima <code>if</code> la farai con <code>numero-1</code> che mai è divisore di <code>numero</code>, da qui il
    problema:</p>
-<pre>public void individuaDivisori() {
+<pre>public void numeroPrimo() {
    int numero, contatore;
    numero = Integer.parseInt(tNumero.getText());
    for(contatore = 2; contatore &lt; numero; contatore++) {
@@ -208,18 +248,20 @@ for(n = 2; n &lt;= 10; n++) {
 
 <div class="test">
    	<p>Quanto varrà la variabile n alla fine del seguente frammento di programma?</p>
-<pre>for(n=0,a=0;a==5;a++){
+<pre>n=0; 
+for(a=0;a==5;a++){
   n++;
 }</pre>
-	<a onclick="giusta(this)">0</a> 
-	<a onclick="sbagliata(this)">1</a>
-	<a onclick="sbagliata(this)">5</a>  
+	<a onclick="giusta(this)">0 <span class="spiegazione">giusto, il corpo del ciclo non viene mai eseguito</span></a> 
+	<a onclick="sbagliata(this)">1 <span class="spiegazione">no, verifica meglio se si entra nel ciclo</span></a>
+	<a onclick="sbagliata(this)">5 <span class="spiegazione">no, verifica meglio se si entra nel ciclo</span></a>
 </div>
 
+<h3>Seconda soluzione</h3>
 <p>Una soluzione può essere quella di andare a scrivere nella casella di testo prima di iniziare il <code>for</code>. Ci scriveremo che non abbiamo trovato
 divisori, quindi è primo. Poi nella <code>if</code> (senza <code>else</code>) se è divisore sovrascriveremo il messaggio dicendo che ci sono divisori,
 altrimenti rimarrà quello:</p>
-<pre>public void individuaDivisori() {
+<pre>public void numeroPrimo() {
    int numero, contatore;
    numero = Integer.parseInt(tNumero.getText());
    tRisultato.setText("Il numero è primo!");
@@ -229,40 +271,51 @@ altrimenti rimarrà quello:</p>
       }
    }
 }</pre>
-<p>Ottimizziamo, per concludere, il programma: anziché andare a fare riscritture nella casella di testo, usiamo una variabile intera che conterrà il valore
-   dell'ultimo divisore. Partirà col valore <code>0</code> che starà a significare che non ci sono divisori. Dopo il <code>for</code> ci chiederemo semplicemente
-   se è <code>0</code> nel qual caso diremo che il numero è primo altrimenti non lo è.</p>
-<pre>public void individuaDivisori() {
-   int numero, contatore;
-   boolean primo;
-   numero = Integer.parseInt(tNumero.getText());
-   primo = true;
-   for(contatore = 2; contatore &lt; numero; contatore++) {
-      if(numero%contatore == 0) {
-         primo = false;
-      }
-   }
-   if( primo ) {
-      tRisultato.setText("Il numero è primo!");
-   } else {
-      tRisultato.setText("Il numero non è primo");
-   }
+<div class="approfondimento">
+<p>Domanda: e se invece fuori dal ciclo scrivessi "non primo" e poi dentro al ciclo mettessi
+una condizione per scrivere quando è primo? tipo "numero%contatore!=0"... funzionerebbe?</p>
+</div>
+
+<h3>Ultima soluzione</h3>
+<p>Ottimizziamo, per concludere, il programma: anziché andare a fare riscritture nella casella di testo, 
+   usiamo una variabile che indicherà se abbiamo trovato o meno un divisore (non ci importa quale, 
+   se ne abbiamo trovato uno qualsiasi tanto basta a dire che il numero non è primo).
+   All'inizio dichiareremo che il divisore non è stato trovato. Dopo il <code>for</code> ci chiederemo semplicemente
+   se abbiamo trovato un divisore (non qual caso il numero non è primo) o meno (in questo caso è primo).</p>
+   <p>Visto che la variabile deve indicare semplicemente trovato/non trovato la scelta giusta è di usare un boolean 
+   e di dare un nome comprensibile alla variabile.</p>
+<pre>public void numeroPrimo() {
+  int numero, contatore;
+  <em>boolean divisoreTrovato;</em>
+  numero = Integer.parseInt(tNumero.getText());
+  divisoreTrovato = false;
+  for(contatore = 2; contatore &lt; numero; contatore++) {
+    <em>if(numero%contatore == 0) {
+      divisoreTrovato = true;
+    }</em>
+  }
+  if( <em>divisoreTrovato</em> ) {
+    eRisultato.setText("Il numero non è primo");
+  } else {
+    eRisultato.setText("Il numero è primo!");
+  }
 }</pre>
 
 <div class="test">
+   	<p>Cosa si poteva scrivere nella condizione dell'if al posto di <code>divisoreTrovato</code>?</p>
+	<a onclick="giusta(this)">divisoreTrovato==true <span class="spiegazione">giusto, ma non lo facciamo perché... è troppo lungo</span></a> 
+	<a onclick="sbagliata(this)">niente la condizione è sbagliata <span class="spiegazione">no, la condizione è giusta</span></a>
+	<a onclick="sbagliata(this)">divisoreTrovato==1<span class="spiegazione">è una variabile booleana non posso confrontarla con 1</span></a>    
+</div>
+
+<div class="test">
    	<p>Cosa apparirà nella casella alla fine di questo frammento di programma?</p>
-   	<pre>int i;
-int n=0;
-for(i=0;i&lt;5;i++){
-	for(i=0;i&lt;5;i++){
-		tf.setText(""+n);
-		n++;
-	}
+   	<pre>for(i=0;i&lt;5;i++){
+  tf.setText(""+i);
 }</pre>
-	<a onclick="giusta(this)">4</a> 
-	<a onclick="sbagliata(this)">20</a>
-	<a onclick="sbagliata(this)">25</a>
-	<a onclick="sbagliata(this)">0</a>    
+	<a onclick="sbagliata(this)">0 <span class="spiegazione">no, vorrebbe dire che il ciclo viene eseguito una sola volta</span></a> 
+	<a onclick="giusta(this)">4 <span class="spiegazione">giusto</span></a> 
+	<a onclick="sbagliata(this)">5 <span class="spiegazione">no, quando i vale 5 il corpo del ciclo non viene eseguito</span></a>     
 </div>
 
 </article>
