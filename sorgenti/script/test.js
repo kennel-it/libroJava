@@ -66,7 +66,7 @@ function analizzaDocumento(){
         for (var i=0;i<pezzi.length;i++){
             pezzi[i].setAttribute("data-giusta",pezzi[i].innerHTML);
             pezzi[i].setAttribute("contenteditable","true");
-            pezzi[i].style.height="1em";
+            pezzi[i].style.height="1.25em";
             pezzi[i].style.width=pezzi[i].offsetWidth*1.4+"px";
             pezzi[i].innerHTML = "";
         }

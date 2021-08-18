@@ -4,6 +4,7 @@
 <!-- changelog 2018-06-28 rimosso riferimento a java7 -->
 <!-- changelog 2019-09-04 inserito esercizio in fondo al capitolo -->
 <!-- changelog 2020-08-11 corretto link sbagliato verso capitolo visibilità -->
+<!-- changelog 2021-08-18 molte modifiche sparse all'intero capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -24,19 +25,29 @@ un pulsante che faccia partire la funzionalità ed in fine un testo che darà un
 contenente il nome indicato. Questo ovviamente solo dopo aver premuto il pulsante.</p>
 
 <h2>Organizza la finestra</h2>
-<p>Per risolvere il problema dovrai creare una finestra con tutti gli oggetti sopra indicati 
-(modificando il programma che hai già creato o creandone una copia). 
-Se ne deduce che hai bisogno di poter leggere il contenuto della casella 
+<p>Il primo passo da fare è creare una nuova finestra con tutti gli oggetti sopra indicati 
+modificando il programma che hai già creato o creandone una copia.</p> 
+<p>Per risolvere il compito assegnato hai bisogno di poter leggere il contenuto della casella 
 di testo e poter scrivere il contenuto del testo di saluto dopo che la funzionalità start è terminata. 
 Per questo gli oggetti appena indicati si dichiareranno appena sotto la riga contenente <code>class</code>,
-in modo tale che siano <a href="180-40-visibilita.xhtml">visibili</a> nel resto del programma.</p>
+in modo tale che siano utilizzabili (correttamente si dice <a href="180-40-visibilita.xhtml">visibili</a>)
+nel resto del programma.</p>
 
 <pre>Label messaggio = new Label();
 TextField nome = new TextField();</pre>
 
 <p>Il tipo <code>Label</code> crea un oggetto di tipo testo col quale l'utente non interagisce (un testo scritto che non può essere modificato), 
 in questo caso il messaggio di saluto mentre il tipo <code>TextField</code> crea un oggetto di tipo casella 
-di testo (o campo testo) nel quale l'utente inserisci dati. In questo caso il proprio nome.</p>
+di testo (o campo testo) nel quale l'utente può inserire i dati. In questo caso il proprio nome.</p>
+
+<p><code>Label</code> e <code>TextField</code> saranno segnalate come errore 
+perché non si sa a quale oggetto specifico stiamo facendo riferimento 
+mentre il <code>Button</code> non è segnalato come errore perché l'istruzione import che lo riguarda 
+è presente nell'esempio. Per risolvere il problema basta clickare sulla lampadina alla sinistra 
+della riga contenente <code>Label</code>; in questo modo si aprirà un elenco di proposte
+fornite dall'ambiente di sviluppo per correggere l'errore. Le alternative sono molte e per niente equivalenti:
+scegli quella che contiene <span class="ide">import</span> e <span class="ide">javafx</span>. 
+Tale modo di procedere sarà quello che dovrai sempre usare per importare gli oggetti che fanno parte di JavaFX.</p>
 
 <p>All'interno della funzionalità (d'ora in poi le funzionalità verranno chiamate <em>metodi</em>) 
 <code>start</code> vai a dichiarare altri due oggetti che servono al programma: una casella per scrivere un testo e un pulsante
@@ -53,14 +64,8 @@ Button eseguiSaluto = new Button();</pre>
 	<a onclick="sbagliata(this)">Application<span class="spiegazione">questo oggetto rappresenta una intera finestra</span></a> 
 </div>
 
-<p>Mentre <code>Button</code> non sarà segnalato come errore, lo sarà <code>Label</code>. 
-Questo perché mentre il <code>Button</code> è stato importato in automatico perchè l'istruzione per farlo è presente nell'esempio, 
-il <code>Label</code> no. Per risolvere il problema basta clickare sulla lampadina alla sinistra 
-della riga contenente <code>Label</code>; in questo modo si aprirà un elenco di possibilità proposte da 
-dall'ambiente di sviluppo. Scegli quella che contiene <span class="ide">import</span> e <span class="ide">javafx</span>. 
-Tale modo di procedere sarà quello che dovrai sempre usare per importare gli oggetti che fanno parte di JavaFX.</p>
 <p>Anziché inserire questi oggetti in uno 
-<code>StackPane</code> li inseriremo in un <code>GridPane</code>, cioè un pannello strutturato come una 
+<code>BorderPane</code> li inseriremo in un <code>GridPane</code>, cioè un pannello strutturato come una 
 griglia organizzata in righe e colonne nella quale inserire i componenti. Prima di tutto lo dichiariamo 
 (subito dopo le 2 precedenti):</p>
 
@@ -74,27 +79,29 @@ messaggio.setText("Sono impaziente...");
 eseguiSaluto.setText("Premi qui");</pre>
 
 <p>per quanto riguarda il <code>TextField</code> anziché mostrare un testo (sempre impostabile col metodo 
-<code>setText</code>), puoi mostrare un suggerimento (in grigio) che scomparirà non appena l'utente inizierà a scrivere col metodo:</p>
+<code>setText</code>), puoi mostrare un suggerimento (in grigio) che scomparirà non appena l'utente inizierà a 
+inserire del testo nella casella:</p>
 
-<pre>nome.setPromptText("Nome o nomignolo per salutarti");</pre>
+<pre>nome.<em>setPromptText</em>("Nome o nomignolo per salutarti");</pre>
 
 <p>Ora che gli oggetti sono pronti non rimane che piazzarli nella griglia e quindi aggiungerli 
-come suoi elementi. Queste operazioni le effettuerai col metodo <code>add(oggetto, numeroColonna, numeroRiga)</code>. 
+come suoi elementi. Queste operazioni le effettuerai col metodo <code>add(oggetto, numeroColonna, numeroRiga)</code>
+dell'oggetto GridPane. 
 Fai attenzione al fatto che le righe e le colonne sono numerate progressivamente a partire da 0. 
 La seguente riga di programma (che puoi inserire ancora sotto alle precedenti)
-mette il testo nella prima riga e prima colonna e contemporaneamente aggiunge <code>mettiNome</code> come
-figlio di <code>griglia</code>:</p>
+mette l'etichetta <var>mettiNome</var> nella prima riga e prima colonna di <code>griglia</code>:</p>
 
 <pre>griglia.add(mettiNome, 0, 0);</pre>
 
 <div class="test">
-	<p>Se volessi inserire un pulsante chiamato <var>esegui</var> nell'angolo in alto a sinistra del GridPane <var>pannello</var>dovrei scrivere:</p>
+	<p>Se volessi inserire un pulsante chiamato <var>esegui</var> nell'angolo in alto a sinistra del GridPane 
+	<var>pannello</var> dovrei scrivere:</p>
     <a onclick="giusta(this)">pannello.add(esegui, 0, 0);</a> 
     <a onclick="sbagliata(this)">pannello.add(esegui);<span class="spiegazione">mancano le coordinate</span></a> 
     <a onclick="sbagliata(this)">esegui.add(pannello, 1, 1);<span class="spiegazione">il nome prima del punto deve essere quello del GridPane</span></a>
 </div>
 
-<p>Le stesse operazioni vanno svolte per gli altri 3 controlli:</p>
+<p>La stessa operazione va svolta per gli altri 3 controlli:</p>
 <pre>griglia.add(nome, 1, 0);
 griglia.add(eseguiSaluto, 1, 1);
 griglia.add(messaggio, 1, 2);</pre>
@@ -106,11 +113,10 @@ griglia.add(messaggio, 1, 2);</pre>
     <a onclick="sbagliata(this)">è possibile scegliere<span class="spiegazione">no, il valore di partenza è fisso</span></a> 
 </div>
 
-<p>Nel metodo <code>start</code> modifica la dichiarazione di scene in modo tale da 
-avere come area <var>griglia</var> e non <var>root</var>.
-Vai un pò più giù dove trovi <code>btn.setText("Ciao Mondo!")</code>
+<p>Nel metodo <code>start</code> modifica la costruzione della variabile <var>scena</var> in modo tale da 
+avere come area <var>griglia</var> e non <var>principale</var>.
+Vai un po' più giù dove trovi <code>pSaluto.setText("Ciao Mondo!")</code>
 (all'interno del metodo esegui). E modificala come così:</p>
-
 
 <pre>public void esegui() {
    String utente;
@@ -118,24 +124,24 @@ Vai un pò più giù dove trovi <code>btn.setText("Ciao Mondo!")</code>
    messaggio.setText("Signor " + utente + " Le auguro buona giornata!");
 }</pre>
 
-<p>In questo metodo possiamo vedere la dichiarazione di una stringa di testo chiamata utente 
-(prima riga) nella quale inserisci ciò che ha scritto l'utente. 
-Questo è possibile grazie al metodo <code>getText()</code> applicato alla <code>TextField</code> chiamata <var>nome</var>. 
-Il testo contenuto in messaggio viene creato concatenando (aggiungendo, uso dell'<em>operatore +</em>) alla costante testo 
-<var>Signor</var> il contenuto della variabile <var>utente</var> concatenata alla costante testo 
-<var>Le auguro una bella giornata!</var>.</p>
+<p>In questo metodo possiamo vedere la dichiarazione di una variabile di tipo String chiamata utente 
+(prima riga) nella quale inserirai ciò che ha scritto l'utente. Le variabili di questo tipo servono a contenere dei testi.</p>
+<p>Per leggere il contenuto di una casella bisogna usare metodo <code>getText()</code> applicato alla <code>TextField</code> chiamata <var>nome</var>. 
+Nell'ultima riga il testo contenuto in messaggio viene creato concatenando (aggiungendo, uso dell'<em>operatore +</em>) alla costante testo 
+<var>"Signor"</var> il contenuto della variabile <var>utente</var> concatenata alla costante testo 
+<var>"Le auguro una bella giornata!"</var>.</p>
 
 <p>A questo punto resta una cosa da fare: il metodo <code>setOnAction</code> che serve a decidere cosa fare
-quando l'utente preme il pulsante fa riferimento a <code>btn</code> 
-(<code>btn.setOnAction(....</code>) e invece dobbiamo riferirci a <code>eseguiSaluto</code>.</p> 
+quando l'utente preme il pulsante fa riferimento a <code>pSaluto</code> 
+(<code>pSaluto.setOnAction(....</code>) e invece dobbiamo riferirci a <code>eseguiSaluto</code>.</p> 
 
 <p>Prova a comporre il tutto e verifica il funzionamento.</p>
 
 <div class="test">
 	<p>Nel programma c'è qualcosa che non serve più (e che quindi potresti eliminare):</p>
-    <a onclick="giusta(this)">root<span class="spiegazione">giusto, era il vecchio StackPane ma adesso al suo posto usiamo un GridPane</span></a> 
+    <a onclick="giusta(this)">principale<span class="spiegazione">giusto, era il vecchio BorderPane ma adesso al suo posto usiamo un GridPane</span></a> 
     <a onclick="sbagliata(this)">griglia<span class="spiegazione">ci serve ancora è l'elemento che contiene i testi, il pulsante e la casella</span></a> 
-    <a onclick="giusta(this)">btn<span class="spiegazione">giusto, era il vecchio pulsante ma adesso al suo posto usiamo eseguiSaluto</span></a> 
+    <a onclick="giusta(this)">pSaluto<span class="spiegazione">giusto, era il vecchio pulsante ma adesso al suo posto usiamo eseguiSaluto</span></a> 
 </div>
 
 <div class="test">
