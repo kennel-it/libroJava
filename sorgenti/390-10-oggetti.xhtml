@@ -800,7 +800,7 @@ costruttore:</p>
 
 <p>La variante sopra proposta ha un difetto: lascia alla classe <code>InterfacciaGrafica</code> la possibilità di modificare
 direttamente le variabili interne alla classe. In questo modo dalla classe <code>RisparmioVincolato</code> non è possibile
-eseguire alcun controllo sulla validità dei valore che vengono loro assegnati. Se ad esempio un utente inserisse nella casella
+eseguire alcun controllo sulla validità dei valori che vengono loro assegnati. Se ad esempio un utente inserisse nella casella
 anno del form il valore 44, per il programma in esecuzione tutto sarebbe corretto, così come tutto funzionerebbe se il
 solito utente, stavolta nel campo importo, inserisse il valore -12.0. Chiaramente tutto ciò è concettualmente sbagliato.</p>
 
@@ -826,7 +826,7 @@ public void setImporto(double euro) {
 }
 
 public double getImporto() {
-   return Importo;
+   return importo;
 }</pre>
 
 <p>A questo punto il metodo <code>acquisisci()</code> sopra riportato non funzionerebbe più (provare per credere). La nuova
@@ -877,25 +877,29 @@ Nella finestra che si aprirà si scelgono i setters e getters per le singole pro
 <pre> <!--presente sia in "oggetti" che in "ereditarietà" -->
 package it.esempi;
 
-public class Primo{
+public class Primo {
     int x;
     boolean y;
-    public Primo(int k, boolean p){
-        x=k;
-        y=p;
+    
+    public Primo(int k, boolean p) {
+        x = k;
+        y = p;
     }
-    public int leggiVal(){
+    
+    public int leggiVal() {
         int p;
-        if(y){
+        if(y) {
             p = x;
-        }else{
+        } else {
             p = -x;
         }
         return p;
     }
+    
     public String descrivi(){
         return "n:"+x;
     }
+    
     private boolean check(){
         return x&lt;100;
     }
@@ -920,7 +924,7 @@ public class Primo{
  
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Primo o;<br/>o = new Primo(3,false);<br/>int q=o.leggiVal();</code><br/>
+    <code>Primo o;<br/>o = new Primo(3,false);<br/>int q = o.leggiVal();</code><br/>
     Quanto vale q?
     </p> 
     <a onclick="sbagliata(this)">3<span class="spiegazione">la condizione dell'if è falsa</span></a> 
@@ -930,7 +934,7 @@ public class Primo{
  
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Primo o;<br/>o = new Primo(3,false);<br/>boolean q=o.check();</code><br/>
+    <code>Primo o;<br/>o = new Primo(3,false);<br/>boolean q = o.check();</code><br/>
     Quanto vale q?
     </p> 
     <a onclick="sbagliata(this)">true</a> 
@@ -940,7 +944,7 @@ public class Primo{
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Primo o;<br/>o = new Primo(3,false);<br/>String m=o.descrivi();</code><br/>
+    <code>Primo o;<br/>o = new Primo(3,false);<br/>String m = o.descrivi();</code><br/>
     Quanto vale m?
     </p> 
     <a onclick="sbagliata(this)">non si sa</a> 
@@ -950,59 +954,53 @@ public class Primo{
 </div>
 
 <h2>Una per tutti: le proprietà statiche</h2>
-<p>Riprendiamo l'esempio del risparmio vincolato. Abbiamo fatto i conti senza le tasse: 
-sappiamo infatti che in tutti i tipi di risparmio lo Stato ci chiede una percentuale 
-sull'intero capitale o sul guadagno. In questo esempio supponiamo che si debbano pagare 
-le tasse sul capitale totale. Tali tasse saranno una percentuale
-o una quota fissa (ad esempio 5€) e in entrambi i casi tali tasse 
-non sono diverse per i vari risparmi: il risparmio vincolato di Luca ha le stesse tasse del
-risparmio vincolato di Valentina e così via. 
+<p>Riprendiamo l'esempio del risparmio vincolato. Abbiamo fatto i conti senza le tasse: sappiamo infatti che in tutti i
+tipi di risparmio lo Stato ci chiede una percentuale sull'intero capitale o sul guadagno. In questo esempio supponiamo
+che si debbano pagare le tasse sul capitale totale. Tali tasse saranno una percentuale o una quota fissa (ad esempio 5€)
+e in entrambi i casi tali tasse non sono diverse per i vari risparmi: il risparmio vincolato di Luca ha le stesse tasse
+del risparmio vincolato di Valentina e così via.<br/>
 A cosa serve allora una proprietà che si deve impostare sempre allo stesso valore per ogni oggetto creato?</p>
 
-<p>Sarebbe senz'altro più comodo dire: tutti gli oggetti creati di 
-tipo RisparmioVincolato condividono il fatto che ci sono tasse forfettarie (cioè fisse) e per
-tutti tali tasse sono uguali. Non ha allora significato dire che il risparmio di Luca 
-ha tasse per 5€ perché lascia sott'intendere che tutti gli altri risparmi
-possono avere valori diversi. 
-Quello che vogliamo dire è che <em>tutti gli oggetti della classe RisparmioVincolato 
-hanno tasse per 5€</em>.<br/>
-Quindi, ipotizzando di avere la proprietà <code>private double tasse;</code> 
-e relativi metodi <code>public void setTasse(double cifra)</code> e <code>public double getTasse()</code>:</p>
-<pre>RisparmioVincolato risparmiDiLuca = new RisparmioVincolato("Luca", "Pecci", 123321, 5000.0f, 2017, 0.005f);
+<p>Sarebbe senz'altro più comodo dire: tutti gli oggetti creati di tipo RisparmioVincolato condividono il fatto che ci
+sono tasse forfettarie (cioè fisse) e per tutti tali tasse sono uguali. Non ha allora significato dire che il risparmio
+di Luca ha tasse per 5€ perché lascia sott'intendere che tutti gli altri risparmi possono avere valori diversi. 
+Quello che vogliamo dire è che <em>tutti gli oggetti della classe RisparmioVincolato hanno tasse per 5€</em>.<br/>
+Quindi, ipotizzando di avere la proprietà <code>private double tasse;</code> e relativi metodi
+<code>public void setTasse(double cifra)</code> e <code>public double getTasse()</code>:</p>
+<pre>RisparmioVincolato risparmiDiLuca = new RisparmioVincolato("Luca", "Pecci", 123321, 5000.0f, 2022, 0.005f);
 risparmioVincolato.setTasse(5.0f);
 </pre>
 
-<p>Lo consideriamo concettualmente sbagliato perché ogni oggetto ha una sua tassazione cosa
-he invece secondo il nostro modello non è vera (le tasse sono uguali per tutti gli importi).
-Consideriamo invece corretta la proprietà <code>private <em>static</em> double tasse;</code> 
-e osserviamo la nuova parola chiave <em>static</em> che significa appunto che non viene creata 
-una variabile per ogni oggetto ma ce n'è una sola condivisa da tutti. 
-I metodi potrebbero essere gli stessi riportati qualche riga più su ma noi vogliamo 
-enfatizzare il fatto che quella proprietà è indipendente dal singolo oggetto e si 
-riferisce piuttosto alla classe:</p>
+<p>Lo consideriamo concettualmente sbagliato perché, come detto sopra, ogni oggetto ha una sua tassazione cosa che invece,
+secondo il nostro modello, non è vera: le tasse sono uguali per tutti gli importi e tutti i risparmiatori. Per rappresentare
+in Java questa situazione, andiamo a scrivere la proprietà aggiungendo una parola chiave:
+<code>private <em>static</em> double tasse;</code> e osserviamo che tale parola è <em>static</em>. La variabile per
+rappresentare una proprietà creata in questo modo è unica e condivisa da tutti gli oggetti della classe. È creata e
+unica sia nel caso in cui c'è un solo oggetto creato, sia che ce ne sono molti, sia che non ce n'è nessuno.<br/>
+I metodi che intervengono sulle proprietà statiche potrebbero essere come quelli riportati qualche riga più su, ma noi vogliamo
+enfatizzare il fatto che tali metodi possono essere invocati indipendentemente da quale oggetto si stia lavorando, o anche
+semplicemente se esiste o meno un oggetto della classe RisparmioVincolato. Anche qui si inserisce la parola static:</p>
 <pre>private static double tasse;
 
     public static double getTasse() {
         return tasse;
     }
 
-    public static void setTasse(double t) {
-        tasse = t;
+    public static void setTasse(double tasse) {
+        this.tasse = tasse;
     }</pre>
     
-<p>Quando nel programma si vuole utilizzare uno di questi due metodi, si dovrà utilizzare 
-la forma <code>RisparmioVincolato.getTasse()</code> oppure
-<code>RisparmioVincolato.setTasse(5.0f)</code> cioè si fa riferimento direttamente alla classe
-piuttosto che ad una sua istanza.</p>
+<p>Quando nel programma si vuole utilizzare uno di questi due metodi, si dovrà utilizzare la forma
+<code>RisparmioVincolato.getTasse()</code> oppure <code>RisparmioVincolato.setTasse(5.0f)</code> cioè si fa riferimento
+direttamente alla classe piuttosto che ad una sua istanza.</p>
 
 <div class="approfondimento">
-<p>Un altro possibile utilizzo delle variabili statiche lo potremmo pensare
-sul numero del risparmio vincolato. Perché il numero lo dovremmo considerare come un progressivo
-che parte da 1 e ogni nuovo risparmio vincolato aggiungerà 1 al precedente. 
-Per far questo è necessario mantenere memoria di quale sia stato l'ultimo valore assegnato
-per avere il nuovo numero corretto. Facilmente lo possiamo fare con la proprietà statica. 
-In questo caso al costruttore non verrà dato il codice come argomento perché
-se lo calcolerà da solo:</p>
+<p>Un altro possibile utilizzo delle variabili statiche lo potremmo pensare sul numero del risparmio vincolato. Perché il
+numero del risparmio lo dovremmo considerare come un progressivo che parte da 1 (il primo risparmio che si registra) e ogni
+nuovo risparmio vincolato avrà come valore il numero intero successivo, quindi si aggiungerà 1 al precedente. Per far questo
+è necessario mantenere memoria di quale sia stato l'ultimo valore assegnato. Facilmente lo possiamo fare con la proprietà
+statica. In questo caso al costruttore non verrà dato il codice come argomento perché se lo calcolerà da solo e questo
+spesso è un bene perché evita la possibilità di duplicazione del codice:</p>
 
 <h3>versione finale di RisparmioVincolato.java</h3>
 <pre>public class RisparmioVincolato {
@@ -1012,37 +1010,38 @@ se lo calcolerà da solo:</p>
    <em>private</em> double importo;
    <em>private</em> short anno;
    <em>private</em> double interessiPercentuale;
-   <em>private</em> static int ultimoAssegnato = 1;
+   <em>private</em> static int ultimoAssegnato = 0;
    <em>private</em> static double tasse;
 
-   //Dato che devo fare la stessa cosa in 2 punti creo un metodo privato
-   <em>private boolean impostaDataCorretta(short a) { 
-      if(a&lt;1970) {
-         a = 1970;
-      } else if(a&gt;2020) {
-         a = 2025;
+   // Dato che devo controllare l'intervallo ammissibile dell'anno del vincolo in 2 punti
+   // diversi, creo un metodo privato che verrà poi invocato dal costruttore e dal setter
+   <em>private boolean impostaDataCorretta(short anno) { 
+      if(anno &lt; 1970) {
+         anno = 1970;
+      } else if(anno &gt;2020) {
+         anno = 2025;
       }
-      anno = a;
+      this.anno = anno;
    }</em>
 
    public RisparmioVincolato() {
-      nome = "&lt;indefinito&gt;";      
+      nome = "&lt;indefinito&gt;";     //this può essere omesso perché non c'è ambiguità con variabili locali
       cognome = "&lt;indefinito&gt;";
-      codice = ultimoAssegnato;
       ultimoAssegnato++;
+      codice = ultimoAssegnato;
       importo = 1.0;
-      anno = 1970;
+      impostaDataCorretta(1970);
       interessiPercentuale = 0.0;
    }
 
-   public RisparmioVincolato(String n, String c, double euro, short a, double i) {
-      nome = n;
-      cognome = c;
-      codice = ultimoAssegnato;
+   public RisparmioVincolato(String nome, String cognome, double importo, short anno, double interessiPercentuale) {
+      this.nome = nome;
+      this.cognome = cognome;
       ultimoAssegnato++;
-      importo = euro;
-      interessiPercentuale = i;
-      impostaDataCorretta(a)
+      codice = ultimoAssegnato;
+      this.importo = importo;
+      this.interessiPercentuale = interessiPercentuale;
+      impostaDataCorretta(anno);
    }
 
    public void setNome(String nome) {
@@ -1061,17 +1060,17 @@ se lo calcolerà da solo:</p>
       return cognome;
    }
 
-   public void setData(short a) {
-      impostaDataCorretta(a);
+   public void setData(short anno) {
+      impostaDataCorretta(anno);
    }
 
    public String getDescrizione() {
-      String d = "Importo di "+importo+" vincolato da "+nome+" "+cognome;
+      String d = "Importo di " + importo + " vincolato da " + nome + " " + cognome;
       return d;
    }
 
    public double fornisciGuadagno() {
-      double guadagno = importo*interessiPercentuale/100-tasse;
+      double guadagno = importo * interessiPercentuale / 100 - tasse;
       return guadagno;
    }
 
@@ -1085,30 +1084,29 @@ se lo calcolerà da solo:</p>
       return tasse;
    }
 
-   public static void setTasse(double t) {
-      tasse = t;
+   public static void setTasse(double tasse) {
+      this.tasse = tasse;
    }
 
    public static int getUltimoCodiceUsato() {
-      return ultimoAssegnato-1;
+      return ultimoAssegnato;
    }</em>
 }</pre>
 
-<p>Nella classe <code>Interfaccia</code> si può conoscere quale è stato l'ultimo
-codice assegnato invocando <code>RisparmioVincolato.getUltimoCodiceUsato()</code>.</p>
+<p>Nella classe <code>Interfaccia</code> si può conoscere quale è stato l'ultimo codice assegnato invocando
+<code>RisparmioVincolato.getUltimoCodiceUsato()</code>.</p>
 </div>
 
-<p>In definitiva esiste un modo per far sì che tutti gli oggetti della stessa 
-classe condividano un valore: usare il modificatore <code>static</code>. 
-La variabili e i metodi così definiti possono essere usati senza creare 
-una istanza della classe cioè senza creare un oggetto con <code>new</code>, 
-come ad esempio Math.PI o Math.sin() o anche Integer.parseInt(). 
-Attenzione ad una cosa: i metodi <code>static</code> possono vedere soltanto le variabili 
-<code>static</code> perché non facendo parte di una istanza di una classe non
-possono vedere le varaibili di istanza (quelle non <code>static</code>) 
-le quali vengono create, appunto, col <code>new</code>.</p>
+<p>In definitiva esiste un modo per far sì che tutti gli oggetti della stessa classe condividano un valore:
+usare il modificatore <code>static</code>. Le variabili e i metodi così definiti possono essere usati senza
+creare una istanza della classe cioè senza creare un oggetto con <code>new</code>. Esempi di proprietà e
+metodi statici già disponibili in Java sono Math.PI o Math.sin() o anche Integer.parseInt().<br/>
+Attenzione ad una cosa: i metodi <code>static</code> possono vedere soltanto le variabili <code>static</code>
+perché non facendo parte di una istanza di una classe non possono vedere le varaibili di istanza
+(quelle non <code>static</code>) le quali vengono create, appunto, col <code>new</code>.</p>
 
 <h3>file it/esempi/Esempio.java</h3>
+<p>Data la classe:</p>
 <pre>
 package it.esempio;
 
@@ -1117,17 +1115,17 @@ public class Esempio {
     public int w;
     String c;
     public Esempio(String u){
-        c=u;
+        c = u;
     }
     public String descrivi(){
-        return n+c;
+        return n + c;
     }
 }
 </pre>
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Esempio t1=new Esempio("1");<br/>Esempio t2=new Esempio("2");<br/>t1.n=5;<br/>t2.n=7;</code><br/>
+    <code>Esempio t1 = new Esempio("1");<br/>Esempio t2 = new Esempio("2");<br/>t1.n = 5;<br/>t2.n = 7;</code><br/>
     Quanto vale t1.n?
     </p> 
     <a onclick="sbagliata(this)">5 <span class="spiegazione">essendo <code>n</code> static t2.n=7 la sovrascrive</span></a> 
@@ -1136,7 +1134,7 @@ public class Esempio {
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Esempio t1=new Esempio("1");<br/>Esempio t2=new Esempio("2");<br/>t1.w=5;<br/>t2.w=7;</code><br/>
+    <code>Esempio t1 = new Esempio("1");<br/>Esempio t2 = new Esempio("2");<br/>t1.w = 5;<br/>t2.w = 7;</code><br/>
     Quanto vale t1.w?
     </p> 
     <a onclick="giusta(this)">5 <span class="spiegazione">essendo <code>w</code> una variabile di istanza (non static) t2.n=7 non la sovrascrive</span></a> 
@@ -1145,7 +1143,7 @@ public class Esempio {
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>
-    <code>Esempio t1=new Esempio("1");<br/>Esempio t2=new Esempio("2");<br/>Esempio.n=10;</code><br/>
+    <code>Esempio t1 = new Esempio("1");<br/>Esempio t2 = new Esempio("2");<br/>Esempio.n = 10;</code><br/>
     Quanto vale t1.n?
     </p>
     <a onclick="sbagliata(this)">il frammento è errato <span class="spiegazione">no, anzi, le variabili static di solito si usano facendo riferimento alla classe piuttosto che alle sue istanze</span></a>
