@@ -138,7 +138,7 @@ pre, div.pseudo {
     white-space: pre;
     font-family: monospace;
     font-size: 115%;
-    line-height: 100%;
+    line-height: 125%;
     overflow: scroll;
     background-color: #eee;
     clear: both;
