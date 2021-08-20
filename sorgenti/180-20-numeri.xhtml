@@ -7,6 +7,7 @@
 <!-- changelog 2019-11-08 corretta minuscola iniziale in parseDouble e parseFloat -->
 <!-- changelog 2020-08-20 corretto link alla pagina dei tipi numerici -->
 <!-- changelog 2020-08-12 definizione di espressioni e riorganizzato il contenuto -->
+<!-- changelog 2020-08-20 piccoli aggiustamenti e messa definizione di tipo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -25,9 +26,12 @@ Ragionevolmente dovremo procedere in questo modo: leggere i due numeri, fare il 
 Bene. L'unico problema è che quando leggiamo il contenuto di un campo testo, 
 questo è di <em>tipo</em> testo (il nome del tipo per Java è <code>String</code>) e Java non consente di sommare 
 o moltiplicare due testi, consente di farlo soltanto utilizzando delle informazioni di tipo numerico.</p>
+
+<dfn>Il <em>tipo</em> (o tipo di dato) indica quali valori una variabile o una espressione può assumere.
+Il tipo di una variabile viene definito al momento della sua dichiarazione e non può essere cambiato.</dfn>
+
 <p>Per ottenere la rappresentazione numerica (parliamo adesso di numeri interi)
 di un testo si fa così: <code>numero = Integer.parseInt( testo )</code>.</p>
-
 <p>Nella funzione che gestirà l'evento, posto che i campi testo degli operandi si chiamino 
 rispettivamente <var>operando1</var> ed <var>operando2</var> 
 mentre il campo testo per mostrare il risultato si chiami <var>risultato</var>, immetteremo il seguente frammento di codice:</p>
@@ -51,14 +55,14 @@ nel primo caso infatti esegue la normale addizione mentre nel secondo caso –
 come visto in un precedente capitolo – esegue una concatenazione di testi. 
 Osservando la riga in questione (la penultima) vedrai che un argomento dell'operatore è 
 di tipo stringa e l'altro è di tipo intero. Quando uno degli operandi è di tipo stringa, 
-Java cercherà di far diventare anche l'altro operando stringa, eseguendo così una conversione 
+Java rappresenterà anche l'altro operando come stringa, eseguendo così una conversione 
 implicita da intero a testo. Dato che la stringa vuota concatenata ad una seconda stringa 
 (che è il risultato della trasformazione in stringa di <var>prodotto</var>) rende esattamente la seconda stringa, 
 abbiamo ottenuto ciò che si voleva.</p>
 
 <div class="test">
    	<p>Se <var>lunghezza</var> è una variabile di tipo intero e <var>testo</var> è una variabile di tipo String 
-   	che contine la rappresentazione di un numero come posso fare per avere il suo valore in <var>lunghezza</var>?</p>
+   	che contine la rappresentazione di un numero come posso fare per avere il valore che rappresenta in <var>lunghezza</var>?</p>
     <a onclick="sbagliata(this)">Integer.parseInt(testo,lunghezza)<span class="spiegazione">Integer.parseInt() ha un solo argomento qui ne vengono usati due</span></a>
     <a onclick="sbagliata(this)">testo=Integer.parseInt(lunghezza)<span class="spiegazione">L'argomento dei Integer.parseInt() deve essere il testo, come risultato dà un numero, qui l'argomento è un numero</span></a> 
     <a onclick="giusta(this)">lunghezza=Integer.parseInt(testo)</a> 
@@ -85,21 +89,24 @@ o per calcolare il risultato che andava poi visualizzato.</p>
 <h2>tipi numerici</h2>
 <p>I tipi fondamentali di Java sono 8 in tutto: di questi ben 6 servono a memorizzare dei numeri,
 con o senza parte decimale.</p>
-<p>I tipi senza parte decimale si diffenziano in base al numero più grande (in valore assoluto) che possono contenere, 
-quelli con la parte decimale in base alla precisione che hanno (tecnicamente il numero di cifre nella
-mantissa e nell'esponente).</p>
+<p>I tipi senza parte decimale si differenziano in base al numero più grande (in valore assoluto) che possono contenere, 
+quelli con la parte decimale in base alla precisione che hanno (tecnicamente il numero di cifre per la
+mantissa e per esponente).</p>
 
 <h3>Numeri interi</h3>
 <dl>
 	<dt>byte</dt>
-	<dd>un numero intero (con segno), occupa 8 bit bit in memoria, i suoi valori vanno da -128 a 127</dd>
+	<dd>un numero intero (con segno), occupa 8 bit bit in memoria, i suoi valori vanno da -128 a 127,
+	non si possono scrivere valori diquesto tipo: 34 non è un valore di tipo byte</dd>
 
 	<dt>short</dt>
-	<dd>numero intero (con segno), occupa 16 bit in memoria, i suoi valori vanno da -32768 a 32767</dd>
+	<dd>numero intero (con segno), occupa 16 bit in memoria, i suoi valori vanno da -32768 a 32767,
+	non si possono scrivere valori di questo tipo: 678 non è un valore di tipo short</dd>
 
 	<dt class="importante">int</dt>
 	<dd>numero intero (con segno), occupa 32 bit in memoria, i suoi valori vanno da -2147483648 ... 2147483647,
-	per ricordarci facilmente nell'ordine di ± due miliardi, i numeri di tipo int si scrivono normalmente.</dd>
+	per ricordarci facilmente nell'ordine di ± due miliardi, i valori di questo tipo in si scrivono normalmente: 
+	ad esempio456.</dd>
 
 	<dt>long</dt>
 	<dd>numero intero (con segno), occupa in memoria 64 bit, i suoi valori vanno da -9223372036854775808 a 9223372036854775807,
@@ -108,6 +115,8 @@ mantissa e nell'esponente).</p>
 </dl>
 
 <h3>Numeri in virgola mobile</h3>
+<p>Nei numeri in virgola mobile per separare la parte intera da quella decimale si usa il "." come nella notazione 
+Anglosassone e non la "," come nella notazione Italiana.</p>
 <dl>	
 	<dt>float</dt>
 	<dd>numero in virgola mobile, in memoria occupa 32 bit, il numero più piccolo memorizzabile è circa ±1,45x10<sup>-45</sup>
@@ -150,7 +159,8 @@ https://www.tutorialspoint.com/computer_programming/computer_programming_operato
 	anche <code>k + 7</code> se <var>k</var> è una variabile di tipo numerico</dd>
 	
 	<dt>-</dt>
-	<dd>sottrazione, usato nel modo usuale.</dd>
+	<dd>con due operandi è la sottrazione, usato nel modo usuale<br/>
+	con un solo operando posto dopo l'operatore è l'inversione di segno</dd>
 	
 	<dt>*</dt>
 	<dd>moltiplicazione, <code>k * m</code> è una espressione valida se <var>k</var> e <var>m</var>
@@ -169,12 +179,6 @@ https://www.tutorialspoint.com/computer_programming/computer_programming_operato
 <p>Il risultato di una operazione (l'applicazione di un operatore) è del tipo più preciso tra quelli coinvolti.
 Se per esempio sommo due int ottengo un int, se sommo un int e un double ottengo un double.</p>
 
-<div class="test">
-	<p>Quanto vale <code>6 + 4 / 2</code> ?</p>
-    <a onclick="giusta(this)">8<span class="spiegazione">esatto</span></a> 
-    <a onclick="sbagliata(this)">5<span class="spiegazione">no, viene fatta prima la divisione</span></a> 
-</div>
-
 <h2>operatori di pre/post incremento</h2>
 <dl>
 	<dt>++</dt>
@@ -189,25 +193,25 @@ Se per esempio sommo due int ottengo un int, se sommo un int e un double ottengo
 	se posto dopo i nome della variabile prima usa il valore della variabile stessa per calcolare il resto 
 	dell'espressione e poi ne decrementa il valore</dd>
 </dl>
-Gli operatori di pre (o post) incremento possono comparire all'interno di operazioni che come istruzioni a se.
+Gli operatori di pre (o post) incremento possono comparire sia all'interno di espressioni che come istruzioni a se.
 
 <div class="test">
 	<p>Quanto vale x dopo il seguente frammento di programma?</p>
-	<pre>x=18<br/>x++;</pre>
+	<pre>x = 18<br/>x++;</pre>
     <a onclick="sbagliata(this)">18<span class="spiegazione">no, c'era un incremento </span></a> 
     <a onclick="giusta(this)">19</a> 
 </div>
 
 <div class="test">
 	<p>Quanto vale y dopo il seguente frammento di programma?</p>
-	<pre>x=3<br/>y = x++ * 2;</pre>
+	<pre>x = 3<br/>y = x++ * 2;</pre>
     <a onclick="giusta(this)">6<span class="spiegazione">esatto, prima calcola l'espressione e poi fa l'incremento</span></a> 
     <a onclick="sbagliata(this)">8<span class="spiegazione">no, l'incremento viene fatto dopo il calcolo </span></a> 
 </div>
 
 <div class="test">
 	<p>Quanto valgono x e y dopo il seguente frammento di programma?</p>
-	<pre>x=3<br/>y = --x * 3;</pre>
+	<pre>x = 3<br/>y = --x * 3;</pre>
     <a onclick="giusta(this)"   >x=2 e y=6<span class="spiegazione">giusto</span></a> 
     <a onclick="sbagliata(this)">x=3 e y=6<span class="spiegazione">no, x viene decrementata</span></a>
     <a onclick="sbagliata(this)">x=2 e y=9<span class="spiegazione">no, prima viene fatto il decremento della x e poi calcolata l'espressione</span></a> 
@@ -255,7 +259,7 @@ String s = "11";
 	
 	<dt><code>x * 3</code></dt>
 	<dd>Questa espressione combina due informazioni (una variabile e una costante) di tipo int 
-	e quindi è una espressione di tipo int, il suo valore è 10</dd>
+	e quindi è una espressione di tipo int, il suo valore è 15</dd>
 	
 	<dt><code>4</code></dt>
 	<dd>Anche questa è una espressione, ha una sola costante di tipo int e quindi è un espressione di tipo int,
@@ -274,15 +278,27 @@ String s = "11";
 	cioè che consente di rappresentare il numero più grande: double, il suo valore è 14.00</dd>
 	
 	<dt><code>(int)(m*1.3)</code></dt>
-	<dd>m e 1.3 sono double quindi il risultato è double ma c'è un cast: il tipo dell'espressione è int e il suo 
-	valore è 2</dd>
+	<dd>m e 1.3 sono double quindi il risultato è double ma c'è un cast: il tipo dell'espressione è int 
+	(ma il prodotto viene fatto tra due double quindi è double che poi verrà convertito in int) e il suo valore è 2</dd>
 	
 	<dt><code>y + x++</code></dt>
 	<dd>tutte variabili int, il suo tipo è int, il valore è 12, questa espressione cambia anche il valore di x che 
 	diventerà 6</dd>
 </dl>
 
-<p>Nella scrittura delle espressioni possono essere utilizzate soltanto le parentesi tonde.</p>
+<h2>Precedenza degli operatori</h2>
+<p>Nelle espressioni del linguaggio linguaggio Java gli operatori hanno la precedenza usuale
+ma per un riferimento più preciso è disponibile una pagina del 
+<a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html">tutorial di Oracle</a>.</p>
+
+<p>Nella scrittura delle espressioni per modificare l'ordine in cui vanno eseguite le operazioni
+possono essere utilizzate soltanto le parentesi tonde.</p>
+
+<div class="test">
+	<p>Quanto vale <code>6 + 4 / 2</code> ?</p>
+    <a onclick="giusta(this)">8<span class="spiegazione">esatto</span></a> 
+    <a onclick="sbagliata(this)">5<span class="spiegazione">no, viene fatta prima la divisione</span></a> 
+</div>
 
 <div class="test">
    	<p>Quanto vale l'espressione <code>4+5*2</code>?</p>

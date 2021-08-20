@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <!-- grafoIndice requires="ciaoMondo" group="grafica" -->
 <!-- changelog 2017-11-03 inseriti dettagli per visualizzare immagine -->
+<!-- changelog 2021-08-20 spostato più in alto il dimensionamento dei controlli -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -21,6 +22,8 @@
 	    	<p>formattazione degli elementi della finestra</p>
     	</header>
 		<article>
+		<p>In questo capitolo prenderemo in consideraizone soltanto l'aspetto grafico del nostro programma.</p>
+		
     	<h2>Spaziature</h2>
 		<p>Quando visualizzeremo la finestra dell'esempio <code>Un saluto personalizzato</code> tutti gli oggetti risulteranno attaccati gli uni agli altri.
 		Per avere un po' di spazio basta impostare il numero di pixel (cioè di punti) che devono esserci per separare i due oggetti. Lo spazio sarà indicato
@@ -37,48 +40,6 @@ griglia.setHgap(20);
 griglia.setVgap(40);</pre>
 <img src="immagini/formattazione_finestra_spaziatura.png" alt="Esempio di pagging e gap" style="margin:1em; border:1px solid black"/>
 </div>
-
-		<h2>Posizionamento del contenuto del pannello</h2>
-		<p>Andiamo ad ingrandire la finestra, ad esempio portiamola a 600x300 e vediamo che succede.</p>
-		<p>Ora lo spazio tra il bordo della finestra e tra i controlli è come si voleva ma tutto rimane in alto a sinistra dando l'idea di una non buona
-		distribuzione degli oggetti. Puoi chiedere allo StackPane o al GridPane di allineare il suo contenuto sia in verticale che in orizzontale tramite il metodo
-		<code>setAlignment(<var>posizione</var>)</code>. La posizione deve essere esattamente una tra le seguenti possibilità:</p>
-		<img src="immagini/formattazione_finestra_posizionamento.png" alt="Posizionamento di un pannello" style="float:right; margin:1em; border:1px solid black"/>
-		<table>
-		   <tr>
-		      <th>Codice</th>
-		      <th>Tipo di allienamento</th>
-		   </tr><tr>
-		      <td><code>Pos.TOP_LEFT</code></td>
-		      <td>In alto a sinistra</td>
-		   </tr><tr>
-		      <td><code>Pos.TOP_RIGHT</code></td>
-		      <td>In alto a destra</td>
-		   </tr><tr>
-		      <td><code>Pos.TOP_CENTER</code></td>
-		      <td>In alto centrato orizzontalmente</td>
-		   </tr><tr>
-		      <td><code>Pos.BOTTOM_LEFT</code></td>
-		      <td>In basso a sinistra</td>
-		   </tr><tr>
-		      <td><code>Pos.BOTTOM_RIGHT</code></td>
-		      <td>In basso a destra</td>
-		   </tr><tr>
-		      <td><code>Pos.BOTTOM_CENTER</code></td>
-		      <td>In basso centrato orizzontalmente</td>
-		   </tr><tr>
-		      <td><code>Pos.CENTER_LEFT</code></td>
-		      <td>Centrato verticalmente e a sinistra</td>
-		   </tr><tr>
-		      <td><code>Pos.CENTER_RIGHT</code></td>
-		      <td>Centrato verticalmente e a destra</td>
-		   </tr><tr>
-		      <td><code>Pos.CENTER</code></td>
-		      <td>Centrato verticalmente e centrato orizzontalmente</td>
-		   </tr>
-		</table>
-		<p>Applicando quanto visto, se vogliamo centrare (in entrambi i sensi) tutti i controlli dell'esempio, andremo semplicemente a scrivere:<br/>
-		<code>griglia.setAlignment(Pos.CENTER);</code></p>
 
 		<h2>Dimensionamento di un controllo</h2>
 		<h3>Stabilire la misura</h3>
@@ -140,6 +101,48 @@ pulsante3.setPrefWidth(200.0);</pre>
 		<img src="immagini/formattazione_finestra_celle.png" alt="Oggetti su più celle" style="float:right; margin:1em; border:1px solid black"/>
 		<p>Per far occupare allora al messaggio di saluto due colonne basterà sostituire la riga<br/><code>griglia.add(<span class="ST1">pulsante</span>, 0, 1);
 		</code><br/>con la riga<br/><code>griglia.add(<span class="ST1">pulsante</span>, 0, 1, 2, 1);</code></p>
+
+		<h2>Posizionamento del contenuto del pannello</h2>
+		<p>Andiamo ad ingrandire la finestra, ad esempio portiamola a 600x300 e vediamo che succede.</p>
+		<p>Ora lo spazio tra il bordo della finestra e tra i controlli è come si voleva ma tutto rimane in alto a sinistra dando l'idea di una non buona
+		distribuzione degli oggetti. Puoi chiedere allo StackPane o al GridPane di allineare il suo contenuto sia in verticale che in orizzontale tramite il metodo
+		<code>setAlignment(<var>posizione</var>)</code>. La posizione deve essere esattamente una tra le seguenti possibilità:</p>
+		<img src="immagini/formattazione_finestra_posizionamento.png" alt="Posizionamento di un pannello" style="float:right; margin:1em; border:1px solid black"/>
+		<table>
+		   <tr>
+		      <th>Codice</th>
+		      <th>Tipo di allienamento</th>
+		   </tr><tr>
+		      <td><code>Pos.TOP_LEFT</code></td>
+		      <td>In alto a sinistra</td>
+		   </tr><tr>
+		      <td><code>Pos.TOP_RIGHT</code></td>
+		      <td>In alto a destra</td>
+		   </tr><tr>
+		      <td><code>Pos.TOP_CENTER</code></td>
+		      <td>In alto centrato orizzontalmente</td>
+		   </tr><tr>
+		      <td><code>Pos.BOTTOM_LEFT</code></td>
+		      <td>In basso a sinistra</td>
+		   </tr><tr>
+		      <td><code>Pos.BOTTOM_RIGHT</code></td>
+		      <td>In basso a destra</td>
+		   </tr><tr>
+		      <td><code>Pos.BOTTOM_CENTER</code></td>
+		      <td>In basso centrato orizzontalmente</td>
+		   </tr><tr>
+		      <td><code>Pos.CENTER_LEFT</code></td>
+		      <td>Centrato verticalmente e a sinistra</td>
+		   </tr><tr>
+		      <td><code>Pos.CENTER_RIGHT</code></td>
+		      <td>Centrato verticalmente e a destra</td>
+		   </tr><tr>
+		      <td><code>Pos.CENTER</code></td>
+		      <td>Centrato verticalmente e centrato orizzontalmente</td>
+		   </tr>
+		</table>
+		<p>Applicando quanto visto, se vogliamo centrare (in entrambi i sensi) tutti i controlli dell'esempio, andremo semplicemente a scrivere:<br/>
+		<code>griglia.setAlignment(Pos.CENTER);</code></p>
 
 		<h2>Allineamento</h2>
 		<p>Abbiamo già detto che il <code>GridPane</code> inserisce i vari controlli all'interno di una griglia mettendo in una casella un solo controllo.
