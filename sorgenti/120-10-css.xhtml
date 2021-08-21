@@ -5,6 +5,7 @@
 <!-- changelog 2019-10-31 inserito link al reference dei css -->
 <!-- changelog 2019-10-31 inserite proprietà del bordo -->
 <!-- changelog 2020-11-27 aggiornato link alla documentazione -->
+<!-- changelog 2021-08-20 piccole sistemazioni al capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -18,8 +19,9 @@
 <p>decorazione degli oggetti nelle finestre con i fogli di stile</p>
 </header>
 <article>
-<p>È possibile gestire alcune caratteristiche riguardo l'aspetto della finestra in un file separato. 
-Il contenuto di questo file sarà nel formato CSS, tant'è che per convenzione avrà estensione <code>css</code></p>
+<p>Alcune caratteristiche della finestra possono essere controllate tramite un file che ne specifica
+le caratteristiche estetiche, il file sarà nel formato dei file che si usano per questo scopo anche sul web: 
+i <code>css</code>.</p>
 
 <p>Cominciamo col creare un file css nel nostro progetto: dalla linguetta <span class="ide">Project Explorer</span> 
 che trovi a sinistra nell'ambiente di sviluppo Eclipse, srotola il progetto
@@ -36,30 +38,49 @@ controlli della finestra e le rispettive descrizioni nel file css; questo lo si 
    <li>tramite le <em>classi</em> per definire in un colpo le proprietà di un insieme di oggetti. Un oggetto può appartenere a più classi contemporaneamente;</li>
    <li> tramite l'<em>id</em> per definire le proprietà di un solo oggetto.</li>
 </ol>
-<p>Nel file css si adotta la sintassi di sempre; in particolare se il nome della classe o dell'id è composto da più parole, si inserisce tra queste il trattino
-   (<code>-</code>) senza spazi e non la maiuscola come nei programmi Java. Quindi ad esempio</p>
-<pre>.nome-classe {proprietà1: <var>valore</var>;
-              proprietà2: <var>valore</var>;
-              ...}
-#codice-id {proprietà1: <var>valore</var>;
-            proprietà2: <var>valore</var>;
-            ...}</pre>
+<p>Nel file css si adotta la sintassi usuale per specificare le proprietà di un oggetto utilizzando la sua classe
+o il suo id:</p>
+<pre>.nomeclasse {
+    proprietà1: valore;
+    proprietà2: valore;
+    ...
+}
+#identificativo {
+    proprietà1: valore;
+    proprietà2: valore;
+    ...
+}</pre>
+
+<p>Nel file java bisogna indicare a quali classi appartiene ciascun oggetto della finestra 
+di cui si vuole specificare le proprietà nel css tramite il metodo
+<code><var>nomeOggetto</var>.getStyleClass().add("<var>nomeclasse</var>")</code> 
+oppure pioi specificare qual è l'identificativo del controllo in questione
+tramite il metodo<code><var>nomeOggetto</var>.setId("<var>identificativo</var>")</code>.</p>
+
+<p>Alcuni oggetti hanno già una classe preimpostata: ad esempio tutti gli oggetti di tipo <code>TextField</code>
+hanno già la classe <code>text-field</code> così come i <code>Button</code> hanno la classe <code>button</code>,
+in generale se un oggetto è di un tipo formato da più parole per la classe corrispondente bisogna separare
+le parole con un "-".</p>
 
 <!--ToDo Patrizio: descendant classes-->
-
-<p>Nel file java devi indicare a quali classi appartiene ciascun oggetto della finestra di cui si vuole specificare le proprietà nel css tramite il metodo
-<code><var>nomeOggetto</var>.getStyleClass().add("<var>nome-classe</var>")</code> oppure devi specificare qual è l'identificativo del controllo in questione
-tramite il metodo<code><var>nomeOggetto</var>.setId("<var>codice-id</var>")</code>.</p>
+<!-- Edoardo: qui non è semplice perché gli oggetti di base non le hanno, servono liste o simili credo -->
 
 <p>Per fare in modo che il foglio di stile venga associato alla finestra basterà aggiungere la 
-seguente riga nel costruttore della classe:</p>
+seguente riga al metodo <code>start()</code>:</p>
 
 <pre>scene.getStylesheets().add("nomeCartella/nomeFile.css");</pre>
 
-<p>In genere il <code>nomeCartella</code> appena sopra indicato corrisponde al percorso delle cartelle corrispondenti al package. Se per esempio abbiamo
-realizzato il package it.aspix.esempio, scriveremo: <code>scene.getStylesheets().add("it/aspix/esempio/nomeFile.css");</code></p>
+<p>In genere il <code>nomeCartella</code> appena sopra indicato corrisponde al percorso delle cartelle corrispondenti 
+al package. Se per esempio abbiamo realizzato il package it.aspix.esempio, 
+scriveremo: <code>scene.getStylesheets().add("it/aspix/esempio/nomeFile.css");</code></p>
 
-<h2>I colori</h2>
+<h2>Le proprietà nei css</h2>
+<p>Esistono molte proprietà elencate nel 
+<a href="https://openjfx.io/javadoc/16/javafx.graphics/javafx/scene/doc-files/cssref.html">
+documento di riferimento dei fogli di stile per JavaFX</a>, qui di seguito vediamo 
+le cose più utili.</p>
+
+<h3>I colori</h3>
 <p>Esistono alcuni modi per indicare i colori. Tutte le volte che troverai la dicitura <code><var>colore</var></code>, potrai applicare a tua scelta una di
    queste possibilità:</p>
 <ul>
@@ -69,8 +90,9 @@ realizzato il package it.aspix.esempio, scriveremo: <code>scene.getStylesheets()
     <li><code>linear-gradient(<var>colore1</var>, <var>colore2</var>)</code> per fare una sfumatura dal primo al secondo colore. Se vuoi puoi aggiungere
         un'altra componente per fare una sfumatura tra 3 colori.</li>
 </ul>
-<h2>Gli attributi</h2>
-<p>Possono essere usati molti degli attributi (sopra indicati come <i>proprietà</i>)dei fogli di stile, i rispettivi nomi devono però avere il prefisso "-fx-", 
+
+<h3>Gli attributi</h3>
+<p>Possono essere usati molti degli attributi (sopra indicati come <i>proprietà</i>) dei fogli di stile, i rispettivi nomi devono però avere il prefisso "-fx-", 
 questi sono alcuni attributi utili:</p>
 <dl>
   <dt>-fx-font-family</dt>
@@ -81,7 +103,7 @@ questi sono alcuni attributi utili:</p>
       <code>400</code> | <code>500</code> | <code>600</code> | <code>700</code> | <code>800</code> | <code>900</code></dd>
   <dt>-fx-font-size</dt>
   <dd>Imposta la misura del carattere. Può essere impostata in <code>px</code> (pixel) o in <code>pt</code> (punti (tipografici)). L'ambiente Java assume
-      che il dispositivo abbia una risoluzione di 96 dpi (punti per pollice).</dd>
+      che il dispositivo abbia una risoluzione di 96 dpi (punti per pollice). Un possibile esempio è 20px</dd>
   <dt>-fx-font-style</dt>
   <dd>Ti permette di fare il carattere normale (<code>normal</code>), corsivo (<code>italic</code>) o inclinato (<code>oblique</code>)</dd>
   <dt>-fx-font</dt>
@@ -105,20 +127,20 @@ questi sono alcuni attributi utili:</p>
   <dt>-fx-border-color</dt>
   <dd>Definisce il colore del bordo</dd>
   <dt>-fx-border-radius</dt>
-  <dd>Definisce il raggio del bordo</dd>
+  <dd>Definisce il raggio del bordo, ad esempio 10px</dd>
   <dt>-fx-border-width</dt>
   <dd>Definisce lo spessore del bordo</dd>
   <dt>-fx-padding</dt>
   <dd>Imposta la spaziatura intorno al controllo tramite 4 valori numerici separati da spazio per indicare rispettivamente lo spazio sopra a destra in basso e a
       sinistra.</dd>
   <dt>-fx-hgap</dt>
-  <dd>Imposta la spaziatura orizzontale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola.</dd>
+  <dd>Imposta la spaziatura orizzontale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola,
+  ad esempio un GridPane.</dd>
   <dt>-fx-vgap</dt>
-  <dd>Imposta la spaziatura verticale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola.</dd>
+  <dd>Imposta la spaziatura verticale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola,
+  ad esempio un GridPane.</dd>
 </dl>
-<p>Esisteno molte altre proprietà elencate nel 
-<a href="https://openjfx.io/javadoc/14/javafx.graphics/javafx/scene/doc-files/cssref.html">
-documento di riferimento dei fogli di stile per JavaFX</a>.</p>
+
 </article>
 </body>
 </html>
