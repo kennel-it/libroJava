@@ -4,6 +4,7 @@
 <!-- changelog 2018-06-25 inglobato il capitolo interpreti -->
 <!-- changelog 2018-07-09 inglobato il capitolo sintassi -->
 <!-- changelog 2021-08-12 piccole sistemazioni al capitolo -->
+<!-- changelog 2021-08-24 ulteriori correzioni al capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -93,10 +94,10 @@ pensata per calcolare l'area di un cerchio non assolverà al suo compito.</p>
 
 <div class="test">
     <p>Quale tra le seguenti espressioni è semanticamente errata se stiamo parlando di un quadrato?</p>
-    <a onclick="giusta(this)">area = lato x lato</a> 
-    <a onclick="giusta(this)">perimetro = 4 x lato</a> 
-    <a onclick="sbagliata(this)">perimetro = (2 + 4) x lato</a>
-    <a onclick="sbagliata(this)">area = lato + lato</a>
+    <a onclick="sbagliata(this)">area = lato x lato <span class="spiegazione">questa ha il significato giusto</span></a> 
+    <a onclick="sbagliata(this)">perimetro = 4 x lato <span class="spiegazione">questa ha il significato giusto</span></a> 
+    <a onclick="giusta(this)">perimetro = (2 + 4) x lato <span class="spiegazione">già, non si calcola così il perimetro</span></a>
+    <a onclick="giusta(this)">area = lato + lato <span class="spiegazione">già, non si calcola così l'area</span></a>
 </div>
 
 <p>Gli errori all'interno dei programmi vengono usualmente chiamati "bug".</p>
@@ -104,7 +105,7 @@ pensata per calcolare l'area di un cerchio non assolverà al suo compito.</p>
     
 <h2>Quale linguaggio scegliere</h2>
 
-<p>Riguardo ai linguaggi di programmazioni è utile osservare che ne 
+<p>Riguardo ai linguaggi di programmazione è utile osservare che ne 
 esistono una enorme varietà: le differenze tra l'uno e l'altro sono notevoli. 
 Come esempio può essere utile guardare <a href="http://www.levenez.com/lang/">Computer Languages History</a>
 che mostra come alcuni dei principali linguaggi di programmazione si sono evoluti
@@ -238,7 +239,7 @@ effettuare questa traduzione sono due:</p>
 	che chiunque abbia tale (o tali) file possa eseguirlo semplicemente avviandolo 
 	(ad esempio con un doppio click sull'icona)</li>
 	<li>salvo il programma così come lo ho scritto poi per eseguirlo utilizzerò un apposito programma
-	che istruzione per istruzione chiederà alla macchina di instraprendere il compito
+	che istruzione per istruzione chiederà alla macchina di intraprendere il compito
 	richiesto</li>
 </ol>
 
@@ -249,8 +250,8 @@ qualsiasi.</dfn>
 si possono scrivere con il blocco note (non con Word o OpenOffice), 
 solitamente per scrivere questi file si usano però programmi
 più complicati del blocco note come 
-<a href="https://netbeans.org/">NetBeans</a> o 
-<a href="http://www.eclipse.org/">Eclipse</a>.</p>
+<a href="http://www.eclipse.org/">Eclipse</a> o
+<a href="https://netbeans.org/">NetBeans</a>.</p>
 
 <h3>Compilatori</h3>
 <p>La prima soluzione che analizziamo è quella detta "compilativa" 
@@ -280,13 +281,13 @@ l'interprete opportuno.</div>
 sorgente non viene tradotto in una unica soluzione ma ogni volta che deve essere 
 eseguito un apposito programma (detto appunto interprete) legge ogni singola istruzione 
 del programma sorgente e chiede alla macchina di intraprendere le azioni opportune. 
-A questo gruppo di linguaggi appartiengono ad esempio Javascript e Python. 
+A questo gruppo di linguaggi appartengono ad esempio Javascript e Python. 
 Anche questa soluzione ha dei vantaggi meno visibili ma altrettanto rilevanti: 
 alcuni linguaggi fanno uso di tecniche che traggono grande beneficio dalla presenza 
 degli interpreti (sempre per tornare all'esempio di prima se ho un interprete 
 posso cambiare il mio discorso durante la conferenza), il mio programma sorgente
 potrà funzionare su qualsiasi macchina in cui esiste l'opportuno interprete
-senza che io deba compilarlo separatamente. 
+senza che io debba compilarlo separatamente. 
 Javascript viene ad esempio 
 scritto nelle pagine html ed eseguito dagli interpreti presenti nei diversi browsers: 
 in questo caso io sapendo che qualsiasi macchina connessa ad internet ha un browser 
@@ -343,15 +344,15 @@ paragonabili con la soluzione compilativa.</p>
 <h2>Macchine virtuali</h2>
 <p>Lo scenario introdotto nella sezione precedente è quello che viene poi
 supportato nel caso di Java (ma è una soluzione piuttosto comune) da quella che si chiama
-<em>macchina virtuale</em> cioè da uno strato software che si frappone tra il sistema 
-operativo e il programma da eseguire.</p>
+<em>macchina virtuale</em> cioè da uno strato software che si frappone tra la macchina 
+e il programma da eseguire.</p>
 <p>Lo scopo della macchina virtuale nel caso di Java è quello di nascondere le diversità
-che ci sono tra i diversi sistemi operativi: in prativa un programma compilato per la
+che ci sono tra le diverse macchine: in pratica un programma compilato per la
 <em>JVM</em> (Java Virtual Machine) non deve tener conto del fatto che alcune operazioni
 (ad esempio la lettura dei file) viene fatta in maniera diversa in sistemi operativi diversi.</p> 
 <p>Attualmente la JVM interpreta un linguaggio chiamato bytecode 
 che viene prodotto dal compilatore java, per rendere più veloce l'esecuzione dei programmi 
-in realtà usa tecniche più sofisticate della sempli lettura di una istruzione alla volta ma 
+in realtà usa tecniche più sofisticate della semplice lettura di una istruzione alla volta ma 
 per quanto riguarda il suo uso resta un interprete di bytecode.</p>
 
 </article>
