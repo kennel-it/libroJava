@@ -91,7 +91,7 @@ nav > * {
     margin:0em 1em; padding:0.5em; 
 }
 
-article { margin:1em 5% ; padding-bottom:3em}
+article, section { margin:1em 5% ; padding-bottom:3em}
 h2 { 
 	text-align: left;
     margin-top:3em;
