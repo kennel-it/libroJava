@@ -31,6 +31,8 @@
         	#pulsanteOld { background-color: rgba(255,0,0,0.5) }
         	#pulsanteNew { background-color: rgba(0,200,0,0.5) }
         	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
+        	.senzaThis { font-weight: bold; color: #990000 }
+        	.conThis { font-weight: bold; color: green }
         </style>
         <script type="text/javascript"><![CDATA[
             function mostraNascondi(mostra,nascondi){
@@ -510,11 +512,12 @@ public class Autoveicolo {
     <span class="senzaThis">public Autoveicolo(String t, String m, double l){
         targa = t;
         modello = m;
-        kmAlLitro = l;</span><span class="conThis">public Autoveicolo(String targa, String modello, double kmAlLitro){
+        kmAlLitro = l;
+    }</span><span class="conThis">public Autoveicolo(String targa, String modello, double kmAlLitro){
         this.targa = targa;
         this.modello = modello;
-        this.kmAlLitro = kmAlLitro;</span>
-    }
+        this.kmAlLitro = kmAlLitro;
+    }</span>
 }
 </pre>
 <p>L'istruzione <code><em>this.targa = targa</em></code> serve a copiare il valore della variabile <code>targa</code> 

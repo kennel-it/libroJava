@@ -54,7 +54,7 @@ o il suo id:</p>
 <p>Nel file java bisogna indicare a quali classi appartiene ciascun oggetto della finestra 
 di cui si vuole specificare le proprietà nel css tramite il metodo
 <code><var>nomeOggetto</var>.getStyleClass().add("<var>nomeclasse</var>")</code> 
-oppure pioi specificare qual è l'identificativo del controllo in questione
+oppure puoi specificare qual è l'identificativo del controllo in questione
 tramite il metodo<code><var>nomeOggetto</var>.setId("<var>identificativo</var>")</code>.</p>
 
 <p>Alcuni oggetti hanno già una classe preimpostata: ad esempio tutti gli oggetti di tipo <code>TextField</code>
@@ -102,8 +102,8 @@ questi sono alcuni attributi utili:</p>
       <code>lighter</code> | <code>normal</code> | <code>bold</code> | <code>bolder</code> | <code>100</code> | <code>200</code> | <code>300</code> |
       <code>400</code> | <code>500</code> | <code>600</code> | <code>700</code> | <code>800</code> | <code>900</code></dd>
   <dt>-fx-font-size</dt>
-  <dd>Imposta la misura del carattere. Può essere impostata in <code>px</code> (pixel) o in <code>pt</code> (punti (tipografici)). L'ambiente Java assume
-      che il dispositivo abbia una risoluzione di 96 dpi (punti per pollice). Un possibile esempio è 20px</dd>
+  <dd>Imposta la misura del carattere. Può essere impostata in <code>px</code> (pixel) o in <code>pt</code> 
+     (punti (tipografici), si assume un dispositivo con la risoluzione di 96 punti per pollice) o anche come percentuale. Un possibile esempio è 20px</dd>
   <dt>-fx-font-style</dt>
   <dd>Ti permette di fare il carattere normale (<code>normal</code>), corsivo (<code>italic</code>) o inclinato (<code>oblique</code>)</dd>
   <dt>-fx-font</dt>
@@ -140,6 +140,25 @@ questi sono alcuni attributi utili:</p>
   <dd>Imposta la spaziatura verticale tra tutti i controlli <i>figli</i> del controllo in cui inserisci questa regola,
   ad esempio un GridPane.</dd>
 </dl>
+
+<p>Proviamo a vedere un esempio di un foglio di stile che imposta 3 caratteristiche:</p>
+<ol>
+	<li>i testi delle etichette sono di colore verde</li>
+	<li>i testi dei pulsanti sono il doppio della grandezza degli altri</li>
+	<li>la casella di testo <var>cLato</var> per cui ho impostato l'id "lato"
+	usando l'istruzione <code>cLato.setId("lato")</code> nel programma java ha lo sfondo rosso</li>
+</ol>
+<pre>
+.label {
+	-fx-text-fill: green;
+}
+.button {
+	-fx-font-size: 200%;
+}
+#lato {
+	-fx-background-color: #ff0000;
+}	
+</pre>
 
 </article>
 </body>

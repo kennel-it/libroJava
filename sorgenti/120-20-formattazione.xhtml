@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- grafoIndice requires="ciaoMondo" group="grafica" -->
+<!-- grafoIndice requires="salutaUtente" group="grafica" -->
 <!-- changelog 2017-11-03 inseriti dettagli per visualizzare immagine -->
 <!-- changelog 2021-08-20 spostato più in alto il dimensionamento dei controlli -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,10 +22,10 @@
 	    	<p>formattazione degli elementi della finestra</p>
     	</header>
 		<article>
-		<p>In questo capitolo prenderemo in consideraizone soltanto l'aspetto grafico del nostro programma.</p>
+		<p>In questo capitolo prenderemo in considerazione soltanto l'aspetto grafico del nostro programma.</p>
 		
     	<h2>Spaziature</h2>
-		<p>Quando visualizzeremo la finestra dell'esempio <code>Un saluto personalizzato</code> tutti gli oggetti risulteranno attaccati gli uni agli altri.
+		<p>Quando visualizzeremo la finestra dell'esempio <a href="090-30-salutaUtente.xhtml">Un saluto personalizzato</a> tutti gli oggetti risulteranno attaccati gli uni agli altri.
 		Per avere un po' di spazio basta impostare il numero di pixel (cioè di punti) che devono esserci per separare i due oggetti. Lo spazio sarà indicato
 		col metodo <code>setHgap</code>per quello orizzontale e con <code>setVgap</code>per quello verticale. Per aumentare invece lo spazio che c'è tra gli
 		oggetti ed il bordo della finestra (specificamente tra gli oggetti ed il bordo del pannello) si va ad usare il metodo
@@ -81,19 +81,19 @@ griglia.setVgap(40);</pre>
 		      <td>Dimensione (larghezza ed altezza) massima</td>
 		   </tr>
 		</table>
-		<p>Dimensioniamo orizzontalmente a questo punto la casella di testo ed il pulsante del nostro esempio a 200 punti:</p>
+		<p>Vediamo ad esempio come si potrebbe dimensionare un pulsante a 200 punti di larghezza:</p>
 
 <div class="codieEOutput">
-<pre>pulsante1.setPrefWidth(200.0);
-pulsante3.setPrefWidth(200.0);</pre>
+<pre>pulsante1.setPrefWidth(200.0);</pre>
 <img src="immagini/formattazione_finestra_dimensioni.png" alt="Dimensioni degli oggetti"/>
 </div>
 
 		<h3>Un controllo in più celle</h3>
 		<p>Nel momento in cui progetti un'interfaccia grafica può esserti utile la possibilità di far occupare ad un dato controllo più celle della griglia.
-		Nell'esempio che stiamo adottanto il messaggio di saluto finale è piuttosto lungo e non ha bisogno di un controllo di tipo <code>Text</code> che lo
-		spieghi. Si potrebbe allora volerlo sull'intera ultima riga, che occupi sia la prima che la seconda colonna. Questo vuol dire che userà 2 colonne a
-		partire da quella in cui è posizionato.</p>
+		Potrebbe ad esempio succedere che un messaggio di testo sia piuttosto lungo,
+		si potrebbe allora volerlo sull'intera ultima riga, che occupi sia la prima che la seconda colonna
+		(poniamo che la nostra griglia abbia due colonne).
+		Questo vuol dire che userà 2 colonne a partire da quella in cui è posizionato.</p>
 		<p>In realtà a tutti i controlli viene impostato il numero di celle orizzontali e verticali che andrà ad occupare in modo predefinito ad 1. Se si
 		vuole un valore diverso questo deve essere esplicitato dal programmatore, cioè da te. Per far questo riprendiamo il metodo della griglia che conosci
 		già molto bene: <code>add(<var>nomeControllo</var>, <var>posX</var>, <var>posY</var>)</code>. Ne esiste una variante in cui oltre a fornire tali informazioni si esplicita appunto

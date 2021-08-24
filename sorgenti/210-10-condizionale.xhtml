@@ -144,7 +144,7 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
 
 <h2>if</h2>
 <p>A questo punto introduciamo formalmente l'istruzione if:</p>
-<dfn>L'<em>istruzione if</em> è composta da 3 parti: una una condizione, un corpo_if e un corpo_else
+<dfn>L'<em>istruzione if</em> è composta da 3 parti: una condizione, un corpo_if e un corpo_else
 secondo la sintassi:
 <pre>if( condizione ){
   corpo_if;
@@ -201,27 +201,27 @@ diverso che operano anche su operandi boolean) e restituiscono come risultato un
 <dl>
 	<dt>==</dt>
 	<dd>a == b<br/>
-	a è ugule a b, vale true se a ha lo stesso valore di b</dd>
+	<var>a</var> è uguale a <var>b</var>, vale true se <var>a</var> ha lo stesso valore di <var>b</var></dd>
 
 	<dt>!=</dt>
 	<dd>a != b<br/>
-	a è diverso da b, vale true se a non ha lo stesso valore di b</dd>
+	<var>a</var> è diverso da <var>b</var>, vale true se <var>a</var> non ha lo stesso valore di <var>b</var></dd>
 		
 	<dt>&gt;</dt>
 	<dd>a &gt; b<br/>
-	a  è maggiore di b, vale true se a è maggiore a b</dd>
+	<var>a</var>  è maggiore di <var>b</var>, vale true se <var>a</var> è maggiore a <var>b</var></dd>
 
 	<dt>&gt;=</dt>
 	<dd>a &gt;= b<br/>
-	a  è maggiore o uguale a b, vale true se a è maggiore o uguale a b</dd>
+	<var>a</var> è maggiore o uguale a <var>b</var>, vale true se <var>a</var> è maggiore o uguale a <var>b</var></dd>
 	
 	<dt>&lt;</dt>
 	<dd>a &lt; b<br/>
-	a  è minore di b, vale true se a è minore di b</dd>
+	<var>a</var> è minore di <var>b</var>, vale true se <var>a</var> è minore di <var>b</var></dd>
 	
 	<dt>&lt;=</dt>
 	<dd>a &lt;= b<br/>
-	a  è minore o uguale a b, vale true se a è minore u uguale a b</dd>
+	<var>a</var> è minore o uguale a <var>b</var>, vale true se <var>a</var> è minore o uguale a <var>b</var></dd>
 	
 </dl>
 
@@ -348,14 +348,14 @@ public void controllaVoto(){
 
 <div class="test">
    	<p>Quanto vale l'espressione <code>voto&gt;0 &amp;&amp; voto&lt;=10</code> se voto vale 8?</p>
-	<a onclick="sbagliata(this)">false<span class="spiegazione">no, il voto è maggiore di 1 e anche minore o uguale a 10</span></a> 
+	<a onclick="sbagliata(this)">false<span class="spiegazione">no, il voto è maggiore di 0 e anche minore o uguale a 10</span></a> 
 	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è sintatticamente corretta</span></a>
 	<a onclick="giusta(this)">true</a>
 </div>
 
 <div class="test">
    	<p>Quanto vale l'espressione <code>voto&lt;1 || voto&gt;10</code> se voto vale 8?</p>
-	<a onclick="sbagliata(this)">true<span class="spiegazione">no, il voto è non è minore di uno e neanche maggiore di 10</span></a> 
+	<a onclick="sbagliata(this)">true<span class="spiegazione">no, il voto non è minore di uno e neanche maggiore di 10</span></a> 
 	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è sintatticamente corretta</span></a>
 	<a onclick="giusta(this)">false</a>
 </div>
