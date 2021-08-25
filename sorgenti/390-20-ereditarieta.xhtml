@@ -9,6 +9,7 @@
 <!-- changelog 2020-05-11 corretta spiegazione invocazione super() con argomenti -->
 <!-- changelog 2020-05-11 inserita definizione di ereditarietà singola -->
 <!-- changelog 2021-04-20 corretto esercizio fondo pagina -->
+<!-- changelog 2021-08-25 ritoccati alcuni passaggi nell'esempio persone, studenti e professori -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -56,10 +57,10 @@ persone possono essere i commessi del bar, il personale negli uffici, quelli che
 il nome, il cognome, il ruolo svolto, lo stipendio mensile, la categoria (0: indefinito, 1 dirigente, 2: docente, 3: tecnico, 4: amministrativo, 5: ausiliario).
 La classe, con relativi costruttori, sarà una cosa del tipo:</p>
 <pre>public class Persona {
-   private String nome, cognome;
-   private String ruolo;
-   private float stipendio;
-   private byte categoria;
+   public String nome, cognome;
+   public String ruolo;
+   public float stipendio;
+   public byte categoria;
 
    public Persona() {
       nome = cognome = "&lt;indefinito&gt;";
@@ -68,89 +69,55 @@ La classe, con relativi costruttori, sarà una cosa del tipo:</p>
       categoria = 0;
    }
 
-   public Persona(String n, String c, String r, float s, byte cat) {
-      nome = n;
-      cognome = c;
-      ruolo = r;
-      stipendio = s;
-      categoria = cat;
+   public Persona(String nome, String cognome, String ruolo, float stipendio, byte categoria) {
+      this.nome = nome;
+      this.cognome = cognome;
+      this.ruolo = ruolo;
+      this.stipendio = stipendio;
+      this.categoria = categoria;
    }
 }</pre>
 <p>Prendiamo in considerazione ora gli alunni: senza dubbio sono persone. Sono persone un po' particolari perché oltre le caratteristiche comuni a tutte le persone,
-questi frequentano una classe, possono frequentare le lezioni di religione oppure di attività alternativa, quindi possiamo individuare la nuova proprietà che è la
-classe frequentata ed una ulteriore che è la situazione in merito alla religione. Nei linguaggi ad oggetti possiamo indicare il fatto che gli studenti sono persone con
-particolari caratteristiche tramite il concetto di <em>ereditarietà</em>: la classe Studente eredita tutto ciò che è nella classe Persona ed in più ci saranno le
-proprietà sopra dette che la persona generica non ha. In altre parole la classe Studente <em>estende</em> la classe Persona. Esplicitiamo tutti questi concetti tramite il
-seguente:</p>
+questi frequentano una classe, possono frequentare le lezioni di religione oppure di attività alternativa e quindi possiamo individuare le nuove proprietà: la prima è
+la classe frequentata, l'altra è la situazione in merito alla religione. Nei linguaggi ad oggetti possiamo indicare il fatto che gli studenti sono persone con
+particolari caratteristiche tramite il concetto di <em>ereditarietà</em>: si va a creare una nuova classe, in questo caso Studente, e questa non la si fa a partire
+daccapo ma si fa in modo che abbia già in partenza tutto ciò che è nella classe Persona. Tutte le proprietà ed i metodi che saranno creati in Studente non saranno riportati
+nella classe Persona perché la persona generica non le ha. In altre parole la classe Studente <em>estende</em> la classe Persona. Esplicitiamo tutti questi concetti
+tramite il seguente:</p>
 <pre>public class Studente extends Persona {
-   private String nome, cognome;
-   private String ruolo;
-   private float stipendio;
-   private boolean categoria;
-   private String classe;
-   private String religione;
-
-   public Studente() {
-      nome = cognome = "&lt;indefinito&gt;";
-      ruolo = "&lt;non assegnato&gt;";
-      stipendio = 0.0f;
-      categoria = 0;
-      classe = "&lt;non assegnata&gt;";
-      religione = "lt;indefinito&gt;";
-   }
-
-   public Studente(String n, String c, String r, String cl, String rel) {
-      nome = n;
-      cognome = c;
-      ruolo = r;
-      stipendio = 0.0f;
-      this.categoria = 0;
-      classe = cl;
-      religione = rel;
-   }
-}</pre>
-<p>Nel modo appena proposto non si evidenziano vantaggi dal dire che la classe Studente è una classe che estende Persona, infatti abbiamo ricreato tutte le proprietà
-indistintamente nuove e vecchie. Dato però che il realtà uno studente è anche una persona non è necessario dire che ha un nome, questo è già presente in quanto persona,
-stessa cosa per tutte le proprietà della classe Persona. Allora - ed è anche più logico - le uniche proprietà che andranno dichiarate sono le nuove:</p>
-
-<h2>In sintesi</h2>
-<p>Quando quello che vogliamo fare non è creare un oggetto nuovo ma aggiungere/modificare delle funzionalità 
-di un oggetto esistente possiamo farlo usando la parola chiave <code>extends</code> nella dichiarazione della 
-classe seguita dal nome della classe che si vuole ampliare/cambiare. 
-In questo caso l'oggetto definito avrà tutte le proprietà e tutti i comportamenti di quello originale 
-con le aggiunte o le modifiche indicate nella classe.</p>
-
-<dfn>Java è un linguaggio ad <em>ereditarietà singola</em> cioè si può estendere soltanto una classe alla volta.</dfn>
-
-<pre>public class Studente extends Persona {
-   private String classe;
-   private String religione;
+   public String classe;
+   public String religione;
 
    public Studente() {
       super();	// Per la spiegazione di super() guarda il paragrafo che segue
       classe = "&lt;non assegnata&gt;";
-      religione = "lt;indefinito&gt;";
+      religione = "&lt;indefinito&gt;";
    }
 
-   public Studente(String n, String c, String r, String cl, String rel) {
-      super(n, c, r, 0.0f, 0);
-      classe = cl;
-      religione = rel;
+   public Studente(String nome, String cognome, String ruolo, String classe, String religione) {
+      super(nome, cognome, ruolo, 0.0f, 0);
+      this.classe = classe;
+      this.religione = religione;
    }
 }</pre>
-<p>La parola <code>super</code> sta ad indicare la classe dalla quale si è fatta l'estensione, si chiama infatti <em>superclasse</em> o classe padre. La classe
-che estende la superclasse si chiama <em>classe estesa</em> o classe figlia. Nel nostro esempio la superclasse è Persona, la classe figlia è Studente. L'invocazione
-di <code>super()</code> come metodo sta ad indicare il costruttore, in effetti si fa riferimento al nome della classe con le parentesi dei metodi...<br/>
-Si utilizza super() in modo tale da invocare il costruttore per le proprietà definite in precedenza, lasciando qui il solo lavoro di dare un valore alle ultime
-definite. Si osserva che ci sono 2 invocazioni di <code>super()</code>: 
-una senza argomenti (per chiamare il primo costruttore di Persona, quello senza argomenti)
-e l'altra con tanti argomenti (per chiamare il secondo costruttore di persona, quello con 5 argomenti).</p>
 
-<p>Se provassimo però il codice sopra otterremmo un errore: abbiamo detto infatti che la parola <code>private</code> indica che la proprietà (o il metodo) non può essere
-visto al di fuori della classe. La classe derivata è a tutti gli effetti un'altra classe e quindi nulla traspare. La soluzione viene nella parola chiave
-<code>protected</code>: sta ad indicare che quanto segue (metodo o proprietà) è visibile solo a tutti i metodi della classe stessa (ovviamente) e a tutte le classi che
-estendono questa. Nel momento in cui andremo a dichiarare oggetti, dovremo porre attenzione su cosa dovrà essere pubblico, cosa privato e cosa protetto. La classe persona
-a questo punto sarà:</p>
+<p>La parola <code>super</code> sta ad indicare la classe dalla quale si è fatta l'estensione, si chiama infatti <em>superclasse</em> o classe padre; nell'esempio qui sopra,
+<code>Persona</code> è la superclasse. Invece la classe che estende la superclasse si chiama <em>classe estesa</em> o classe figlia. Sempre parlando dell'esempio sopra, la
+classe figlia è Studente. L'invocazione di <code>super()</code> come metodo sta ad indicare il costruttore, in effetti si fa riferimento al nome della classe con le parentesi
+dei metodi...<br/>
+Si utilizza <code>super()</code> in modo tale da invocare il costruttore per le proprietà definite in precedenza, lasciando qui il solo lavoro di dare un valore alle ultime
+definite. Si osserva che ci sono 2 invocazioni di <code>super()</code>: una senza argomenti per chiamare il primo costruttore di <code>Persona</code>, quello senza argomenti
+e l'altra con tanti argomenti per chiamare il secondo costruttore di <code>Persona</code>, quello con 5 argomenti.</p>
+
+<p>Osserviamo che nelle 2 classi precedenti tutti i metodi e le proprietà sono definiti pubblici. Nel capitolo oggetti, al paragrafo Organizzare gli oggetti, si diceva però
+che lasciare le proprietà e alcuni particolari metodi liberamente usabili da altre classi potrebbe non essere un bene. Mettendo il modificatore <code>private</code> sulle
+proprietà della classe si otterrebbe un errore in quanto la classe estesa non potrebbe accedere alle proprietà della classe padre. La classe derivata è a tutti gli effetti
+un'altra classe e quindi nulla traspare.<br/>
+La soluzione viene nella parola chiave <code>protected</code>: sta ad indicare che quanto segue (metodo o proprietà) è visibile solo a tutti i metodi della classe stessa
+(ovviamente), a tutte le classi che estendono questa e a tutte quelle classi presenti nello stesso pacchetto. Nel momento in cui andremo a dichiarare oggetti, dovremo porre
+attenzione su cosa dovrà essere pubblico, cosa privato e cosa protetto.<br/>
+La classe persona a questo punto sarà:</p>
+
 <pre>public class Persona {
    protected String nome, cognome;
    protected String ruolo;
@@ -190,7 +157,21 @@ a questo punto sarà:</p>
    }
 }
 </pre>
-<h3>Risparmio vincolato pluriennale</h3>
+
+<h2>In sintesi</h2>
+<p>Quando quello che vogliamo fare non è creare una nuova classe ma aggiungere/modificare delle funzionalità di una oggetto esistente va usata la parola
+chiave <code>extends</code> nella dichiarazione della classe seguita dal nome della classe che si vuole ampliare/cambiare. In questo caso l'oggetto definito avrà
+tutte le proprietà e tutti i comportamenti di quello originale con le aggiunte o le modifiche indicate nella classe.</p>
+
+<dfn>Java è un linguaggio ad <em>ereditarietà singola</em> cioè una classe può estendere soltanto una classe alla volta.</dfn>
+
+<p><code>super</code> è il riferimento alla classe padre o superclasse e quindi <code>super()</code> è il riferimento al relativo costruttore, all'interno delle parentesi ci
+saranno gli argomenti del caso.</p>
+
+<p>Una ulteriore attenzione nel momento della progettazione di una classe va fatta su quali proprietà e metodi si vuole siano visibili alle classi che estenderanno la classe
+che ora stiamo costruendo. Può essere che alcune proprietà e/o metodi preferiamo renderli privati e quindi la classe estesa non potrà usarli direttamente.</p>
+
+<h2>Risparmio vincolato pluriennale</h2>
 <p>Riprendiamo l'esempio del risparmio vincolato. In quel caso la somma che si otteneva era data alla fine del periodo di investimento. Ipotizziamo però che riusciamo
 a trattenerci dallo spendere quei soldi e li manteniamo per un certo numero di anni. Quale sarà la somma totale?<br/>Di certo ci appoggeremo al codice già scritto (ci
 dobbiamo ricordare di sostituire <code>private</code> <code>interessiPercentuale</code>con <code>protected</code> <code>interessiPercentuale</code>sulle proprietà) e
