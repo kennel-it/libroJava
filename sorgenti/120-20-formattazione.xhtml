@@ -3,6 +3,7 @@
 <!-- grafoIndice requires="salutaUtente" group="grafica" -->
 <!-- changelog 2017-11-03 inseriti dettagli per visualizzare immagine -->
 <!-- changelog 2021-08-20 spostato più in alto il dimensionamento dei controlli -->
+<!-- changelog 2021-08-25 riscritta la parte di allineamento delgi oggetti nella griglia -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -145,66 +146,61 @@ griglia.setVgap(40);</pre>
 		<code>griglia.setAlignment(Pos.CENTER);</code></p>
 
 		<h2>Allineamento</h2>
-		<p>Abbiamo già detto che il <code>GridPane</code> inserisce i vari controlli all'interno di una griglia mettendo in una casella un solo controllo.
-		Si verranno a creare così un certo numero di righe e di colonne. Il <code>GridPane</code> ci offre la possibilità di allineare ciascuna colonna e
+		<p>Abbiamo già detto che il <code>GridPane</code> inserisce i vari controlli all'interno di una griglia mettendo 
+		in una casella un solo controllo. Si verranno a creare così un certo numero di righe e di colonne.
+		Il <code>GridPane</code> ci offre la possibilità di allineare il contenuto di ciascuna colonna e
 		ciascuna riga. Iniziamo con l'esempio che permette di allineare a destra la prima colonna ed a sinistra la seconda, al centro tutte le righe:</p>
 <div class="codiceEOutput">
-<pre>ColumnConstraints colonna0 = new ColumnConstraints();
-colonna0.setHalignment(HPos.RIGHT);
-griglia.getColumnConstraints().add(colonna0);
+<pre>ColumnConstraints vincoliPrimaColonna = new ColumnConstraints();
+vincoliPrimaColonna.setHalignment(HPos.RIGHT);
+ColumnConstraints vincoliSecondaColonna = new ColumnConstraints();
+vincoliSecondaColonna.setHalignment(HPos.CENTER);
+griglia.getColumnConstraints().addAll(vincoliPrimaColonna, vincoliSecondaColonna);
 
-ColumnConstraints colonna1 = new ColumnConstraints();
-colonna1.setHalignment(HPos.LEFT);
-griglia.getColumnConstraints().add(colonna1);
-
-RowConstraints riga0 = new RowConstraints();
-riga0.setValignment(VPos.CENTER);
-griglia.getRowConstraints().add(riga0);
-
-RowConstraints riga1 = new RowConstraints();
-riga1.setValignment(VPos.CENTER);
-griglia.getRowConstraints().add(riga1);
-
-RowConstraints riga2 = new RowConstraints();
-riga2.setValignment(VPos.CENTER);
-griglia.getRowConstraints().add(riga2);</pre>
+RowConstraints vincoliRiga0 = new RowConstraints();
+vincoliRiga0.setValignment(VPos.CENTER);
+RowConstraints vincoliRiga1 = new RowConstraints();
+vincoliRiga1.setValignment(VPos.CENTER);
+RowConstraints vincoliRiga2 = new RowConstraints();
+vincoliRiga2.setValignment(VPos.CENTER);
+griglia.getRowConstraints().addAll(vincoliRiga0, vincoliRiga1, vincoliRiga2);</pre>
 <img src="immagini/formattazione_finestra_righeColonne.png" alt="Allineamento nelle righe e nelle colonne" />
 </div>
-		<p>A prima vista sembra complicato ma poi guardandolo meglio risultano 3 righe ripetute tante volte, dobbiamo cioè creare dei vincoli al <code>GridPane</code>:</p>
-		<ol>
-		   <li>Creare l'oggetto dei vincoli orizzontali o verticali tramite <code>ColumnConstraints</code> oppure <code>RowConstraints</code></li>
-		   <li>Impostare l'allineamento orizzontale sul <code>ColumnConstraints</code> o l'allineamento verticale sul <code>RowConstraints</code> scegliendo
-		       tra le seguenti possibilità:
-		       <table>
-		          <tr>
-		             <th>Codice per colonne</th>
-		             <th>Tipo di allienamento</th>
-		          </tr><tr>
-		             <td><code>HPos.LEFT</code></td>
-		             <td>Allinea a sinistra</td>
-		          </tr><tr>
-		             <td><code>HPos.CENTER</code></td>
-		             <td>Allinea al centro</td>
-		          </tr><tr>
-		             <td><code>HPos.RIGHT</code></td>
-		             <td>Allinea a destra</td>
-		          </tr><tr>
-		             <th>Codice per righe</th>
-		             <th>Tipo di allienamento</th>
-		          </tr><tr>
-		             <td><code>VPos.TOP</code></td>
-		             <td>Allinea in alto</td>
-		          </tr><tr>
-		             <td><code>VPos.CENTER</code></td>
-		             <td>Allinea al centro</td>
-		          </tr><tr>
-		             <td><code>VPos.BOTTOM</code></td>
-		             <td>Allinea in basso</td>
-		          </tr>
-		       </table></li>
-		   <li>Legare il vincolo creato alla griglia col metodo <code>getRowConstraints().add(<var>vincolo</var>)</code> per la riga e col metodo <code>getColumnConstraints().add(<var>vincolo</var>)</code>
-		   per le colonne.</li>
-		</ol>
+		<p>Quel che si fa è creare degli oggetti che rappresentano 
+		i vincoli (i <code>ColumnConstraints</code>), impostare l'allineamento ( <code>setHalignment</code>)
+		per ciascuna colonna e poi tutti i vincoli vengono legati alla griglia 
+		usando <code>getColumnConstraints().addAll()</code> in ordine dalla colonna zero in avanti.
+		Discorso analogo vale per le righe.</p>
+		
+		<p>Per quanto riguarda l'allineamento è possibile utilizzare le seguenti costanti:</p>
+		<table>
+          <tr>
+             <th>Codice per colonne</th>
+             <th>Tipo di allienamento</th>
+          </tr><tr>
+             <td><code>HPos.LEFT</code></td>
+             <td>Allinea a sinistra</td>
+          </tr><tr>
+             <td><code>HPos.CENTER</code></td>
+             <td>Allinea al centro</td>
+          </tr><tr>
+             <td><code>HPos.RIGHT</code></td>
+             <td>Allinea a destra</td>
+          </tr><tr>
+             <th>Codice per righe</th>
+             <th>Tipo di allienamento</th>
+          </tr><tr>
+             <td><code>VPos.TOP</code></td>
+             <td>Allinea in alto</td>
+          </tr><tr>
+             <td><code>VPos.CENTER</code></td>
+             <td>Allinea al centro</td>
+          </tr><tr>
+             <td><code>VPos.BOTTOM</code></td>
+             <td>Allinea in basso</td>
+          </tr>
+       </table>
+		
 		<h2>Miscellanea...</h2>
 		<p>Alcune operazioni che si possono fare sui controlli per alterarne l'aspetto. Si tratta in tutti i casi di metodi dei controlli stessi:</p>
 		<ul>
