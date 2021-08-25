@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
-<!-- grafoIndice requires="assegnazione condizionale numeri booleani" group="base" -->
+<!-- grafoIndice requires="assegnazione condizionale numeri" group="base" -->
 <!-- changelog 2017-08-23 corretto esercizio "a&lt;=5" al posto di "a&lt;5" -->
 <!-- changelog 2019-11-23 tolta doppia inizializzazione dal for -->
 <!-- changelog 2019-11-29 tolte altre due doppie inizializzazioni del for -->
@@ -12,6 +12,7 @@
 <!-- changelog 2021-01-25 corretto ultimo esercizio per usare boolean -->
 <!-- changelog 2021-08-10 inserita dipendenza verso capitolo boolean -->
 <!-- changelog 2021-08-16 riorganizzato in sezioni il capitolo, corretti diversi errori di scrittura, nomi, e simili -->
+<!-- changelog 2021-08-24 corretto errore nella spiegazione dell'algoritmo per i numeri primi -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -225,8 +226,9 @@ for(a=0;a&lt;=5;a++){
 
    <h3>Primo tentativo</h3>
    <p>Un modo di procedere
-   sbagliato può essere questo: prendo ogni numero (col for) da <code>2</code> a <code>numero-1</code>. Mi chiedo per ciascuno se il resto è <code>0</code>,
-   nel qual caso scriverò "Il numero è primo!" altrimenti scriverò "Il numero non è primo". Perché tale programma è sbagliato?<br/>
+   sbagliato può essere questo: prendo ogni numero (col for) da <code>2</code> a <code>numero-1</code>. 
+   Mi chiedo per ciascuno se il resto è <code>0</code>,
+   nel qual caso scriverò "Il numero non è primo!" altrimenti scriverò "Il numero è primo". Perché tale programma è sbagliato?<br/>
    Perché il risultato sarà sempre che il numero è primo.</p>
    
    <p>Il problema è che una volta visto che il numero è non primo in quanto hai trovato un divisore dovresti interrompere il ciclo e
@@ -273,7 +275,7 @@ altrimenti rimarrà quello:</p>
 }</pre>
 <div class="approfondimento">
 <p>Domanda: e se invece fuori dal ciclo scrivessi "non primo" e poi dentro al ciclo mettessi
-una condizione per scrivere quando è primo? tipo "numero%contatore!=0"... funzionerebbe?</p>
+una condizione per scrivere quando è primo? tipo <code>numero%contatore!=0</code>... funzionerebbe?</p>
 </div>
 
 <h3>Ultima soluzione</h3>

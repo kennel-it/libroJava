@@ -91,7 +91,7 @@ nav > * {
     margin:0em 1em; padding:0.5em; 
 }
 
-article { margin:1em 5% ; padding-bottom:3em}
+article, section { margin:1em 5% ; padding-bottom:3em}
 h2 { 
 	text-align: left;
     margin-top:3em;
@@ -145,6 +145,7 @@ pre, div.pseudo {
 }
 pre code { white-space: pre; display: inline-block; padding:2px;width: 100%}
 pre .esecuzione { background-color:yellow }
+pre var { font-size: 100% }
 div.pseudo {
     /* FIXME: andrebbe messo un colore per distinguere */
     background-color: #eef;
@@ -161,7 +162,7 @@ code {
 var { 
 	font-family: "Courier", "Courier New", monospace;
 	color: #a45920; 
-	font-size: 125%;
+	font-size: 110%;
 	font-style: italic 
 }
 li { margin-top:0.2em }

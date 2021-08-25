@@ -4,6 +4,8 @@
 <!-- grafoIndice requires="salutaUtente" group="grafica" -->
 <!-- changelog 2021-07-31 inserita illustrazione più esplicativa per le coordinate -->
 <!-- changelog 2021-08-04 riorganizzato capito, inserito ulteriore esempio, rimossa parte del mouse -->
+<!-- changelog 2021-08-21 piccole ulteriori sistemazioni -->
+<!-- changelog 2021-08-24 precisazioni uso GraphicsContext e ellissi-->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -22,7 +24,8 @@ disegnare qualcosa noi da programma... non è una esigenza così singolare!</p>
 
 <p>In verità c'è un componente già fatto che ha lo stesso uso di una tela da disegno e, coincidenza, si chiama Canvas
 (per i più precisi il suo nome completo è javafx.scene.canvas.Canvas), questo componente lo possiamo piazzare
-in una parte della finestra a nostra scelta e ci consente di disegnarci su linee, cerchi, punti e via di seguito.</p>
+in una parte della finestra a nostra scelta esattamente come facciamo con un Button o un TextField 
+e ci consente di disegnarci su linee, cerchi, punti e via di seguito.</p>
 
 <p>Vediamo direttamente un esempio:</p>
 
@@ -40,9 +43,9 @@ public class HelloCanvas extends Application {
   @Override
   public void start(Stage primaryStage) {
     // creiamo un pannello specificando larghezza e altezza
-    Canvas quadro = new Canvas(300, 260);
-    // non possiamo disegnare
-    GraphicsContext gc = quadro.getGraphicsContext2D();
+    <em>Canvas quadro = new Canvas(300, 260);</em>
+    // otteniamo l'oggetto che ci permette di disegnare
+    <em>GraphicsContext gc = quadro.getGraphicsContext2D();
     gc.setFill(Color.YELLOW);
     gc.setLineWidth(1);
     gc.fillOval(50, 50, 200, 200);
@@ -52,11 +55,11 @@ public class HelloCanvas extends Application {
     gc.setStroke(Color.RED);
     gc.setLineWidth(8);
     gc.strokeLine(100, 200, 150, 220);
-    gc.strokeLine(150, 220, 200, 200);
+    gc.strokeLine(150, 220, 200, 200);</em>
 
     GridPane root = new GridPane();
     // inseriamo il nostro canvas nella finestra
-    root.add(quadro, 0, 0);
+    <em>root.add(quadro, 0, 0);</em>
 
     Scene scene = new Scene(root);
     primaryStage.setTitle("Hello Canvas!");
@@ -69,8 +72,11 @@ public class HelloCanvas extends Application {
   }
 }</pre>
 
+<p>Come avrai notato non possiamo disegnare direttamente su un canvas ma ci serve ottenere
+un oggetto di tipo GraphicsContext che abbiamo chiamato <var>gc</var>.</p>
+
 <p>Nell'esempio qui sopra disegnamo con diversi colori linee e ovali di spessori diversi,
-un oggetto <a href="http://docs.oracle.com/javase/8/javafx/api/javafx/scene/canvas/GraphicsContext.html">GraphicsContext</a>
+un oggetto <a href="https://openjfx.io/javadoc/16/javafx.graphics/javafx/scene/canvas/GraphicsContext.html">GraphicsContext</a>
 ha molte istruzioni per disegnare diversi tipi di forme geometriche come linee, rettangoli cerchi (sia pieni che vuoti)
 e molte altre.</p>
 
@@ -87,9 +93,9 @@ e molte altre.</p>
 <p>Nel disegno qui sotto (un Canvas di dimensioni 400x300) abbiamo 2 elementi:</p>
 <ul>
 	<li>Una linea rossa che parte dal punto (0,100) e arriva al punto (400,50)</li>
-	<li>Il cerchio verde parte dal punto (50,0) 
-	(attenzione: non è il centro ma l'angolo in alto a sinistra del rettangolo che lo contine)
-	è largo 200 e alto 200</li>
+	<li>Il cerchio verde in realtà è una ellisse, parte dal punto (50,0) 
+	(attenzione: non è il centro ma l'angolo in alto a sinistra del rettangolo che lo contiene)
+	è larga 200 e alta 200</li>
 </ul>
 <div><img src="immagini/esempio_canvas.png" alt="Una linea e un cerchio"/></div>
 
@@ -115,8 +121,8 @@ gc.strokeOval(0, 0, 200, 200);
 
 <h2>Effetti speciali</h2>
 <p>Proviamo a modificare il programma precedente inserendo in <code>start</code>
-l'usuale codice per gestire la pressione di un pulsante:</p>
-<pre>pulsante.setOnAction( e-> clickEffetto() );</pre>
+un pulsante e l'usuale codice per gestire la sua pressione:</p>
+<pre>pulsante.setOnAction( e -&gt; clickEffetto() );</pre>
 
 <p>Inseriamo poi prima della chiusura della classe il seguente frammento di codice:</p>
 <pre>
@@ -124,7 +130,10 @@ public void clickEffetto(){
     gc.applyEffect(new GaussianBlur(20));
 }
 </pre>
-<p>Che succede se si preme il pulsante?</p> 
+<p>Siccome l'oggetto <var>gc</var> viene usato sia in start che in clickEffetto dovremo anche spostare
+la sua dichiarazione (soltanto la dichiarazione!) al livello di classe (fuori da start).</p>
+
+<p>Ora che il programma non ha più errori: che succede se si preme il pulsante?</p> 
 
 </article>
 </body>

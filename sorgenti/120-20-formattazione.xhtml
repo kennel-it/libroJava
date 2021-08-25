@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- grafoIndice requires="ciaoMondo" group="grafica" -->
+<!-- grafoIndice requires="salutaUtente" group="grafica" -->
 <!-- changelog 2017-11-03 inseriti dettagli per visualizzare immagine -->
 <!-- changelog 2021-08-20 spostato più in alto il dimensionamento dei controlli -->
+<!-- changelog 2021-08-25 riscritta la parte di allineamento delgi oggetti nella griglia -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -22,10 +23,10 @@
 	    	<p>formattazione degli elementi della finestra</p>
     	</header>
 		<article>
-		<p>In questo capitolo prenderemo in consideraizone soltanto l'aspetto grafico del nostro programma.</p>
+		<p>In questo capitolo prenderemo in considerazione soltanto l'aspetto grafico del nostro programma.</p>
 		
     	<h2>Spaziature</h2>
-		<p>Quando visualizzeremo la finestra dell'esempio <code>Un saluto personalizzato</code> tutti gli oggetti risulteranno attaccati gli uni agli altri.
+		<p>Quando visualizzeremo la finestra dell'esempio <a href="090-30-salutaUtente.xhtml">Un saluto personalizzato</a> tutti gli oggetti risulteranno attaccati gli uni agli altri.
 		Per avere un po' di spazio basta impostare il numero di pixel (cioè di punti) che devono esserci per separare i due oggetti. Lo spazio sarà indicato
 		col metodo <code>setHgap</code>per quello orizzontale e con <code>setVgap</code>per quello verticale. Per aumentare invece lo spazio che c'è tra gli
 		oggetti ed il bordo della finestra (specificamente tra gli oggetti ed il bordo del pannello) si va ad usare il metodo
@@ -81,19 +82,19 @@ griglia.setVgap(40);</pre>
 		      <td>Dimensione (larghezza ed altezza) massima</td>
 		   </tr>
 		</table>
-		<p>Dimensioniamo orizzontalmente a questo punto la casella di testo ed il pulsante del nostro esempio a 200 punti:</p>
+		<p>Vediamo ad esempio come si potrebbe dimensionare un pulsante a 200 punti di larghezza:</p>
 
 <div class="codieEOutput">
-<pre>pulsante1.setPrefWidth(200.0);
-pulsante3.setPrefWidth(200.0);</pre>
+<pre>pulsante1.setPrefWidth(200.0);</pre>
 <img src="immagini/formattazione_finestra_dimensioni.png" alt="Dimensioni degli oggetti"/>
 </div>
 
 		<h3>Un controllo in più celle</h3>
 		<p>Nel momento in cui progetti un'interfaccia grafica può esserti utile la possibilità di far occupare ad un dato controllo più celle della griglia.
-		Nell'esempio che stiamo adottanto il messaggio di saluto finale è piuttosto lungo e non ha bisogno di un controllo di tipo <code>Text</code> che lo
-		spieghi. Si potrebbe allora volerlo sull'intera ultima riga, che occupi sia la prima che la seconda colonna. Questo vuol dire che userà 2 colonne a
-		partire da quella in cui è posizionato.</p>
+		Potrebbe ad esempio succedere che un messaggio di testo sia piuttosto lungo,
+		si potrebbe allora volerlo sull'intera ultima riga, fare in modo cioè che occupi sia la prima che la seconda colonna
+		(poniamo che la nostra griglia abbia due colonne).
+		Questo vuol dire che userà 2 colonne a partire da quella in cui è posizionato.</p>
 		<p>In realtà a tutti i controlli viene impostato il numero di celle orizzontali e verticali che andrà ad occupare in modo predefinito ad 1. Se si
 		vuole un valore diverso questo deve essere esplicitato dal programmatore, cioè da te. Per far questo riprendiamo il metodo della griglia che conosci
 		già molto bene: <code>add(<var>nomeControllo</var>, <var>posX</var>, <var>posY</var>)</code>. Ne esiste una variante in cui oltre a fornire tali informazioni si esplicita appunto
@@ -145,66 +146,61 @@ pulsante3.setPrefWidth(200.0);</pre>
 		<code>griglia.setAlignment(Pos.CENTER);</code></p>
 
 		<h2>Allineamento</h2>
-		<p>Abbiamo già detto che il <code>GridPane</code> inserisce i vari controlli all'interno di una griglia mettendo in una casella un solo controllo.
-		Si verranno a creare così un certo numero di righe e di colonne. Il <code>GridPane</code> ci offre la possibilità di allineare ciascuna colonna e
+		<p>Abbiamo già detto che il <code>GridPane</code> inserisce i vari controlli all'interno di una griglia mettendo 
+		in una casella un solo controllo. Si verranno a creare così un certo numero di righe e di colonne.
+		Il <code>GridPane</code> ci offre la possibilità di allineare il contenuto di ciascuna colonna e
 		ciascuna riga. Iniziamo con l'esempio che permette di allineare a destra la prima colonna ed a sinistra la seconda, al centro tutte le righe:</p>
 <div class="codiceEOutput">
-<pre>ColumnConstraints colonna0 = new ColumnConstraints();
-colonna0.setHalignment(HPos.RIGHT);
-griglia.getColumnConstraints().add(colonna0);
+<pre>ColumnConstraints vincoliPrimaColonna = new ColumnConstraints();
+vincoliPrimaColonna.setHalignment(HPos.RIGHT);
+ColumnConstraints vincoliSecondaColonna = new ColumnConstraints();
+vincoliSecondaColonna.setHalignment(HPos.CENTER);
+griglia.getColumnConstraints().addAll(vincoliPrimaColonna, vincoliSecondaColonna);
 
-ColumnConstraints colonna1 = new ColumnConstraints();
-colonna1.setHalignment(HPos.LEFT);
-griglia.getColumnConstraints().add(colonna1);
-
-RowConstraints riga0 = new RowConstraints();
-riga0.setValignment(VPos.CENTER);
-griglia.getRowConstraints().add(riga0);
-
-RowConstraints riga1 = new RowConstraints();
-riga1.setValignment(VPos.CENTER);
-griglia.getRowConstraints().add(riga1);
-
-RowConstraints riga2 = new RowConstraints();
-riga2.setValignment(VPos.CENTER);
-griglia.getRowConstraints().add(riga2);</pre>
+RowConstraints vincoliRiga0 = new RowConstraints();
+vincoliRiga0.setValignment(VPos.CENTER);
+RowConstraints vincoliRiga1 = new RowConstraints();
+vincoliRiga1.setValignment(VPos.CENTER);
+RowConstraints vincoliRiga2 = new RowConstraints();
+vincoliRiga2.setValignment(VPos.CENTER);
+griglia.getRowConstraints().addAll(vincoliRiga0, vincoliRiga1, vincoliRiga2);</pre>
 <img src="immagini/formattazione_finestra_righeColonne.png" alt="Allineamento nelle righe e nelle colonne" />
 </div>
-		<p>A prima vista sembra complicato ma poi guardandolo meglio risultano 3 righe ripetute tante volte, dobbiamo cioè creare dei vincoli al <code>GridPane</code>:</p>
-		<ol>
-		   <li>Creare l'oggetto dei vincoli orizzontali o verticali tramite <code>ColumnConstraints</code> oppure <code>RowConstraints</code></li>
-		   <li>Impostare l'allineamento orizzontale sul <code>ColumnConstraints</code> o l'allineamento verticale sul <code>RowConstraints</code> scegliendo
-		       tra le seguenti possibilità:
-		       <table>
-		          <tr>
-		             <th>Codice per colonne</th>
-		             <th>Tipo di allienamento</th>
-		          </tr><tr>
-		             <td><code>HPos.LEFT</code></td>
-		             <td>Allinea a sinistra</td>
-		          </tr><tr>
-		             <td><code>HPos.CENTER</code></td>
-		             <td>Allinea al centro</td>
-		          </tr><tr>
-		             <td><code>HPos.RIGHT</code></td>
-		             <td>Allinea a destra</td>
-		          </tr><tr>
-		             <th>Codice per righe</th>
-		             <th>Tipo di allienamento</th>
-		          </tr><tr>
-		             <td><code>VPos.TOP</code></td>
-		             <td>Allinea in alto</td>
-		          </tr><tr>
-		             <td><code>VPos.CENTER</code></td>
-		             <td>Allinea al centro</td>
-		          </tr><tr>
-		             <td><code>VPos.BOTTOM</code></td>
-		             <td>Allinea in basso</td>
-		          </tr>
-		       </table></li>
-		   <li>Legare il vincolo creato alla griglia col metodo <code>getRowConstraints().add(<var>vincolo</var>)</code> per la riga e col metodo <code>getColumnConstraints().add(<var>vincolo</var>)</code>
-		   per le colonne.</li>
-		</ol>
+		<p>Quel che si fa è creare degli oggetti che rappresentano 
+		i vincoli (i <code>ColumnConstraints</code>), impostare l'allineamento ( <code>setHalignment</code>)
+		per ciascuna colonna e poi tutti i vincoli vengono legati alla griglia 
+		usando <code>getColumnConstraints().addAll()</code> in ordine dalla colonna zero in avanti.
+		Discorso analogo vale per le righe.</p>
+		
+		<p>Per quanto riguarda l'allineamento è possibile utilizzare le seguenti costanti:</p>
+		<table>
+          <tr>
+             <th>Codice per colonne</th>
+             <th>Tipo di allienamento</th>
+          </tr><tr>
+             <td><code>HPos.LEFT</code></td>
+             <td>Allinea a sinistra</td>
+          </tr><tr>
+             <td><code>HPos.CENTER</code></td>
+             <td>Allinea al centro</td>
+          </tr><tr>
+             <td><code>HPos.RIGHT</code></td>
+             <td>Allinea a destra</td>
+          </tr><tr>
+             <th>Codice per righe</th>
+             <th>Tipo di allienamento</th>
+          </tr><tr>
+             <td><code>VPos.TOP</code></td>
+             <td>Allinea in alto</td>
+          </tr><tr>
+             <td><code>VPos.CENTER</code></td>
+             <td>Allinea al centro</td>
+          </tr><tr>
+             <td><code>VPos.BOTTOM</code></td>
+             <td>Allinea in basso</td>
+          </tr>
+       </table>
+		
 		<h2>Miscellanea...</h2>
 		<p>Alcune operazioni che si possono fare sui controlli per alterarne l'aspetto. Si tratta in tutti i casi di metodi dei controlli stessi:</p>
 		<ul>

@@ -6,6 +6,7 @@
 <!-- changelog 2021-08-10 corretti nomi di funzione e variabili nell'esempio del ToggleButton -->
 <!-- changelog 2021-08-13 rimosso l'esempio su pari/dispari e spostato in booleani -->
 <!-- changelog 2021-08-13 piccoli aggiustamenti sull'uso dei ToggleButton -->
+<!-- changelog 2021-08-21 questo capitolo è stato fuso con quello sui booleani -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -19,7 +20,8 @@
 <p>intraprendere azioni diverse in base alla veridicità di una espressione</p>
 </header>
 <article>
-<p>Cerchiamo di realizzare il programma che gestistisca gli sconti per la nota catena di supermercati Conrad: 
+<h2>Con o senza sconto?</h2>
+<p>Cerchiamo di realizzare il programma che gestisca gli sconti per la nota catena di supermercati Conrad: 
 fornito dall'utente l'importo dello scontrino, applicare (oppure no) uno sconto del 5%. 
 Il programma dovrà quindi verificare la presenza dello sconto: se deve essere applicato si eseguirà il calcolo, 
 altrimenti... niente. L'utente può indicare al programma la presenza dello sconto tramite un apposito pulsante
@@ -27,7 +29,7 @@ che permetta di essere spuntato. Il suo scopo è lontano dallo scopo di un norma
 nel momento in cui si preme non si vuole eseguire un'azione ma solo mettere la spunta (se prima non ci fosse stata) 
 oppure toglierla (se al momento del click fosse già presente). 
 Nel momento in cui l'utente premerà l'effettivo pulsante per avviare l'elaborazione, 
-il programma andrà a verificare se il pulsante di spunta è – appunto – spuntato.</p>
+il programma andrà a verificare se il pulsante di spunta è – appunto – spuntato o meno.</p>
 
 <p>Il pulsante di spunta si chiama – in JavaFX – CheckBox e viene dichiarato allo 
 stesso modo degli altri oggetti grafici, quindi:</p>
@@ -44,7 +46,8 @@ Così nel metodo start():</p>
   CheckBox scontoPresente = new CheckBox();
   @Override
   public void start(Stage primaryStage) {</pre>
-<p>Al livello di classe (fuori dai metodi) perché con quest'oggetto il programma interagirà sia al momento della sua disposizione 
+<p>La scelta giusta è di inserirlo al livello di classe
+(fuori dai metodi) perché con quest'oggetto il programma interagirà sia al momento della sua disposizione 
 nella finestra sia nel momento in cui l'utente avvia il calcolo, quindi alla pressione del pulsante.</p>
 <p>Nel metodo start() inseriremo anche il testo che dovrà visualizzare in quanto per ora comparirebbe 
 il solo quadratino senza alcunché di spiegazione. La tecnica per impostare il testo di un oggetto è 
@@ -53,7 +56,7 @@ sempre la stessa: usare il metodo setText("testo") che nel nostro esempio sarà:
 
 <p>In alternativa potremmo usare il sistema più compatto che fa indicare il testo direttamente alla costruzione
 dell'oggetto:</p>
-<pre>CheckBox scontoPresente = new CheckBox(“applica sconto”);</pre>
+<pre>CheckBox scontoPresente = new CheckBox("applica sconto");</pre>
 
 <p>La funzione che andremo a scrivere non appena verrà premuto il pulsante di avvio al calcolo si 
 dovrà chiedere se c'è la spunta sullo sconto. In caso affermativo toglie il 5% dalla quantità indicata 
@@ -74,7 +77,7 @@ FINE SE</div>
 
 <p>Se quanto sopra scritto in italiano è chiaro puoi passare direttamente alla versione 
 Java che è pari pari quello sopra riportato a meno della scrittura nello specifico linguaggio:</p>
-<pre><em>if(scontoPresente.isSelecteded()) {</em>
+<pre><em>if( scontoPresente.isSelecteded() ) {</em>
    //fai il calcolo dello sconto
    //sottrai lo sconto dal costo
 <em>}</em></pre>
@@ -86,8 +89,7 @@ questo vuol dire che la parte contenuta nelle parentesi tonde letteralmente la p
 nelle parentesi tonde. Dell'espressione che qui si va a scrivere si dovrà sempre poter dire se questa
 è vera o falsa; nell'esempio infatti si dice che <var>scontoPresente</var> è spuntato, tale espressione 
 diciamo che è vera se in effetti la spunta c'è altrimenti è falsa.</p>
-<p>L'espressione che deve essere valutata da if si chiama 
-<a href="210-20-booleani.xhtml">condizione</a> e – come detto – è sempre racchiusa 
+<p>L'espressione che deve essere valutata da if si chiama condizione e – come detto – è sempre racchiusa 
 tra parentesi tonde. A seguire osservi delle parentesi graffe: proprio come quando hai scritto le tue funzioni, 
 le graffe racchiudono una sequenza di istruzioni. Nel nostro caso raccoglieranno tutte e sole quelle istruzioni 
 che dovranno essere eseguite nel caso in cui la condizione è vera. Ciò vuol dire che se invece la condizione è falsa, 
@@ -96,7 +98,7 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
 <p>Il programma, in definitiva e a meno delle importazioni di rito è il seguente:</p>
 <pre>public class Sconto extends Application { 
    TextField scontrino = new TextField();
-   CheckBox scontoPresente = new CheckBox();
+   <em>CheckBox scontoPresente = new CheckBox();</em>
    TextField daPagare = new TextField();
     
    @Override
@@ -105,7 +107,7 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
       Text l_scontrino = new Text();
       Text l_daPagare = new Text();
       sconta.setText("Verifica e sconta");
-      scontoPresente.setText("Diritto allo sconto del 5%");
+      <em>scontoPresente.setText("Diritto allo sconto del 5%");</em>
       l_scontrino.setText("Scontrino €");
       l_daPagare.setText("A pagare €");
       sconta.setOnAction(e -&gt; calcolaSconto() );
@@ -128,10 +130,10 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
    public void calcolaSconto() {
       int soldi, sconto;
       soldi=Integer.parseInt(scontrino.getText());
-      if(scontoPresente.isSelected()) {
+      <em>if(scontoPresente.isSelected()) {</em>
          sconto = soldi * 5 / 100;
          soldi = soldi - sconto;
-      }
+      <em>}</em>
       daPagare.setText ("" + soldi);
    }
         
@@ -140,22 +142,237 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
    }
 }</pre>
 
-<h2>Altrimenti</h2>
-<p>Non basta quanto fin qui visto. Spesso accade che verificando un fatto si debba fare 
-qualcosa se questo è vero ma anche qualcos'altro se questo è falso. Ritornando all'italiano diremo:</p>
-<pre>SE fatto da verificare è vero ALLORA
-   fai tutto ciò che serve per il caso vero
-ALTRIMENTI
-   fai tutto ciò che serve per il caso falso
-FINE SE</pre>
-<p>e osserveremo che in ALTRIMENTI non c'è la condizione, mai. In Java si traduce con:</p>
-<pre>if(condizione) {
-   // [1] fai tutto ciò che serve per il caso vero
+<h2>if</h2>
+<p>A questo punto introduciamo formalmente l'istruzione if:</p>
+<dfn>L'<em>istruzione if</em> è composta da 3 parti: una condizione, un corpo_if e un corpo_else
+secondo la sintassi:
+<pre>if( condizione ){
+  corpo_if;
 } else {
-   // [2] fai tutto ciò che serve per il caso falso
+  corpo_else;
 }</pre>
-<p>qui (nell'else) di condizione non c'è traccia. Il programma eseguirà sicuramente o la parte di codice [1]
-o la [2] ma in nessun caso entrambe.</p>
+La condizione è una espressione booleana, se vale true implicherà l'esecuzione del corpo_if e se vale false
+l'esecuzione del corpo_else. La parte else con relativo corpo è opzionale.</dfn>
+
+<p>Da notare che verrà eseguito il corpo_if o corpo_else e mai entrambe e che la
+parte else non ha una condizione perché il corpo_else viene eseguito se la condizione
+dell'if risulta falsa, non c'è bisogno di scrivere una ulteriore condizione.
+Una cosa che potrebbe non sembrare ovvia: all'interno del corpo dell'if o dell'else potremmo
+trovare nuovamente un if.</p>
+
+<div class="test">
+   	<p>Quanto vale y alla fine di questo frammento di programma?</p>
+<pre>
+int x=7;
+int y=0;
+if(x&lt;5){
+  y=3;
+}else{
+  if(x>=2){
+    y=1;
+  }else{
+    y=2;
+  }
+}
+</pre>
+	<a onclick="sbagliata(this)">0<span class="spiegazione">no, il valore della y viene modificato</span></a> 
+	<a onclick="giusta(this)">1</a>
+	<a onclick="sbagliata(this)">2<span class="spiegazione">no, giustamente si va nella parte else dell'if esterno ma poi...</span></a>
+	<a onclick="sbagliata(this)">3<span class="spiegazione">no, x non è minore di 5</span></a>
+</div>
+
+<h2>Espressioni booleane</h2>
+<p>Nell'esempio precedente abbiamo usato come condizione lo stato di un pulsante
+(selezionato oppure no) ma questa è soltanto una possibilità.
+Possiamo utilizzare una qualsiasi espressione di cui sia possibile 
+dire se è vera o falsa (attenzione, il "vero/falso" non ha nulla a che fare con il "corretto/sbagliato"): 
+queste espressioni si chiamano "espressioni booleane"
+e in Java e il loro valore può essere soltanto <var>true</var> o <var>false</var> con il significato che 
+è facile immaginare. Ad esempio l'espressione <code>4&lt;2</code> vale <code>false</code>
+mentre <code>3&lt;7</code> vale <code>true</code>. </p>
+
+<p>Una espressione booleana si può ottenere sia combinando valori numerici che combinando valori
+booleani, andiamo avanti con ordine.</p>
+
+<h3>Operatori di confronto</h3>
+<p>Gli operatori di confronto hanno come argomento due valori numerici (ad eccezione di uguale e 
+diverso che operano anche su operandi boolean) e restituiscono come risultato un valore boolean.</p>
+ 
+<dl>
+	<dt>==</dt>
+	<dd>a == b<br/>
+	<var>a</var> è uguale a <var>b</var>, vale true se <var>a</var> ha lo stesso valore di <var>b</var></dd>
+
+	<dt>!=</dt>
+	<dd>a != b<br/>
+	<var>a</var> è diverso da <var>b</var>, vale true se <var>a</var> non ha lo stesso valore di <var>b</var></dd>
+		
+	<dt>&gt;</dt>
+	<dd>a &gt; b<br/>
+	<var>a</var>  è maggiore di <var>b</var>, vale true se <var>a</var> è maggiore a <var>b</var></dd>
+
+	<dt>&gt;=</dt>
+	<dd>a &gt;= b<br/>
+	<var>a</var> è maggiore o uguale a <var>b</var>, vale true se <var>a</var> è maggiore o uguale a <var>b</var></dd>
+	
+	<dt>&lt;</dt>
+	<dd>a &lt; b<br/>
+	<var>a</var> è minore di <var>b</var>, vale true se <var>a</var> è minore di <var>b</var></dd>
+	
+	<dt>&lt;=</dt>
+	<dd>a &lt;= b<br/>
+	<var>a</var> è minore o uguale a <var>b</var>, vale true se <var>a</var> è minore o uguale a <var>b</var></dd>
+	
+</dl>
+
+<h4>Volume del cubo</h4>
+<p>Poniamo per esempio di voler realizzare un programma che calcoli il volume
+di un cubo a patto che l'utente non inserisca un valore negativo come
+misura del lato. Il nostro programma ha una casella di testo che si 
+chiama <var>cLato</var> in cui l'utente inserirà la misura del lato
+e una etichetta che si chiama <var>eVolume</var> in cui visualizzeremo il risultato.
+Se l'utente scriverà un numero negativo nell'etichetta scriveremo 
+"errore: lato negativo".</p>
+
+<pre>
+public void calcolaVolume(){
+  String testoLato = cLato.getText();
+  int lato = Integer.parseInt(testoLato);
+  int volume;
+	
+  if( <em>lato &lt; 0</em> ){
+    eVolume.setText("errore: lato negativo"); 
+  } else {
+    volume = lato * lato * lato;
+    eVolume.setText(""+volume);
+  }
+}
+</pre>
+<p>In questo caso l'espressione booleana è <code>lato &lt; 0</code> che varrà
+true se ad esempio il lato è lungo "-7" e false se ad esempio il lato misura "8".</p>
+<p>Per esercizio costruisci il programma e verificane il funzionamento.</p>
+
+<h4>Pari o dispari?</h4>
+<p>Matematica: dato un numero, dire se questi è pari o dispari. 
+È noto che per essere pari è necessario che sia divisibile per 2. 
+Detto così sembra di difficile soluzione: ci chiediamo allora quando un numero è divisibile per 2 
+e la risposta sarà: un numero è divisibile per 2 se il resto della divisione 
+(stiamo parlando di divisione tra numeri interi) è 0, 
+altrimenti non è divisibile per 2, quindi non è pari e cioè è dispari:</p>
+
+<div class="pseudo">SE il resto della divisione tra il numero e 2 è uguale a 0 ALLORA
+   scrivi "il numero è pari"
+ALTRIMENTI
+   scrivi "il numero è dispari"
+FINE SE
+</div>
+
+<div class="test">
+   	<p>La parte else in un condizionale...</p>
+	<a onclick="sbagliata(this)">è obbligatoria<span class="spiegazione">no, può essere omessa</span></a> 
+	<a onclick="sbagliata(this)">deve specificare la condizione contraria dell'if<span class="spiegazione">no, l'else non ha una condizione: viene eseguita se la condizione dell'if è falsa</span></a>
+	<a onclick="giusta(this)">è opzionale</a>
+</div>
+
+<p>In Java per calcolare il resto si usa l'operatore <b>%</b>. 
+Ad esempio 17%10 dà come risultato 7, 8%3 dà come risultato 2 e 55%5 dà come risultato 0. 
+Bene. Posto di aver già realizzato la funzione start(), scriviamo qui la funzione del calcolo:</p>
+<pre>public void verificaPari() {
+   int num;
+   num = Integer.parseInt(numero.getText());  //numero è il nome della TextBox con il dato di input
+   <em>if(num%2 == 0) {
+      messaggio.setText("il numero è pari");</em>  //messaggio è il nome della Label per la risposta
+   <em>} else {
+      messaggio.setText("il numero è dispari");
+   }</em>
+}</pre>
+
+ 
+<h3>Operatori logici</h3>
+<p>Servono ad esprimere fatti abbastanza comuni come ad esempio: 
+"un voto è un numero maggiore di zero <em>e</em> minore o uguale a dieci",
+hanno come operandi dei valori booleani e come risultato un valore booleano.</p>
+
+<dl>
+	<dt>||</dt>
+	<dd>or, "oppure". Vale true se uno dei due operandi è true.
+		<table>
+			<tr><th>||</th><th>true</th><th>false</th></tr>
+			<tr><th>true</th><td>true</td><td>true</td></tr>
+			<tr><th>false</th><td>true</td><td>false</td></tr>
+		</table>
+		<code>true || false</code> vale <code>true</code>
+	</dd>
+	<dt>&amp;&amp;</dt>
+	<dd>and, "e". Vale true se entrambe i due operandi sono true.
+		<table>
+			<tr><th>&amp;&amp;</th><th>true</th><th>false</th></tr>
+			<tr><th>true</th><td>true</td><td>false</td></tr>
+			<tr><th>false</th><td>false</td><td>false</td></tr>
+		</table>
+		<code>true &amp;&amp; false</code> vale <code>false</code>
+	</dd>
+	<dt>!</dt>
+	<dd>not, "non". Inverte il valore di verità che lo segue, lavora su un singolo operando.
+		<table>
+			<tr><th></th><th>!</th></tr>
+			<tr><th>true</th><td>false</td></tr>
+			<tr><th>false</th><td>true</td></tr>
+		</table>
+		<code>!true</code> vale <code>false</code>
+	</dd>
+</dl>
+
+<div class="test">
+   	<p>Quanto vale <code>true &amp;&amp; (!false)</code> ?</p>
+	<a onclick="sbagliata(this)">false</a> 
+	<a onclick="giusta(this)">true</a>  
+</div> 
+
+<p>Sembrano complicati? Proviamo a scrivere il programma che controlla
+se un valore inserito è un possibile voto o meno, il dato lo leggiamo dalla casella
+<var>cVoto</var> e il risultato lo scriviamo in <var>eRisposta</var>:</p>
+<pre>
+public void controllaVoto(){
+  String testoVoto = cvoto.getText();
+  int voto = Integer.parseInt(testoVoto);
+	
+  if( <em>voto&gt;0 &amp;&amp; voto&lt;=10</em> ){
+    eVolume.setText(voto + " è un voto"); 
+  } else {
+    volume = lato * lato * lato;
+    eVolume.setText(voto + " non è un voto");
+  }
+}
+</pre>
+
+<div class="test">
+   	<p>Quanto vale l'espressione <code>voto&gt;0 &amp;&amp; voto&lt;=10</code> se voto vale 8?</p>
+	<a onclick="sbagliata(this)">false<span class="spiegazione">no, il voto è maggiore di 0 e anche minore o uguale a 10</span></a> 
+	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è sintatticamente corretta</span></a>
+	<a onclick="giusta(this)">true</a>
+</div>
+
+<div class="test">
+   	<p>Quanto vale l'espressione <code>voto&lt;1 || voto&gt;10</code> se voto vale 8?</p>
+	<a onclick="sbagliata(this)">true<span class="spiegazione">no, il voto non è minore di uno e neanche maggiore di 10</span></a> 
+	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è sintatticamente corretta</span></a>
+	<a onclick="giusta(this)">false</a>
+</div>
+
+<div class="test">
+   	<p>Quale delle seguenti espressioni è di tipo boolean?</p>
+	<a onclick="sbagliata(this)">4+5<span class="spiegazione">no, il risultato è 9 che è un <code>int</code></span></a>
+	<a onclick="sbagliata(this)">3**7<span class="spiegazione">no, non ha un tipo perché è sbagliata</span></a>
+	<a onclick="giusta(this)">4&gt;3<span class="spiegazione">si, per la precisione vale <code>true</code></span></a>
+</div>
+
+<p>In Java gli operatori logici vengono valutati con una tecnica chiamata "a corto circuito"
+o "valutazione minima" che sta a significare che se l'operando sinistro è sufficiente per stabilire il
+risultato l'altro non viene neanche valutato. Prendiamo per esempio l'espressione 
+<code>4==2+2 || 78==12</code> visto che <code>4==2+2</code> è vera e che per l'operatore
+or se un operando vale true anche il risultato vale true la parte <code>78==12</code>
+non viene neanche considerata.</p>
 
 <h3>Radio</h3>
 <p>La casella di spunta si adopera in genere per attivare o meno una certa opzione. 

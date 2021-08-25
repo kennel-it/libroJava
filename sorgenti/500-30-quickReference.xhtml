@@ -11,12 +11,13 @@
 <!-- changelog 2019-11-12 correzioni su RadioButton, TextField e Togglegroup -->
 <!-- changelog 2020-08-08 inseriti link documentazione -->
 <!-- changelog 2020-08-20 inserito java.util.Scanner -->
+<!-- changelog 2021-08-24 inserita parte con definizioni -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Riferimento veloce</title>
     <link type="text/css" rel="stylesheet" href="style.css"/>
     <style type="text/css">
-		article{ column-count: 2 }
+		article{ column-count: 2 ; margin-left:0 ; margin-right:0}
 		@media screen and (orientation:portrait) {
 			article{ column-count: 1 }
 		}
@@ -47,6 +48,11 @@
 			margin-bottom:0.5em;
 			text-align: left;
 		}
+		
+		#definizioni { column-count: 1 }
+		#definizioni dt { margin-top: 1em; background-color: #d8efcb ; padding:0.25em }
+		#definizioni dt span { font-weight: bold ; font-size:75%; padding-left:2em }
+		
 		/* patch per il foglio globale */
 		nav#top { display:none }
 				
@@ -66,12 +72,14 @@
 <body>
 <header>        
 	<h1>quickReference</h1>
-	<p>un unico punto per le informazioni essenziali sugli oggetti</p>
+	<p>un unico punto per le informazioni essenziali</p>
 </header>
-<p>Questa è una scheda-promemoria (i cui contenuti sono volutamente molto semplificati), 
-i link portano al manuale ufficiale con la descrizione per esteso di tutte le 
-funzionalità dei singoli oggetti.</p>
-    <p>Per ulteriori informazioni:</p>
+<section id="definizioni">
+   	<h2>Definizioni</h2>
+   	<!-- placeholder definizioni -->
+</section>
+<section id="oggettiGUI">
+	<h2>Interfaccia grafica</h2>
 	<dl id="links">
 	   <dt><a href="https://docs.oracle.com/en/java/javase/11/docs/api/index.html">API Java11</a></dt>
 	   <dd>Contiene la spiegazione per tutti gli oggetti (per trovarli ignorando la gerarchia si
@@ -86,12 +94,7 @@ funzionalità dei singoli oggetti.</p>
 	   Fogli di stile in JavaFX</a></dt>
 	   <dd>Gli attributi e le regole dei fogli di stile utilizzabili con JavaFX.</dd>
 	</dl> 
-   	
-   	<article>
-   	<!-- placeholder definizioni -->
-   	</article>
 <article>
-<h2>Interfaccia grafica</h2>
 <div>
 	<h3>javafx.scene.control.<a 
 	href="https://docs.oracle.com/javase/9/docs/api/javafx/scene/control/Button.html">Button</a></h3>
@@ -319,5 +322,6 @@ funzionalità dei singoli oggetti.</p>
 </div>
 
 </article>
+</section>
 </body>
 </html>
