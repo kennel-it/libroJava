@@ -20,6 +20,7 @@
 <!-- changelog 2021-08-10 modificata prima parte sul cosa chiedersi per fare un programma ad oggetti -->
 <!-- changelog 2021-08-16 correzioni su risparmio vincolato -->
 <!-- changelog 2021-08-19 correzioni su static -->
+<!-- changelog 2021-08-19 ritocco su risparmio vincolato: aggiunto un getter e un setter -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -1076,6 +1077,14 @@ spesso è un bene perché evita la possibilità di duplicazione del codice:</p>
    public double fornisciGuadagno() {
       double guadagno = importo * interessiPercentuale / 100 - tasse;
       return guadagno;
+   }
+
+   public void setImporto(double importo) {
+      this.importo = importo;
+   }
+
+   public double getImporto() {
+      return importo;
    }
 
    public double fornisciCapitale() {

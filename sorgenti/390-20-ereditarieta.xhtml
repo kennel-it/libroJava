@@ -10,6 +10,7 @@
 <!-- changelog 2020-05-11 inserita definizione di ereditarietà singola -->
 <!-- changelog 2021-04-20 corretto esercizio fondo pagina -->
 <!-- changelog 2021-08-25 ritoccati alcuni passaggi nell'esempio persone, studenti e professori -->
+<!-- changelog 2021-08-25 corretti in risparmio vincolato pluriennale riferimenti a risparmio vincolato -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -131,12 +132,12 @@ La classe persona a questo punto sarà:</p>
       categoria = 0;
    }
 
-   public Persona(String n, String c, String r, float s, byte cat) {
-      nome = n;
-      cognome = c;
-      ruolo = r;
-      stipendio = s;
-      categoria = cat;
+   public Persona(String nome, String cognome, String ruolo, float stipendio, byte categoria) {
+      this.nome = nome;
+      this.cognome = cognome;
+      this.ruolo = ruolo;
+      this.stipendio = stipendio;
+      this.categoria = categoria;
    }
 }</pre>
 <p>Allo stesso modo si potrà realizzare la classe <code>Professore</code> estensione di <code>Persona</code>.</p>
@@ -150,10 +151,10 @@ La classe persona a questo punto sarà:</p>
       orePotenziamento = 0;
    }
 
-   public Studente(String n, String c, String r, String mat, String orePot) {
-      super(n, c, r, 1000.0f, 2);
-      materia = mat;
-      orePotenziamento = orePot;
+   public Studente(String nome, String cognome, String ruolo, String materia, String orePotenziamento) {
+      super(nome, cognome, ruolo, 1000.0f, 2);
+      this.materia = materia;
+      this.orePotenziamento = orePotenziamento;
    }
 }
 </pre>
@@ -172,50 +173,39 @@ saranno gli argomenti del caso.</p>
 che ora stiamo costruendo. Può essere che alcune proprietà e/o metodi preferiamo renderli privati e quindi la classe estesa non potrà usarli direttamente.</p>
 
 <h2>Risparmio vincolato pluriennale</h2>
-<p>Riprendiamo l'esempio del risparmio vincolato. In quel caso la somma che si otteneva era data alla fine del periodo di investimento. Ipotizziamo però che riusciamo
-a trattenerci dallo spendere quei soldi e li manteniamo per un certo numero di anni. Quale sarà la somma totale?<br/>Di certo ci appoggeremo al codice già scritto (ci
-dobbiamo ricordare di sostituire <code>private</code> <code>interessiPercentuale</code>con <code>protected</code> <code>interessiPercentuale</code>sulle proprietà) e
-lo estenderemo con qualcosa in più:</p>
+<p>Riprendiamo l'esempio del risparmio vincolato. In quel caso la somma che si otteneva era data alla fine dell'anno di investimento. Ipotizziamo però che riusciamo a
+trattenerci dallo spendere quei soldi e li manteniamo vincolati per un certo numero di anni, diciamo da 1 a 7. Quale sarà la somma totale alla fine?<br/>
+Di certo ci appoggeremo al codice già scritto nella classe <code>RisparmioVincolato</code> e quindi creeremo una classe estesa che eredita quanto fatto in
+<code>RisparmioVincolato</code>. Osserviamo che non c'è bisogno di accedere direttamente alle proprietà della superclasse perché basta usare i getter per prenderne i valori
+ed i setter per impostarli:</p>
 <pre>public class RisparmioVincolatoPluriennale extends RisparmioVincolato {
-   private byte durataPeriodo;
-   private short numeroPeriodi;
+   private byte durataAnni; //facendola privata eventuali classi che estenderanno questa non avranno accesso alla proprietà. Una scelta.
 
    public RisparmioVincolatoPluriennale() {
       super();
-      durataPeriodo = 0; //In mesi quanto dura il vincolo. Si consente solo 3 mesi, 6 mesi, 1 anno, 2 anni
-      numeroPeriodi = 0;
+      durataAnni = 0;
    }
 
-   public RisparmioVincolatoPluriennale(String n, String c, int cod, float euro, short a, byte m, byte g, float i, byte durata, short periodi) {
-      super(n, c, cod, euro, a, m, g, i);
-      if(durata==3 || durata==6 || durata==12 || durata==24) {
-         durataPeriodo = durata;
+   public RisparmioVincolatoPluriennale(String nome, String cognome, float importo, short anno, double interessiPercentuale, byte durataAnni) {
+      super(nome, cognome, importo, anno, interessiPercentuale);
+      if(durataAnni &gt;=1 &amp;&amp; durataAnni &lt;=7) {
+         this.durataAnni = durataAnni;
       } else {
-         durataPeriodo = 0;
-      }
-      if(numeroPeriodo > 0) {
-         numeroPeriodi = periodi;
-      } else {
-         numeroPeriodi = 0;
+         this.durataAnni = 0;
       }
    }
 
    double fornisciCapitale() {
-      if(durataPeriodo==0 || numeroPeriodi==0) {
+      if(durataAnni == 0) {
          return 0;
       }
-      /* La percentuale di interessi che viene pubblicizzata è riferita ad un periodo di un anno.
-       * Se per esempio investiamo per 6 mesi al 2% in realtà (dato che è mezzo anno) avremo gli interessi dell'1% a fine periodo
-       * Se per esempio investiamo per 24 anni al 3% in realtà (dato che sono 2 anni) avremo gli interessi del 6% a fine periodo
-       */
-      double interessiVeri = interessiPercentuale*(durata/12.0);
+      // La percentuale di interessi che viene pubblicizzata è riferita ad un periodo di un anno.
       // Invochiamo il metodo della superclasse che calcola il nuovo capitale a fine periodo, per il numero di periodi indicato
-      double capitaleIniziale = importo;
-      for(int i=0; i&lt;numeroPeriodi; i++) {
-         importo = fornisciCapitale();	//viene invocato il metodo della superclasse aggiornando il capitale sul quale calcola
+      double importo = getImporto();
+      for(int i=0; i &lt; numeroPeriodi; i++) {
+         setImporto(fornisciCapitale());	//viene invocato il metodo della superclasse aggiornando il capitale sul quale calcola
       }
-      double capitale = importo;
-      importo = capitaleIniziale;	// si rimette l'importo al valore iniziale, come se nulla fosse cambiato
+      setImporto(importo);	// si rimette l'importo al valore iniziale, come se nulla fosse cambiato
       return capitale;
    }
 }</pre>
