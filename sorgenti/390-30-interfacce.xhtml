@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE html>
-<!-- grafoIndice requires="oggetti" group="algoritmiStruttureDati" --><!-- FIXME: serve anche altro -->
+<!-- grafoIndice requires="ereditarieta" group="algoritmiStruttureDati" --><!-- FIXME: serve anche altro -->
 <!-- changelog 2017-07-04 inserito capitolo vuoto -->
 <!-- changelog 2017-08-07 inserito blocco contenuti -->
 <!-- changelog 2017-10-03 corretto riferimento insensato a "clienti" -->
@@ -22,24 +22,21 @@
 </header>
 <article>
 
-<p>Capita piuttosto spesso che classi diverse abbiano in realtà funzionalità comuni e che però non si possa
-far sì che queste siano sottoclassi di una classe comune; 
-altre volte la creazione di una classe comune non è neanche desiderabile. Proviamo a vedere un esempio.</p>
+<p>Capita piuttosto spesso che classi diverse abbiano in realtà funzionalità comuni e che però non si possa far sì che queste siano sottoclassi di una
+classe comune; altre volte la creazione di una classe comune non è neanche desiderabile. Proviamo a vedere un esempio.</p>
 
 
-<p>Vogliamo realizzare un programma che gestisca delle squadre di atletica, tra le cose che deve fare 
-c'è la gestione di una rubrica telefonica che mi permetta di visualizzare i numeri di telefono 
-di diversi soggetti con cui la mia società sportiva ha contatto: gli Atleti e le Squadre.</p>
+<p>Vogliamo realizzare un programma che gestisca delle squadre di atletica, tra le cose che deve fare c'è la gestione di una rubrica telefonica che mi
+permetta di visualizzare i numeri di telefono di diversi soggetti con cui la mia società sportiva ha contatto: gli Atleti e le Squadre.</p>
 
-<p>Di una <code>Squadra</code> mi interessa memorizzare il colore della maglia, il nome e il 
-numero di telefono; di un <code>Atleta</code> mi interessa memorizzare il numero di telefono, il nome e il tempo migliore sui 100m.</p>
+<p>Di una <code>Squadra</code> mi interessa memorizzare il colore della maglia, il nome e il numero di telefono; di un <code>Atleta</code> mi interessa
+memorizzare il numero di telefono, il nome e il tempo migliore sui 100m.</p>
 
-<p>Il mio programma ha anche una classe che permette di visualizzare i numeri di telefono che si chiama 
-<code>VisualizzatoreRubrica</code>, per adesso questa classe ha due soli metodi pubblici:</p>
-
+<p>Il mio programma ha anche una classe che permette di visualizzare i numeri di telefono che si chiama <code>VisualizzatoreRubrica</code> e per adesso
+questa classe ha due soli metodi pubblici:</p>
 <pre>
 class VisualizzatoreRubrica {
-	/* altri metodi e variabili */
+	/* altri metodi e proprietà */
 	
     public void visualizzaSquadra(Squadra s){
         campoNome.setText(s.getNome());
@@ -52,24 +49,19 @@ class VisualizzatoreRubrica {
 }
 </pre>
 
-<p>E se in futuro venissero create altre entità (ad esempio "Allenatore" o "Palestra") 
-che io vorrò visualizzare? Dovrei di nuovo andare a modificare <code>VisualizzatoreRubrica</code>. 
-Questa cosa è tutt'altro che comoda perché ad esempio ad occuparsi di tale interfaccia grafica 
-potrebbe essere un programmatore mentre a gestirele classi Squadra, Atleta, Allenatore e simili 
-è un altro programmatore o sono altri. Come posso fare in modo che la mia interfaccia grafica f
-unzioni senza doverla sempre a modificare?</p>
+<p>E se in futuro venissero create altre entità (ad esempio "Allenatore" o "Palestra") che io vorrò visualizzare? Dovrei di nuovo andare a modificare
+<code>VisualizzatoreRubrica</code>. Questa cosa è tutt'altro che comoda perché ad esempio ad occuparsi di tale interfaccia grafica potrebbe essere un
+programmatore mentre a gestire le classi Squadra, Atleta, Allenatore e simili è un altro programmatore o sono addirittura più di uno. Come posso fare
+in modo che la mia interfaccia grafica funzioni senza doverla sempre modificare?</p>
 
-<p>Per risolvere questo problema ci vengono in aiuto le <em>interfacce</em>. 
-L'idea è questa: entrambi gli oggetti (Atleta e Squadra) rappresentano,
-oltre alle loro peculiari caratteristiche, anche una voce di rubrica. 
-In particolare nel contesto di <code>VisualizzatoreRubrica</code> non ci interessa
+<p>Per risolvere questo problema ci vengono in aiuto le <em>interfacce</em>. L'idea è questa: entrambi gli oggetti (Atleta e Squadra) rappresentano,
+oltre alle loro peculiari caratteristiche, anche una voce di rubrica. In particolare nel contesto di <code>VisualizzatoreRubrica</code> non ci interessa
 nessuna altra informazione (non importa il tempo sui 100m per esempio).</p>
 
-<dfn>Una <em>interfaccia</em> è un tipo astratto (cioè di cui non si possono creare istanze usando new)
-usato per specificare il comportamento che deve avere una classe che lo implementa.</dfn>  
+<dfn>Una <em>interfaccia</em> è un tipo astratto (cioè di cui non si possono creare istanze usando <code>new</code>) usato per specificare il comportamento
+che deve avere una classe che lo implementa.</dfn>  
 
-<p>Quindi dalla definizione si capisce che da qualche parte l'interfaccia viene dichiarata e da qualche
-altra implementata.</p>
+<p>Quindi dalla definizione si capisce che da qualche parte l'interfaccia viene dichiarata e da qualche altra implementata.</p>
 
 <h2>Dichiarazione di una interfaccia</h2>
 <p>Una interfaccia si dichiara in un file come una normale classe ma sostituendo
