@@ -102,7 +102,7 @@ h3 {
     margin-top:2em;
     border-bottom:1px dotted #999; 
 }
-p {
+p, dfn {
     text-align: justify;
     line-height: 1.5em;
 }
