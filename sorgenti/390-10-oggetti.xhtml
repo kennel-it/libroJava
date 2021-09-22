@@ -227,13 +227,25 @@ e concorre a rappresentarne lo stato.</dfn>
 <!-- https://en.wikipedia.org/wiki/Property_(programming) -->
 
 <p>...e quindi lo stato di un oggetto è rappresentato dal valore di tutte le sue proprietà.
-Nel nostro esempio lo stato di un Autoveicolo sono i valori della sua targa, del modello e
-del consumo.</p>
+Nel nostro esempio lo stato di un Autoveicolo sono i valori della sua targa, del modello e del consumo.</p>
 
-<dfn>Un <em>metodo</em> è un blocco di istruzioni identificato da un nome. 
-Viene usato per raggiungere uno specifico obiettivo, può avere zero o più parametri e ritornare o meno un risultato.</dfn>
+<dfn>Un <em>metodo</em> è un blocco di istruzioni identificato da un nome e dalla sequenza dei tipi dei parametri. Il nome
+e la sequenza dei tipi di parametri si chiama firma. Viene usato per raggiungere uno specifico obiettivo, può avere zero o
+più parametri e ritornare o meno un risultato.</dfn>
 <!-- https://www.w3schools.com/java/java_methods.asp
 https://www.geeksforgeeks.org/methods-in-java/ -->
+<p>Mentre per distinguere una proprietà dall'altra si usa solo il nome, per distinguere due metodi non basta indicarne il
+nome perché con lo stesso nome possono esserci più metodi. Allora per chiarire a quale ci si riferisce, in modo tale da
+disambiguare l'identificazione e rendere l'invocazione del metodo univoca si passa a controllare i parametri. Di questi si
+controlla la sequenza dei tipi di argomenti e verrà invocato quello che ha l'esatta corrispondenza.<br/>
+Chiaramente Java non permette di creare due metodi con la stessa firma, cioè se si crea un metodo con lo stesso nome di un
+altro fatto in precedenza ma la sequenza dei tipi è diversa non ci sono problemi. Se invece corrisponde verrà dato errore.</p>
+<p>Esempio<br/>
+<code>public int faiMessaggio(String nome, int anni)</code> e <code>public int faiMessaggio(String nome, int eta)</code> è
+errore perché corrisponde il nome del metodo, entrambi hanno come primo parametro una stringa (non importa il nome della
+variabile) ed entrambi hanno il tipo successivo intero quindi ci sarebbe ambiguità.<br/>
+<code>public int faiMessaggio(String nome, String anni)</code> e <code>public int faiMessaggio(String nome, int anni)</code> è
+corretto perché l'ultimo argomento in un caso è una stringa e nell'altro caso è un intero.</p>
 <p>Nell'esempio dell'autoveicolo un metodo ci consente data una distanza (parametro) di calcolare
 quanto spenderemo per il percorso (risultato). In pratica un metodo è una funzione definita in una 
 classe che oltre ai parametri può utilizzare anche i valori presenti nello stato, per calcolare
