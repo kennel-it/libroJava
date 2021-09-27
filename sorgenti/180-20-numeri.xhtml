@@ -6,8 +6,9 @@
 <!-- changelog 2019-08-31 inserita definizione di operatore -->
 <!-- changelog 2019-11-08 corretta minuscola iniziale in parseDouble e parseFloat -->
 <!-- changelog 2020-08-20 corretto link alla pagina dei tipi numerici -->
-<!-- changelog 2020-08-12 definizione di espressioni e riorganizzato il contenuto -->
-<!-- changelog 2020-08-20 piccoli aggiustamenti e messa definizione di tipo -->
+<!-- changelog 2021-08-12 definizione di espressioni e riorganizzato il contenuto -->
+<!-- changelog 2021-08-20 piccoli aggiustamenti e messa definizione di tipo -->
+<!-- changelog 2021-09-27 corretto primo frammento di programma -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -40,8 +41,8 @@ mentre il campo testo per mostrare il risultato si chiami <var>risultato</var>, 
    int numero1, numero2, prodotto;
    testo1 = operando1.getText();
    testo2 = operando2.getText();
-   <em>numero1 = Integer.parseInt(op1);
-   numero2 = Integer.parseInt(op2);</em>
+   <em>numero1 = Integer.parseInt(testo1);
+   numero2 = Integer.parseInt(testo2);</em>
    prodotto = numero1 * numero2;
    <em>risposta = "" + prodotto</em>;
    risultato.setText(risposta);

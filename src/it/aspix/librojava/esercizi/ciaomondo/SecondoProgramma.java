@@ -14,7 +14,7 @@ public class SecondoProgramma extends Application {
   Button pSaluto = new Button(); 
 
   public void start(Stage finestra) {
-    pSaluto.setText("3+4=?");
+    pSaluto.setText("3*4=?");
     pSaluto.setOnAction(e -> esegui());
 
     BorderPane principale = new BorderPane();
