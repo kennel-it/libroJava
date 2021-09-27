@@ -55,9 +55,10 @@
 <h2>Le persone, gli studenti e i professori</h2>
 <p>Una realtà che ci è familiare è quella scolastica. Vogliamo rappresentare le persone che hanno a che fare con la scuola tramite la classe <code>Persona</code>. Queste
 persone possono essere i commessi del bar, il personale negli uffici, quelli che fanno il servizio al corridoio, il dirigente e così via. Di queste persone ci interessa
-il nome, il cognome, il ruolo svolto, lo stipendio mensile, la categoria (0: indefinito, 1 dirigente, 2: docente, 3: tecnico, 4: amministrativo, 5: ausiliario).
+il nome, il cognome, il ruolo svolto, lo stipendio mensile, la categoria (0: indefinito, 1 dirigente, 2: docente, 3: tecnico, 4: amministrativo, 5: collaboratore).
 La classe, con relativi costruttori, sarà una cosa del tipo:</p>
 <pre>public class Persona {
+   public String categorie[] = {"indefinito (?)", "dirigente", "docente", "tecnico", "amministrativo", "collaboratore"};
    public String nome, cognome;
    public String ruolo;
    public float stipendio;
@@ -151,14 +152,29 @@ La classe persona a questo punto sarà:</p>
       orePotenziamento = 0;
    }
 
-   public Studente(String nome, String cognome, String ruolo, String materia, String orePotenziamento) {
+   public Professore(String nome, String cognome, String ruolo, String materia, String orePotenziamento) {
       super(nome, cognome, ruolo, 1000.0f, 2);
       this.materia = materia;
       this.orePotenziamento = orePotenziamento;
    }
 }
 </pre>
-
+<h3>prevalenza</h3>
+<p>Aggiungiamo un metodo a ciascuna classe per avere una stringa che contenga in un testo discorsivo tutte le informazioni dell'oggetto. Il metodo avrà, per comodità, lo
+stesso nome in tutte le implementazioni: lo chiameremo <code>miPresento()</code> a partire da quello in <code>Persona</code>. Nel momento in cui una classe e la sua
+superclasse presentano ciascuna un metodo con lo stesso nome e stessi tipi e sequenza di parametri, il metodo della classe nasconde quello della superclasse, quindi verrà
+eseguito solo quello appartenente alla classe dell'oggetto.</p>
+<pre>public String miPresento() {
+   return "Sono " + nome + " " + cognome + ", sono un " + categorie[categoria] + " con ruolo " + ruolo + " e guadagno " + stipendio + "€.";
+}</pre>
+<p>Nell'implementazione che segue, quella di <code>Professore</code>, è presente l'indicazione <code>@Override</code> che sta ad informare il compilatore che il metodo che
+segue ha la stessa firma (quindi stesso nome del metodo e stesssa sequenza di tipi di parametri) di quello nella superclasse. Tale indicazione non è abbligatoria ma ci aiuta
+a evitare di scrivere male il nome del metodo e la sequenza dei tipi dei parametri.</p>
+<pre>@Override
+public String miPresento() {
+   return "Sono " + nome + " " + cognome + ", sono un " + categoria + " con ruolo " + ruolo + " e guadagno " + stipendio + "€.";
+}</pre>
+<p>Se si provasse a modificare qualcosa del metodo <code>miPresento()</code> come il nome o aggiungendo un qualsiasi parametro, si otterrebbe un errore.</p>
 <h2>In sintesi</h2>
 <p>Quando quello che vogliamo fare non è creare una nuova classe ma aggiungere/modificare delle funzionalità di una oggetto esistente va usata la parola
 chiave <code>extends</code> nella dichiarazione della classe seguita dal nome della classe che si vuole ampliare/cambiare. In questo caso l'oggetto definito avrà
@@ -257,7 +273,6 @@ public class Secondo extends Primo {
 	<a onclick="sbagliata(this)">n:3 <span class="spiegazione">attenzione: descrivi() viene ridefinito in Secondo</span></a>
 	<a onclick="giusta(this)">#3# <span class="spiegazione">perché viene usato il metodo definito in Secondo</span></a>
 </div>
-
 </article>
 </body>
 </html>
