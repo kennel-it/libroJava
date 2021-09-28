@@ -16,10 +16,49 @@
 </header>
 <article>
 <h2>Il problema</h2>
-<p>Capita spesso che lavorando con dei testi (frasi o parole) serva di prendere in considerazione un carattere alla volta. 
-Una possibilità è quella di usare il metodo split() per avere un array formato da singoli caratteri ma resta ad esempio 
-il problema che confrontare due stringhe usando equals() non è molto comodo (né molto veloce).</p>
+<p>Capita spesso che si debba analizzare il contenuto di alcuni testi (frasi o parole). A volte può servire di prendere in considerazione un carattere
+alla volta, altre volte si vorrebbe sostituire un carattere con un altro; in certe occasioni si dovrebbe poter verificare se è presente un certo
+carattere (oppure una sequenza di caratteri) oppure, in fine, estrarre una sottostringa. Non c'è bisogno di dire che di frequente bisogna confrontare
+2 stringhe per sapere se sono uguali oppure no.
+<!-- Una possibilità è quella di usare il metodo split() per avere un array formato da singoli caratteri ma resta ad esempio 
+il problema che confrontare due stringhe usando equals() non è molto comodo (né molto veloce). --></p>
 <h2>La soluzione</h2>
+<p>Per aiutarci a risolvere tutti questi piccoli problemi Java ci mette a disposizione una ricca quantità di metodi, qui ne riportiamo un piccolo
+elenco:</p>
+<dl id='definizioni'>
+<dt>length()</dt>
+<dd>Restituisce il numero di caratteri che fanno parte della stringa. Si dice che restituisce la lunghezza della stringa.</dd>
+<dt>equals(stringaDaConfrontare)</dt>
+<dd>Restituisce <code>true</code> se le 2 stringhe sono uguali, altrimenti restituisce <code>false</code><br/>Non si può (purtroppo) usare l'operatore
+<code>==</code> per confrontare le stringhe perché tale operatore andrebbe a vedere se la posizione delle 2 stringhe in memoria coincide quindi se sono
+esattamente la stessa stringa, non la stessa sequenza di caratteri.</dd>
+<dt>compareTo(stringaDaConfrontare)</dt>
+<dd>Per capire questo metodo bisogna far riferimento all'ordinamento alfabetico, quello che troviamo nei vocabolari. Diciamo che la parola "casa" segue
+la parola "cara" perché la prima lettera è una "c" per entrambe quindi analizza la seconda lettera: la "a" che è anch'essa uguale per entrambe. Passa
+quindi alla terza lettera che in "casa" è una "s" e in "cara" è una "r". Dato che nell'alfabeto la "r" viene prima di "s", diciamo che la parola "cara"
+precede la parola "casa" o, equivalentemente, la parola "casa" segue la parola "cara".<br/>
+Questo metodo restituisce un numero negativo (&lt;0) se la stringa che le viene passata come argomento segue quella su cui si è invocato <code>compareTo()</code>
+mentre restituisce un numero positivo (>0) se la stringa passata come argomento precede la stringa dell'invocazione. Nel caso in cui le 2 stringhe
+fossero uguali restituisce 0.<br/>
+Attenzione: le maiuscole e le minuscole fanno differenza: tutte le maiuscole precedono sempre le minuscole. In realtà per confrontare le 2 stringhe
+il metodo utilizza la tabella UTF-8.</dd>
+<dt>compareToIgnoreCase(stringaDaConfrontare)</dt>
+<dd>Valgono le stesse considerazioni di <code>compareTo()</code> con la differenza che qui non vengono tenuto in considerazione il fatto che il carattere
+sia maiuscolo o minuscolo</dd>
+<dt>charAt(posizioneDaLeggere)</dt>
+<dd>Restituisce il carattere (quindi di tipo <code>char</code>) che si trova nella posizione indicata. Le posizioni, come nei vettori, partono da 0 e
+quindi 0 è la prima posizione, segue la posizione 1 e così via. Chiaramente partendo 0 significa che l'ultima posizione valida è la lunghezza della stringa
+-1.</dd>
+<dt>substring(posizioneDaCuiEstrarre)</dt>
+<dd>Fornisce una nuova stringa che contiene esattamente i caratteri della stringa su cui è stato invocato il metodo a partire dalla posizione indicata
+fino alla fine. Esempio: data <code>String s = "sosta";</code> il metodo <code>s.substring(2)</code> restituisce la stringa "sta".<br/>
+Attenzione: la stringa sulla quale viene applicato il metodo non viene in alcun modo modificata.</dd>
+<dt>substring(posizioneDaCuiEstrarre, posizioneACuiFermarsi)</dt>
+<dd>Valgono le stesse considerazioni fatte per <code>substring(posizioneDaCuiEstrarre)</code> con in più il fatto che non arriva fino alla fine ma si ferma
+alla posizione indicata. Il carattere alla posizione a cui fermarsi non farà parte della stringa risultato.</dd>
+<!--  <dt>indexOf(stringa)</dt>
+<dd>Restituisce la posizione </dd> -->
+</dl>
 <p>Usare altri due metodi che l'oggetto String ci mette a disposizione: toCharArray() e charAt(), il primo costruisce 
 un vettore di caratteri (char) costituito dai singoli componenti della stringa, il secondo prende un singolo carattere
 dal testo.</p>
@@ -96,6 +135,7 @@ public class Caratteri extends Application{
 </pre>
 <p>Un'altra cosa utile potrebbe essere quella di costruire una stringa a partire da un vettore di caratteri, questo è facile:
 <code>String testo = new String(vettoreDiCaratteri)</code>.</p>
+<h3></h3>
 </article>
 </body>
 </html>
