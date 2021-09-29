@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="condizionale salutaUtente vettore" group="algoritmiStruttureDati" -->
+<!-- changelog 2021-09-29 aggiunto elenco contenente alcuni metodi di String -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -19,9 +20,7 @@
 <p>Capita spesso che si debba analizzare il contenuto di alcuni testi (frasi o parole). A volte può servire di prendere in considerazione un carattere
 alla volta, altre volte si vorrebbe sostituire un carattere con un altro; in certe occasioni si dovrebbe poter verificare se è presente un certo
 carattere (oppure una sequenza di caratteri) oppure, in fine, estrarre una sottostringa. Non c'è bisogno di dire che di frequente bisogna confrontare
-2 stringhe per sapere se sono uguali oppure no.
-<!-- Una possibilità è quella di usare il metodo split() per avere un array formato da singoli caratteri ma resta ad esempio 
-il problema che confrontare due stringhe usando equals() non è molto comodo (né molto veloce). --></p>
+2 stringhe per sapere se sono uguali oppure no.</p>
 <h2>La soluzione</h2>
 <p>Per aiutarci a risolvere tutti questi piccoli problemi Java ci mette a disposizione una ricca quantità di metodi, qui ne riportiamo un piccolo
 elenco:</p>
@@ -56,12 +55,40 @@ Attenzione: la stringa sulla quale viene applicato il metodo non viene in alcun 
 <dt>substring(posizioneDaCuiEstrarre, posizioneACuiFermarsi)</dt>
 <dd>Valgono le stesse considerazioni fatte per <code>substring(posizioneDaCuiEstrarre)</code> con in più il fatto che non arriva fino alla fine ma si ferma
 alla posizione indicata. Il carattere alla posizione a cui fermarsi non farà parte della stringa risultato.</dd>
-<!--  <dt>indexOf(stringa)</dt>
-<dd>Restituisce la posizione </dd> -->
+<dt>indexOf(carattere)</dt>
+<dd>Restituisce la posizione del carattere indicato all'interno della stringa a partire da 0. Se tale carattere è presente più volte, viene restiruita la
+posizione del primo carattere. Se il carattere cercato non è presente, restituisce -1.</dd>
+<dt>indexOf(sottostringa)</dt>
+<dd>Simile al metodo precedente. Se <code>sottostringa</code> è presente nella stringa da cui è invocato il metodo, restituisce la posizione del primo
+carattere di <code>sottostringa</code> a partire da 0. Se <code>sottostringa</code> fosse presente più volte, restituisce la posizione del primo carattere
+della prima volta in cui compare. Se invece non è presente, restituisce -1.</dd>
+<dt>indexOf(carattere, posizioneDiPartenza)</dt>
+<dd>Simile al metodo <code>indexOf(carattere)</code>, l'unica differenza è che non parte da 0 ma dalla posizione indicata.</dd>
+<dt>indexOf(sottostringa, posizioneDiPartenza)</dt>
+<dd>Simile al metodo <code>indexOf(sottostringa)</code>, l'unica differenza è che non parte da 0 ma dalla posizione indicata.</dd>
+<dt>replace(sottostringaAttuale, nuovaSottostringa)</dt>
+<dd>Restituisce una nuova stringa in cui ogni volta che viene incontrata unaa sequenza di caratteri come quella indicata in <code>sottostringaAttuale</code>
+questa viene rimossa e al suo posto viene inserita una sequenza di caratteri come quella indicata in <code>nuovaSottostringa</code>.</dd>
+<dt>split(stringaSeparatrice)</dt>
+<dd>Dà come risultato un vettore di stringhe ottenuto analizzando la stringa sulla quale si è invocato il metodo: partendo dalla posizione 0, ogni volta
+che si incontra la <code>stringaSeparatrice</code> tutti i caratteri a partire dall'ultimo separatore incontrato (escluso) o dall'inizio se questo non è
+stato mai incontrato, formeranno una stringa in una cella del vettore. La successiva seuqenza andrà nella cella successiva e così via fino alla fine.<br/>
+Esempio: data <code>String elenco = "Aldo,Giovanni,Giacomo";</code> il codice <code>String nomi[] = elenco.split(",");</code> fa sì che si crei un vettore
+di 3 stringhe così fatto:<br/>
+in <code>nomi[0]</code> c'è "Aldo"<br/>
+in <code>nomi[1]</code> c'è "Giovanni"<br/>
+in <code>nomi[2]</code> c'è "Giacomo"<br/>
+Se si mette la stringa vuota (""), ogni carattere della stringa a cui è stato applicato il metodo diverrà una stringa a sé stante in una cella del
+vettore.</dd>
+<dt>toCharArray()</dt>
+<dd>Costruisce e restituisce un vettore di caratteri (<code>char</code>) costituito dai singoli componenti della stringa.</dd>
+<dt>toLowerCase()</dt>
+<dd>Restituisce una stringa in cui tutti i caratteri sono minuscoli.</dd>
+<dt>toUpperCase()</dt>
+<dd>Restituisce una stringa in cui tutti i caratteri sono maiuscoli.</dd>
+<dt>trim()</dt>
+<dd>Restituisce una stringa in cui sono stati eliminati tutti gli spazi iniziali e finali ma non quelli intermedi.</dd>
 </dl>
-<p>Usare altri due metodi che l'oggetto String ci mette a disposizione: toCharArray() e charAt(), il primo costruisce 
-un vettore di caratteri (char) costituito dai singoli componenti della stringa, il secondo prende un singolo carattere
-dal testo.</p>
 <pre>
 import javafx.application.Application;
 import javafx.scene.Scene;
