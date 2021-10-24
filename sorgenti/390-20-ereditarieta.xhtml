@@ -199,7 +199,7 @@ ed i setter per impostarli:</p>
 
    public RisparmioVincolatoPluriennale() {
       super();
-      durataAnni = 0;
+      durataAnni = 1;
    }
 
    public RisparmioVincolatoPluriennale(String nome, String cognome, float importo, short anno, double interessiPercentuale, byte durataAnni) {
@@ -207,7 +207,7 @@ ed i setter per impostarli:</p>
       if(durataAnni &gt;=1 &amp;&amp; durataAnni &lt;=7) {
          this.durataAnni = durataAnni;
       } else {
-         this.durataAnni = 0;
+         this.durataAnni = 1;
       }
    }
 
@@ -218,10 +218,12 @@ ed i setter per impostarli:</p>
       // La percentuale di interessi che viene pubblicizzata è riferita ad un periodo di un anno.
       // Invochiamo il metodo della superclasse che calcola il nuovo capitale a fine periodo, per il numero di periodi indicato
       double importo = getImporto();
-      for(int i=0; i &lt; numeroPeriodi; i++) {
-         setImporto(fornisciCapitale());	//viene invocato il metodo della superclasse aggiornando il capitale sul quale calcola
+      for(int i = 0; i &lt; durataAnni; i++) {
+         setImporto(super.fornisciCapitale());	// viene invocato il metodo della superclasse setImporto() aggiornando il capitale sul quale si fa il calcolo
+                                                // deve essere invocato fornisciCapitale() della classe padre, per indicare questo fatto si usa super
       }
-      setImporto(importo);	// si rimette l'importo al valore iniziale, come se nulla fosse cambiato
+      double capitale = getImporto();           // metodo della classe padre
+      setImporto(importo);	                    // si rimette l'importo al valore iniziale, come se nulla fosse cambiato
       return capitale;
    }
 }</pre>
