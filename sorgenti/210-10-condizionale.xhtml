@@ -7,6 +7,7 @@
 <!-- changelog 2021-08-13 rimosso l'esempio su pari/dispari e spostato in booleani -->
 <!-- changelog 2021-08-13 piccoli aggiustamenti sull'uso dei ToggleButton -->
 <!-- changelog 2021-08-21 questo capitolo è stato fuso con quello sui booleani -->
+<!-- changelog 2021-10-10 corretto errore nella creazione della scena -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -121,9 +122,10 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
       pannello.add(l_daPagare, 0, 2);
       pannello.add(daPagare, 1, 2);
       
-      primaryStage.setTitle("Valuta lo sconto");
+      Scene scene = new Scene(pannello, 350, 200);  
+      
       primaryStage.setScene(scene);
-      Scene scene = new Scene(pannello, 350, 200);        
+      primaryStage.setTitle("Valuta lo sconto");
       primaryStage.show();
    }
 
