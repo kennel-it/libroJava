@@ -6,6 +6,7 @@
 <!-- changelog 2018-09-03 dipendenza verso "ereditarieta" -->
 <!-- changelog 2018-09-04 messo in chiaro il discorso delle unchecked exceptions -->
 <!-- changelog 2019-08-27 spostato capito in algoritmi e strutture dati -->
+<!-- changelog 2021-11-02 aggiunta definizione di eccezione -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -63,7 +64,14 @@ public class EccezioniEsecizio1 extends Application {
 <p>Semplice: il programma non funziona e nella console di eclipse vediamo:</p>
 <pre>Exception in thread "JavaFX Application Thread" java.lang.<em>NumberFormatException</em>: For input string: "ciao"</pre>
 
-<p><code>NumberFormatException</code> è il nome di una eccezione ed esiste un modo per controllare cosa
+<p><code>NumberFormatException</code> è il nome di una eccezione che rappresenta un problema con il numero
+da convertire ma ne esistono molte altre.</p>
+
+<dfn>Una <em>eccezione</em> è un particolare oggetto che estende <code>java.lang.Exception</code>
+e che rappresenta un problema che insorge a tempo di esecuzione.</dfn>
+
+
+<p>Esiste un modo per controllare cosa
 fare in caso si presenti una situazione del genere. Quello che ci serve è un costrutto sintattico
 chiamato try-catch che nella sua forma più semplice si usa così:</p>
 <pre>

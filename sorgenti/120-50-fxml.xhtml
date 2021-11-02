@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
 <!-- grafoIndice requires="salutaUtente css" group="grafica" -->
+<!-- changelog 2021-11-02 spiegazioni per un primo esempio con Scene Builder -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -47,6 +48,10 @@
 tutto il codice che riguarda la finestra manualmente potrebbe essere noioso...</p>
 <p>La <span onclick="mostra('old')" class="pulsante" id="pulsanteOld">prima versione</span> crea gli oggetti da programma.</p>
 <p>La <span onclick="mostra('new')" class="pulsante" id="pulsanteNew">seconda versione</span> usa invece fxml.</p>
+
+<p>Per fare un primo esperimento è sufficiente inserire i due file "verdi" 
+nello stesso pacchetto (cioè nella stessa cartella) e vedere cosa succede.</p>
+
 <h3>File: NomeCognome.java</h3>
 <pre>
 package it.aspix.librojava.fxml;
@@ -155,6 +160,68 @@ import javafx.stage.Stage;
 	-fx-background-color: black;
 }
 </pre><!-- fine css -->
+<h2>Come procedere</h2>
+<p>Ovviamente il vantaggio sta nell'avere un programma che non contiene tutta la parte
+ripetitiva riguardante le interfacce ma se dovessimo scrivere manualmente il file .fxml
+il guadagno non sarebbe molto. Fortunatamente per editare questo tipo di file possiamo
+usare <a href="https://gluonhq.com/products/scene-builder/">Scene Builder</a> che è un 
+editor grafico (meglio avere la stessa versione di Scene Builder e JavaFX).</p> 
+
+<h3>Passo passo</h3>
+<p>Proviamo a costruire passo passo un programma che legge un dato da una casella di testo 
+e lo scrive in una label alla pressione di un pulsante. Non lasciarti impressionare
+dal primo tentativo, una volta imparato questa cosa è terribilmente comoda!</p>
+<ol>
+	<li>Scriveremo  i due file nella stessa cartella/pacchetto</li>
+	<li>Crea la classe EsempioFXML che estende javafx.application.Application</li>
+	<li>Nella classe dichiara (senza costruirle!) due variabili: una Label chiamata "output"
+	e una TextField chiamata "input", non devi dichiarare il pulsante!</li>
+	<li>Metti il marcatore @FXML (javafx.fxml.FXML) prima delle dichiarazioni 
+	(stessa riga o riga sopra, fa lo stesso), in questo modo dichiari
+	che quell'oggetto è accessibile da FXML.</li>
+	<li>Adesso crea il metodo "private void copia()" che legge il contenuto dalla casella
+	e lo copia nell'etichetta.</li>
+	<li>Marca anche questo metodo come @FXML</li>
+	<li>Prima roba meccanica: aggiungi il solito metodo main</li>
+	<li>Seconda roba meccanica: crea anche il metodo "public void start(Stage finestra)"
+	in cui dovrai fare solo 4 cose:
+		<ol>
+			<li>la prima purtroppo è sintatticamente complicata:
+			<code>Scene scena = new Scene( FXMLLoader.load(EsempioFXML.class.getResource("EsempioFXML.fxml")) );</code></li>
+			<li>finestra.setScene(scena) come al solito</li>
+			<li>imposta il titolo come al solito</li>
+			<li>mostra la finestra come al solito</li>
+		</ol>
+	</li>
+	<li>Adesso apri Scene Builder e scegli una finestra vuota ("empty")</li>
+	<li>Adesso procedi con calma perché Scene Builder ha tantissimi controlli,
+	prenditi del tempo per guardare tutto quello che c'è</li>
+	<li>Nel gruppo (a sinistra) "Containers" prendi "GridPane" e trascinalo al centro nell'area grigia,
+	comparirà una griglia con 2 colonne e tre righe, se così non foose facendo click con il tasto 
+	desto su una qualsiasi etichetta di colonna(riga sarà possibile aggiungerne o rimuoverne)</li>
+	<li>Salva il lavoro attuale nella solita cartella (quella della classe) e chiamalo
+	"EsempioFXML.fxml". <em>Fai attenzione: Eclipse non si accorgerà
+	del file salvato, ogni volta che lo salvi dovrai fare click con il destro
+	sul pacchetto di Eclipse e fare "refresh")</em></li>
+	<li>In basso a sinistra in Scene builder trovi "Controller", aprilo e come 
+	"Controller class" metti la classe che hai creato in precedenza
+	(questo serve a dire quale classe controllerà l'interfaccia grafica)</li> 
+	<li>Apri a sinistra in "Library" il gruppo "Controls"</li>
+	<li>Prendi una label e trascinala nel posto 1,0 e cambia il testo contenuto (doppio click!)
+	in "scrivi qualcosa qui"</li>
+	<li>Trascina un TextField nel posto 1,0 e poi (sempre con la casella di testo selezionata)
+	sulla destra seleziona il gruppo "code"</li>
+	<li>Sempre sulla destra selziona "fx:id" e poi "input"
+	(questo dice al sistema quale variabile della classe gestore sarà associata alla casella di testo)</li>
+	<li>Trascina una label in posizione 1,2 e fai lo stesso procedimento ma come fx:id 
+	seleziona "output"</li>
+	<li>Adesso trascina un Button in 1,1 e metti come testo del pulsante "fai click qui"</li>
+	<li>Sempre con il pulsanter selezionato sul pannello "code" sulla destra 
+	sul campo "On Action" seleziona "copia"</li>
+	<li>Salva il lavoro su Scene Builder e aggiorna la cartella di Eclipse</li>
+	
+</ol> 
+
 </article>
 </body>
 </html>
