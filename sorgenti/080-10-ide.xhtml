@@ -15,6 +15,7 @@
 <!-- changelog 2020-11-29 pulizie sostanziali e inserite spiegazioni più chiare -->
 <!-- changelog 2020-11-29 rimosso Scene Builder -->
 <!-- changelog 2021-08-18 piccoli aggiustamenti -->
+<!-- changelog 2022-03-18 riscritta semplificando molto parte di installazione -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -54,11 +55,10 @@ di diversi produttori.</p>
 
 <p>Per quanto riguarda la versione per noi sarebbe sufficiente una qualsiasi dalla 11 in poi,  
 bisogna anche tener conto del fatto che chi ha sistemi funzionanti normalmente usa (ma non è un obbligo)
-una delle versioni chiamate "LTS" cioè con supporto a lungo termine, l'ultima di questo tipo 
-è la versione 17. Altre esigenze (ad esempio strumenti che funzionano soltanto con vecchie versioni)
-potrebbero costringerci ad usare una versione precedente del JDK.</p>
+una delle versioni chiamate "LTS", l'ultima di questo tipo 
+è la versione 17 e scaricheremo questa.</p>
 
-<p>Per via della licenza Open del JDK (è cambiata da poco tempo) 
+<p>Per via della licenza Open del JDK
 si può scegliere anche da quale produttore scaricare il JDK: funzionano tutti fondamentalmente
 allo stesso modo ma possono avere strumenti in più o assistenza più o meno lunga e in alcuni casi 
 a pagamento (con garanzie aggiuntive in questi casi).
@@ -66,19 +66,19 @@ Ad esempio fanno una versione del JDK:
 <a href="https://adoptium.net/">Adoptium Working Group</a>,
 <a href="https://www.oracle.com/it/java/technologies/javase-downloads.html">Oracle</a>,
 <a href="https://aws.amazon.com/it/corretto/">Amazon</a> 
-<a href="https://bell-sw.com/">Liberica</a>
+<a href="https://bell-sw.com/">BellSoft</a>
 e anche <a href="https://www.microsoft.com/openjdk">Microsoft</a>).</p>
 
 <h3>Libreria grafica</h3>
 <p>Questa non è sempre necessaria ma noi la useremo perché vogliamo scrivere applicazioni con una
 interfaccia grafica abbastanza versatile, ne useremo una sviluppata sempre dallo stesso gruppo
 che sviluppa java e che si chiama <a href="https://openjfx.io/">JavaFX</a>, fino poco tempo fa 
-era inclusa nel JDK ma adesso va presa separatamene.</p>
+era inclusa nel JDK ma adesso dipende da quale si scarica.</p>
 
 <h3>Ambiente di sviluppo</h3>
 <p>Questi (tutt'altro che piccoli) normalmente vengono chiamati <em>IDE</em> 
 (Integrated Development Environment) e ci aiutano molto nella scrittura dei programmi: 
-in pratica sono indispensabili. Ne esistono molti ma per Java i più usati sono 
+in teoria non necessari ma in pratica sono indispensabili. Ne esistono molti ma per Java i più usati sono 
 <a href="https://www.eclipse.org/">Eclipse</a>,
 <a href="http://netbeans.apache.org/">NetBeans</a> e
 <a href="https://www.jetbrains.com/idea/">Intellij IDEA</a>.
@@ -87,7 +87,7 @@ I primi due sono Open Source e il terzo no ma è molto usato.</p>
 <h3>Il nostro ambiente</h3>
 <p>Va bene una qualsiasi combinazione di JDK+IDE+JavaFX che consenta di sviluppare applicazioni,
 qui riportiamo la soluzione più semplice che usa tutto software Open: Eclipse come IDE e il JDK 
-di Liberica (perché include già JavaFX e ci risparmia un po' di lavoro e di seccature) come JDK.</p>
+di BellSoft (perché include già JavaFX e ci risparmia un po' di lavoro e di seccature) come JDK.</p>
 
 <h2>Installazione</h2>
 <p>Il lavoro da fare cambia a seconda del fatto che il sistema abbia già o meno una versione
@@ -98,58 +98,14 @@ vanno seguite molto scrupolosamente, prima di prendere una versione
 diversa da quella specificate è meglio chiedere perché potrebbe succedere che alcune combinazioni di
 Edclipse/JDK non siano del tutto compatibili.</p>
 
-<h2>Soltanto caso sia utile: pulizia</h2>
-<p>In caso che serva è possibile ripulire l'ambiente di sviluppo prima di installare il
-software che ci serve, sono operazioni da fare con attenzione perché si va ad operare
-direttamente sulle impostazioni del sistema.</p>
-<p style="color:red">Queste operazioni vanno fatte soltanto se si è assolutamente sicuri si
-poter rimuovere java, ad esempio se si vuole usare Minecraft non bisogna farlo. 
-Dopo aver rimosso java alcuni programmi potrebbero non funzionare più.</p>
-<ul>
-    <li>se non ci sono programmi che necessitano di una specifica versione di java
-    aprire il pannello di controllo e rimuovere tutte le versioni di java installate
-    (potrebbero chiamarsi JDK o JRE)</li>
-    <li>controllare che nella cartella <code>C:\Program Files (x86)</code> 
-    (o <code>c:\Programmi (x86)</code>) non ci siano cartelle "java"</li>
-    <li>controllare che nella cartella nascosta <code>C:\ProgramData</code> 
-    non ci siano cartelle "Oracle" di java (per vedere una cartella nascosta
-    dal nastro "visualizza" bisogna spuntare "Elementi nascosti")</li>
-    <li>rimuovere eventuali variabili di ambiente
-        <ul>
-            <li>aprire pannello di controllo, poi "sistema e sicurezza"</li>
-            <li>aprire "sistema"</li>
-            <li>aprire "impostazioni di sistema avanzate", nella linguetta "avanzate", 
-            click su "variabili di ambiente"</li>
-            <li>nel gruppo variabili di sistema selezionare "Path" e poi click su modifica</li>
-            <li>eliminare i percorsi che includono "java" (attenzione che nelle vecchie versioni di
-            Windows tutto compare in una sola casella, le parti da prendere in considerazione sono
-            separate da ";")</li>    
-        </ul>
-    </li>
-</ul>
 
 <h2>Installazione ambiente di sviluppo</h2>
-<h3>In assenza di un JDK</h3>
 <ol>
-    <li>Scaricare e installare il JDK versione 16 di Liberica dal sito di 
-        <a href="https://bell-sw.com/">Bell Soft</a>:  
-        dopo l'uscita della 16 la versione 15 è più difficile da reperire
-        <ul>
-            <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
-            scorrere verso il basso e fare click su "ALL VERSIONS"</li>
-            <li>scegliere come "Java Version" la 16</li>
-            <li>scegliere come "Release Version" la più recente (es: 16.0.2+7 è più recente di 16.0.1+9)</li>
-            <li>proseguire scegliendo il sistema operativo e l'architettura</li>
-            <li>come "Package type" scegliere "Full JDK"</li>
-            <li>scaricare il pacchetto installabile (ad esempio "MSI" per windows)</li>
-            <li>installare il pacchetto</li>
-        </ul> 
-    </li>
     <li>Scaricare Eclipse
         <ul>
             <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
-            pagina dei download di Eclipse</a>, la versione deve essere 2021-06 o successiva 
-            (ad esempio 2021-09 o 2021-12 o 2022-qualsiasiCosa vanno bene)</li>
+            pagina dei download di Eclipse</a>, la versione deve essere 2022-03 o successiva 
+            (ad esempio 2022-09 o 2022-12 o 2022-qualsiasiCosa vanno bene)</li>
             <li>Scaricare "Eclipse IDE for Enterprise Java and Web Developers", è un file zip</li>
             <li>Scompattare il file .zip appena scaricato sulla scrivania (<em>Attenzione</em>: per 
             scompattare questo file serve un programma che funzioni bene, purtroppo non 
@@ -157,60 +113,36 @@ Dopo aver rimosso java alcuni programmi potrebbero non funzionare più.</p>
             <a href="https://www.7-zip.org/download.html">7zip</a>, va bene il tipo "msi" per Windows 64bit)</li>
         </ul>
     </li>
-</ol>
-<p>Ovviamente Eclipse può essere scompattato dove si preferisce ma 
-il file eseguibile di eclipse non va spostato dalla sua cartella.</p>
-    
-<h3>Se c'è un jdk installato (più difficile ma con meno impatti sul sistema)</h3>
-<ol>
-    <li>Scaricare il JDK versione 16 di Liberica dal sito di 
-        <a href="https://bell-sw.com/">Bell Soft</a>:
+    <li>Scaricare e installare il JDK versione 17 Liberica dal sito di Bell Soft:  
         <ul>
             <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
-            fare click su "ALL VERSIONS"</li>
-            <li>scegliere come "Java Version" la 16</li>
-            <li>scegliere come "Release Version" la più recente (es: 16.0.2+7 è più recente di 16.0.1+9)</li>
-            <li>proseguire scegliendo il sistema operativo e l'architettura</li>
-            <li>come "Package type" scegliere "Full JDK"</li>
-            <li>scaricare il file zip</li>
-            <li>scompattare il file sulla scrivania</li>
+            scorrere verso il basso e fare click su "JDK 17"</li>
+            <li>proseguire scegliendo il sistema operativo e l'architettura (Windows nell'esempio sotto)</li>
+            <li>come "Package" scegliere "Full JDK"<br/>
+            <img src="immagini/download-liberica.png" alt="passi per download JDK liberica"/>
+            </li>
+            <li>scaricare lo zip</li>
+            <li>scompattare il file zip sulla scrivania</li>
         </ul> 
     </li>
-    <li>Scaricare Eclipse
-        <ul>
-            <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
-            pagina dei download di Eclipse</a>, la versione deve essere 2021-06 o successiva 
-            (ad esempio 2021-09 o 2021-12 o 2022-qualsiasiCosa vanno bene)</li>
-            <li>Scaricare "Eclipse IDE for Enterprise Java and Web Developers", è un file zip</li>
-            <li>Scompattare (<em>Attenzione</em>: per 
-            scompattare questo file serve un programma che funzioni bene, purtroppo non 
-            è il caso della funzionalità base di windows, se non ne avete uno potete scaricare e installare 
-            <a href="https://www.7-zip.org/download.html">7zip</a>, va bene il tipo "msi" per Windows 64bit)
-            il file .zip appena scaricato sulla scrivania (o in altra cartella ma non spostare mai eclipse.exe).</li>
-        </ul>
-    </li>
-    <li>Configurare eclipse
-        <ul>
-            <li>Questo passo è necessario solo per macOS: avviare Eclipse che darà errore ma va bene così</li> 
-            <li>Aprire la cartella scompattata del JDK e all'interno di questa aprire la
-            cartella "bin"</li>
-            <li>Copiare il percorso della cartella</li>
-            <li>Aprire il file eclipse.ini che sta nella stessa cartella dell'eseguibile di eclipse
-            con un editor di testo.</li>
-            <li>prima della riga "-vmargs" aggiungere due righe:</li>
-            <li>nella prima va scritto soltanto "-vm"</li>
-            <li>nella seconda riga va incollato il path copiato prima aggiungendo una backslash e "javaw.exe",
-            alla fine si dovrebbe avere una cosa tipo
-            <pre>
-            [altre cose qui sopra]
-            --launcher.appendVmargs
-            <em>-vm</em>
-            <em>C:\Users\pluto\Desktop\java\liberica-jdk-14.0.1-full\bin\javaw.exe</em>
-            -vmargs
-            [altre cose qui sotto]
-            </pre>
-            </li>
-        </ul>
+    <li>Arrivati a questo punto sulla scrivania devono esserci due cartelle: una di eclipse (chiamata "eclipse")
+    e una del JDK (con un nome tipo "jdk-17.0.2-full").</li>
+    <li>Configurare Eclipse
+    	<ul>
+    		<li>avviare eclipse (doppio click sul programma eclipse che si trova nella sua cartella)</li>
+    		<li>al primo avvio compare un pannello "Select a directory as workspace", quella è la cartella
+    		in cui Eclipse metterà tutti i file su cui lavora, la possiamo lasciare dove dice Eclipse o
+    		crearne una sulla scrivania, una volta deciso click su "launch"</li>
+    		<li>aprire le preferenze di Eclipse: menu "Window/Preferences"</li>
+    		<li>rimuovere l'unico JDK presente (e anche tutti gli altri se ce ne fossero) e poi
+    		aggiungerne uno nuovo<br/>
+            <img src="immagini/eclipse-configurazione-1.png" alt="confiugurazione jdk in eclipse"/></li> 
+            <li>scegliere "Standard VM" e click su "next"</li>
+            <li>click sul pulsante "Directory..." e selezionare la cartella del JDK che 
+            è stata scompattata prima sulla scrivania</li>
+        	<li>nel campo "JRE name" comparirà automaticamente un nome (qualcosa tipo "jdk-17.0.2-full"),
+        	click su "finish"</li>   
+		</ul>
     </li>
 </ol>
 
