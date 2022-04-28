@@ -21,6 +21,7 @@
 <!-- changelog 2021-08-16 correzioni su risparmio vincolato -->
 <!-- changelog 2021-08-19 correzioni su static -->
 <!-- changelog 2021-08-19 ritocco su risparmio vincolato: aggiunto un getter e un setter -->
+<!-- changelog 2022-04-28 corretto nome di variabile errato -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -457,7 +458,7 @@ public class Programma extends Application{
 		
 		<span class="old">targa[autoRegistrate] = t;
 		modello[autoRegistrate] = m;
-		kmAlLitro[autoRegistrate] = km;</span><span class="new">automobili[autoRegistrate] = new Autoveicolo(t, m, l100k);</span>
+		kmAlLitro[autoRegistrate] = km;</span><span class="new">automobili[autoRegistrate] = new Autoveicolo(t, m, km);</span>
 		autoRegistrate++;
 		risposta.setText(t+" registrata");
 	}
