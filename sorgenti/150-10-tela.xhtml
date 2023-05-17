@@ -5,7 +5,8 @@
 <!-- changelog 2021-07-31 inserita illustrazione più esplicativa per le coordinate -->
 <!-- changelog 2021-08-04 riorganizzato capito, inserito ulteriore esempio, rimossa parte del mouse -->
 <!-- changelog 2021-08-21 piccole ulteriori sistemazioni -->
-<!-- changelog 2021-08-24 precisazioni uso GraphicsContext e ellissi-->
+<!-- changelog 2021-08-24 precisazioni uso GraphicsContext e ellissi -->
+<!-- changelog 2023-05-17 inizio elenco di alcuni metodi -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -43,9 +44,9 @@ public class HelloCanvas extends Application {
   @Override
   public void start(Stage primaryStage) {
     // creiamo un pannello specificando larghezza e altezza
-    <em>Canvas quadro = new Canvas(300, 260);</em>
+    <em>Canvas tela = new Canvas(300, 260);</em>
     // otteniamo l'oggetto che ci permette di disegnare
-    <em>GraphicsContext gc = quadro.getGraphicsContext2D();
+    <em>GraphicsContext gc = tela.getGraphicsContext2D();
     gc.setFill(Color.YELLOW);
     gc.setLineWidth(1);
     gc.fillOval(50, 50, 200, 200);
@@ -57,11 +58,11 @@ public class HelloCanvas extends Application {
     gc.strokeLine(100, 200, 150, 220);
     gc.strokeLine(150, 220, 200, 200);</em>
 
-    GridPane root = new GridPane();
+    GridPane pannello = new GridPane();
     // inseriamo il nostro canvas nella finestra
-    <em>root.add(quadro, 0, 0);</em>
+    <em>pannello.add(tela, 0, 0);</em>
 
-    Scene scene = new Scene(root);
+    Scene scene = new Scene(pannello);
     primaryStage.setTitle("Hello Canvas!");
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -80,13 +81,31 @@ un oggetto <a href="https://openjfx.io/javadoc/16/javafx.graphics/javafx/scene/c
 ha molte istruzioni per disegnare diversi tipi di forme geometriche come linee, rettangoli cerchi (sia pieni che vuoti)
 e molte altre.</p>
 
+<h2>Alcuni metodi</h2>
+<p>La prima cosa da fare è la creazione della tela tramite <code>Canvas tela = new Canvas(500, 400);</code> dove <var>500</var>
+sta a indicare la larghezza della tela ed il <var>400</var> l'altezza.</p>
+<p>Molto spesso la tela è presente nella finestra insieme ad un form o ad altri elementi. Facciamo l'esempio in cui in una
+finestra ci siano 4 caselle di testo una sotto l'altra e nella riga ancora sotto un pulsante. In totale 5 righe impegnate.
+Supponiamo ancora che la tela vogliamo metterla accanto a tale TextField. Dato che la tela è molto più alta di ciascuna casella
+di testo, nel momento in cui il Canvas lo si aggiunge al pannello gli si deve anche dire quante righe occupa: nel nostro caso 5.
+Per un risultato ottimale si dovrebbe aggiungere 1 al numero di righe individuato, per questo anziché mettere 5 metteremo 6:</p>
+<p><code>pannello.add(tela, 1, 0, 1, 6);</code>dove la prima coppia di numeri (<var>1</var> e <var>0</var>) sono le solite coordinate
+per il posizionamento, il successivo <var>1</var> indica il numero di colonne occupate ed il <var>6</var> terminale il numero di righe.</p>
+<p>Il contesto molto spesso può essere utile anche in altri metodi oltre a <var>start()</var> per cui <code>GraphicsContext gc;</code>
+lo possiamo mettere nella classe e <code>gc = tela.getGraphicsContext2D();</code> come solito in <var>start()</var>.</p>
+<p>Il colore predefinito è il nero. Per modificare il colore della penna si può usare <code>gc.setStroke(Color.GREEN)</code> per impostare
+il colore a verde, anziché <var>GREEN</var> si può usare uno dei colori previsti.</p>
+<p>Per modificare il colore del riempimento usa <code>gc.setFill(Color.GREEN)</code> con le stesse considerazioni di prima.</p>
+<p>Per disegnare una linea usa <code>gc.strokeLine(inizioX, inizioY, arrivoX, arrivoY);</code> in cui <var>inizioX</var> è la distanza dell'inizio della
+linea dal bordo sinistro, <var>inizioY</var> è la distanza dal bordo superiore dell'inizio della riga, <var>arrivoX</var> è la distanza sempre dal bordo
+sinistro della fine della riga e <code>fineY</code> è la distanza sempre dal bordo superiore della fine della riga.</p>
 
 <h2>Le coordinate nell'oggetto Canvas</h2>
 <p>Le coordinate funzionano come quello del piano cartesiano con alcune cose da tenere a mente:</p>
 <ul>
-	<li>L'angolo in alto a sinistra del canvas è il punto (0,0)</li>
-	<li>L'asse delle X cresce verso destra (come per il piano cartesiano usuale)</li>
-	<li>L'asse delle Y cresce verso il basso (al contrario del piano cartesiano usuale)</li>
+	<li>L'angolo in alto a sinistra del canvas è il punto (0,0), tutta la parte disegnata avente valori minori di 0 non sarà visibile</li>
+	<li>L'asse delle X cresce verso destra (come per il piano cartesiano usuale), la parte disegnata oltre la larghezza del canvas non sarà visibile</li>
+	<li>L'asse delle Y cresce verso il basso (al contrario del piano cartesiano usuale), la parte disegnata oltre l'altezza del canvas non sarà visibile</li>
 </ul>
 
 <h3>Cerchio e linea</h3>
@@ -134,7 +153,6 @@ public void clickEffetto(){
 la sua dichiarazione (soltanto la dichiarazione!) al livello di classe (fuori da start).</p>
 
 <p>Ora che il programma non ha più errori: che succede se si preme il pulsante?</p> 
-
 </article>
 </body>
 </html>
