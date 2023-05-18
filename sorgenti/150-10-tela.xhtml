@@ -99,6 +99,30 @@ il colore a verde, anziché <var>GREEN</var> si può usare uno dei colori previs
 <p>Per disegnare una linea usa <code>gc.strokeLine(inizioX, inizioY, arrivoX, arrivoY);</code> in cui <var>inizioX</var> è la distanza dell'inizio della
 linea dal bordo sinistro, <var>inizioY</var> è la distanza dal bordo superiore dell'inizio della riga, <var>arrivoX</var> è la distanza sempre dal bordo
 sinistro della fine della riga e <code>fineY</code> è la distanza sempre dal bordo superiore della fine della riga.</p>
+<p>Il bordo di un rettangolo si disegna con <code>gc.strokeRect(inizioX, inizioY, larghezza, altezza);</code> in cui <var>inizioX</var> è la distanza
+del lato sinistro del rettangolo dal bordo sinistro della tela, <var>inizioY</var> è la distanza tra il bordo superiore del rettangolo e il bordo superiore
+della tela, <var>larghezza</var> è la larghezza del rettangolo e <var>altezza</var> è l'altezza di tale rettangolo.<br/>Per disegnare un rettangolo pieno
+utilizza <code>gc.fillRect(inizioX, inizioY, larghezza, altezza);</code> in cui i parametri sono gli stessi di <code>strokeRect()</code>.</p>
+<p>Il bordo di una ellisse può essere disegnata con  <code>gc.strokeOval(inizioX, inizioY, larghezza, altezza);</code> in cui <var>inizioX</var> è la distanza
+del lato sinistro dell'ellisse dal bordo sinistro della tela, <var>inizioY</var> è la distanza tra il bordo superiore dell'ellisse e il bordo superiore
+della tela, <var>larghezza</var> è la larghezza dell'ellisse e <var>altezza</var> è l'altezza di tale ellisse.<br/>Per disegnare una ellisse piena
+utilizza <code>gc.fillOval(inizioX, inizioY, larghezza, altezza);</code> in cui i parametri sono gli stessi di <code>strokeOval()</code>. Se vuoi disegnare
+un cerchio basta dare le misure di larghezza e altezza con lo stesso valore.</p>
+<p>Un testo può essere scritto o mostrando solo il contorno delle lettere che lo compongono oppure riempendo le lettere. Il colore che verrà usato sarà
+<var>setStroke()</var> per il primo caso e <var>setFill()</var> per il secondo. In tutti e due i casi è possibile impostare il tipo e la misura del carattere
+tramite <code>c.setFont(new Font("nomeCarattere", misura));</code> dove <var>nomeCarattere</var> è il nome del font che si vuole usare come Arial o Verdana o
+Palatino, ecc. mentre <var>misura</var> indica il numero di pixel di grandezza, quindi può essere per esempio 12 oppure 14 oppure 50...<br/>
+Per il testo con caratteri bordati usa <code>c.strokeText(testo, inizioX, inizioY);</code> in cui <var>testo</var> è la stringa contenente il testo da visualizzare,
+<var>inizioX</var> è la distanza dell'inizio del testo dal bordo sinistro, <var>inizioY</var> è la distanza dal bordo superiore della parte alta del testo.<br/>
+Per il testo con i caratteri riempiti usa <code>c.fillText(testo, inizioX, inizioY);</code> in cui i parametri sono gli stessi di <code>strokeText()</code>.</p>
+<p>Per inserire una immagine prima di tutto va inserita l'immagine nel progetto. Per fare questo prendi l'icona dell'immagine e trascinala (in Eclipse) sopra il
+pacchetto (non il progetto) che stai lavorando, quando stai lì sopra, prima che rilasci comparirà un simbolo <var>+</var>, rilascia e comparirà una finestra. Puoi
+dirgli di eseguire la copia e vedrai che tale immagine comparirà nel pacchetto insieme alle classi che hai creato. A questo punto nel programma JavaFX va detto che
+vuoi usarla tramite <code>Image immagine = new Image(percorso);</code> dove <var>percorso</var> è il nome del pacchetto seguito da una barra (<var>/</var>) e dal
+nome del file comprendente l'estensione; ad esempio se il pacchetto fosse <var>it.ittfoligno.terzal</var> e il nome del file fosse <var>dolomiti.jpg</var> andrai a
+scrivere <var>Image immagine = new Image("it/ittfoligno/terzal/dolomiti.jpg");</var>. Fatto questo la puoi posizionare nella tela tramite
+<code>c.drawImage(immagine, inizioX, inizioY);</code> in cui <var>inizioX</var> è la distanza del bordo sinistro dell'immagine dal bordo sinistro della tela,
+<var>inizioY</var> è la distanza tra il bordo superiore dell'immagine e il bordo superiore della tela.</p>
 
 <h2>Le coordinate nell'oggetto Canvas</h2>
 <p>Le coordinate funzionano come quello del piano cartesiano con alcune cose da tenere a mente:</p>
