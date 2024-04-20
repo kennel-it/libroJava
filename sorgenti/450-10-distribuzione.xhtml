@@ -4,13 +4,25 @@
 <!-- grafoIndice requires="ciaoMondo ide" group="infrastruttura" -->
 <!-- changelog 2020-04-27 prima bozza dell'uso di jpackage -->
 <!-- changelog 2020-05-02 provato jpackage anche su windows -->
+<!-- changelog 2024-04-20 riscritto il capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
         <title>distribuzione</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>
-        <script type="text/javascript" src="script/ide.js"></script> 
+        <script type="text/javascript" src="script/ide.js"></script>
+        <style>
+            em { color:black ; font-weight: normal; border-radius:0.3em ; 
+                display: inline-block; padding : 0.2em}
+            em.jdk { background-color: aqua }
+            em.cartella { background-color: lightgrey }
+            em.jar { background-color: orange }
+            em.main { background-color: lime }
+            em.ico { background-color: pink }
+            em.compilato { background-color: red }
+            code {line-height: 1.25em; text-align: left; }
+        </style> 
     </head>
 <body>
 <header>
@@ -31,164 +43,66 @@ Ma tutti coloro che non hanno Java installato? La risposta è facile "lo install
 che gira nativamente senza bisogno di avere Java installato. Questo grazie a nuovi strumenti
 e alla nuova licenza Open Source di Java.</p>
 
+<p>Quella che andremo a creare è una applicazione per windows (per gli altri sistemi operativi
+cambia poco, per macOS ad esempio servono però le firme digitali di uno sviluppatore registrato)
+partendo da un progetto java non modulare (non deve esserci un file chiamato package-info.java).</p>
 
-<h2>jar</h2>
-<p>La modalità classica di creazione di un file da distribuire all'utente finale 
-è quella di creare un "jar" cioè un file zip strutturato in una maniera particolare
-che contiene tutti i file .class che compongono il programma stesso
-più altri file utili alla sua esecuzione (ad esempio i file css o le immagini che abbiamo inserito).</p>
 
-<p>Quando si fa doppio click cu uno di questi file zippati (che avranno ".jar" come estensione)
-su un computer con java installato viene automaticamente avviato java che a sua volta apre una 
-specifica classe presente nel file.</p>
-
-<p>La procedura per generare questo file dipende dall'ambiente di sviluppo utilizzato e include nel
-pacchetto creato tutte le classi presenti nel progetto.</p>
-
-<p>Questo meccanismo un paio di problemi:</p>
+<h2>Configurazione dell'ambiente</h2>
+<p>Per fare questo lavoro ci servono alcuni strumenti e di organizzare delle cartelle:</p>
+<p>I pezzi di testo colorato cono importanti: se usarte dei percorsi diversi dovete scrivere
+il percorso che usate, in questo esempio metteremo quasi tutto sulla scrivania.</p>
 <ul>
-<li>nel caso di javafx le librerie che usa dipendono dalla piattaforma
-(sarebbe a dire che su Windows servono alcuni file e ad esempio su Linux altri).</li>
-<li>l'utente deve avere java installato (e di una versione almeno pari a quella che
-abbiamo usato per lo sviluppo)</li>
+    <li>Utilizziamo Eclipse 2024-03 o una versione successiva</li>
+    <li>Scarichiamo il package "Full jdk" (contiene anche javaFX)
+    versione 21 di <a href="https://bell-sw.com/pages/downloads/#jdk-21-lts">Liberica</a> nel formato zip,
+    lo scompattiamo nella cartella <em class="jdk">c:\java\jdk-21</em> </li>
+    <li>creiamo una cartella vuota chiamata <em class="cartella">componenti</em> sulla scrivania</li>
 </ul>
 
-<section class="eclipse">
 
-<h3>Creare una configurazione di avvio</h3>
-<p>Se non ci sono esigenze particolari basta aprire la classe principale della nostra applicazione e avviarla almeno una volta.</p>
+<h2>Raccogliere i file</h2>
+<p>Da Eclipse, dopo aver selezionato il nostro progetto
+selezionaiamo il menu "/file/export" poi nel gruppo "java" prendiamo "JAR file",
+nel pannello "JAR File Specification" facciamo attenzione ad aver spuntato
+"Export generated class files and resources" e nella sezione "Select the resource to export"
+selezionaiamo tutto ciò che c'è nella cartella src (attenzione che per default le immagini e 
+simili non sono selezionate) registriamo il file jar chiamandolo
+<em class="jar">applicazione.jar</em> nella cartella <em class="cartella">componenti</em> creata prima.</p>
 
-<h3>Produrre il paccheto jar</h3>
-<ul>
-	<li>click con il destro sul progetto</li>
-	<li>click sul menu "export..."</li>
-	<li>dal gruppo "Java" selezionare "Runnable JAR file", poi click su next</li>
-	<li>in "Launch configuration" selezionare la configurazione di avvio che lancia la nostra classe principale</li>
-	<li>selezionare la destinazione in "Export destination"</li>
-	<li>in "Library handling" la selezione redefinita "Extract required libraries into generated JAR" va normalmente bene
-	(supponiamo che non si stiano usando librerie o che abbiamo diritto ad includere le librerie, fatto da controllare nella 
-	loro licenza)</li>
-	<li>click su "finish"</li>
-</ul>
-</section>
+<p>Serve anche una icona per l'applicazione, deve essere in formato "ico" ma esistono anche
+on-line diversi convertitori, mettiamo anche questa immagine sulla
+scrivania e la chiamiamo <em class="ico">icona.ico</em></p>
 
 
-<section class="netbeans">
-<p>NetBeans ha un modo automatico per produrre questi particolari file zip (che avranno come estensione .jar)
-e per specificare quale è la classe che va avviata al doppio click.</p>
+<h2>Creazione del pacchetto</h2>
+<p>Per poter proseguire ci serve di sapere il nome completamente qualificato 
+(sarebbe a dire quello composto dal pacchetto e il nome della classe)
+della classe che contiene il main del programma, nel nostro esempio è
+<em class="main">it.aspix.applicazione.Principale</em></p>
 
-<h3>Specificare la classe principale</h3>
-<p>Ogni progetto ha una classe che viene impostata da Netbeans al momento della sua creazione,
-in caso che serva di cambiarla:</p>
-<ul>
-   <li>click con il destro sul nome del progetto, poi click sul menu "Properties"</li>
-   <li>click sulla voce "Run"</li>
-   <li>la voce "Application Class:" dovrà contenere il nome della classe principale, può essere selezionata usando il tasto "Browse..."</li>
-</ul>
+<p>A questo punto proviamo a vedere se il file jar contiene tutto quello che ci serve.
+Aprire il prompt dei comandi di Windows nella scrivania (il prompt dovrebbe finire
+con "Desktop>") e poi scrivere <br/>
+<code><em class="jdk">c:\java\jdk-21</em>\bin\java -cp <em class="cartella">componenti</em>\<em class="jar">applicazione.jar</em> 
+<em class="main">it.aspix.applicazione.Principale</em></code><br/>
+il programma deve avviarsi.</p>
 
-<h3>Produrre il paccheto jar</h3>
-<ul>
-	<li>click con il destro sul nome del progetto, poi click sul menu "Properties"</li>
-   	<li>click sulla voce "Build" poi sub-voce "Packaging"</li>
-	<li>spuntare "Build JAR after compiling"</li>
-	<li>la voce "JAR File" ci dice dove verrà salvato il file jar all'interno della cartella del progetto</li>
-</ul>
-<p>A questo punto ogni volta che un progetto viene compilato viene anche creato il file jar, 
-se non serve l'opzione può essere disattivata.</p>
-</section>
-
-<h2>jpackage</h2>
-<p>Dalla versione 14 di Java nel JDK esistono degli strumenti che permettono di creare un 
-programma direttamente eseguibile senza bisogno di installare prima java.</p>
-<p>Creare molteplici versioni (una per Mac, una per Linux e una per Windows)
-del programma non è difficile, basta crearlo su piattaforma seguendo lo stesso procedimento.</p>
-
-<p>Per partire utilizziamo un caso quasi semplice: HelloWorld scritto con JavaFX
-(senza l'uso dei moduli, sarebbe a dire che il file package.info [FIXME controlla nome] non ci deve essere). 
-Il "quasi" è dovuto al fatto che usiamo una libreria (JavaFX) che non fa parte
-della distribuzione standard di Java.</p>
-
-<p>Siccome lo strumento è molto nuovo e versatile non ci sono ancora strumenti automatizzati comodi
-da utilizzare, non è però difficile fare le operazioni manualmente.</p>
+<p>Non resta che fare il pacchetto servendoci di 
+<a href="https://docs.oracle.com/en/java/javase/21/docs/specs/man/jpackage.html">jpackage</a>! 
+Sempre con il Prompt dei comandi aperto nella cartella Desktop:
+attenzione che il comando è tutto su una riga, senza "a capo" nel mezzo!</p>
 
 
-<p>Lo stesso procedimento va bene sia per Windows che per Linux che per macOS, l'unica richiesta è
-che per poter lavorare con Windows è necessario installare una versione di Bash
-(un interprete dei comandi molto comune sui sistemi Unix) e non va bene quello che fornisce
-Microsoft... per farla breve basta installare <a href="https://git-scm.com/downloads">GIT</a>
-e in automatico avremo anche GitBash che va bene per i nostri scopi.</p>
+<code>
+<em class="jdk">c:\java\jdk-21</em>\bin\jpackage --name nomeApp --app-version 1.0<br/> 
+--icon <em class="ico">icona.ico</em> --type app-image<br/> 
+--input <em class="cartella">componenti</em> --dest <em class="compilato">compilato</em><br/> 
+--add-modules javafx.controls,javafx.media,javafx.fxml,javafx.web <br/>
+--main-class <em class="main">it.aspix.applicazione.Principale</em> 
+--main-jar <em class="jar">applicazione.jar</em>
+</code>
 
-<p>Per Windows è necessario installatre from <a href="https://wixtoolset.org">WiX 3.0</a> 
-o più recente<br/>
-All'avvio dice di aver bisogno di una specifica versione del 
-<a href="https://dotnet.microsoft.com/download/dotnet-framework">framework .net</a>, 
-bisogna scaricare esattamente quella versione, ad oggi la 3.5.1</p>
-
-<p>Un avviso prima di iniziare: attento alle "/", non fa lo stesso metterle oppure no.</p>
-
-<h3>Primo passo: cartella esportazione</h3>
-<p>Creare la cartella "esportazione" sul Desktop.</p>
-
-<h3>Secondo passo: l'icona.</h3>
-<p>Dobbiamo copiare sulla scrivania un file per l'icona della mnostra applicazione, 
-il tipo del file dipende dal sistema operativo: hello.ico va bene per Windows 
-(.icns va eben per macOS e .png va bene per Linux)
-che è l'icona della nostra applicazione.</p>
-<p>NB: la cartella "hello" non deve esistere sul Desktop (nel caso di macOS, dal Finder, 
-l'applicazione "hello" non deve esistere).</p>
-
-<h3>Terzo passo: far generare ad Eclipse un file jar del nostro progetto.</h3>
-<ol>
-  <li>Menu File/Export...</li>
-  <li>selezionare gruppo "Java" e poi voce "JAR file"</li>
-  <li>"Select the resource project to export:" basta selezionare il progetto che interessa, 
-  ciaomondo nel nostro caso (non importa esportare la sotto-cartella settings)</li>
-  <li>spuntare "export generated class files and resources"</li>
-  <li>nella voce "JAR file:" impostare "ciaomondo.jar" nella cartella "esportazione" creata prima</li>
-  <li>premere "finish"</li>
-</ol>
-
-<h3>Quarto passo: copiare tutte le librerie</h3>
-<p>Bisogna copiare nella cartella <code>esportazione</code> tutte le altre librerie che usiamo.
-Questo è facile: basta andare nella cartella di javafx e copiare tutti i file jar
-(non la cartella stessa) presenti nella cartella lib in "esportazione". Se si usa Windows
-vanno copiati anche tutti i file presenti nella sottocartella bin sempre di JavaFX
-(nel caso di macOS tutti i .dylib presenti nella cartella lib e 
-nel caso di Linux tutti i .so sempre nella cartella lib).</p>
-
-<h3>Quinto passo: terminale.</h3>
-<p>A questo punto bisogna aprire un terminale (Git Bash nel caso di Windows) 
-e posizionarsi nella cartella Desktop.</p>
-
-<h3>Sesto passo: variabili di ambiente</h3>
-<p>Per evitare di impazzire bisogna impostare alcune variabili di ambiente,
-quelli riportati sono esempi presi da un ambiente Windows (ovviamente i percorsi potrebbero
-cambiare, ognuno dovrebbe sapere dove ha messo i diversi pezzi di software).</p>
-<pre>export JBIN=/c/java/jdk-14.0.1+7/bin</pre>
-<p>nel comando successivo attenzione al separatore dell cartelle, nei sistemi Unix 
-il comando sotto va modificato scrivendo <em>echo -n "$x:"</em></p>
-<pre>export JARS=$(ls esportazione/*.jar | while read x; do echo -n "$x;"; done)</pre>
-<pre>export FX=/c/java/javafx-sdk-14.0.1/lib/</pre>
-<pre>export ICONA=mondo.ico</pre>
-<p>L'ultima variabile, come detto al secondo passo, dipende dal sistema operativo.</p>
-
-<h3>Settimo passo: proviamo se va.</h3>
-<p>Per farlo è semplice: sempre dal terminale terminale,  
-nella cartella Desktop scrivere:</p>
-<pre>$JBIN/java --add-modules javafx.controls,javafx.media,javafx.fxml \
---module-path $FX -cp $JARS ciaomondo.CiaoMondo</pre>
-<p>Se il programma non parte abbiamo fatto qualcosa di sbagliato.
-Cosa? dipende dal messaggio di errore, magari una delle variabili di ambiente o la copia dei file.</p>
-
-<h3>Ottavo passo: creazione del programma eseguibile.</h3>
-<p>La cartella hello non deve essere presente perché la vuole creare jpackage </p>
-<pre>$JBIN/jpackage --type app-image -n hello \
---icon $ICONA \
---input esportazione \
---module-path $FX \
---add-modules javafx.controls \
---main-class ciaomondo.CiaoMondo --main-jar ciaomondo.jar</pre>
- 
 </article>
 </body>
 </html>
