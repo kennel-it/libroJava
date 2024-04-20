@@ -5,6 +5,7 @@
 <!-- changelog 2020-02-29 riorganizzato per intero il capitolo -->
 <!-- changelog 2020-03-01 corretti errori di battitura -->
 <!-- changelog 2021-02-18 corretto vettore[indice] -->
+<!-- changelog 2024-04-20 sistemata la ricerca binaria -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -273,13 +274,14 @@ se invece il vettore è ordinato in modo decrescente il massimo sarà nella prim
    ricerca perché l'elemento non è presente nel vettore.</p>
 <p>Tale metodo di ricerca si chiama <em>Ricerca binaria</em> o <em>Ricerca dicotomica</em>. Non rimane che presentare la funzione:</p>
 <pre>public void ricercaBinaria() {
-   int inf, sup, metà, ris = -1;
+   int inf, sup, metà;
+   boolean trovato=false;
    numeroCercato = Integer.parseInt(tNumeroCercato.getText());
-   for(inf = 0, sup = vet.length-1; inf &lt;= sup; ) {
+   inf = 0, sup = vet.length-1;
+   while( inf &lt;= sup &amp;&amp; !trovato ) {
       metà = (inf + sup) / 2;
       if(numeroCercato == vet[metà]) {
-         ris = metà;
-         break; // termino la ricerca
+         trovato = true;
       }
       if(numeroCercato &lt; vet[metà]) {
          sup = metà - 1;
@@ -288,9 +290,12 @@ se invece il vettore è ordinato in modo decrescente il massimo sarà nella prim
          inf = metà + 1;
       }
    }
-   tRisultato.setText(ris + "");
+   if(trovato) {
+      tRisultato.setText("trovato");
+   } else {
+      tRisultato.setText("NON trovato");
+   }
 }</pre>
-<p>Per esercizio prova ad eliminare il primo <code>if</code> contenuto nel <code>for</code>.</p>
 <div class="esercizio">
 Dato un vettore di <code><var>n</var></code> elementi, caricarlo in modo disordinato quindi individuare il massimo elemento che non sia però
    superiore della media.
