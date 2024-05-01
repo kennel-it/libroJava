@@ -19,13 +19,6 @@
         <title>ereditarietà</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>  
-        <style type="text/css">
-        	.old { color: red }
-        	.new { color: green }
-        	#pulsanteOld { background-color: rgba(255,0,0,0.5) }
-        	#pulsanteNew { background-color: rgba(0,200,0,0.5) }
-        	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
-        </style>
     </head>
 <body>
 <header>
@@ -199,6 +192,13 @@ public String miPresento() {
 <p>Se si provasse a modificare qualcosa lla firma del metodo <code>miPresento()</code>
 come il nome o aggiungendo un qualsiasi parametro, si otterrebbe un errore.</p>
 
+<p>Un metodo che si comporta come <code>miPresento()</code> viene normalemente chiamato
+<code>toString()</code> ed è definito nella classe <code>java.lang.Object</code>,
+moltissime classi lo ridefiniscono ed è il metodo che viene usato per rappresentare
+come stringa qualsiasi oggetto, lo chiameremo sempre così anche noi, quello
+definito in <code>Object</code> stampa il nome della classe e un codice numerico identificativo
+dell'oggetto stesso.</p>
+
 
 <h2>In sintesi</h2>
 <p>Quando quello che vogliamo fare non è creare una nuova classe ma aggiungere/modificare delle funzionalità di una oggetto esistente va usata la parola
@@ -223,6 +223,31 @@ saranno gli argomenti del caso.</p>
 fatta su quali proprietà e metodi si vuole siano visibili alle classi che estenderanno la classe
 che ora stiamo costruendo. Può essere che alcune proprietà e/o metodi preferiamo
 renderli privati e quindi la classe che andrà ad estendere estesa non potrà usarli direttamente.</p>
+
+
+<section class="approfondimento">
+<h3>Quanti tipi ha un oggetto?</h3>
+<p>La risposta immediata è: uno! Purtroppo però non è del tutto vero: ovviamente un oggetto
+è del tipo che si è scritto nella dichiarazione:</p>
+<pre>Studente mario = new Studente();</pre>
+<p><code>mario</code> è di tipo <code>Studente</code> ma... non è anche una
+<code>Persona</code>? Si, lo è, in effetti è perfettamente legale scrivere sotto alla riga precedente</p>
+<pre>Persona anonimo = mario;</pre>
+<p>In questo modo però utilizzando la variabile <code>anonimo</code>
+potrò utilizzare soltanto i metodi definiti in <code>Persona</code> o una sua superclasse,
+non più quelli di <code>Studente</code>.
+È altresì possibile usare la variabile <code>mario</code> in tutti i contesti in cui
+serve di usare una <code>Persona</code>. Questo spiega perché usando JavaFX per aggiungere
+un elemento ad una griglia usando il metodo <code>add()</code> si possono inserire molte cose
+diverse, la dichiarazione del metodo dice:</p>
+<pre>add(Node figlio, int indiceColonna, int indiceRiga)</pre>
+<p>Sia <code>Button</code> che <code>Label</code> sono sottoclassi di <code>Node</code>
+quindi possono essere utilizzate nel metodo add, in verità Label (e neanche Button) 
+non è una sottoclasse diretta di Node, la gerarchia completa è:
+Object→<em>Node</em>→Parent→Region→Control→Labeled→<em>Label</em> Però vista la gerarchia
+<code>Label</code> è anche un <code>Node</code>.</p>
+</section>
+
 
 <h2>Risparmio vincolato pluriennale</h2>
 <p>Riprendiamo l'esempio del risparmio vincolato. In quel caso la somma che si otteneva era data alla fine dell'anno di investimento. Ipotizziamo però che riusciamo a
