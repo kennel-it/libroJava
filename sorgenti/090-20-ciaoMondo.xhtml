@@ -9,10 +9,11 @@
 <!-- changelog 2019-07-26 modifiche per eclipse/netbeans -->
 <!-- changelog 2019-08-31 corretta definizione di variabile -->
 <!-- changelog 2019-08-31 inserita definizione di istruzione -->
-<!-- changelog 2019-09-16 corretto nome pacchetti in "ciaomondo" -->
+<!-- changelog 2019-09-16 corretto nome pacchetti in "saluti" -->
 <!-- changelog 2019-09-18 corretto link errato al capitolo "numeri" -->
 <!-- changelog 2020-09-30 se eclipse chiede di creare il modulo rispondere di no -->
 <!-- changelog 2021-08-18 molte modifiche sparse all'intero capitolo -->
+<!-- changelog 2024-09-18 corretto nome del pacchetto in "saluti" per evitare confusione con il nome della classe -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -45,13 +46,13 @@
 		apri le cartelle del progetto, diventerà visibile una cartella <span class="eclipse ide">src</span> 
 		<span class="netbeans ide">Source Packages</span>,
 		fai click con il destro e poi click sul menu contestuale <span class="ide">New/class</span>,
-	    chiamala <span class="ide">CiaoMondo</span> (nel campo Name) e scrivi <span class="ide">ciaomondo</span>
+	    chiamala <span class="ide">CiaoMondo</span> (nel campo Name) e scrivi <span class="ide">saluti</span>
 	    nel campo Package. A questo punto fai doppio click sulla classe appena creata per aprirla.</p>
 		
 		<p class="eclipse">Il file "CiaoMondo", conterrà qualche linea di codice che va cancellata e sostituita con il programma qui sotto:</p>
 	    <p class="netbeans">Il file "CiaoMondo", conterrà il testo qui sotto.</p>
 <pre>
-package ciaomondo;
+package saluti;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -99,7 +100,7 @@ public class CiaoMondo extends Application {
 	
 	<h3>Pacchetti</h3>
 	<p>La prima riga non dice al programma cosa fare ma piuttosto serve ad inserire questo file 
-	in una gerarchia. Noi abbiamo sbrigativamente scritto il nome <code>ciaomondo</code> ma non è questa la pratica: 
+	in una gerarchia. Noi abbiamo sbrigativamente scritto il nome <code>saluti</code> ma non è questa la pratica: 
 	i programmi sono solitamente fatti da tanti file e usualmente almeno in parte non scritti
 	da noi, per questo avere tutto mantenuto in maniera ordinata è di aiuto allo sviluppo.
 	La strategia standard per gestire i pacchetti è piuttosto semplice: ogni classe (per adesso possiamo
