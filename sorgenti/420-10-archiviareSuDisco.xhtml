@@ -10,6 +10,7 @@
 <!-- changelog 2017-09-19 corretta parte evidenziata nei programmi -->
 <!-- changelog 2020-11-29 cambiato nome (era "archiviareOggetti") e riscritto il capitolo -->
 <!-- changelog 2021-01-08 cambiati nomi sezioni e inserita parte per scrivere una riga di testo -->
+<!-- changelog 2024-10-18 aggiunto append mode -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -192,7 +193,7 @@ flussoCaratteri.close();</pre>
 </div>
 
     <h2>Leggere tutte le righe</h2>
-    
+
     <p>il metodo <code>readLine()</code> di <code>BufferedReader</code> ritorna una riga alla volta
     fino a quando raggiunge la fine del file, in quel caso ritorna <code>null</code>, questo
     ci permette di scrivere un ciclo che legga tutte le righe di un file:</p>
@@ -206,18 +207,31 @@ do {
         // uso la riga letta
         System.out.println(rigaLetta);
     }
-}while(rigaLetta!=null);        
+}while(rigaLetta!=null);
 lettoreDiRighe.close();
 flussoCaratteri.close();</pre>
 
     <p>Torna più comodo usare un ciclo a controllo finale perché prima leggo la riga,
     in caso contenga qualcosa faccio quel che devo e poi se ho raggiunto la fine del file 
     (e quindi il valore letto è <code>null</code>) smetto di leggere.</p>  
-    
+
+    <h2>Accodare informazioni ad un file esistente</h2>
+    <p>Le modalità viste fino ad ora per scrivere sui file hanno un comportamento
+    a volte indesiderato: iniziano a scrivere dal primo byte (o carattere) del file.
+    Come se non bastasse se il file conteneva 1000 caratteri e dopo averlo
+    aperto ne scriviamo soltanto 10 alla chiusura il file conterrà soltanto quei 10 caratteri.</p> 
+    <p>Esiste però un modo per aprire un file per aggiungere contenuto 
+    (in fondo ovviamente!) e non per sovrascriverlo, questa modalità
+    di lavorare è nota come "append mode" e usando un <code>FileWriter</code>
+    si può attivare così: </p>
+<pre> FileWriter scrittore = new FileWriter("nomeDelFile"<em>, true</em>)</pre>
+    <p>Quel <code>true</code> in fondo è quello che attiva l'append-mode.</p>
+
+
     <div class="approfondimento">
     <p>Solitamente il ciclo per leggere le righe da un file si scrive in un altro modo
     che a prima vista potrebbe sembrare meno comprensibile ma è più comdo:</p>
-  
+
 <pre>while( (rigaLetta = lettoreDiRighe.readLine())!=null ) {
     System.out.println(rigaLetta);
 }</pre>  
@@ -234,7 +248,7 @@ flussoCaratteri.close();</pre>
     <a onclick="sbagliata(this)">no<span class="spiegazione">devi rileggere il testo con più attenzione... o forse il ciclo for</span></a> 
     <a onclick="giusta(this)">si</a>
   </div>
-  
+
     </div>
 </article>
 </body>
