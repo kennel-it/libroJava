@@ -18,6 +18,7 @@
 <!-- changelog 2022-03-18 riscritta semplificando molto parte di installazione -->
 <!-- changelog 2023-09-18 piccolissime correzioni -->
 <!-- changelog 2024-10-18 aggiornata schermata di download di liberica -->
+<!-- changelog 2024-12-21 inserite indicazioni per scegliere l'architettura -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -58,7 +59,7 @@ di diversi produttori.</p>
 <p>Per quanto riguarda la versione per noi sarebbe sufficiente una qualsiasi dalla 11 in poi,  
 bisogna anche tener conto del fatto che chi ha sistemi funzionanti normalmente usa (ma non è un obbligo)
 una delle versioni chiamate "LTS", l'ultima di questo tipo 
-è la versione 17 e scaricheremo questa.</p>
+è la versione 21 e scaricheremo questa.</p>
 
 <p>Per via della licenza Open del JDK
 si può scegliere anche da quale produttore scaricare il JDK: funzionano tutti fondamentalmente
@@ -108,7 +109,15 @@ Edclipse/JDK non siano del tutto compatibili.</p>
             <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
             pagina dei download di Eclipse</a>, la versione deve essere 2023-06 o successiva 
             (ad esempio 2023-09 o 2024-03 vanno bene)</li>
-            <li>Scaricare "Eclipse IDE for Enterprise Java and Web Developers", è un file zip<br/>
+            <li>Scaricare "Eclipse IDE for Enterprise Java and Web Developers", è un file zip,
+            fate però attenzione all'architettura (x86_64 o AArch64):
+            <ul>
+                <li>Per Linux: da terminale usate il comando `uname -m` che vi darà l'indicazione necessaria</li>
+                <li>Per macOS: dal menu mela in alto a sinistra fate click su "Informazioni su questo Mac",
+                se come Chip trovate qualcosa che inizia con "Apple M..." scaricate AArch64 altrimenti x86_64</li>
+                <li>Per Windows scaricate x86_64</li>
+            </ul>
+            <br/>
             <img src="immagini/eclipse-download.png" alt="download Eclipse"/>
             </li>
             <li>Scompattare il file .zip appena scaricato sulla scrivania (<em>Attenzione</em>: per 
@@ -117,11 +126,12 @@ Edclipse/JDK non siano del tutto compatibili.</p>
             <a href="https://www.7-zip.org/download.html">7zip</a>, va bene il tipo "msi" per Windows 64bit)</li>
         </ul>
     </li>
-    <li>Scaricare e installare il JDK versione 17 Liberica dal sito di Bell Soft:  
+    <li>Scaricare e installare il JDK versione 21 Liberica dal sito di Bell Soft:  
         <ul>
             <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
-            scorrere verso il basso e fare click su "JDK 17"</li>
-            <li>proseguire scegliendo il sistema operativo e l'architettura (Windows nell'esempio sotto)</li>
+            are click su "JDK 21 LTS"</li>
+            <li>scorrere in basso fino alla sezione del vostro sistema operativo e fate click 
+            sulla vostra architettura (qui chiamano "AArch64" come "ARM" e X86_64 come "x86")</li>
             <li>come "Package" scegliere "Full JDK"<br/>
             <img src="immagini/download-liberica.png" alt="passi per download JDK liberica"/>
             </li>
@@ -130,7 +140,7 @@ Edclipse/JDK non siano del tutto compatibili.</p>
         </ul> 
     </li>
     <li>Arrivati a questo punto sulla scrivania devono esserci due cartelle: una di eclipse (chiamata "eclipse")
-    e una del JDK (con un nome tipo "jdk-17.0.2-full").</li>
+    e una del JDK (con un nome tipo "jdk-21.0.5-full").</li>
     <li>Configurare Eclipse
     	<ul>
     		<li>avviare eclipse (doppio click sul programma eclipse che si trova nella sua cartella)</li>
@@ -144,7 +154,7 @@ Edclipse/JDK non siano del tutto compatibili.</p>
             <li>scegliere "Standard VM" e click su "next"</li>
             <li>click sul pulsante "Directory..." e selezionare la cartella del JDK che 
             è stata scompattata prima sulla scrivania</li>
-        	<li>nel campo "JRE name" comparirà automaticamente un nome (qualcosa tipo "jdk-17.0.2-full"),
+        	<li>nel campo "JRE name" comparirà automaticamente un nome (qualcosa tipo "jdk-21.0.2-full"),
         	click su "finish"</li>   
 		</ul>
     </li>
