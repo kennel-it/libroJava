@@ -3,6 +3,7 @@
 <!-- grafoIndice requires="ripetizione assegnazione numeri" group="base" -->
 <!-- changelog 2018-06-28 corrette virgolette tipografiche -->
 <!-- changelog 2018-12-11 modificata parte iniziale del capitolo -->
+<!-- changelog 2025-01-07 tolta doppia assegnazione nel for ( a = b = 0) -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -146,7 +147,8 @@
    public void contaPessimi() {
       int indice, contatore;
       int coach = Integer.parseInt(tCoach.getText());
-      for(contatore = indice = 0; indice &lt; numTempi; indice++) {
+      contatore = 0;
+      for(indice = 0; indice &lt; numTempi; indice++) {
          if(tempi[indice] &gt; coach) {
             contatore++;
          }
@@ -186,7 +188,8 @@
    public void contaPessimi() {
       int indice, contatore;
       int coach = Integer.parseInt(tCoach.getText());
-      for(contatore = indice = 0; indice &lt; <var>tempi</var>.length; indice++) {
+      contatore = 0;
+      for(indice = 0; indice &lt; <var>tempi</var>.length; indice++) {
          if(tempi[indice] &gt; coach) {
             contatore++;
          }
