@@ -11,6 +11,7 @@
 <!-- changelog 2020-11-29 cambiato nome (era "archiviareOggetti") e riscritto il capitolo -->
 <!-- changelog 2021-01-08 cambiati nomi sezioni e inserita parte per scrivere una riga di testo -->
 <!-- changelog 2024-10-18 aggiunto append mode -->
+<!-- changelog 2025-04-08 tolto test che mostrava uso for per leggere tutte le righe di un file: fuorviante. -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -239,15 +240,6 @@ flussoCaratteri.close();</pre>
     <p>Direttamente nella condizione del while assegno a <code>rigaLetta</code>
     il valore letto dal file e siccome l'assegnazione per java è una espressione posso 
     guardare se il valore assegnato è <code>null</code>.</p>
-
-  <div class="test">
-    <p>Al posto del ciclo <code>while</code> nel programma sopra scrivo questo:</p>
-<pre>for(testo=lettoreDiRighe.readLine(); testo!=null; testo=lettoreDiRighe.readLine()){
-  gruppo = gruppo + " " + testo;
-}</pre>
-    <a onclick="sbagliata(this)">no<span class="spiegazione">devi rileggere il testo con più attenzione... o forse il ciclo for</span></a> 
-    <a onclick="giusta(this)">si</a>
-  </div>
 
     </div>
 </article>
