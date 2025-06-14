@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="linguaggi" group="infrastruttura" -->
+<!-- changelog 2017-09-20 inserita bozza iniziale del capitolo -->
+<!-- changelog 2018-06-21 prima bozza per jshell -->
+<!-- changelog 2018-06-28 inserite istruzioni per impostare il path -->
+<!-- changelog 2018-06-30 riorganizzato il contenuto del capitolo -->
+<!-- changelog 2018-09-18 path per javac in windows 8 -->
+<!-- changelog 2021-07-31 citato esplicitamente il JDK -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>strumentiJDK</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>strumentiJDK</h1>
+<p>compilare, eseguire e provare codice Java manualmente</p>
+</header>
+<article>
+<p>In alcune occasioni per scrivere un programma è comodo usare strumenti alternativi,
+vediamo alcune possibilità che possono essere di aiuto sia per fare delle prove che per provare
+programmi che non funzionano correttamente.</p>
+<p>gli strumenti utilizzati qui sotto fanno parte degli strumenti di sviluppo standard di Java: il JDK
+(Java Development Kit).</p>
+
+<h2>jshell</h2>
+<p><em>jshell</em> è un programma che ci permette di provare "al volo" piccole parti di codice java
+senza dover scrivere tutto il programma... anche una singola espressione! 
+È disponibile dalla versione 9 del JDK (Java Development Kit).</p>
+<p>Per poterlo usare basta aprire una shell (cmd su Windows o un terminale qualsiasi su Linux/maxOS
+oppure ancora la vista "Terminale" di eclipse) e scrivere <code>jshell</code> (in caso
+il sistema operativo non trovi il comando vedi più in basso la sezione "path").</p> 
+<p>Il programma presenta un prompt <code>jshell&gt;</code> che ci permetterà di inserire delle parti
+di codice che verranno compilate ed interpretate al volo. Possiamo ad esempio scrivere 
+<code>10/3</code> e vedere quale è il risultato.</p>
+<pre>jshell> <em>10/3</em>
+<em>$1 ==> 3</em></pre>
+<p>In questo modo jshell ci informa che il risultato dell'operazione è stato
+inserito nella variabile $1 che potremo usare per elaborazioni future.</p>
+<p>Potremmo continuare scrivendo l'espressione <code>"numero di pacchi: "+$1</code> e assegnando il suo 
+valore alla variabile <var>testo</var> che dobbiamo però prima dichiarare.</p>
+<pre>jshell&gt; <em>String testo</em>
+testo ==&gt; null
+
+jshell&gt; <em>testo = "numero di pacchi: "+$1</em>
+testo ==> "numero di pacchi: 3"</pre>
+<p>Due ultime cose: per recuperare linee di codice già scritte basta usare il tasto 
+"freccia su", per uscire bisogna scrivere <code>/exit</code></p>
+
+
+<h2>Compilare/eseguire i programmi da terminale</h2>
+<p>Poniamo che per un motivo qualsiasi non si voglia usare un ambiente di sviluppo integrato, 
+nel kit di sviluppo di Java c'è tutto quel che serve per compilare ed eseguire un programma.</p>
+<p>Per vedere come funzionano questi programmi utilizzeremo una cartella <code>prova</code>
+sulla scrivania e un terminale (<code>cmd</code> o <code>PowerShell</code> per Windows, 
+un terminale qualsiasi su macOS o Linux) aperto nella stessa cartella.</p>
+
+<h3>path</h3>
+<p>Per poter usare i comandi è necessario informare il sistema operativo sulla loro ubicazione</p>
+
+<h4>nel caso di Windows 10 dobbiamo fare una sequenza di passi:</h4>
+<ul>
+<li>trovare dove si trova l'eseguibile <code>java</code>: usando il file manager,
+ad esempio per il JDK11 il percorso potrebbe essere <code>c:\Program Files\Java\jdk-11\bin\</code></li>
+<li>click con il tasto destro sul menu windows in basso a sinistra</li>
+<li>click su "sistema"</li>
+<li>nella barra di ricerca sulla sinistra scrivere "avanzate"</li>
+<li>click sulla voce "Visualizza impostazioni di istema avanzate"</li>
+<li>nella finestra che si apre: linguetta "Avanzate", click su "Variabili d'ambiente..."</li>
+<li>nel gruppo "Variabili di sistema" click su "Path" e poi su "Modifica..."</li>
+<li>click su "Nuovo" e inserire il percorso trovato al primo punto</li>
+</ul> 
+
+<h4>nel caso di Windows 8 una sequenza possibile è questa:</h4>
+<ul>
+<li>trovare dove si trova l'eseguibile <code>java</code> usando il file manager, 
+ad esempio per il JDK 8 il percorso potrebbe essere <code>C:\Program Files\Java\jdk1.8.0_181\bin</code></li>
+<li>aprire le configurazioni "sistema" dal pannello di controllo</li>
+<li>click su "sistema"</li> 
+<li>click sulla colonna di sinistra su "impostazioni di sistema avanzate"</li>
+<li>dalla linguetta "avanzate" click su "variabili d'ambiente"</li>
+<li>nel gruppo "Variabili di sistema" click su "Path" e poi su "Modifica..."</li>
+<li>in fondo alla casella "Valore variabile" aggiungere un ";" 
+seguito dal percorso trovato all'inizio</li>
+</ul>
+
+
+<h3>Scrittura</h3>
+<p>Per scrivere il programma serve un editor di testo come ad esempio il <em>Blocco note</em>
+di windows o Gedit di Linux, non un elaboratore testi come LibreOffice o Word.</p>
+<p>Inseriamo nella cartella <code>prova</code> un file <code>Saluto.java</code> fatto così:</p>
+<pre>
+public class Saluto{
+	public static void main(String args[]){
+		System.out.println("ciao mondo!");
+	}
+}
+</pre>
+<p>Bisogna assicurarsi che il file si chiami esattamente <code>Saluto.java</code> e 
+non <code>Saluto.java.txt</code>, dal terminale aperto nella cartella <code>prova</code>
+si può verificare scrivendo <code>dir</code> in Windows o <code>ls</code> in Linux/macOS.</p>
+
+<h3>Compilazione</h3>
+<p>Sempre con il terminale aperto nella solita cartella in cui si trova 
+il file <code>Saluto.java</code> useremo il comando <em>javac</em>.</p>
+<p><code>Saluto.java</code> è il nostro file sorgente e va compilato in modo che java possa eseguirlo:
+il comando da usare è <code>javac</code> seguito dal nome del file da compilare.</p>
+<pre>$ javac Saluto.java</pre>
+<p>Se tutto va bene (cioè se non compaiono messaggi nel terminale)
+nella cartella comparirà un file in più chiamato <code>Saluto.class</code>
+che contiene il codice compilato. Guardando l'elenco dei file contenuti nella cartella
+dovrebbe comparire:</p>
+<pre>Saluto.class 
+Saluto.java</pre>
+
+<h3>Interpretazione</h3>
+<p>Per eseguire il programma dobbiamo avviare l'interprete <code>java</code>dicendogli quale è il programma
+da avviare (che in java, guarda caso, si chiama classe), non bisogna mettere il ".class" finale ma 
+soltanto il nome.</p>
+
+<pre>java Saluto</pre>
+<p>In questo caso l'ouput del programma compare direttamente nel terminale.</p>
+
+</article>
+</body>
+</html>

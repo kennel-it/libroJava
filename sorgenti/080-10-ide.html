@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="" group="infrastruttura" -->
+<!-- changelog 2018-09-04 inserito nuovo capitolo -->
+<!-- changelog 2018-09-05 aggiunta piccola parte sulle schede fondamentali -->
+<!-- changelog 2019-08-04 aggiunta parte per NetBeans -->
+<!-- changelog 2019-08-04 aggiunta configurazione per JDK11+JavaFX su Elcipse e NetBeans -->
+<!-- changelog 2019-08-27 spostata qui configurazione per SceneBuilder e rimosso capitolo "installazione" -->
+<!-- changelog 2020-02-11 corretta descrizione per reperire i jar di javafx in eclipse -->
+<!-- changelog 2020-08-24 insetita parte iniziale su JDK-IDE -->
+<!-- changelog 2020-08-28 corrette frase iniziale di IDE -->
+<!-- changelog 2020-09-15 corretto link eclipse -->
+<!-- changelog 2020-09-24 usare per forza JDK14 -->
+<!-- changelog 2020-11-29 pulizie sostanziali e inserite spiegazioni più chiare -->
+<!-- changelog 2020-11-29 rimosso Scene Builder -->
+<!-- changelog 2021-08-18 piccoli aggiustamenti -->
+<!-- changelog 2022-03-18 riscritta semplificando molto parte di installazione -->
+<!-- changelog 2023-09-18 piccolissime correzioni -->
+<!-- changelog 2024-10-18 aggiornata schermata di download di liberica -->
+<!-- changelog 2024-12-21 inserite indicazioni per scegliere l'architettura -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>ide</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <script type="text/javascript" src="script/ide.js"></script>  
+        <style type="text/css">
+            dl.icone {display: grid; grid-template-columns: 2ex 1fr; grid-row-gap:0.5em}
+            .prova { opacity: 0.5 }
+        </style>         
+    </head>
+<body>
+<header>
+<h1>ide</h1>
+<p>l'ambiente di sviluppo</p>
+</header>
+<article>
+
+<h2>Gli strumenti essenziali</h2>
+<p>Per poter sviluppare programmi ci servono degli strumenti, nel caso di quelli che vogliamo
+sviluppare noi abbiamo bisogno di tre cose: il "Java Development Kit", una libreria per
+sviluppare applicazioni con interfaccia grafica e un ambiente di sviluppo (una specie
+di editor di testo più sofisticato).</p>
+
+<h3>Java Development Kit</h3>
+<p>Il "Kit di sviluppo Java" è più conosciuto come <em>JDK</em>, e contiene un lungo
+elenco di programmi utilizzati dagli sviluppatori per creare e gestire programmi con java.
+Noi useremo soltanto alcuni di questi strumenti ma il JDK va comunque installato.</p>
+<p>Java ha un meccanismo predefinito per le versioni e dovremo farci attenzione:
+alcune versioni sono marcate come <em>LTS</em> cioè "Long Term Support" (versioni con lungo supporto)
+e scaricabili a lungo, fanno parte di questo gruppo la versione 11 e 17, altre versioni come 9-10-12-13-14-15-16
+sono soltanto intermedie quindi quando ne esce una versione successiva la precedente non è più facile da trovare.</p>
+
+<p>In realtà non va installato "il" JDK ma "un" JDK perché ce ne sono molte versioni  e 
+di diversi produttori.</p>
+
+<p>Per quanto riguarda la versione per noi sarebbe sufficiente una qualsiasi dalla 11 in poi,  
+bisogna anche tener conto del fatto che chi ha sistemi funzionanti normalmente usa (ma non è un obbligo)
+una delle versioni chiamate "LTS", l'ultima di questo tipo 
+è la versione 21 e scaricheremo questa.</p>
+
+<p>Per via della licenza Open del JDK
+si può scegliere anche da quale produttore scaricare il JDK: funzionano tutti fondamentalmente
+allo stesso modo ma possono avere strumenti in più o assistenza più o meno lunga e in alcuni casi 
+a pagamento (con garanzie aggiuntive in questi casi).
+Ad esempio fanno una versione del JDK: 
+<a href="https://adoptium.net/">Adoptium Working Group</a>,
+<a href="https://www.oracle.com/it/java/technologies/javase-downloads.html">Oracle</a>,
+<a href="https://aws.amazon.com/it/corretto/">Amazon</a> 
+<a href="https://bell-sw.com/">BellSoft</a>
+e anche <a href="https://www.microsoft.com/openjdk">Microsoft</a>.</p>
+
+<h3>Libreria grafica</h3>
+<p>Questa non è sempre necessaria ma noi la useremo perché vogliamo scrivere applicazioni con una
+interfaccia grafica abbastanza versatile, ne useremo una sviluppata sempre dallo stesso gruppo
+che sviluppa java e che si chiama <a href="https://openjfx.io/">JavaFX</a>, fino poco tempo fa 
+era inclusa nel JDK standard ma adesso non più.</p>
+
+<h3>Ambiente di sviluppo</h3>
+<p>Questi (tutt'altro che piccoli) normalmente vengono chiamati <em>IDE</em> 
+(Integrated Development Environment) e ci aiutano molto nella scrittura dei programmi: 
+in teoria non necessari ma in pratica sono indispensabili. Ne esistono molti ma per Java i più usati sono 
+<a href="https://www.eclipse.org/">Eclipse</a>,
+<a href="http://netbeans.apache.org/">NetBeans</a> e
+<a href="https://www.jetbrains.com/idea/">Intellij IDEA</a>.
+I primi due sono Open Source e il terzo no ma è molto usato.</p>
+
+<h3>Il nostro ambiente</h3>
+<p>Va bene una qualsiasi combinazione di JDK+IDE+JavaFX che consenta di sviluppare applicazioni,
+qui riportiamo la soluzione più semplice che usa tutto software Open: Eclipse come IDE e il JDK 
+di BellSoft (perché include già JavaFX e ci risparmia un po' di lavoro e di seccature) come JDK.</p>
+
+<h2>Installazione</h2>
+<p>Il lavoro da fare cambia a seconda del fatto che il sistema abbia già o meno una versione
+del JDK installato ma questo è facile da verificare: basta aprire un terminale, scrivere "java"
+e battere invio, se il comando da errore il JDK non c'è.</p>
+<p><em>Attenzione:</em> le indicazioni che verranno date qui sotto 
+vanno seguite molto scrupolosamente, prima di prendere una versione
+diversa da quella specificate è meglio chiedere perché potrebbe succedere che alcune combinazioni di
+Edclipse/JDK non siano del tutto compatibili.</p>
+
+
+<h2>Installazione ambiente di sviluppo</h2>
+<ol>
+    <li>Scaricare Eclipse
+        <ul>
+            <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
+            pagina dei download di Eclipse</a>, la versione deve essere 2023-06 o successiva 
+            (ad esempio 2023-09 o 2024-03 vanno bene)</li>
+            <li>Scaricare "Eclipse IDE for Enterprise Java and Web Developers", è un file zip,
+            fate però attenzione all'architettura (x86_64 o AArch64):
+            <ul>
+                <li>Per Linux: da terminale usate il comando `uname -m` che vi darà l'indicazione necessaria</li>
+                <li>Per macOS: dal menu mela in alto a sinistra fate click su "Informazioni su questo Mac",
+                se come Chip trovate qualcosa che inizia con "Apple M..." scaricate AArch64 altrimenti x86_64</li>
+                <li>Per Windows scaricate x86_64</li>
+            </ul>
+            <br/>
+            <img src="immagini/eclipse-download.png" alt="download Eclipse"/>
+            </li>
+            <li>Scompattare il file .zip appena scaricato sulla scrivania (<em>Attenzione</em>: per 
+            scompattare questo file serve un programma che funzioni bene, purtroppo non 
+            è il caso della funzionalità base di windows, se non ne avete uno potete scaricare e installare 
+            <a href="https://www.7-zip.org/download.html">7zip</a>, va bene il tipo "msi" per Windows 64bit)</li>
+        </ul>
+    </li>
+    <li>Scaricare e installare il JDK versione 21 Liberica dal sito di Bell Soft:  
+        <ul>
+            <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
+            are click su "JDK 21 LTS"</li>
+            <li>scorrere in basso fino alla sezione del vostro sistema operativo e fate click 
+            sulla vostra architettura (qui chiamano "AArch64" come "ARM" e X86_64 come "x86")</li>
+            <li>come "Package" scegliere "Full JDK"<br/>
+            <img src="immagini/download-liberica.png" alt="passi per download JDK liberica"/>
+            </li>
+            <li>scaricare lo zip</li>
+            <li>scompattare il file zip sulla scrivania</li>
+        </ul> 
+    </li>
+    <li>Arrivati a questo punto sulla scrivania devono esserci due cartelle: una di eclipse (chiamata "eclipse")
+    e una del JDK (con un nome tipo "jdk-21.0.5-full").</li>
+    <li>Configurare Eclipse
+    	<ul>
+    		<li>avviare eclipse (doppio click sul programma eclipse che si trova nella sua cartella)</li>
+    		<li>al primo avvio compare un pannello "Select a directory as workspace", quella è la cartella
+    		in cui Eclipse metterà tutti i file su cui lavora, la possiamo lasciare dove dice Eclipse o
+    		crearne una sulla scrivania, una volta deciso click su "launch"</li>
+    		<li>aprire le preferenze di Eclipse: menu "Window/Preferences"</li>
+    		<li>rimuovere l'unico JDK presente (e anche tutti gli altri se ce ne fossero) e poi
+    		aggiungerne uno nuovo<br/>
+            <img src="immagini/eclipse-configurazione-1.png" alt="confiugurazione jdk in eclipse"/></li> 
+            <li>scegliere "Standard VM" e click su "next"</li>
+            <li>click sul pulsante "Directory..." e selezionare la cartella del JDK che 
+            è stata scompattata prima sulla scrivania</li>
+        	<li>nel campo "JRE name" comparirà automaticamente un nome (qualcosa tipo "jdk-21.0.2-full"),
+        	click su "finish"</li>   
+		</ul>
+    </li>
+</ol>
+
+
+<h2>Utilizzare l'ambiente di sviluppo</h2>
+
+<p>Gli <em>I</em>ntegrated <em>D</em>evelopment <em>E</em>nvironment sono strumenti molto articolati che 
+aiutano gli sviluppatori nello svolgere moltissimi compiti, quello che facciamo adesso è creare il primo progetto:
+un file sorgente java viene scritto appunto all'interno di un progetto.</p>
+
+
+<section class="eclipse">
+<h2>Eclipse</h2>
+
+<h3>Avvio dell'IDE</h3>
+<p>Eclipse organizza i progetti all'interno di spazi di lavoro, 
+in ogni sistema possono essere presenti più spazi di lavoro ed Eclipse ci chiede quale 
+vogliamo usare, in pratica è una cartella che contiene dei progetti e delle impostazioni.</p>
+<p style="text-align:center"><img src="immagini/eclipse_0.png" alt="avvio di eclipse"/></p>
+<p>Nel caso questa finestra non compaia è possibile far sì di riaverla al prossimo avvio
+dell'applicazione impostando una preferenza:
+dalla finestra delle preferenze (menu "/Window/preferences..." per Windows o Linux),
+sulla sinistra selezionare General, Startup and Shutdown, Workspaces.
+A questo punto bisogna mettere la spunta su "Prompt for workspace on startup".</p>
+<p>In ogni caso dal menu File di Eclipse è possibile cambiare lo spazio di lavoro usando la voce 
+<em>Switch workspace</em>.</p>
+
+<p>La prima volta che si avvia Eclipse compare un pannello informativo, per adesso non ci interessa click su "Hide"
+il alto a destra.</p>
+
+<h3>Creare un progetto</h3>
+<ul>
+    <li>click sul menu /File/New/Project...</li>
+    <li>dal gruppo "Java" selezionare "Java project" poi click su "next"</li>
+    <li>inserire il nome del progetto</li>
+    <li>rimuovere la spunta in basso da "Create modude-infop.java file"</li>
+    <li>click su finish</li>
+    <li>a questo punto compare una finestra che chiede se si vuole aprire una nuova "Prospettiva",
+    click su "Open Perspective"</li>
+</ul>
+<p>Ora possiamo creare nuove classi java utilizzando anche gli oggetti di JavaFX.</p>
+
+<h3>La finestra di Eclipse</h3>
+<p style="text-align:center"><img src="immagini/eclipse_1.png" alt="schermata di eclipse"/></p>
+<p>La struttura generale della finestra dell'ambiente di sviluppo <em>Eclipse</em>
+è simile a quella di molte altre applicazioni.
+Dall'alto troviamo: la barra del titolo, quella dei menu (con il segnalino "1" nella figura),
+la barra degli strumenti ("2" nella figura), l'area di lavoro e la barra di stato ("3" nella figura).</p>
+
+<p>Nella barra del titolo troviamo nell'ordine: 
+il nome dello spazio di lavoro,
+il percorso del file relativamente alla cartella dello spazio di lavoro
+... e il nome del programma!</p>
+<p>Nella barra di stato per ora ci interessano due informazioni:</p>
+<ul>
+    <li>la prima è <em>Smart Insert</em>, facendoci doppio click diventa <em>Overwrite</em>
+    e il cursore anziché inserire il testo facendo scorrere verso destra quello già presente
+    lo sovrascriverà.</li>
+    <li>le coordinate in cui si trova il cursore, la coppia 14:43 nell'immagine
+    si riferisce alla riga 14 colonna 43</li>
+</ul>
+
+<h3>Barra degli strumenti</h3>
+<p>Vediamo alcuni degli strumenti a nostra disposizione 
+nella configurazione standard partendo da sinistra:</p>
+<dl class="icone">
+<dt><img src="immagini/new_con@2x.png" class="iconaIDE"/></dt>
+<dd>Crea un nuovo oggetto (ad esempio un file o un progetto)</dd>
+<dt><img src="immagini/save_edit@2x.png" class="iconaIDE"/></dt>
+<dd>Salva il file su cui si sta lavorando</dd>
+<dt><img src="immagini/run_tool@2x.png" class="iconaIDE"/></dt>
+<dd>Avvia l'oggetto attualmente attivo (ad esempio il programma che stiamo modificando)</dd>
+<dt><img src="immagini/search@2x.png" class="iconaIDE"/></dt>
+<dd>Permette di cercare un all'interno di un progetto e dell'intero workspace</dd>
+<dt><img src="immagini/jperspective@2x.png" class="iconaIDE"/></dt>
+<dd>(sulla destra) questo pulsante e i suoi vicini servono per cambiare l'organizzazione
+dello spazio di lavoro, quando si sta lavorando su un progetto java normalmente è evidenziato.
+Se si vuole ritornare all'organizzazione originale dello spazio di lavoro 
+basta fare click qui con il destro e poi selezionare "reset" dal menu che compare.</dd>
+</dl>
+
+<h3>Lo spazio di lavoro</h3>
+<p>Nello spazio di lavoro i contenuti sono organizzati collezionando delle schede in gruppi 
+come quello qui sotto.</p>
+<p><img src="immagini/eclipse_gruppo_schede.png" style="height:2em"/></p>
+<p>Ogni singola linguetta contiene tre informazioni: la prima icona rappresenta l'oggetto
+visualizzato (ad esempio <img src="immagini/jcu_obj@2x.png" class="iconaIDE"/>
+per un file java) seguito dal nome e da 
+<img src="immagini/remove@2x.png" class="iconaIDE"/> per chiuderla.</p>
+
+<p>Sulla destra l'icona <img src="immagini/thin_min_view@2x.png" class="iconaIDE"/>
+serve per minimizzare il gruppo mentre 
+<img src="immagini/thin_max_view@2x.png" class="iconaIDE"/> ser per massimizzare il gruppo,
+per riportarlo alle dimensioni normali basta fare click su
+<img src="immagini/thin_restore_view@2x.png" class="iconaIDE"/>.</p>
+<p>Se nello spazio di lavoro ci servono ulteriori schede possiamo aprirle dal menu
+"/Windows/Show View" o facendo doppio click sul nome di un file nella scheda "Package explorer".</p>
+
+<p>Alcune schede risultano utili nello sviluppo delle applicazioni Java: <em>Package Explorer</em>,
+<em>Console</em> e <em>Problems</em>:</p>
+<dl>
+<dt>Package Explorer</dt>
+<dd>Qui compare la struttura del nostro progetto nascondendo alcune cartelle non essenziali.
+Se vengono copiati dei file nel progetto e non compaiono basta fare click nella
+cartella che li contiene con il destro e poi selezionare "refresh".</dd>
+<dt>Console</dt>
+<dd>In cui vengono stampati i messaggi di errore durante il funzionamento del programma (runtime)</dd>
+<dt>Problems</dt>
+<dd>In cui vengono elencati gli errori presenti nello spazio di lavoro, facendo click sull'icona 
+<img src="immagini/view_menu@2x.png" class="iconaIDE"/>
+(sulla destra) è possibile limitare il numero di errori mostrati (ad esempio selezionando
+"Show" e poi "Error/Warnings on project").</dd>
+</dl>
+
+
+<h3>Creazione di un progetto e dei suoi contenuti</h3>
+<p>Eclipse gestisce molti tipi di progetto (dipende dalla versione che
+abbiamo scaricato e dai plugin installati), vediamo un modo per creare un progetto per sviluppare 
+software Java.</p>
+<ol>
+<li>click sul menu "/File/New/Other...</li>
+<li>dal gruppo "Java" selezionare "Java Project" e poi click su "Next &gt;"</li>
+<li>Scrivere il nome del progetto su "Project name:" e poi "Finish"</li>
+</ol>
+<p><img src="immagini/eclipse_package_explorer.png" style="float:left" class="screen_shot"/>
+Dopo aver creato il progetto dalla scheda "Package explorer" è possibile vederne la struttura 
+cliccando sul triangolo grigio (se non è già rivolto verso il basso).
+Il primo gruppo "JRE System Library" rappresenta la versione di Java che stiamo utilizzando
+mentre "src" contiene i file sorgente.</p>
+<p>Per creare un nuovo pacchetto: click con il tasto destro su "src" poi "New" e "Package" 
+(comparirà una icona <img src="immagini/pack_empty_co@2x.png" class="iconaIDE"/> che indica un pacchetto vuoto,
+diventerà <img src="immagini/package_obj@2x.png" class="iconaIDE"/>quando inseriremo delle classi o altro contenuto), 
+analogamente per creare una nuova classe click con il destro sul nome di un pacchetto e poi 
+"New" e "Class".</p>
+<p style="clear:both"></p>
+</section>
+
+</article>
+</body>
+</html>

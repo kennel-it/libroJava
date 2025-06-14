@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="vettore ricorsione" group="algoritmiStruttureDati" -->
+<!-- changelog 2018-03-23 inserita bozza di spiegazione per bubble sort -->
+<!-- changelog 2020-08-22 sistemato Bubble e inserito diagramma per Merge -->
+<!-- changelog 2020-09-07 confronto tra merge e bubble -->
+<!-- changelog 2020-09-08 inserito un Merge più chiaro -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8"/>
+    <title>ordinamento</title>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <script type="text/javascript" src="script/test.js"></script>
+	<link type="text/css" rel="stylesheet" href="iv2/InterpreteVisuale.css"/>
+	<script src="iv2/InterpreteVisuale.js" type="text/javascript"></script>
+<style type="text/css">
+	#stack { border:3px solid #ddd ; margin-top:0em}
+	
+	.interpreteVisuale { background-color: #eeeeee ; border: 2px solid #ccc }
+	.interpreteVisuale > * { border-bottom: 2px solid #ccc ; margin: 0}
+	.interpreteVisuale > *:last-child { border-bottom: 0 }
+	.interpreteVisuale .variabili h2 { margin:0 }
+    .interpreteVisuale .bloccoPulsanti {
+        display: flex;
+        flex-direction: row;
+    }
+    .interpreteVisuale .didascalia { 
+        background-color: yellow; height:3em ; padding:0.2em;
+        margin:0; text-indent: 0
+    }
+	
+	 /* indentazione del programma */
+	.i1 { padding-left:1em }
+	.i2 { padding-left:2em }
+	.i3 { padding-left:3em }
+	.i4 { padding-left:4em }
+
+	.bloccoPulsanti > div{
+		border-radius: 0.35em;
+		background-color: #ddd;
+		align-self: center;
+		margin:0.5em;
+		padding:0.25em;
+	}
+	.velocita { border: 2px solid green }
+	.start { border: 2px solid red }
+	
+	
+</style>
+<!--  FIXME il vecchio sistema aveva un parametro in più in [ "decl", "v", "mostra", "aijs_i>=superficie" ]  -->
+<script type="text/javascript">
+	let scriptBubbleSort = new Programma(new Funzione("main",
+			new Decl("v", "mostra"),
+			new Decl("superficie", "mostra"),
+			new Decl("posizione", "mostra"),
+			new Decl("appoggio", "mostra"),
+			new Istr("v=[16,15,11,17,14,13,12,10]"),
+			new Istr("superficie=0"),
+			new While("superficie<v.length-1",[
+				new Istr("posizione=v.length-1"),
+				new While("posizione>=superficie",[
+					new If("v[posizione]>v[posizione+1]",[
+						// allora
+                        new Istr("appoggio=v[posizione]", "lin_17", "scambio i due elementi adiacenti"),
+                        new Istr("v[posizione]=v[posizione+1]", "lin_18", "scambio i due elementi adiacenti"),
+                        new Istr("v[posizione+1]=appoggio", "lin_19", "scambio i due elementi adiacenti")
+					],[
+						// altrimenti
+					],"lin_16"),
+					new Istr("posizione--", "lin_15")
+				],"lin_15"),
+				new Istr("superficie++", "lin_10")
+			],"lin_10")
+	));
+	var interpreteBubbleSort;
+	function eseguiBubbleSort(){
+		interpreteVisuale = new InterpreteVisuale(scriptBubbleSort, "pc1", "stack", "didascalia");
+		interpreteVisuale.interpreta("main");
+	}
+</script>
+</head>
+<body>
+<header>
+    <h1>ordinamento</h1>
+    <p>algoritmi di ordinamento</p>
+</header>
+<article>
+    <p>Molto spesso dato un elenco di informazioni serve metterlo in ordine (ad esempio perché
+    cercare un elemento su un elenco ordinato è molto più facile che in uno non ordinato),
+    se si tratta di numeri dal più piccolo al più grande (o viceversa), se si tratta di parole
+    in ordine alfabetico o altro ordinamento per altri tipi di oggetti.</p>
+    
+    <p>Potrebbe essere sorprendente ma esistono molte soluzioni per mettere in ordine gli elementi
+    di un vettore, alcune sono più veloci, altre meno, alcune usano più memoria, altre meno...</p>
+
+    <h2>Bubble Sort</h2>
+    <p>L'idea è quella di <em>portare a galla gli elementi più leggeri</em>.</p>
+    <p>Poniamo che <var>a</var> sia il vettore di interi da ordinare:
+    l'agoritmo inizia confrontando gli ultimi due elementi, se l'ultimo
+    è più piccolo del penultimo li scambia poi procede spostandosi verso l'alto e
+    applicando il procedimento al terzultimo e il penultimo e così via fino ad
+    arrivare a 	quelli ai primi due posti.
+    A questo punto avremo in posizione zero l'elemento più piccolo.</p>
+    <p>Procedendo alla stessa maniera (ma fermandomi al posto uno anziché al posto zero 
+    perché nel posto zero sappiamo già esserci l'elemento più piccolo) "porto a galla" 
+    il secondo elemento. 
+    Via di seguito facciamo la stessa cosa ogni volta fermandoci una posizione prima.</p>
+    <p>In pseudocodice:</p>
+    <div class="pseudo">
+    ciclo: superficie da 0 a lunghezza(a)-2
+        ciclo: m da lunghezza(a)-2 a superficie
+            se a[m] >a[m+1]
+                scambia a[m] e a[m+1]
+    </div>
+
+<div class="interpreteVisuale">    
+	<div class="bloccoPulsanti">
+		<div onclick='eseguiBubbleSort();' class="start">avvia bubble sort</div>
+		<div onclick='interpreteVisuale.velocita=2' class="velocita">lento</div>
+		<div onclick='interpreteVisuale.velocita=0.5' class="velocita">normale</div>
+		<div onclick='interpreteVisuale.velocita=0.1' class="velocita">veloce</div>
+	</div>
+	<div class="variabili">
+		<h2>Visualizzazione variabili <small>[istruzioni eseguite:<span id="pc1"></span></small>]</h2>
+		<div id="stack"></div>
+	</div>
+	<pre>
+<code class="i1"><span id="lin_10">for(superficie=primo;superficie&lt;=ultimo-1;superficie=superficie+1){</span></code>
+<code class="i2"><span id="lin_15">  for(posizione=ultimo-1;posizione&gt;=superficie;posizione--){</span></code>
+<code class="i3"><span id="lin_16">    if(v[posizione]>v[posizione+1]){</span></code>
+<code class="i4"><span id="lin_17">      appoggio=v[posizione];</span></code>
+<code class="i4"><span id="lin_18">      v[posizione]=v[posizione+1];</span></code>
+<code class="i4"><span id="lin_19">      v[posizione+1]=appoggio;</span></code>
+<code class="i3"><span id="lin_20">    }</span></code>
+<code class="i2"><span id="lin_21">  }</span></code>
+<code class="i1"><span id="lin_22">}</span></code>
+	</pre>
+	<p class="didascalia" id="didascalia"></p>
+</div>
+
+
+<h2>Merge sort</h2>
+<p>L'idea di partenza è che avendo due vettori già ordinati fonderli 
+in un unico vettore ordinato è una cosa facile:
+basta guardare l'elemento di testa di ogni vettore e decidere se prendere l'uno o l'altro, una volta
+preso lo togo e torno a fare la stessa operazione sugli elementi che restano.</p>
+
+<p>Proviamo a limitarci alla parte gialla del giagramma qui sotto.
+Devo fondere i vettori [3,8] e [1,5]. Guardo gli elementi di testa "3" e "1" e prendo uno, 
+successivamente guardo gli elementi che restano in cima cioè "3" e "5" e prendo 3, continuo così
+finche non fininscono tutti gli elementi.</p>
+
+<img src="immagini/mergeSort.svg" alt="diagramma Merge Sort" style="width:50%"/>
+<p>Qui sotto è riportato il codice che implementa l'algoritmo, per utilizzarlo va
+chiamato il metodo <code>mergeSort()</code> passando come parametro il vettore da ordinare.</p>
+
+<pre>public class Sort {
+
+    public static void mergeSort(int[] vettore) {
+        ordina (vettore, 0, vettore.length-1);
+    }
+
+    /************************************************************************
+     * Funzione che implementa l'algoritmo Merge Sort,
+     * divide (soltanto dal punto di vista logico) il vettore in due parti
+     * le ordina e poi le fonde 
+     * @param v      il vettore da ordinare
+     * @param primo  il primo elemento da ordinare del vettore (es: 0)
+     * @param ultimo l'ultimo elemento da ordinare del vettore (es: v.length-1)
+     ***********************************************************************/
+    public static void ordina(int[] v, int primo, int ultimo){
+        int medio;
+        if(primo&lt;ultimo){
+            medio=(ultimo+primo)/2;
+            ordina(v,primo,medio);
+            ordina(v,medio+1,ultimo);
+            merge(v,primo,ultimo,medio);
+        }
+    }
+ 
+    /************************************************************************
+     * Fonde due semi-vettori, 
+     * il primo va da "primo" a "medio"
+     * il secondo da "medio+1" a "ultimo"
+     * @param v     vettore che contiene le due parti da fondere
+     * @param primo primo elemento del primo semi-vettore
+     * @param ultimo    ultimo elemento del secondo semi-vettore
+     * @param medio ultimo elemento del primo semi-vettore
+     ***********************************************************************/
+    private static void merge(int[] v, int primo, int ultimo, int medio){
+        int appoggio[] = new int [ultimo-primo+1];
+        int inserimento=0;
+        int indicePrimo=primo;
+        int indiceSecondo=medio+1;
+        int i;
+        
+        // fondo la parte iniziale dei due vettori
+        while(indicePrimo&lt;=medio &amp;&amp; indiceSecondo&lt;=ultimo){
+            if(v[indicePrimo]&lt;v[indiceSecondo]){
+                appoggio[inserimento]=v[indicePrimo];
+                indicePrimo=indicePrimo+1;
+            }else{
+                appoggio[inserimento]=v[indiceSecondo];
+                indiceSecondo=indiceSecondo+1;
+            }
+            inserimento=inserimento+1;
+        }
+        // a questo punto potrebbe essere restata una parte del primo o del secondo pezzo
+        // ma non di entrambe
+        if(indicePrimo&lt;=medio){
+            // bisogna finire di inserire il primo vettore
+            for(i=indicePrimo;i&lt;=medio;i=i+1){
+                appoggio[inserimento]=v[i];
+                inserimento=inserimento+1;
+            }
+        }else{
+            // bisogna finire di inserire il secondo vettore
+            for(i=indiceSecondo;i&lt;=ultimo;i=i+1){
+                appoggio[inserimento]=v[i];
+                inserimento=inserimento+1;
+            }
+        }
+        // copio il vettore di appoggio nel vettore originale
+        for(i=0;i&lt;appoggio.length;i=i+1){
+            v[primo+i]=appoggio[i];
+        }
+    }
+}</pre>
+
+<h2>Confronto</h2>
+<p>Perché mai usare MergeSort che è così complicato quando BubbleSort funziona e è tanto semplice?</p>
+
+<p>Perché MergeSort è molto, molto, molto più veloce di BubbleSort! Ad esempio su un i7 a 2.5GH
+per ordinare 1000 nomi Merge impiega 1msec mentre Bubble 21msec... sembra una differenza trascurabile
+ma vediamo qualche caso reale: l'anagrafe di un comune vuole creare un elenco di cittadini ordinati per nome,
+cosa succederebbe in comuni di diverse dimensioni?</p>
+
+<table>
+    <tr>
+        <th>Comune</th><th>abitanti</th><th>tempo Bubble</th><th>tempo Merge</th>
+    </tr>
+    <tr>
+        <td>Fossato di Vico</td><td>2700</td><td>53 millisecondi</td><td>3 millisecondi</td>
+    </tr>
+    <tr>
+        <td>Gubbio</td><td>32000</td><td>7 secondi</td><td>25 millisecondi</td>
+    </tr>
+    <tr>
+        <td>Perugia</td><td>167000</td><td>6 minuti</td><td>0,1 secondi</td>
+    </tr>
+    <tr>
+        <td>Bologna</td><td>390000</td><td>35 minuti</td><td>0,25 secondi</td>
+    </tr>
+</table>
+
+<p>Senza addentrarci nella spiegazione formale (che esiste, basta cercare "calcolo della complessità")
+sul perché Merge è più veloce di Bubble in questo contesto ci basta notare che scrivere un programma 
+in modi diversi cambia di molto la sua velocità di esecuzione.</p>
+
+</article>
+</body>
+</html>

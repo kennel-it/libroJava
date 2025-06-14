@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="salutaUtente" group="grafica" -->
+<!-- changelog 2017-11-03 inseriti dettagli per visualizzare immagine -->
+<!-- changelog 2021-08-20 spostato più in alto il dimensionamento dei controlli -->
+<!-- changelog 2021-08-25 riscritta la parte di allineamento delgi oggetti nella griglia -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>formattazione</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <style>
+            .codiceEOutput { display: flex; flex-direction: row  ; align-items : flex-start}
+            .codiceEOutput :nth-child(2) { 
+                margin:1em; border:1px solid black;
+            }
+        </style>   
+    </head>
+    <body>
+    	<header>
+	    	<h1>formattazione</h1>
+	    	<p>formattazione degli elementi della finestra</p>
+    	</header>
+		<article>
+		<p>In questo capitolo prenderemo in considerazione soltanto l'aspetto grafico del nostro programma.</p>
+		
+    	<h2>Spaziature</h2>
+		<p>Quando visualizzeremo la finestra dell'esempio <a href="090-30-salutaUtente.xhtml">Un saluto personalizzato</a> tutti gli oggetti risulteranno attaccati gli uni agli altri.
+		Per avere un po' di spazio basta impostare il numero di pixel (cioè di punti) che devono esserci per separare i due oggetti. Lo spazio sarà indicato
+		col metodo <code>setHgap</code>per quello orizzontale e con <code>setVgap</code>per quello verticale. Per aumentare invece lo spazio che c'è tra gli
+		oggetti ed il bordo della finestra (specificamente tra gli oggetti ed il bordo del pannello) si va ad usare il metodo
+		<code>setPadding(new Insets(<var>pxSu</var>, <var>pxDestra</var>, <var>pxGiù</var>, <var>pxSinistra</var>))</code>.
+		Un esempio: vogliamo che orizzontalmente ci siano 20 pixel di spazio tra i controlli e ce ne siano 40 verticalmente; vogliamo poi che ci siano 10
+		 pixel
+		di spazio tra ogni lato del bordo della finestra ed i controlli all'interno. Scriveremo:</p>
+
+<div class="codiceEOutput">
+<pre>griglia.setPadding(new Insets(10, 10, 10, 10));
+griglia.setHgap(20); 
+griglia.setVgap(40);</pre>
+<img src="immagini/formattazione_finestra_spaziatura.png" alt="Esempio di pagging e gap" style="margin:1em; border:1px solid black"/>
+</div>
+
+		<h2>Dimensionamento di un controllo</h2>
+		<h3>Stabilire la misura</h3>
+		<p>Nel momento in cui poni un oggetto sul pannello, verrà calcolata la dimensione (larghezza ed altezza) ottimale; tale misura dipende - tra le altre
+		cose - anche da quanto testo vi è contenuto. Se dovessi inserire in un pannello 3 pulsanti il cui testo mostrato è "Salva", "Annulla" e
+		"Esci senza salvare", ti troveresti un pulsante molto stretto (Salva), uno medio (Annulla) ed uno particolarmente lungo ("Esci senza salvare"). Puoi
+		indicare le misure da te desiderate tramite i metodi che seguono. Tali metodi verranno ovviamente applicati all'oggetto di cui vuoi impostare la
+		dimensione. In tutti i casi l'argomento o gli argomenti forniti sono numeri (costanti o variabili) di tipo double sebbene da noi verranno usati interi.</p>
+		<table>
+		   <tr>
+		      <th>Metodo</th>
+		      <th>Risultato ottenuto</th>
+		   </tr><tr>
+		      <td><code>setMinWidth(larghezza)</code></td>
+		      <td>Larghezza minima</td>
+		   </tr><tr>
+		      <td><code>setPrefWidth(larghezza)</code></td>
+		      <td>Larghezza desiderata</td>
+		   </tr><tr>
+		      <td><code>setMaxWidth(larghezza)</code></td>
+		      <td>Larghezza massima</td>
+		   </tr><tr>
+		      <td><code>setMinHeight(altezza)</code></td>
+		      <td>Altezza minima</td>
+		   </tr><tr>
+		      <td><code>setPrefHeight(altezza)</code></td>
+		      <td>Altezza desiderata</td>
+		   </tr><tr>
+		      <td><code>setMaxHeight(altezza)</code></td>
+		      <td>Altezza massima</td>
+		   </tr><tr>
+		      <td><code>setMinSize(larghezza, altezza)</code></td>
+		      <td>Dimensione (larghezza ed altezza) minima</td>
+		   </tr><tr>
+		      <td><code>setPrefSize(larghezza, altezza)</code></td>
+		      <td>Dimensione (larghezza ed altezza) desiderata</td>
+		   </tr><tr>
+		      <td><code>setMaxSize(larghezza, altezza)</code></td>
+		      <td>Dimensione (larghezza ed altezza) massima</td>
+		   </tr>
+		</table>
+		<p>Vediamo ad esempio come si potrebbe dimensionare un pulsante a 200 punti di larghezza:</p>
+
+<div class="codieEOutput">
+<pre>pulsante1.setPrefWidth(200.0);</pre>
+<img src="immagini/formattazione_finestra_dimensioni.png" alt="Dimensioni degli oggetti"/>
+</div>
+
+		<h3>Un controllo in più celle</h3>
+		<p>Nel momento in cui progetti un'interfaccia grafica può esserti utile la possibilità di far occupare ad un dato controllo più celle della griglia.
+		Potrebbe ad esempio succedere che un messaggio di testo sia piuttosto lungo,
+		si potrebbe allora volerlo sull'intera ultima riga, fare in modo cioè che occupi sia la prima che la seconda colonna
+		(poniamo che la nostra griglia abbia due colonne).
+		Questo vuol dire che userà 2 colonne a partire da quella in cui è posizionato.</p>
+		<p>In realtà a tutti i controlli viene impostato il numero di celle orizzontali e verticali che andrà ad occupare in modo predefinito ad 1. Se si
+		vuole un valore diverso questo deve essere esplicitato dal programmatore, cioè da te. Per far questo riprendiamo il metodo della griglia che conosci
+		già molto bene: <code>add(<var>nomeControllo</var>, <var>posX</var>, <var>posY</var>)</code>. Ne esiste una variante in cui oltre a fornire tali informazioni si esplicita appunto
+		il numero di righe e colonne: <code>add(<var>nomeControllo</var>, <var>posX</var>, <var>posY</var>, <var>numColonne</var>, <var>numRighe</var>)</code>.</p>
+		<img src="immagini/formattazione_finestra_celle.png" alt="Oggetti su più celle" style="float:right; margin:1em; border:1px solid black"/>
+		<p>Per far occupare allora al messaggio di saluto due colonne basterà sostituire la riga<br/><code>griglia.add(<span class="ST1">pulsante</span>, 0, 1);
+		</code><br/>con la riga<br/><code>griglia.add(<span class="ST1">pulsante</span>, 0, 1, 2, 1);</code></p>
+
+		<h2>Posizionamento del contenuto del pannello</h2>
+		<p>Andiamo ad ingrandire la finestra, ad esempio portiamola a 600x300 e vediamo che succede.</p>
+		<p>Ora lo spazio tra il bordo della finestra e tra i controlli è come si voleva ma tutto rimane in alto a sinistra dando l'idea di una non buona
+		distribuzione degli oggetti. Puoi chiedere allo StackPane o al GridPane di allineare il suo contenuto sia in verticale che in orizzontale tramite il metodo
+		<code>setAlignment(<var>posizione</var>)</code>. La posizione deve essere esattamente una tra le seguenti possibilità:</p>
+		<img src="immagini/formattazione_finestra_posizionamento.png" alt="Posizionamento di un pannello" style="float:right; margin:1em; border:1px solid black"/>
+		<table>
+		   <tr>
+		      <th>Codice</th>
+		      <th>Tipo di allienamento</th>
+		   </tr><tr>
+		      <td><code>Pos.TOP_LEFT</code></td>
+		      <td>In alto a sinistra</td>
+		   </tr><tr>
+		      <td><code>Pos.TOP_RIGHT</code></td>
+		      <td>In alto a destra</td>
+		   </tr><tr>
+		      <td><code>Pos.TOP_CENTER</code></td>
+		      <td>In alto centrato orizzontalmente</td>
+		   </tr><tr>
+		      <td><code>Pos.BOTTOM_LEFT</code></td>
+		      <td>In basso a sinistra</td>
+		   </tr><tr>
+		      <td><code>Pos.BOTTOM_RIGHT</code></td>
+		      <td>In basso a destra</td>
+		   </tr><tr>
+		      <td><code>Pos.BOTTOM_CENTER</code></td>
+		      <td>In basso centrato orizzontalmente</td>
+		   </tr><tr>
+		      <td><code>Pos.CENTER_LEFT</code></td>
+		      <td>Centrato verticalmente e a sinistra</td>
+		   </tr><tr>
+		      <td><code>Pos.CENTER_RIGHT</code></td>
+		      <td>Centrato verticalmente e a destra</td>
+		   </tr><tr>
+		      <td><code>Pos.CENTER</code></td>
+		      <td>Centrato verticalmente e centrato orizzontalmente</td>
+		   </tr>
+		</table>
+		<p>Applicando quanto visto, se vogliamo centrare (in entrambi i sensi) tutti i controlli dell'esempio, andremo semplicemente a scrivere:<br/>
+		<code>griglia.setAlignment(Pos.CENTER);</code></p>
+
+		<h2>Allineamento</h2>
+		<p>Abbiamo già detto che il <code>GridPane</code> inserisce i vari controlli all'interno di una griglia mettendo 
+		in una casella un solo controllo. Si verranno a creare così un certo numero di righe e di colonne.
+		Il <code>GridPane</code> ci offre la possibilità di allineare il contenuto di ciascuna colonna e
+		ciascuna riga. Iniziamo con l'esempio che permette di allineare a destra la prima colonna ed a sinistra la seconda, al centro tutte le righe:</p>
+<div class="codiceEOutput">
+<pre>ColumnConstraints vincoliPrimaColonna = new ColumnConstraints();
+vincoliPrimaColonna.setHalignment(HPos.RIGHT);
+ColumnConstraints vincoliSecondaColonna = new ColumnConstraints();
+vincoliSecondaColonna.setHalignment(HPos.CENTER);
+griglia.getColumnConstraints().addAll(vincoliPrimaColonna, vincoliSecondaColonna);
+
+RowConstraints vincoliRiga0 = new RowConstraints();
+vincoliRiga0.setValignment(VPos.CENTER);
+RowConstraints vincoliRiga1 = new RowConstraints();
+vincoliRiga1.setValignment(VPos.CENTER);
+RowConstraints vincoliRiga2 = new RowConstraints();
+vincoliRiga2.setValignment(VPos.CENTER);
+griglia.getRowConstraints().addAll(vincoliRiga0, vincoliRiga1, vincoliRiga2);</pre>
+<img src="immagini/formattazione_finestra_righeColonne.png" alt="Allineamento nelle righe e nelle colonne" />
+</div>
+		<p>Quel che si fa è creare degli oggetti che rappresentano 
+		i vincoli (i <code>ColumnConstraints</code>), impostare l'allineamento ( <code>setHalignment</code>)
+		per ciascuna colonna e poi tutti i vincoli vengono legati alla griglia 
+		usando <code>getColumnConstraints().addAll()</code> in ordine dalla colonna zero in avanti.
+		Discorso analogo vale per le righe.</p>
+		
+		<p>Per quanto riguarda l'allineamento è possibile utilizzare le seguenti costanti:</p>
+		<table>
+          <tr>
+             <th>Codice per colonne</th>
+             <th>Tipo di allienamento</th>
+          </tr><tr>
+             <td><code>HPos.LEFT</code></td>
+             <td>Allinea a sinistra</td>
+          </tr><tr>
+             <td><code>HPos.CENTER</code></td>
+             <td>Allinea al centro</td>
+          </tr><tr>
+             <td><code>HPos.RIGHT</code></td>
+             <td>Allinea a destra</td>
+          </tr><tr>
+             <th>Codice per righe</th>
+             <th>Tipo di allienamento</th>
+          </tr><tr>
+             <td><code>VPos.TOP</code></td>
+             <td>Allinea in alto</td>
+          </tr><tr>
+             <td><code>VPos.CENTER</code></td>
+             <td>Allinea al centro</td>
+          </tr><tr>
+             <td><code>VPos.BOTTOM</code></td>
+             <td>Allinea in basso</td>
+          </tr>
+       </table>
+		
+		<h2>Miscellanea...</h2>
+		<p>Alcune operazioni che si possono fare sui controlli per alterarne l'aspetto. Si tratta in tutti i casi di metodi dei controlli stessi:</p>
+		<ul>
+		   <li><em>Immagine:</em><br/><code>setGraphic(<var>immagine</var>)</code> per le etichette e i pulsanti<br/>
+		   se ad esempio la mia immagine si trova nel pacchetto <var>test</var> l'oggetto <var>immagine</var> può essere costruita in questo modo:
+		   <code>ImageView <em>immagine</em> = new ImageView("/test/immagine.jpg");</code></li>
+		   <li><em>Rotazione:</em><br/><code>setRotate(<var>gradi</var>)</code> il cui argomento è un <code>double</code> (un angolo espresso in gradi).</li>
+		   <li><em>Traslazione:</em><br/><code>setTranslateX(<var>punti</var>)</code> il cui argomento è un <code>double</code>. Valori positivi spostano a destra, negativi a sinistra.<br/>
+		       <code>setTranslateY(<var>punti</var>)</code> come sopra, ma valori positivi spostano in basso e negativi in alto.</li>
+		   <li><em>Scala:</em><br/><code>setScaleX(<var>fattore</var>)</code> il cui argomento è un <code>double</code> e rappresenta il fattore moltiplicativo. Ad esempio se vogliamo
+		       che un controllo chiamato <code><var>oggetto</var></code> sia largo il doppio metteremo <code><var>oggetto</var>.setScaleX(2);</code><br/>
+		       <code>setScaleY(<var>fattore</var>)</code> il cui comportamento è conforme alla riga sopra.</li>
+		</ul>
+
+		</article>
+</body>
+</html>

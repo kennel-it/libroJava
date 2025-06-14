@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="condizionale ripetizione while" group="base" -->
+<!-- changelog 2017-09-05 corretti diversi errori nel ciclo for -->
+<!-- changelog 2018-04-17 maggiori dettagli per il condizionale -->
+<!-- changelog 2020-01-10 piccole correzioni -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>flusso</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <link type="text/css" rel="stylesheet" href="iv/InterpreteVisuale.css"/>
+        <script type="text/javascript" src="iv/InterpreteVisuale.js"></script>
+        <style type="text/css">
+        	.istruzione {width: 25em;}
+        	.corpo { border:2px solid #ef6411 ; background-color: rgba(255,255,0,0.5) ; padding:0.5em}
+        	.istruzione .sub { border:1px solid #ef6411 ; background-color: rgba(255,255,0,0.75) ; margin:0.25em}
+        	.istruzione .inde { margin-left:2em }
+        </style>
+		<style type="text/css">
+			.stack { border:3px solid #ddd ; margin-top:0em}
+	
+			.i1 { padding-left:0em }
+			.i2 { padding-left:2em }
+			
+			.bloccoLavoro {
+				display: flex;
+	        	flex-direction: row;
+	        	margin: 1em 0em;
+			}
+			.bloccoLavoro > * {
+				padding-left: 1em;
+				padding-right: 1em;
+			}
+			.bloccoLavoro > *:FIRST-CHILD {
+				border: 2px solid red;
+				border-radius: 0.35em;
+				background-color: #ddd;
+				align-self: center;
+				margin:0.5em;
+				padding:0.25em;
+			}
+			.bloccoLavoro > *:nth-child(2){
+				background-color: #e0e0e0;
+			}
+			.bloccoLavoro > *:nth-child(3){
+				background-color: #eaeaea;
+			}
+		</style>
+		<script type="text/javascript">
+		scriptSequenza = [
+			{"programma":[ 
+				["decl", "x", "mostra"],
+				["decl", "y", "mostra"],
+				["istr", "x=10", "seq_10"],
+				["istr", "y=x+4", "seq_11"],
+				["istr", "y=y+1", "seq_12"]
+			]}
+		];
+		scriptCondizionaleIf = [
+			{"programma":[ 
+				["decl", "x", "mostra"],
+				["decl", "y", "mostra"],
+				["istr", "x=12", "condizionalei_10"],
+				["istr", "y=1",  "condizionalei_11"],
+				[ "if", "x<8",
+					[	// allora
+						["istr", "y=x+4", "condizionalei_13"]
+					] ,
+					[],	// altrimenti
+					"condizionalei_12"
+				]
+			]}
+		];
+		scriptCondizionaleIfElse = [
+			{"programma":[ 
+				["decl", "x", "mostra"],
+				["decl", "y", "mostra"],
+				["istr", "x=12", "condizionaleie_10"],
+				[ "if", "x>8",
+					[	// allora
+						["istr", "y=x+4", "condizionaleie_12"]
+					] ,
+					[	// altrimenti
+						["istr", "y=x-4", "condizionaleie_13"]
+					],
+					"condizionaleie_11"
+				],
+				["istr", "y=y+1", "condizionaleie_14"],
+			]}
+		];
+		scriptCondizionaleIfElse2 = [
+			{"programma":[ 
+				["decl", "x", "mostra"],
+				["decl", "y", "mostra"],
+				["istr", "x=4", "condizionaleie2_10"],
+				[ "if", "x>8",
+					[	// allora
+						["istr", "y=x+4", "condizionaleie2_12"]
+					] ,
+					[	// altrimenti
+						["istr", "y=x-4", "condizionaleie2_13"]
+					],
+					"condizionaleie2_11"
+				],
+				["istr", "y=y+1", "condizionaleie2_14"],
+			]}
+		];
+		scriptFor = [
+			{	"programma": [
+					[ "decl", "x", "mostra" ],
+					[ "decl", "j", "mostra" ],
+					[ "istr", "j=0", "for_10" ],
+					[ "istr", "x=1", "for_11" ],
+					[ "while", "x<5", [
+						[ "velocita", "1" ], // XXX: questa impostazione e l'analoga a zero sotto servono per rendere più chiara l'animazione
+											 // altrimenti si avrebbero dei tempi con nulla evidenziati
+						[ "istr", "j = j+x", "for_14" ],
+						[ "istr", "x++", "for_13" ],
+						[ "istr", "j=j", "for_12" ], // XXX: serve perché l'implemntazione del while non evidenzia la guardia tutte le volte che la valuta
+						[ "velocita", "0" ]
+					], "for_12"
+					]
+				],
+			}
+		];
+		scriptWhile = [
+			{	"programma": [
+					[ "decl", "y", "mostra" ],
+					[ "decl", "x", "mostra" ],
+					[ "istr", "y=0", "while_10" ],
+					[ "istr", "x=1", "while_11" ],
+					[ "while", "x<4", [
+						[ "velocita", "1" ], // XXX: questa impostazione e l'analoga a zero sotto servono per rendere più chiara l'animazione
+											 // altrimenti si avrebbero dei tempi con nulla evidenziati
+						[ "istr", "y = y+x", "while_14" ],
+						[ "istr", "x++", "while_15" ],
+						[ "istr", "y=y", "while_13" ], // XXX: serve perché l'implemntazione del while non evidenzia la guardia tutte le volte che la valuta
+						[ "velocita", "0" ]
+					], "for_12"
+					]
+				],
+			}
+		];
+		var interpreteVisualeSeq;
+		var interpreteVisualeCondizionaleIfElse;
+		var interpreteVisualeCondizionaleIfElse2;
+		var interpreteVisualeFor;
+		var interpreteVisualeWhile;
+		function preparaInterpreti(){
+			var pSequenza = new Programma(scriptSequenza);
+			interpreteVisualeSeq = new InterpreteVisuale(pSequenza, "x", "stackSequenza");
+			var pCondizionaleIf = new Programma(scriptCondizionaleIf);
+			interpreteVisualeCondizionaleIf = new InterpreteVisuale(pCondizionaleIf, "x", "stackCondizionaleIf");
+			var pCondizionaleIfElse = new Programma(scriptCondizionaleIfElse);
+			interpreteVisualeCondizionaleIfElse = new InterpreteVisuale(pCondizionaleIfElse, "x", "stackCondizionaleIfElse");
+			var pCondizionaleIfElse2 = new Programma(scriptCondizionaleIfElse2);
+			interpreteVisualeCondizionaleIfElse2 = new InterpreteVisuale(pCondizionaleIfElse2, "x", "stackCondizionaleIfElse2");
+			var pFor = new Programma(scriptFor);
+			interpreteVisualeFor = new InterpreteVisuale(pFor, "x", "stackFor");
+			var pWhile = new Programma(scriptWhile);
+			interpreteVisualeWhile = new InterpreteVisuale(pWhile, "x", "stackWhile");
+		}
+		</script>
+    </head>
+<body onload="preparaInterpreti()">
+<header>
+<h1>flusso</h1>
+<p>strutture per il controllo del flusso dell'esecuzione</p>
+</header>
+<article>
+
+<h2>Sequenza</h2>
+<p>Ci consente di eseguire una serie di istruzioni in ordine.</p>
+<p>La sintassi è piuttosto semplice: basta mettere una istruzione (terminata da un ";")
+dopo l'altra.</p>
+<p>Nell'esempio qui sotto viene eseguita prima istruzione1 e poi istruzione2 ma...
+è possibile metterne un numero qualsiasi.</p>
+<div class="istruzione">
+	<div class="corpo">
+		<div class="sub">istruzione1;</div>
+		<div class="sub">istruzione2;</div>
+	</div>
+</div>
+
+<div class="bloccoLavoro">
+	<div onclick='interpreteVisualeSeq.interpreta("programma");' class="start">avvia programma</div>
+	<div>
+		<h3>variabili</h3>
+		<div id="stackSequenza"></div>
+	</div>
+	<div>
+		<h3>codice</h3>
+<pre>
+<code class="i1"><span id="seq_10">x =10;</span></code>
+<code class="i1"><span id="seq_11">y = x+4;</span></code>
+<code class="i1"><span id="seq_12">y++;</span></code>
+</pre>
+	</div>
+</div>
+
+<h2>Condizionale</h2>
+<p>Questa struttura è utile se voglio eseguire delle istruzioni soltanto 
+se si verifica un dato evento, in caso contrario quelle istruzioni non vanno eseguite.</p>
+<p>Sintatticamente l'istruzione si costruisce usando la parola chiave <code>if</code> 
+seguita da una espressione booleana racchiusa tra parentesi tonde. Se la condizione è vera l'istruzione successiva
+viene eseguita altrimenti no, in ogni caso si passa a quella dopo ancora. Se però ho bisogno di 
+eseguire più istruzioni al verificarsi della condizione posso inserirne un blocco
+racchiudendole tra parentesi graffe (il consiglio generale è di mettere sempre le graffe
+anche se ho una sola istruzione).</p>
+<p>Nell'esempio qui sotto <code>istruzione</code> verrà eseguita soltanto se condizione 
+(che è una espressione di tipo booleano) è vera.</p>
+<div class="istruzione">
+	<div class="corpo">
+		<div class="text">if(<span>condizione</span>){</div>
+		<div class="sub inde">istruzione;</div>
+		<div class="text">}</div>
+	</div>
+</div>
+<br/>
+<div class="bloccoLavoro">
+	<div onclick='interpreteVisualeCondizionaleIf.interpreta("programma");' class="start">avvia programma</div>
+	<div>
+		<h3>variabili</h3>
+		<div id="stackCondizionaleIf"></div>
+	</div>
+	<div>
+		<h3>codice</h3>
+<pre>
+<code class="i1"><span id="condizionalei_10">x = 12;</span></code>
+<code class="i1"><span id="condizionalei_11">y = 1;</span></code>
+<code class="i1"><span id="condizionalei_12">if( x &lt; 8){</span></code>
+<code class="i2"><span id="condizionalei_13">y = x+4;</span></code>
+<code class="i1"><span                     >}</span></code>
+</pre>
+	</div>
+</div>
+
+<h2>Condizionale</h2>
+<p>Questo secondo tipo di condizionale ha anche la parte <code>else</code>
+che verrà eseguita soltanto se la condizione è falsa: una sola tra le parti 
+<code>if</code> e <code>else</code> verrà eseguita, poi in ogni caso si procederà 
+con l'istruzione successiva.</p>
+<div class="istruzione">
+	<div class="corpo">
+		<div class="text">if(<span>condizione</span>){</div>
+		<div class="sub inde">istruzione1;</div>
+		<div class="text">}else{</div>
+		<div class="sub inde">istruzione2;</div>
+		<div class="text">}</div>
+	</div>
+</div>
+
+<div class="bloccoLavoro">
+	<div onclick='interpreteVisualeCondizionaleIfElse.interpreta("programma");' class="start">avvia programma</div>
+	<div>
+		<h3>variabili</h3>
+		<div id="stackCondizionaleIfElse"></div>
+	</div>
+	<div>
+		<h3>codice</h3>
+<pre>
+<code class="i1"><span id="condizionaleie_10">x = 12;</span></code>
+<code class="i1"><span id="condizionaleie_11">if( x&gt; 8){</span></code>
+<code class="i2"><span id="condizionaleie_12">y = x+4;</span></code>
+<code class="i1"><span                     >}else{</span></code>
+<code class="i2"><span id="condizionaleie_13">y = x-4;</span></code>
+<code class="i1"><span                     >}</span></code>
+<code class="i1"><span id="condizionaleie_14">y = y+1;</span></code>
+</pre>
+	</div>
+</div>
+
+<div class="bloccoLavoro">
+	<div onclick='interpreteVisualeCondizionaleIfElse2.interpreta("programma");' class="start">avvia programma</div>
+	<div>
+		<h3>variabili</h3>
+		<div id="stackCondizionaleIfElse2"></div>
+	</div>
+	<div>
+		<h3>codice</h3>
+<pre>
+<code class="i1"><span id="condizionaleie2_10">x = 4;</span></code>
+<code class="i1"><span id="condizionaleie2_11">if( x&gt; 8){</span></code>
+<code class="i2"><span id="condizionaleie2_12">y = x+4;</span></code>
+<code class="i1"><span                     >}else{</span></code>
+<code class="i2"><span id="condizionaleie2_13">y = x-4;</span></code>
+<code class="i1"><span                     >}</span></code>
+<code class="i1"><span id="condizionaleie2_14">y = y+1;</span></code>
+</pre>
+	</div>
+</div>
+
+<h2>Switch</h2>
+<p>È una struttura che ci consente di abbreviare una serie di if-else.</p>
+<p>Il costrutto è un pò elaborato e usa tre parole chiave: <code>switch</code>,
+<code>case</code> e <code>default</code>. Rispetto all'if-else dobbiamo tener presente che l'esecuzione del programma una volta 
+verificata una condizione continuerà fino alla fine dello switch e non si fermerà al <code>case</code>
+(o al <code>default</code>) successivo, per questo si possono usare i break.</p> 
+<div class="istruzione">
+
+	<div class="corpo">
+		<div class="text">switch(<span>espressione</span>){</div>
+		<div class="text">case <span>espressione1</span>:</div>
+		<div class="sub inde">istruzione1;</div>
+		<div class="text">case <span>espressione2</span>:</div>
+		<div class="sub inde">istruzione2;</div>
+		<div class="text">/* tutti i "case" che servono */</div>
+		<div class="text">default:</div>
+		<div class="sub inde">istruzioneN;</div>
+		<div class="text">}</div>
+	</div>
+</div>
+<h3>esempio</h3>
+<div class="bloccoLavoro">
+	<div style="display:none"></div>
+	<div style="display:none"></div>
+	<div>
+		<h3>codice</h3>
+<pre>
+<code class="i1">switch ( <span>x</span> ) {</code>
+<code class="i1">case 1:</code>
+<code class="i2">y = 10;<br/>break;</code>
+<code class="i1">case 2:</code>
+<code class="i1">case 3:</code>
+<code class="i2">y = 20;<br/>break;</code>
+<code class="i1">default:</code>
+<code class="i2">y = 40;</code>
+<code class="i1">}</code>
+</pre>
+	</div>
+</div>
+<p>Il programma qui sopra assegna il volore 10 alla variabile <var>y</var> se x=1,
+se invece x è uguale a 2 o 3 assegna ad <var>y</var> il valore 20, in tutti gli altri casi 
+ad <var>y</var> verrà assegnato il valore 40. 
+Se non ci fosse stato nessun break avrebbe assegnato sempre il valore 40.</p> 
+
+<h2>Ciclo for</h2>
+<p>Il ciclo <code>for</code> funziona così:<br/>
+1-viene eseguita una sola volta l'inizializzazione (di solito una o più assegnazioni separarte da virgola)<br/>
+2-se la condizione (che è una espressione booleana) è falsa il ciclo finisce<br/>
+3-se la condizione è vera si esegue istruzione1, poi il passo (che di solito è un incremento) e si torna al punto 2</p>
+<div class="istruzione">
+	<div class="corpo">
+		<div class="text">for(<span>inizializzazione</span>;<span>condizione</span>;<span>passo</span>){</div>
+		<div class="sub inde">istruzione1;</div>
+		<div class="text">}</div>
+	</div>
+</div>
+
+<div class="bloccoLavoro">
+	<div onclick='interpreteVisualeFor.interpreta("programma");' class="start">avvia programma</div>
+	<div>
+		<h3>variabili</h3>
+		<div id="stackFor"></div>
+	</div>
+	<div>
+		<h3>codice</h3>
+<pre>
+<code class="i1"><span id="for_10">j = 0;</span></code>
+<code class="i1">for( <span id="for_11"> x=1 </span>;  <span id="for_12">x&lt;5</span>; <span id="for_13">x++</span> ){</code>
+<code class="i2"><span id="for_14">j = j + i;</span></code>
+<code class="i1">}</code>
+</pre>
+	</div>
+</div>
+
+<h2>Ciclo while</h2>
+<p>Il ciclo <code>while</code> funziona così:<br/>
+1-se la condizione (che è una espressione booleana) è falsa il ciclo finisce<br/>
+2-se la condizione è vera si esegue il corpo del while (le istruzioni contenute)<br/>
+3-arrivati in fondo si torna al punto 1 cioè a testare la condizione all'inizio del ciclo...</p>
+<div class="istruzione">
+	<div class="corpo">
+		<div class="text">while(<span>condizione</span>){</div>
+		<div class="sub inde">istruzione1;</div>
+		<div class="text">}</div>
+	</div>
+</div>
+
+<div class="bloccoLavoro">
+	<div onclick='interpreteVisualeWhile.interpreta("programma");' class="start">avvia programma</div>
+	<div>
+		<h3>variabili</h3>
+		<div id="stackWhile"></div>
+	</div>
+	<div>
+		<h3>codice</h3>
+<pre>
+<code class="i1"><span id="while_10">y = 0;</span></code>
+<code class="i1"><span id="while_11">x = 1;</span></code>
+<code class="i1"><span id="while_12">while( <span id="while_13">x&lt; 4</span> ){</span></code>
+<code class="i2"><span id="while_14">y = y+x;</span></code>
+<code class="i2"><span id="while_15">x++;</span></code>
+<code class="i1"><span              >}</span></code>
+</pre>
+	</div>
+</div>
+
+<h2>Ciclo do-while</h2>
+<p>Il ciclo <code>do-while</code> esegue il controllo alla fine (e non all'inizio come il while), 
+per il resto si comporta come il while.<br/>
+1-esegue il corpo del ciclo
+2-se la condizione (che è una espressione booleana) è falsa il ciclo finisce<br/>
+2-se la condizione è vera si torna al punto 2, cioè ad eseguire il corpo del ciclo...</p>
+<div class="istruzione">
+	<div class="corpo">
+		<div class="text">do{</div>
+		<div class="sub inde">istruzione1;</div>
+		<div class="text">}while(<span>condizione</span>)</div>
+	</div>
+</div>
+
+</article>
+</body>
+</html>

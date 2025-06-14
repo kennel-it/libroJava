@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="oggetti flusso" group="algoritmiStruttureDati" -->
+<!-- changelog 2020-11-21 inserito capitolo con code e pile -->
+<!-- changelog 2020-11-25 inserito esempio sulle code -->
+<!-- changelog 2020-12-09 inserito elemento get() di ArrayList -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>struttureDinamiche</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <style>
+            h2 { clear: both }
+            img { padding:1.25em; border: 1px solid gray; margin:0.5em }
+            div.test {clear:both }
+        </style>         
+    </head>
+<body>
+<header>
+    <h1>struttureDinamiche</h1>
+    <p>gestire un numero indefinito di dati</p>
+</header>
+<article>
+    <p>Nella costruzione di un programma non sempre è possibile stabilire il numero esatto
+    di dati che dovrà usare quando sarà eseguito, per questo sono essenziali le strutture dati
+    dinamiche come i vettori. Poniamo che ad esempio io debba leggere un elenco di nomi
+    da un file su disco: quanti saranno quei nomi?</p>
+    
+    <dfn>Una <em>struttura dati dinamica</em> è una struttura in cui si possono inserire
+    informazioni e che viene costruita a tempo di esecuzione cioè quando il programma
+    sta funzionando.</dfn>
+    
+    <p>I vettori sono strutture dinamiche perché posso dimensionarli a tempo di esecuzione
+    hanno però un limite: la loro lunghezza viene stabilita al momento della creazione
+    e non può più essere variata né tanto meno posso essere rimossi elementi da un vettore. 
+    Quando queste condizioni risultano essere limitanti si può far ricorso ad altre strutture
+    che possono cambiare la loro dimensione durante l'esecuzione del programma.</p>
+    
+    <h3>ArrayList</h3>
+    <p>Molto spesso quando serve avere una struttura che si espande dinamicamente in java
+    si usa <code>java.util.ArrayList</code>. Questo oggetto è molto flessibile e permette di 
+    inserire/rimuovere/leggere elementi da qualsiasi punto dell'elenco che implementa.
+    Alcuni metodi utili dell'<code>ArrayList</code> sono:</p>
+    
+    <dl>
+        <dt>add( elemento )</dt>
+        <dd>aggiunge "elemento" in fondo alla coda</dd>
+        <dt>add( posizione, elemento)</dt>
+        <dd>inserisce "elemento" alla posizione specificata</dd>
+        <dt>get( posizione )</dt>
+        <dd>ritorna l'elemento presente alla posizione specificata</dd>
+        <dt>size()</dt>
+        <dd>ritorna il numero di elementi presenti nella lista</dd>
+        <dt>remove(posizione)</dt>
+        <dd>rimuove l'elemento presente alla posizione specificata</dd>
+    </dl>
+    <p>Proviamo a vedere un esempio:</p>
+<pre>// alla creazione di un ArrayiList specifico il tipo degli oggetti che conterrà
+ArrayList&lt;String&gt; elenco = new ArrayList&lt;String&gt;();
+elenco.add("cane");     // elenco conterrà ["cane"] 
+elenco.add("gatto");    // elenco conterrà ["cane", "gatto"]
+nome = elenco.get(0);
+System.out.println(nome); // stamperà "cane"
+nome = elenco.get(1);
+System.out.println(nome); // stamperà "gatto"
+elenco.add(0,"pollo");  // elenco conterrà ["pollo", "cane", "gatto"]
+nome = elenco.get(0);
+System.out.println(nome); // stamperà pollo 
+System.out.println(elenco.size()); // stamperà "3" 
+elenco.remove(1);       // elenco conterrà ["pollo", "gatto"]
+System.out.println(elenco.size()); // stamperà "2"
+</pre>   
+    <h2>Le code</h2>
+    <p>Una <em>coda</em> (a volte chiamata anche lista) è in pratica l'implemantazione informatica 
+    di una coda alla cassa del supermercato: 
+    può contenere un elenco di oggetti di lunghezza indefinita 
+    (nel senso che si espande e contrae all'occorrenza) e nella sua forma più elementare ci consente 
+    soltanto due operazioni: inserire oggetti ad un estremo ed astrarli dall'altro.
+    Questa struttura è normalmente classificata come "FIFO": First In First Out, 
+    il primo elemento che entra è anche il primo ad uscire.</p>
+    
+    <p>
+        <img src="immagini/struttureDati_coda.png" alt="inserimento e estrazione da una coda" style="float:left"/>
+        L'implementazione di base di questo oggetto prevede due sole operazioni:
+    </p>
+    <dl>
+        <dt>inserisci</dt>
+        <dd>inserisce un elemento in fondo alla coda</dd>
+        <dt>estrai</dt>
+        <dd>estrae un elemento dalla testa della coda</dd>
+    </dl>
+    <p>Nella foto di esempio sono stati inserirti nell'ordine i numeri 44, 31, 17 e alla fine 10.
+    Quando si andranno ad estrarre il primo numero ad uscire sarà il 44. Una volta estratto un
+    elemento questo sparisce dalla struttura dati: nel nostro esempio dopo aver estratto il 44 la coda 
+    sarà composta da tre soli elementi: "10, 17, 31".</p>
+    
+    <div class="test">
+        <p>Creo una coda e inserisco prima il numero 19 poi il numero 7 poi il numero 0.
+        Quando farò la prima estrazione cosa otterrò? </p>
+        <a onclick="giusta(this)">19 <span class="spiegazione">si, è il primo ad essere stato inserito</span></a>
+        <a onclick="sbagliata(this)">7 <span class="spiegazione">no, per primo esce... il primo inserito</span></a>
+        <a onclick="sbagliata(this)">0 <span class="spiegazione">no, è l'ultimo ad essere stato inserito</span></a>
+    </div>
+    
+    <p>Alcune implementazioni delle code permettono anche di fare ulteriori operazioni come ad esempio
+    controllare quanto è lunga una coda o inserire/cancellare elementi in posizioni arbitrarie.</p>
+    
+    <h3>Le code nella libreria standard java</h3>
+    <p>Formalmente nella libreria standard java ci sono diversi oggetti che implementano le code,
+    va bene ad esempio <code>java.util.LinkedList</code> che in realtà ha qualche metodo
+    in più rispetto all'implemtazione di base, vediamo un esempio:</p> 
+<pre>String nome;
+LinkedList&lt;String&gt; codaDiNomi = new LinkedList&lt;String&gt;();
+codaDiNomi.add("mario"); // la coda ha un solo elemento: "mario"
+codaDiNomi.add("lucia"); // in fondo alla coda adesso c'è "lucia"
+codaDiNomi.add("paola"); // in fondo alla coda adesso c'è "paola"
+nome = codaDiNomi.remove();  // "mario" perché è l'elemento in testa alla coda
+System.out.println( nome );
+nome = codaDiNomi.element(); // "lucia" perché è l'elemento in testa alla coda
+System.out.println( nome );
+nome = codaDiNomi.remove();  // ancora "lucia" perché element() non lo aveva estratto
+System.out.println( nome );</pre>
+    
+    
+    <h2>Le pile</h2>
+    <p>Una <em>pila</em> gestisce gli oggetti un po' come... la pila dei piatti: l'ultimo piatto 
+    che metto sulla pila è il primo che prenderò quando mi servirà un piatto.
+    Anche la pila può contenere un elenco di oggetti di lunghezza indefinita 
+    (nel senso che si espande e contrae all'occorrenza) e nella sua forma più elementare ci consente 
+    soltanto due operazioni: inserire oggetti ad un estremo ed astrarli dalla stessa parte.
+    Questa struttura è normalmente classificata come "LIFO": Last In First Out, 
+    l'ultimo elemento che entra è anche il primo ad uscire.</p>
+    
+    <p>
+        <img src="immagini/struttureDati_pila.png" alt="inserimento e estrazione da una pila" style="float:left"/>
+        L'implementazione di base di questo oggetto prevede due sole operazioni:
+    </p>
+    <dl>
+        <dt>inserisci</dt>
+        <dd>inserisce un elemento in testa alla pila</dd>
+        <dt>estrai</dt>
+        <dd>estrae un elemento dalla testa della pila (una volta estratto non si trova più nella pila)</dd>
+    </dl>
+    <p>È possibile che una implementazione della pila prevada due ulteriori operazioni:</p>
+    <dl>
+        <dt>leggiTesta</dt>
+        <dd>legge l'elemento in testa alla pila senza estrarlo</dd>
+        <dt>vuota</dt>
+        <dd>ritorna true se la pila è vuota</dd>
+    </dl>
+    
+    <p>Nella foto di esempio sono stati inserirti nell'ordine i numeri 44, 31, 17 e alla fine 10.
+    Quando si andranno ad estrarre il primo numero ad uscire sarà il 10. Una volta estratto un
+    elemento questo sparisce dalla struttura dati. Nel nostro esempio dopo aver estratto il 10 la pila 
+    sarà composta da tre soli elementi: "17, 31, 44".</p>
+    
+    <div class="test">
+        <p>Creo una pila e inserisco prima il numero 19 poi il numero 7 poi il numero 0.
+        Quando farò la prima estrazione cosa otterrò? </p>
+        <a onclick="sbagliata(this)">19 <span class="spiegazione">no, è il primo ad essere stato inserito</span></a>
+        <a onclick="sbagliata(this)">7 <span class="spiegazione">no, per primo esce... l'ultimo inserito</span></a>
+        <a onclick="giusta(this)">0 <span class="spiegazione">giusto!</span></a>
+    </div>
+    
+    <h3>Le pile nella libreria standard java</h3>
+    <p>Nella libreria standard di java esiste una implementazione funzionante dell'oggetto pila:
+    <code>java.util.Stack</code> che fa esattamente quello che dovrebbe fare una pila e una cosa
+    in più: ci permette di guardare il primo elemento senza estrarlo. L'operazione di inserimento
+    si chiama <code>push</code> mentre quella di estrazione <code>pop</code>, 
+    sono i nomi standard che si usano in questo contesto. Il metodo <code>peek</code> guarda in
+    cima alla pila ma non rimuove l'elemento. Proviamo a vedere un esempio:</p>
+    
+<pre>
+String nome;
+Stack&lt;String&gt; pilaDiNomi = new Stack&lt;String&gt;();
+pilaDiNomi.push("mario"); // la pila ha un solo elemento: "mario"
+pilaDiNomi.push("lucia"); // in testa (in cima) alla pila adesso c'è "lucia"
+pilaDiNomi.push("paola"); // in testa alla pila adesso c'è "paola"
+nome = pilaDiNomi.pop();  // "paola" perché è l'elemento in testa alla pila
+System.out.println( nome );
+nome = pilaDiNomi.peek(); // "lucia" perché è l'elemento in testa alla pila
+System.out.println( nome );
+nome = pilaDiNomi.pop();  // ancora "lucia" perché peek() non lo aveva estratto
+System.out.println( nome );
+nome = pilaDiNomi.pop();  // "mario", quello rimasto in cima alla pila
+System.out.println( nome );
+</pre>
+
+   
+</article>
+</body>
+</html>

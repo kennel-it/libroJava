@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="salutaUtente" group="grafica" -->
+<!-- changelog 2021-07-31 inserita illustrazione più esplicativa per le coordinate -->
+<!-- changelog 2021-08-04 riorganizzato capito, inserito ulteriore esempio, rimossa parte del mouse -->
+<!-- changelog 2021-08-21 piccole ulteriori sistemazioni -->
+<!-- changelog 2021-08-24 precisazioni uso GraphicsContext e ellissi -->
+<!-- changelog 2023-05-17 inizio elenco di alcuni metodi -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>tela</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>tela</h1>
+<p>disegnare forme geometriche su una superficie</p>
+</header>
+<article>
+<p>Oltre che utilizzare componenti già fatti o caricare immagini da disco adesso vorremmo
+disegnare qualcosa noi da programma... non è una esigenza così singolare!</p>
+
+<p>In verità c'è un componente già fatto che ha lo stesso uso di una tela da disegno e, coincidenza, si chiama Canvas
+(per i più precisi il suo nome completo è javafx.scene.canvas.Canvas), questo componente lo possiamo piazzare
+in una parte della finestra a nostra scelta esattamente come facciamo con un Button o un TextField 
+e ci consente di disegnarci su linee, cerchi, punti e via di seguito.</p>
+
+<p>Vediamo direttamente un esempio:</p>
+
+<pre>
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+public class HelloCanvas extends Application {
+
+  @Override
+  public void start(Stage primaryStage) {
+    // creiamo un pannello specificando larghezza e altezza
+    <em>Canvas tela = new Canvas(300, 260);</em>
+    // otteniamo l'oggetto che ci permette di disegnare
+    <em>GraphicsContext gc = tela.getGraphicsContext2D();
+    gc.setFill(Color.YELLOW);
+    gc.setLineWidth(1);
+    gc.fillOval(50, 50, 200, 200);
+    gc.setFill(Color.BLACK);
+    gc.fillOval(100, 100, 20, 20);
+    gc.fillOval(180, 100, 20, 20);
+    gc.setStroke(Color.RED);
+    gc.setLineWidth(8);
+    gc.strokeLine(100, 200, 150, 220);
+    gc.strokeLine(150, 220, 200, 200);</em>
+
+    GridPane pannello = new GridPane();
+    // inseriamo il nostro canvas nella finestra
+    <em>pannello.add(tela, 0, 0);</em>
+
+    Scene scene = new Scene(pannello);
+    primaryStage.setTitle("Hello Canvas!");
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  }
+
+  public static void main(String[] args) {
+    launch(args);
+  }
+}</pre>
+
+<p>Come avrai notato non possiamo disegnare direttamente su un canvas ma ci serve ottenere
+un oggetto di tipo GraphicsContext che abbiamo chiamato <var>gc</var>.</p>
+
+<p>Nell'esempio qui sopra disegnamo con diversi colori linee e ovali di spessori diversi,
+un oggetto <a href="https://openjfx.io/javadoc/16/javafx.graphics/javafx/scene/canvas/GraphicsContext.html">GraphicsContext</a>
+ha molte istruzioni per disegnare diversi tipi di forme geometriche come linee, rettangoli cerchi (sia pieni che vuoti)
+e molte altre.</p>
+
+<h2>Alcuni metodi</h2>
+<p>La prima cosa da fare è la creazione della tela tramite <code>Canvas tela = new Canvas(500, 400);</code> dove <var>500</var>
+sta a indicare la larghezza della tela ed il <var>400</var> l'altezza.</p>
+<p>Molto spesso la tela è presente nella finestra insieme ad un form o ad altri elementi. Facciamo l'esempio in cui in una
+finestra ci siano 4 caselle di testo una sotto l'altra e nella riga ancora sotto un pulsante. In totale 5 righe impegnate.
+Supponiamo ancora che la tela vogliamo metterla accanto a tale TextField. Dato che la tela è molto più alta di ciascuna casella
+di testo, nel momento in cui il Canvas lo si aggiunge al pannello gli si deve anche dire quante righe occupa: nel nostro caso 5.
+Per un risultato ottimale si dovrebbe aggiungere 1 al numero di righe individuato, per questo anziché mettere 5 metteremo 6:</p>
+<p><code>pannello.add(tela, 1, 0, 1, 6);</code>dove la prima coppia di numeri (<var>1</var> e <var>0</var>) sono le solite coordinate
+per il posizionamento, il successivo <var>1</var> indica il numero di colonne occupate ed il <var>6</var> terminale il numero di righe.</p>
+<p>Il contesto molto spesso può essere utile anche in altri metodi oltre a <var>start()</var> per cui <code>GraphicsContext gc;</code>
+lo possiamo mettere nella classe e <code>gc = tela.getGraphicsContext2D();</code> come solito in <var>start()</var>.</p>
+<p>Il colore predefinito è il nero. Per modificare il colore della penna si può usare <code>gc.setStroke(Color.GREEN)</code> per impostare
+il colore a verde, anziché <var>GREEN</var> si può usare uno dei colori previsti.</p>
+<p>Per modificare il colore del riempimento usa <code>gc.setFill(Color.GREEN)</code> con le stesse considerazioni di prima.</p>
+<p>Per disegnare una linea usa <code>gc.strokeLine(inizioX, inizioY, arrivoX, arrivoY);</code> in cui <var>inizioX</var> è la distanza dell'inizio della
+linea dal bordo sinistro, <var>inizioY</var> è la distanza dal bordo superiore dell'inizio della riga, <var>arrivoX</var> è la distanza sempre dal bordo
+sinistro della fine della riga e <code>fineY</code> è la distanza sempre dal bordo superiore della fine della riga.</p>
+<p>Il bordo di un rettangolo si disegna con <code>gc.strokeRect(inizioX, inizioY, larghezza, altezza);</code> in cui <var>inizioX</var> è la distanza
+del lato sinistro del rettangolo dal bordo sinistro della tela, <var>inizioY</var> è la distanza tra il bordo superiore del rettangolo e il bordo superiore
+della tela, <var>larghezza</var> è la larghezza del rettangolo e <var>altezza</var> è l'altezza di tale rettangolo.<br/>Per disegnare un rettangolo pieno
+utilizza <code>gc.fillRect(inizioX, inizioY, larghezza, altezza);</code> in cui i parametri sono gli stessi di <code>strokeRect()</code>.</p>
+<p>Il bordo di una ellisse può essere disegnata con  <code>gc.strokeOval(inizioX, inizioY, larghezza, altezza);</code> in cui <var>inizioX</var> è la distanza
+del lato sinistro dell'ellisse dal bordo sinistro della tela, <var>inizioY</var> è la distanza tra il bordo superiore dell'ellisse e il bordo superiore
+della tela, <var>larghezza</var> è la larghezza dell'ellisse e <var>altezza</var> è l'altezza di tale ellisse.<br/>Per disegnare una ellisse piena
+utilizza <code>gc.fillOval(inizioX, inizioY, larghezza, altezza);</code> in cui i parametri sono gli stessi di <code>strokeOval()</code>. Se vuoi disegnare
+un cerchio basta dare le misure di larghezza e altezza con lo stesso valore.</p>
+<p>Un testo può essere scritto o mostrando solo il contorno delle lettere che lo compongono oppure riempendo le lettere. Il colore che verrà usato sarà
+<var>setStroke()</var> per il primo caso e <var>setFill()</var> per il secondo. In tutti e due i casi è possibile impostare il tipo e la misura del carattere
+tramite <code>c.setFont(new Font("nomeCarattere", misura));</code> dove <var>nomeCarattere</var> è il nome del font che si vuole usare come Arial o Verdana o
+Palatino, ecc. mentre <var>misura</var> indica il numero di pixel di grandezza, quindi può essere per esempio 12 oppure 14 oppure 50...<br/>
+Per il testo con caratteri bordati usa <code>c.strokeText(testo, inizioX, inizioY);</code> in cui <var>testo</var> è la stringa contenente il testo da visualizzare,
+<var>inizioX</var> è la distanza dell'inizio del testo dal bordo sinistro, <var>inizioY</var> è la distanza dal bordo superiore della parte alta del testo.<br/>
+Per il testo con i caratteri riempiti usa <code>c.fillText(testo, inizioX, inizioY);</code> in cui i parametri sono gli stessi di <code>strokeText()</code>.</p>
+<p>Per inserire una immagine prima di tutto va inserita l'immagine nel progetto. Per fare questo prendi l'icona dell'immagine e trascinala (in Eclipse) sopra il
+pacchetto (non il progetto) che stai lavorando, quando stai lì sopra, prima che rilasci comparirà un simbolo <var>+</var>, rilascia e comparirà una finestra. Puoi
+dirgli di eseguire la copia e vedrai che tale immagine comparirà nel pacchetto insieme alle classi che hai creato. A questo punto nel programma JavaFX va detto che
+vuoi usarla tramite <code>Image immagine = new Image(percorso);</code> dove <var>percorso</var> è il nome del pacchetto seguito da una barra (<var>/</var>) e dal
+nome del file comprendente l'estensione; ad esempio se il pacchetto fosse <var>it.ittfoligno.terzal</var> e il nome del file fosse <var>dolomiti.jpg</var> andrai a
+scrivere <var>Image immagine = new Image("it/ittfoligno/terzal/dolomiti.jpg");</var>. Fatto questo la puoi posizionare nella tela tramite
+<code>c.drawImage(immagine, inizioX, inizioY);</code> in cui <var>inizioX</var> è la distanza del bordo sinistro dell'immagine dal bordo sinistro della tela,
+<var>inizioY</var> è la distanza tra il bordo superiore dell'immagine e il bordo superiore della tela.</p>
+
+<h2>Le coordinate nell'oggetto Canvas</h2>
+<p>Le coordinate funzionano come quello del piano cartesiano con alcune cose da tenere a mente:</p>
+<ul>
+	<li>L'angolo in alto a sinistra del canvas è il punto (0,0), tutta la parte disegnata avente valori minori di 0 non sarà visibile</li>
+	<li>L'asse delle X cresce verso destra (come per il piano cartesiano usuale), la parte disegnata oltre la larghezza del canvas non sarà visibile</li>
+	<li>L'asse delle Y cresce verso il basso (al contrario del piano cartesiano usuale), la parte disegnata oltre l'altezza del canvas non sarà visibile</li>
+</ul>
+
+<h3>Cerchio e linea</h3>
+<p>Nel disegno qui sotto (un Canvas di dimensioni 400x300) abbiamo 2 elementi:</p>
+<ul>
+	<li>Una linea rossa che parte dal punto (0,100) e arriva al punto (400,50)</li>
+	<li>Il cerchio verde in realtà è una ellisse, parte dal punto (50,0) 
+	(attenzione: non è il centro ma l'angolo in alto a sinistra del rettangolo che lo contiene)
+	è larga 200 e alta 200</li>
+</ul>
+<div><img src="immagini/esempio_canvas.png" alt="Una linea e un cerchio"/></div>
+
+<pre>
+gc.setLineWidth(1);
+gc.setStroke(Color.RED);
+gc.strokeLine(0, 100, 400, 50);
+gc.setStroke(Color.GREEN);
+gc.strokeOval(50, 0, 200, 200);
+</pre>
+
+<h3>Cerchio e quadrato</h3>
+<p>In questo altro disegno che usa un Canvas 200x200 
+abbiamo un quadrato rosso di lato 200 e un cerchio verde di diametro 200:</p>
+<pre>
+gc.setLineWidth(2);
+gc.setStroke(Color.RED);
+gc.strokeRect(0, 0, 200, 200); 
+gc.setStroke(Color.GREEN);
+gc.strokeOval(0, 0, 200, 200);
+</pre>
+<div><img src="immagini/esempio_canvas2.png" alt="Una linea e un cerchio"/></div>
+
+<h2>Effetti speciali</h2>
+<p>Proviamo a modificare il programma precedente inserendo in <code>start</code>
+un pulsante e l'usuale codice per gestire la sua pressione:</p>
+<pre>pulsante.setOnAction( e -&gt; clickEffetto() );</pre>
+
+<p>Inseriamo poi prima della chiusura della classe il seguente frammento di codice:</p>
+<pre>
+public void clickEffetto(){
+    gc.applyEffect(new GaussianBlur(20));
+}
+</pre>
+<p>Siccome l'oggetto <var>gc</var> viene usato sia in start che in clickEffetto dovremo anche spostare
+la sua dichiarazione (soltanto la dichiarazione!) al livello di classe (fuori da start).</p>
+
+<p>Ora che il programma non ha più errori: che succede se si preme il pulsante?</p> 
+</article>
+</body>
+</html>

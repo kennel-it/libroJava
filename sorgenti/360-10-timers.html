@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!-- e-pub infrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="salutaUtente" group="giochi" -->
+<!-- changelog 2018-12-06 rimossa parte iniziale inutile sui Thread -->
+<!-- changelog 2019-12-16 inserita introduzione -->
+<!-- changelog 2019-12-17 inseriti GridPane al posto dei Border -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>timers</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>timers</h1>
+<p>eventi temporizzati in javafx</p>
+</header>
+<article>
+<p>Succede spesso quando si lavora con la grafica che serva di eseguire un frammento di codice a intervalli
+di tempo precisi, ad esempio quando si vuol realizzare una animazione. I metodi che ci mette a disposizione
+JavaFX ci permettono di far chiamare un metodo esattamente come se venisse premuto un pulsante. 
+Abbiamo a disposizione per farlo due modi diversi che vediamo brevemente qui sotto.</p>
+<h2>Timeline</h2>
+<p>Una prima possibilità è quella di usare l'oggetto 
+<a href="http://docs.oracle.com/javase/8/javafx/api/javafx/animation/Timeline.html">Timeline</a> di JavaFX.
+Questo oggetto insieme a 
+<a href="http://docs.oracle.com/javase/8/javafx/api/javafx/animation/KeyFrame.html">KeyFrame</a>
+viene usato per creare animazioni che ad esempio spostano oggetti tra due
+punti sullo schermo, noi lo useremo più semplicemente per chiamare una funzione 
+che aggiorna una specie di cronometro. In questo caso JavaFX 
+chiamerà la nostra funzione ad intervalli di tempo prefissati.</p>
+<pre>
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+public class Timer1 extends Application{    
+  Label testo;
+  int n=100;
+    
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    testo = new Label("finestra timer");
+    GridPane griglia = new GridPane();
+    griglia.add(testo,  0,  0);
+    Scene scene = new Scene(griglia,200,100);
+    primaryStage.setTitle("Timer!"); 
+    primaryStage.setScene(scene);
+    primaryStage.show();
+    Timeline timeline = new Timeline(new KeyFrame(
+      Duration.seconds(1), // ogni quanto va chiamata la funzione
+      x -> aggiornaTimer()));
+    timeline.setCycleCount(100);
+    timeline.play();
+  }
+
+  private void aggiornaTimer(){
+    testo.setText(""+ (n--));
+  }
+    
+  public static void main(String args[]){
+    launch();
+  }
+}
+</pre>
+
+<h2>Tempi precisi!</h2>
+<p>Se serve di avere tempi precisi di esecuzione possiamo usare un'altra via:
+<a href="http://docs.oracle.com/javase/8/javafx/api/javafx/animation/AnimationTimer.html">AnimationTimer</a>,
+questo oggetto ci permette di eseguire del codice ogni volta che la finestra viene 
+aggiornata, non abbiamo degli intervalli precisi ma ci viene passato un parametro che
+rappresenta il tempo attuale espresso in miliardesimi di secondo.</p>
+<pre>
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Timer2 extends Application{
+  private Label testo;
+  private AnimationTimer timer;
+  private long fine;
+    
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    testo = new Label("finestra timer");
+    GridPane griglia = new GridPane();
+    griglia.add(testo,  0,  0);
+    Scene scene = new Scene(griglia,200,100);
+    primaryStage.setTitle("Timer!"); 
+    primaryStage.setScene(scene);
+    primaryStage.show();
+        
+    timer = new AnimationTimer() { 
+      @Override
+      public void handle(long x) {
+        aggiornaTimer(x);
+      }
+    };
+    fine = System.nanoTime() + 1_000_000_000 * 100L;
+    timer.start();
+  }
+
+  private void aggiornaTimer(long t){
+    long n = (fine-t) / 1_000_000_000;
+    testo.setText(""+n);
+    if(n==0){
+      timer.stop();
+    }
+  }
+    
+  public static void main(String args[]){
+    launch();
+  }
+}
+</pre>
+
+</article>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="struttureDinamiche" group="algoritmiStruttureDati" -->
+<!-- changelog 2020-12-20 inserito capitolo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>alberi</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <style>
+
+        </style>         
+    </head>
+<body>
+<header>
+    <h1>alberi</h1>
+    <p>strutture non lineari</p>
+</header>
+<article>
+    <p>In alcuni casi serve rappresentare una informazione che non ha una struttura lineare
+    come ad esempio  quella di file e cartelle o la discendenza di un cavallo in un allevamento.
+    In questi casi ci vengono in aiuto gli <em>alberi</em>, strutture dati 
+    che potremmo rappresentare in questo modo: </p>
+    <p style="text-align: center; width:60%;margin:auto">
+    <img src="immagini/albero.svg" alt="albero generico" />
+    </p>
+    <p>Come è evidente dal diagramma ogni elemento non ha un solo successivo come nel caso delle liste, 
+    le diverse parti di un albero hanno un nome specifico:</p>
+    <dl>
+    <dt>nodo</dt>
+    <dd>sono le parti dell'albero che contengono le informazioni (le ellissi nell'esempio)</dd>
+    <dt>arco</dt>
+    <dd>una delle frecce che collega un nodo con un altro nodo (hanno una direzione:
+    l'arco blu collega il nodo 1 con il 2 ma non viceversa)</dd>
+    <dt>radice</dt>
+    <dd>è il nodo da cui è possibile raggiungere tutti gli atri percorrendo una serie di archi
+    (quello rosso nell'esempio)</dd>
+    <dt>foglia</dt>
+    <dd>un nodo che non ha discendenti (tutti quelli verdi nell'esempio)</dd>
+    <dt>nodo padre</dt>
+    <dd>nodo da cui parte un arco (ad esempio il nodo 4 è padre dell'8)</dd>
+    <dt>nodo figlio</dt>
+    <dd>nodo a cui arriva un arco (ad esempio il nodo 8 è figlio del 4)</dd>
+    </dl>
+    
+    <p>In un albero non è possibile avere dei percorsi chiusi 
+    (un arco da 10 a 4 formerebbe un percorso chiuso 4→7→10→4)
+    ne molteplici alternative per arrivare allo stesso nodo (come ad esempio se mettessi un arco
+    da 6 a 9, dalla radice per arrivare a 9 avrei 1→4→7→9 oppure 1→4→6→9).</p>
+    
+    <h2>Alberi binari</h2>
+    <p>Quelli di cui ci occuperemo sono un particolare tipo di alberi detti alberi binari ordinati
+    (o alberi binari di ricerca): la loro particolarità è che ogni nodo ha al massimo due figli e
+    le informazioni vengono inserire seguendo queste regole:</p>
+    <ul>
+        <li>all'inizio inserisco l'informazine nella radice</li>
+        <li>quando devo inserire un dato ulteriore inizio guardando dalla radice:
+            <ul>
+            <li>se il dato da inserire è minore del valore presente nel nodo che sto valutando
+            (la radice all'inizio) lo inserirò come suo figlio sinistro se non ce ne è già uno 
+            in caso ci sia già riapplico lo stesso ragionamento guardando il figlio sinistro</li>
+	        <li>se il dato da inserire è maggiore del valore presente nel nodo che sto valutando
+            (la radice all'inizio) lo inserirò come suo figlio destro se non ce ne è già uno 
+            in caso ci sia già riapplico lo stesso ragionamento guardando il figlio destro</li>
+	        </ul>
+        </li>
+    </ul> 
+    
+    <dfn>Un <em>albero binario ordinato</em> è un particolare albero binario in cui il 
+    sottoalbero sinistro di un nodo contiene tutti valori inferiori a quelli presenti nel nodo
+    mentre il sottoalbero destro contine tutti valori superiori a quelli presenti nel nodo.</dfn>
+    
+    
+    <h3>Ricerca in un albero binario ordinato</h3>
+    <ul>
+        <li>se l'elemento che cerco è nella radice ho finito</li>
+        <li>altrimenti inizio guardando dalla radice e:
+            <ul>
+                <li>se l'elementoi che cerco è più piccolo di quello presente nel nodo che sto
+                guardando se il figlio sinistro non c'è l'elemento non esiste altrimenti
+                riapplico il ragionamanto guardando il figlio sinistro</li>
+                <li>se l'elementoi che cerco è più grande di quello presente nel nodo che sto
+                guardando se il figlio destro non c'è l'elemento non esiste altrimenti
+                riapplico il ragionamanto guardando il figlio destro</li>
+            </ul>
+        </li>
+    </ul>
+    
+    <p>Proviamo a vedere che succede facendo due ricerce nell'albero di esempio qui sotto:</p>
+    <p style="text-align: center; width:60%;margin:auto">
+    <img src="immagini/albero-binario.svg" alt="albero binario" />
+    </p>
+    <p>Cerco "7":</p>
+    <ol>
+        <li>parto dalla radice ma contiene "5" che non mi serve</li>
+        <li>siccome "7" è più grande di "5" mi sposto sulla destra</li>
+        <li>"9" non è quel che cerco ed è più grande di "7" e mi sposto sulla sinistra</li>
+        <li>trovo "7", finito</li> 
+    </ol>
+    <p>Cerco "4":</p>
+    <ol>
+        <li>parto dalla radice ma contiene "5" che non mi serve</li>
+        <li>siccome "4" è più piccolo di "5" mi sposto sulla sinistra</li>
+        <li>"3" non è quel che cerco ed è più piccolo di "4" e mi dovrei spostare a destra
+        ma siccome il figlio destro non c'è: questo albeo non contine il valore "4"</li> 
+    </ol>
+</article>
+</body>
+</html>

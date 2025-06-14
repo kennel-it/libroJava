@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="eccezioni while" group="file" --><!-- FIXME: valutare la dipendenza da oggetti -->
+<!-- changelog 2017-07-04 inserito capitolo vuoto -->
+<!-- changelog 2017-08-04 inserito contenuto nel capitolo -->
+<!-- changelog 2017-08-07 corrette dipendenze -->
+<!-- changelog 2017-09-18 corrette dipendenze -->
+<!-- changelog 2017-09-18 rimosso esercizio duplicato -->
+<!-- changelog 2017-09-19 inserita parte sui path -->
+<!-- changelog 2017-09-19 corretta parte evidenziata nei programmi -->
+<!-- changelog 2020-11-29 cambiato nome (era "archiviareOggetti") e riscritto il capitolo -->
+<!-- changelog 2021-01-08 cambiati nomi sezioni e inserita parte per scrivere una riga di testo -->
+<!-- changelog 2024-10-18 aggiunto append mode -->
+<!-- changelog 2025-04-08 tolto test che mostrava uso for per leggere tutte le righe di un file: fuorviante. -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>archiviareSuDisco</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>archiviareSuDisco</h1>
+<p>leggere e scrivere informazioni su memoria permanente</p>
+</header>
+<article>
+  <h2>Il problema</h2>
+  <p>La nostra squadra di atletica ha bisogno tener conto dei tempi migliori degli atleti
+  che compongono la squadra di staffetta 4x400 e di poter calcolare il tempo totale.
+  L'allenatore vuole che i tempi vengano memorizzati da una sesione di allenamento all'altra
+  per poter fare statistiche.<br/>
+  Purtroppo i programmi che abbiamo scritto finora perdono tutte le informazioni una volta chiusi,
+  vorremmo adesso invece imparare a registrare le informazioni. Questo può essere fatto archiviando
+  le informazioni (ci concentriamo sono i file di test) "su disco".</p>
+  
+  <p>Il percorso più "flessibile" che possiamo usare con java (ma esistono delle scorciatorie 
+  che vedremo) è di creare un oggetto che rappresenta il file, in base a questo crearne un altro
+  che ci consente di leggere i byte da disco (perché su disco questo c'è!) e poi crearne uno ulteriore
+  che trasforma quei byte in caratteri... e volendo uno ancora uno in più per leggere direttamente le linee!</p>
+  
+  <p>Gli oggetti che useremo in questo capitolo sono contenuti nel pacchetto <code>java.io</code></p>
+  
+  <h2>Percorsi</h2>
+  <p>Per registrare e leggere informazioni è necessario interagire con in file system:
+  la prima cosa che dobbiamo fare è specificare la posizione del file nel sistema di archiviazione.
+  Sistemi operativi diversi descrivono in maniera diversa la posizione di un file:
+  Windows per separare le cartelle che compongono il percorso usa "\" mentre Unix (ad
+  esempio Linux e MacOS) usa "/",
+  il primo specifica il disco usando una lettera seguita da due punti (es: "C:") mentre 
+  il secondo indica un percorso assoluto usando un "/" all'inizio del percorso.</p>
+  <p>Oltre a questo se trattiamo percorsi assoluti (cioè quelli che iniziano con una lettera
+  su Windows o con uno slash su Unix) che contengono il nome della cartella utente questi
+  cambiano per ciascuno di noi.</p>
+  <p>Prendiamo per esempio il percorso del file <code>saluti.txt</code> che sta 
+  nella cartella documenti di un utente.<br/> 
+  per l'utente Matteo su Windows è <code>C:\Users\matteo\Documents\saluti.txt</code><br/>
+  per l'utente Luca su Linux è <code>/home/luca/Documenti/saluti.txt</code></p>
+  <p>Attenzione a due cose:</p>
+  <ul>
+  	<li>alcuni filesystem sono case sensitive</li>
+  	<li>le interfacce grafiche a volte mostrano le cartelle con altro nome 
+  	(es: "Scrivania" ➞ "Desktop")</li>
+  </ul>
+
+  <p>L'esempio qui sotto usa l'oggetto <code>File</code> 
+  e stampa true o false sulla console a seconda che il file il 
+  cui percorso assoluto è "c:/Users/pluto/esempio.txt" esista o meno.</p>  
+<pre>File mioFile = new File("c:/Users/pluto/esempio.txt");
+System.out.println(mioFile.exists());</pre>
+  
+  
+  <h2>Leggere/scrivere bytes</h2>
+  <p>Java ci mette a disposizione molti oggetti nel pacchetto <code>java.io</code> per poter leggere
+  o scrivere informazioni su disco: gli Stream sono oggetti che permettono di lavorare
+  con dei flussi di byte, ne esistono molti diversi e si possono distinguere dal loro nome due grandi categorie:
+  gli InputStream (che servono per leggere) e gli OutputStream (che servono per scrivere).</p>
+  <p>Una volta che si sono completate le operazioni di output (e anche di input) 
+  questi oggetti vanno chiusi utilizzando il metodo <code>close()</code> sia per
+  liberare risorse di sistema che per far si che eventuali operazioni non ancora completate vengano
+  completate (ad esempio se l'oggetto usa dei buffer non scrive immediatamente su disco).</p>
+  
+  <div class="test">
+   	<p>La classe chiamata ObjectInputStream serve a:</p>
+	<a onclick="sbagliata(this)">scrivere oggetti su disco<span class="spiegazione">in questo caso avrebbe avuto "Output" nel nome</span></a> 
+	<a onclick="giusta(this)">leggere oggetti da uno Stream</a>
+  </div>
+  
+  <p>Qui sotto un frammento di programma che scrive un byte in un file.</p>
+<pre>File mioFile = new File("c:\\Users\\pluto\\esempio.txt");
+FileOutputStream flussoBytes = new FileOutputStream(mioFile);
+flussoBytes.write(45);
+flussoBytes.close();</pre>
+
+   <p>Mentre questo legge un byte da disco:</p>
+<pre>File mioFile = new File("c:\\Users\\pluto\\esempio.txt");
+FileInputStream flussoBytes = new FileInputStream(mioFile);
+int n = flussoBytes.read();
+System.out.println(n);
+flussoBytes.close();</pre>
+
+    <p>Due cose vanno notate: leggere un byte alla volta è praticamente inutile per noi che
+    vogliamo leggere un testo, è possibile creare un FileOutputStream o FileInputStream in maniera più
+    semplice fornendo direttamente il suo nome al costruttore
+    <code>FileOutputStream flussoBytes = new FileOutputStream("c:\\Users\\pluto\\esempio.txt")</code>.</p>
+
+
+    <h2>Leggere/scrivere caratteri</h2>
+    <p>Queste due categorie di oggetti ci consentono di leggere/scrivere dei caratteri e possiamo
+    crearli o partendo da uno Stream o usando una scorciatoia...</p>
+    
+    <p>Il primo esempio che vediamo usa un <code>OutputStreamWriter</code> 
+    per scrivere "ciao" in un file di testo:</p>
+    
+<pre>FileOutputStream flussoBytes = new FileOutputStream("c:\\Users\\pluto\\esempio.txt");
+OutputStreamWriter flussoCaratteri = new OutputStreamWriter(flussoBytes,"UTF-8");
+flussoCaratteri.write("ciao");
+flussoCaratteri.close();
+flussoBytes.close();</pre>
+
+    <p>Un oggetto di tipo <code>OutputStreamWriter</code> è in grado di scrivere dei testi su disco usando
+    una precisa codifica, in questo caso abbiamo scelto "UTF-8" ma se ne possono sceglie altre come
+    ad esempio "ISO8859-1" che è quella che usana Windows per default, ma cosa cambia da una
+    codifica all'altra? Il modo con cui vengono scritti i byte su disco: se uso UTF-8 una "è" 
+    viene scritta come due byte: "195, 168" mentre se uso "ISO8859-1" viene scritto "232",
+    discorso analogo ovviamente vale in lettura. Quando leggo o scrivo dei dati in formatio testo
+    è necessario che io sappia quale regola di codifica va usata (decide chi scrive il file 
+    la prima volta).</p>
+    
+    <p>Siccome normalmente i dati si scrivono su un file su disco il programma sopra
+    può essere abbreviato in:</p>
+<pre>FileWriter flussoCaratteri = new FileWriter("c:\\Users\\pluto\\esempio.txt");
+flussoCaratteri.write("è");
+flussoCaratteri.close();</pre>
+    <p>In questo caso però non possiamo specificare l'encoding e quindi verrà utilizzato quello 
+    predefinito sul sistema in uso (Windows e macOS hanno due default diversi).</p> 
+     
+    <p>Proviamo invece a leggere un testo da un file. Posso usare un 
+    <code>InputStreamReader</code> che a sua volta usa un <code>FileInputStream</code> oppure usare
+    un <code>FileReader</code> direttamente: vediamo la soluzione più breve.</p>
+
+<pre>FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
+char caratteri[] = new char[1000];
+<em>int caratteriLetti = flussoCaratteri.read(caratteri);
+String testo = new String(caratteri,0,caratteriLetti);</em>
+System.out.println(testo);
+flussoCaratteri.close();
+</pre>
+
+    <p>Come si vede dalla prima riga evidenziata sopra quel che possiamo leggere da un reader è un 
+    elenco di caratteri, devo quindi fornire al metodo <code>read()</code> un vettore in
+    cui inserire i dati, il metodo stesso leggerà quanti dati può (non è dato sapere quanti) fino al
+    massimo a riempiere il vettore, restituirà comunque il numero dei caratteri letti
+    (se restituisce -1 vuiol dire che ha raggiunto fa fine dell'archivio).<br/>
+    La seconda riga evidenziata serve a costruire una stringa prendendo i dati dal vettore
+    <code>caratteri</code>, partendo dalla posizione <code>0</code> e prendendo
+    <code>caratteriLetti</code> caratteri.</p>
+    
+    <p>Dalle ultime versioni di java è possibile anche creare un FileReader 
+    specificando il persorso e l'encoding, la sintassi è un pochino più complicata ma non tanto:</p>
+    
+<pre>FileReader flussoCaratteri = new FileReader("percorso.txt",Charset.forName("UTF-8"))</pre>    
+
+
+    <h2>Leggere/scrivere righe di testo</h2>
+    <p>Siamo finalmente arrivati al nostro obiettivo: leggere una riga (cioè una sequenza
+    di caratteri terminata da un "a capo") alla volta! 
+    Ci viene in aiuto un oggetto chiamato <code>BufferedReader</code> che basandosi su 
+    un altro Reader (ad esempio un <code>FileReader</code>) ci permette di leggere una riga
+    intera e non un vettore di caratteri. Vediamo subito un esempio di un programma
+    che legge la prima riga di un file.</p>
+    
+    
+<pre>FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
+BufferedReader lettoreDiRighe = new BufferedReader(flussoCaratteri);
+String testo = lettoreDiRighe.readLine();
+System.out.println(testo);
+lettoreDiRighe.close();
+flussoCaratteri.close();</pre>
+
+    <p>Scrivere una riga alla volta si può fare semplicemente usando un FileWriter
+    (o un OutputStreamWriter) in questo modo:</p>
+    
+    <pre>String testo="Questa è una riga";
+FileWriter flussoCaratteri = new FileWriter("c:\\Users\\pluto\\esempio.txt");
+flussoCaratteri.write(testo+"\n");
+flussoCaratteri.close();</pre>
+
+    <div class="test">
+    <p>Quando scriverò i dati su disco usando un FileWriter quale carattere indicherà "a capo"?</p> 
+    <a onclick="sbagliata(this)">non serve, va a capoda se<span class="spiegazione">no, non lo fa</span></a> 
+    <a onclick="sbagliata(this)">le virgolette chiuse<span class="spiegazione">no, indicano semplicemente la fine della stringa</span></a>
+    <a onclick="giusta(this)">"\n"<span class="spiegazione">giusto!</span></a> 
+</div>
+
+    <h2>Leggere tutte le righe</h2>
+
+    <p>il metodo <code>readLine()</code> di <code>BufferedReader</code> ritorna una riga alla volta
+    fino a quando raggiunge la fine del file, in quel caso ritorna <code>null</code>, questo
+    ci permette di scrivere un ciclo che legga tutte le righe di un file:</p>
+
+<pre>FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
+BufferedReader lettoreDiRighe = new BufferedReader(flussoCaratteri);
+String rigaLetta;
+do {
+    rigaLetta = lettoreDiRighe.readLine();
+    if(rigaLetta!=null) {
+        // uso la riga letta
+        System.out.println(rigaLetta);
+    }
+}while(rigaLetta!=null);
+lettoreDiRighe.close();
+flussoCaratteri.close();</pre>
+
+    <p>Torna più comodo usare un ciclo a controllo finale perché prima leggo la riga,
+    in caso contenga qualcosa faccio quel che devo e poi se ho raggiunto la fine del file 
+    (e quindi il valore letto è <code>null</code>) smetto di leggere.</p>  
+
+    <h2>Accodare informazioni ad un file esistente</h2>
+    <p>Le modalità viste fino ad ora per scrivere sui file hanno un comportamento
+    a volte indesiderato: iniziano a scrivere dal primo byte (o carattere) del file.
+    Come se non bastasse se il file conteneva 1000 caratteri e dopo averlo
+    aperto ne scriviamo soltanto 10 alla chiusura il file conterrà soltanto quei 10 caratteri.</p> 
+    <p>Esiste però un modo per aprire un file per aggiungere contenuto 
+    (in fondo ovviamente!) e non per sovrascriverlo, questa modalità
+    di lavorare è nota come "append mode" e usando un <code>FileWriter</code>
+    si può attivare così: </p>
+<pre> FileWriter scrittore = new FileWriter("nomeDelFile"<em>, true</em>)</pre>
+    <p>Quel <code>true</code> in fondo è quello che attiva l'append-mode.</p>
+
+
+    <div class="approfondimento">
+    <p>Solitamente il ciclo per leggere le righe da un file si scrive in un altro modo
+    che a prima vista potrebbe sembrare meno comprensibile ma è più comdo:</p>
+
+<pre>while( (rigaLetta = lettoreDiRighe.readLine())!=null ) {
+    System.out.println(rigaLetta);
+}</pre>  
+
+    <p>Direttamente nella condizione del while assegno a <code>rigaLetta</code>
+    il valore letto dal file e siccome l'assegnazione per java è una espressione posso 
+    guardare se il valore assegnato è <code>null</code>.</p>
+
+    </div>
+</article>
+</body>
+</html>

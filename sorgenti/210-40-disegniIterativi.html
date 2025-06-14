@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- e-pub insfrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="ripetizione tela" group="grafica" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>disegniIterativi</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>disegniIterativi</h1>
+<p>ripetere più volte il disegno di una forma</p>
+</header>
+<article>
+<p>Utilizzando il cicli e i canvas si possono creare alcuni disegni in maniera automatica.</p>
+<h2>Griglia</h2>
+<p>Come primo esercizio proviamo a costruire una griglia come quella della figura sottostante.
+L'utente inserisce lo spazio che deve intercorrere tra due righe orizzontali e quello che deve intercorrere 
+tra due righe verticali e poi preme il pulsante disegna.</p>
+<div><img src="immagini/esempio_canvas_griglia.png" alt="Programma che disegna una griglia"/></div>
+<p>Nel metodo <code>start()</code> inseriamo semplicemente gli elementi nell'interfaccia, tutto il lavoro
+viene svolto in <code>disegnaReticolo()</code> dove vengono letti i parametri e in due cicli separati 
+si disegnano prima le linee verticali e poi quelle orizzontali.</p>
+<pre>
+public class Reticolato extends Application{
+
+	public static void main(String x[]){
+		launch(x);
+	}
+	
+	TextField dx = new TextField();
+	TextField dy = new TextField();
+	Canvas tela = new Canvas(400,400);
+	
+	@Override
+	public void start(Stage primaryStage){
+		GridPane griglia = new GridPane();
+		Label e_dx = new Label("dx:");
+		Label e_dy = new Label("dy:");
+		Button disegna = new Button("disegna");
+		griglia.add(tela,0,0,5,1);
+		griglia.add(e_dx, 0, 1);
+		griglia.add(dx, 1, 1);
+		griglia.add(e_dy, 2, 1);
+		griglia.add(dy, 3, 1);
+		griglia.add(disegna, 4, 1);
+		
+		Scene s = new Scene(griglia);
+		primaryStage.setScene(s);
+		primaryStage.setTitle("reticolato");
+		primaryStage.show();
+		
+		disegna.setOnAction(e->disegnaReticolo());
+	}
+
+	private void disegnaReticolo(){
+		GraphicsContext gc = tela.getGraphicsContext2D();
+		int distanzaX = Integer.parseInt(dx.getText());
+		int distanzaY = Integer.parseInt(dy.getText());
+		int x,y;
+		
+		for(x=0;x&lt;400;x=x+distanzaX){
+			gc.strokeLine(x, 0, x, 400);
+		}
+		for(y=0;y&lt;400;y=y+distanzaY){
+			gc.strokeLine(0, y, 400, y);
+		}
+	}
+}
+</pre>
+
+<div class="esercizio">
+	<p>Scrivi un programma che realizza un disegno come quello in figura (deve disegnarlo quando si avvia,
+	non servono pulsanti né altro, basta soltanto un <code>Canvas</code>).</p>
+	<img src="immagini/esercizio_canvas_ragnatela.png" alt="esercizio ragnatela"/>
+</div>
+
+<div class="esercizio">
+	<p>Scrivi un programma che realizza un disegno come quello in figura, il disegno dei quadratini 
+	(sono 20 in orizzontale e 20 in verticale) deve comparire alla pressione del pulsante.</p>
+	<img src="immagini/esercizio_canvas_quadrati.png" alt="esercizio quadrati"/>
+</div>
+
+<div class="esercizio">
+	<p>L'esercizio precedente potrebbe essere modificato per far sì che i quadrati abbiano
+	due colori diversi ricordandosi un paio di cose:</p>
+	<ul>
+	<li><code>double x=Math.random()</code> nella variabile x avrò un numero a caso compreso tra 0 e 1</li>
+	<li><code>gc.setFill(Color.BLUE)</code> (ponendo che gc sia un <code>GraphicContext</code>) ci consente
+	di impostare il colore di riempimento che verrà poi usato per riempire ad esempio rettangoli o cerchi</li>
+	</ul>
+	<img src="immagini/esercizio_canvas_colori.png" alt="esercizio quadrati colorati"/>
+</div>
+
+<div class="esercizio">
+	<p>[non facile] Modifichiamo di nuovo l'esercizio precedente: questa volta ancora più colori (al massimo 10) 
+	e i quadratini (sempre 10 in orizzontale e 10 in verticale) di dimensione variabile. La dimensione del quadratino
+	comprende lo spazio bianco tra l'uno e l'altro che è di 1 pixel, quindi se ad esempio scrivo 20 come dimensione 
+	il quadrato dovrà avere lato 19.</p>
+	<p>Potrebbe far comodo tener presente che:</p>
+	<ul>
+	<li>è possibile creare un vettore di qualsiasi cosa non soltanto di numeri</li>
+	<li>se <code>d</code> è un numero <code>double</code> e <code>n</code> è un <code>int</code>
+	scrivendo <code>n=(int)(d)</code> otterremo in <code>n</code> il troncamento del numero presente in
+	<code>d</code> (cioè lo stesso numero senza parte decimale)</li>
+	</ul>
+	<img src="immagini/esercizio_canvas_multicolore.png" alt="esercizio quadrati multicolore"/>
+</div>
+
+</article>
+</body>
+</html>

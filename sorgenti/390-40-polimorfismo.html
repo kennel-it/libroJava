@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="funzioni oggetti" group="algoritmiStruttureDati" -->
+<!-- changelog 2017-07-04 inserito capitolo vuoto -->
+<!-- changelog 2017-08-07 inserito blocco contenuti -->
+<!-- changelog 2017-08-22 aggiunto costruttore come esempio di polimorfismo -->
+<!-- changelog 2020-09-20 definizione iniziale e riscritta parte sui generics -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>polimorfismo</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+    </head>
+<body>
+<header>
+<h1>polimorfismo</h1>
+<p>variazioni di comportamento al variare dei tipi</p>
+</header>
+<article>
+
+<p class="FIXME">[serve revisione] Usando il termine <em>polimorfismo</em> facciamo riferimento a un metodo
+o una classe che può operare su oggetti di tipo diverso.</p>
+
+<h2>Metodi</h2><!-- Ad hoc polymorphism, function overloading -->
+<p>Questo tipo di polimorfismo è noto anche come <em>function overloading</em>.</p>
+<p>All'interno di una classe possiamo avere più metodi con lo stesso
+nome: l'importante è che il numero degli argomenti o il loro tipo non coincidano.
+Detto in altri termini due metodi sono diversi se hanno un numero di argomenti diversi
+o se hanno lo stesso numero di argomenti ma di tipi diversi.</p>
+<p>Nel caso di java i metodi non possono però essere differenziati in base al tipo
+ritornato.</p>
+<p>Prendiamo per esempio una classe che consente di impostare il lato di una figura
+che dovrebbe essere un numero in virgola mobile ma che permettiamo di impostare come testo
+per comodità dell'utilizzatore.</p>
+<pre>
+class Quadrato {
+	private double lato;
+	
+	public void setLato(double d){
+		lato = d;
+	}
+	
+	public void setLato(String l){
+		lato = Double.parseDouble(l);
+	}
+} 
+</pre>
+
+<p>Spesso è utile ad esempio avere diversi costruttori per lo stesso oggetto:
+in questo caso l'oggetto <code>Persona</code> può essere costruito sia fornendo nome e altezza 
+che il solo nome:</p>
+<pre>
+class Persona {
+	private double altezza;
+	private String nome;
+	
+	public Persona(String n, double a){
+		nome = n;
+		altezza = a;
+	}
+	
+	public Persona(String n){
+		nome = n;
+	}
+} 
+</pre>
+
+<section class="approfondimento">
+    <h2>Classi (generics)</h2>
+    <p>Oltre che nei metodi si possono definire anche degli oggetti (classi) parametrici: proviamo
+    a pensare ad un oggetto che rappresenta un insieme, sarebbe comodo poter fare insiemi di numeri,
+    di nomi, o di colori senza dover creare tre classi diverse. 
+    Questo si fa utilizzando dei tipi (classi nel nostro caso) parametrici.
+    Nelle interfacce grafiche 
+    posso dire di avere una ListView di String oppure di Integer o altro, in molti altri
+    contesti torna utile un meccanismo simile e nella libreria di java ci sono
+    tantissime classi parametriche.</p>
+
+    <p>Qui non impareremo a definire oggetti fatti in questo modo ma ci limitiamo soltanto
+    a vedere come si usano.</p>
+        
+    <p>Per utilizzare i tipi parametrici  
+    si inserisce <em>&lt;</em> dopo il nome della classe, <em>il tipo parametrico</em> e poi un <em>&gt;</em>,
+    potrebbe sembrare complicato ma con un esempio si capisce subito:</p>
+
+     
+    <p>Nel mio programma che usa JavaFX voglio creare una lista che visualizzi dei testi: uso
+    <code>ListView&lt;String&gt;</code> e più precisamente per creare l'oggetto<br/>
+    <code>ListView&lt;String&gt; l = new ListView&lt;String&gt;()</code><br/>
+    queste cose si fanno così tanto comunemente che nel costruttore (quello dopo il new!)
+    per comodità non è necessario inserire di nuovo il tipo dell'oggetto contenuto, quindi in genere avremo:<br/>
+    <code>ListView&lt;String&gt; l = new <em>ListView&lt;&gt;</em>()</code>
+    </p>
+    
+</section>
+
+</article>
+</body>
+</html>

@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="salutaUtente" group="grafica" -->
+<!-- changelog 2018-11-24 inserito capitolo -->
+<!-- changelog 2018-11-24 cambiato nome e in inseriti anche altri elementi grafici -->
+<!-- changelog 2018-11-25 aggiunti elementi e sistemato inizio capitolo -->
+<!-- changelog 2019-05-02 aggiunto ImageView -->
+<!-- changelog 2020-02-11 aggiunto Polygon -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>elementiGrafici</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+        <style type="text/css">
+            .pulsante {
+                color: green ; background-color: rgba(0,200,0,0.5);
+                border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer;
+                clear: both; display: table;
+            }
+            h2, h3, pre { clear: both }
+            h2 { padding-top:2em }
+            h3 small { font-size:80%; font-weight: normal }
+            pre { display: none }
+            p { text-indent: 0 }
+            img { float: left ; margin-right: 2em; margin-bottom:1em}
+            .nascondi { color: red ; background-color: rgba(255,0,0,0.5) }
+            pre { display:none }
+            li { margin:1.5em }
+            li a { display: inline }
+            
+            dl { display: grid ; grid-template-columns: auto 1fr}
+            dt,dd { padding-top:0.25em }
+            
+        </style> 
+        <script type="text/javascript">
+            function mostraNascondiCodice(cosa){
+                var sezione = cosa.parentNode;
+                var codice = sezione.querySelectorAll("pre")[0];
+                var pulsante = sezione.querySelectorAll(".pulsante")[0];
+                pulsante.classList.toggle("nascondi");
+                if(codice.style.display=="block"){
+                    codice.style.display = "none";
+                    pulsante.innerHTML="mostra codice";
+                }else{
+                    codice.style.display = "block";
+                    pulsante.innerHTML="nascondi codice";
+                }                
+            }
+        </script>
+    </head>
+<body>
+<header>
+<h1>elementiGrafici</h1>
+<p>un elenco di oggetti e layout utili per costruire le applicazioni</p>
+</header>
+<article>
+
+<ul>
+    <li><a href="#dati">gli elementi per gestire l'input/output dei dati</a>:
+        <a href="#Button">Button</a>,
+        <a href="#CheckBox">CheckBox</a>,
+        <a href="#ComboBox">ComboBox</a>,
+        <a href="#DatePicker">DatePicker</a>,
+        <a href="#Label">Label</a>,
+        <a href="#ListView">ListView</a>,
+        <a href="#RadioButton">RadioButton</a>,
+        <a href="#Slider">Slider</a>,
+        <a href="#TextArea">TextArea</a>,
+        <a href="#TextField">TextField</a>,
+        <a href="#WebView">WebView</a>.
+    </li>
+    <li><a href="#layout">i pannelli per organizzare gli elementi della finestra</a>:
+        <a href="#Accordion">Accordion</a>,
+        <a href="#BorderPane">BorderPane</a>,
+        <a href="#GridPane">GridPane</a>,
+        <a href="#TabPane">TabPane</a>.
+    </li>
+	<li><a href="#grafica">oggetti grafici</a>:
+		<a href="#ImageView">ImageView</a>
+		<a href="#Polygon">Polygon</a>
+	</li>
+</ul>
+<p>Di tutti gli oggetti mostrati possono essere impostate le dimensioni in maniera esplicita
+se quelle calcolate in automatico non vanno bene (ma di solito vanno bene):</p>
+<dl>
+    <dt>setPrefSize(larghezza, altezza)</dt>
+    <dd>le due dimensioni che il componente dovrebbe avere, questa misura viene di solito
+    calcolata dal componente in modo da poter visualizzare tutto il suo contenuto</dd>
+    <dt>setPrefWidth(larghezza)</dt>
+    <dd>la larghezza che il componente dovrebbe avere</dd>
+    <dt>setPrefHeight(altezza)</dt>
+    <dd>l'altezza che il componente dovrebbe avere</dd>
+    <dt>setMaxfSize(larghezza, altezza)</dt>
+    <dd>le due dimensioni che il componente può avere al massimo, alcuni componenti 
+    impostano questa dimensione al pari di quella preferita altri invece non mettono limiti 
+    (utile per riempire lo spazio a disposizione)</dd>
+    <dt>setMaxWidth(larghezza)</dt>
+    <dd>la larghezza massima che il componente piò avere</dd>
+    <dt>setMaxHeight(altezza)</dt>
+    <dd>l'altezza massima che il componente piò avere</dd>
+</dl>
+
+<h2 id="dati">Elementi per gestire i dati</h2>
+<p>Molti degli elementi che sono elencati qui sotto permettono di gestire diversi tipi di dato...
+ad esempio posso creare una lista che conterrà testi o numeri. Il tipo dei dati
+va inserito tra &lt; e &gt;. Se nel caso dei testi definire il tipo è piuttosto ovvio (String) 
+potrebbe esserlo di meno nel caso dei numeri interi ad esempio. La teoria qui potrebbe essere lunga 
+ma per farla breve diciamo così: se serve gestire numeri interi il tipo da usare è
+<code>Integer</code> mentre per i double è <code>Double</code>.</p>
+
+<section id="Label">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/Label.html">
+<small>javafx.scene.control.</small>Label</a></h3>
+<p><img src="immagini/dLabel.png" alt="esempio di interfaccia che usa due Label"/>
+<code>Label</code> contiene un testo non modificabile dall'utente ma impostabile soltanto da
+programma.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DTextField extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        // creo una etichetta impostandone il testo
+        Label etichetta1 = new Label("ciao");
+        Label etichetta2 = new Label();
+        GridPane pannello = new GridPane();
+        pannello.add(etichetta1, 0, 0);
+        pannello.add(etichetta2, 0, 1);
+        // scrivo un testo nell'etichetta
+        etichetta2.setText("mondo!");
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="Button">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/Button.html">
+<small>javafx.scene.control.</small>Button</a></h3>
+<p><img src="immagini/dButton.png" alt="esempio di interfaccia che usa Button"/>
+L'oggetto <code>Button</code> è solitamente utilizzato per permettere all'utente di 
+richiedere l'avvio di una azione, per questo di usa il metodo <code>setOnAction()</code>.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DButton extends Application{
+
+    <em>Button pulsante = new Button("ciao");</em>
+    
+    public void start(Stage ps) throws Exception {
+        GridPane pannello = new GridPane();
+        pannello.add(pulsante, 0, 0);
+        
+        // quando viene fatto click sul pulsante va chiamato
+        // il metodo azione (definito più in basso)
+        <em>pulsante.setOnAction(e-&gt;azione());</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    private void azione() {
+        // cambio il testo presente sul pulsante
+        <em>pulsante.setText("mondo!");</em>
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="TextField">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/TextField.html">
+<small>javafx.scene.control.</small>TextField</a></h3>
+<p><img src="immagini/dTextField.png" alt="esempio di interfaccia che usa un TextField"/>
+<code>TextField</code> è una casella in cui l'utente può inserire il testo, 
+se serve intercettare la pressione dell'invio da parte dell'utente si può usare il metodo
+<code>setOnAction()</code> (in maniera analoga a come si fa con un Button). Il metodo
+<code>setPromptText()</code> serve per inserire un testo che viene mostrato se 
+il cursore non è nella casella e l'utente non ha scritto nulla .</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DTextField extends Application{
+
+    <em>TextField input = new TextField();</em>
+    
+    public void start(Stage ps) throws Exception {
+        GridPane pannello = new GridPane();
+        pannello.add(input, 0, 0);
+        
+        // un testo che viene cancellato appena l'utente inizia a scrivere
+        <em>input.setPromptText("scrivi il tuo nome");</em>
+        // quando l'utente preme invio nella casella di testo
+        // va chiamato il metodo azione() definito più in basso
+        <em>input.setOnAction(e-&gt;azione());</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    private void azione() {
+        // leggo il contenuto della casella
+        <em>String nome = input.getText();</em>
+        // scrivo nella casella
+        <em>input.setText("ciao "+nome);</em>
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="CheckBox">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/CheckBox.html">
+<small>javafx.scene.control.</small>CheckBox</a></h3>
+<p><img src="immagini/dCheckBox.png" alt="esempio di interfaccia che usa una CheckBox"/>
+<code>CheckBox</code> è una casella di punta che permette di accettare o rifiutare una opzione,
+il metodo <code>isSelected()</code> che ritorna un boolean permette di controllare se
+la casella è stata spuntata o meno.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DCheckBox extends Application{
+    
+    Label output = new Label("?");
+    <em>CheckBox spunta = new CheckBox("sono maggiorenne");</em>
+    
+    public void start(Stage ps) throws Exception {
+        Button pulsante = new Button("controlla");
+        GridPane pannello = new GridPane();
+        pannello.add(spunta, 0, 0);
+        pannello.add(pulsante, 0, 1);
+        pannello.add(output, 0, 2);
+        pulsante.setOnAction(e-&gt;azione());
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    private void azione() {
+        // controllo se la casella è stata spuntata
+        if( <em>spunta.isSelected()</em> ) {
+            output.setText("sei maggiorenne");
+        }else {
+            output.setText("non sei maggiorenne");
+        }
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="RadioButton">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/RadioButton.html">
+<small>javafx.scene.control.</small>RadioButton</a></h3>
+<p><img src="immagini/dRadioButton.png" alt="esempio di interfaccia che usa una RadioButton"/>
+<code>RadioButton</code> va usato in un gruppo di almeno due oggetti, è possibile fare in modo 
+utilizzando l'oggetto
+ <a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/ToggleGroup.html">ToggleGroup</a>
+che quando viene selezionato un radio del gruppo gli altri vengano deselezionati.</p>
+<p>Per dire ad un RadioButton di quale gruppo fa parte bisogna usare <code>setToggleGroup()</code>
+mentre per verificare se l'oggetto è selezionato va usato <code>isSelected()</code>.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DRadioButton extends Application{
+    
+    RadioButton verde = new RadioButton("verde");
+    RadioButton giallo = new RadioButton("giallo");
+    RadioButton rosso = new RadioButton("rosso");
+    Label risposta = new Label("?");
+    
+    public void start(Stage ps) throws Exception {
+        Button pulsante = new Button("controlla");
+        GridPane pannello = new GridPane();
+        pannello.add(verde, 0, 0);
+        pannello.add(giallo, 0, 1);
+        pannello.add(rosso, 0, 2);
+        pannello.add(pulsante, 0, 3);
+        pannello.add(risposta, 0, 4);
+        pulsante.setOnAction(e->azione());
+        
+        // il gruppo a cui appartengono le spunte
+        <em>ToggleGroup colori = new ToggleGroup();</em>
+        // dico a ogni spunta di quale gruppo fa parte
+        <em>verde.setToggleGroup(colori);
+        giallo.setToggleGroup(colori);
+        rosso.setToggleGroup(colori);</em>
+        // imposto la selezione iniziale
+        <em>verde.setSelected(true);</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    private void azione() {
+        // controllo se la casella verde è stata spuntata
+        if(<em>verde.isSelected()</em>) {
+            risposta.setText("selezionato verde");
+        }else {
+            if(<em>giallo.isSelected()</em>) {
+                risposta.setText("selezionato giallo");
+            }else {
+                risposta.setText("selezionato rosso");
+            }
+        }
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="ListView">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/ListView.html">
+<small>javafx.scene.control.</small>ListView</a></h3>
+<p><img src="immagini/dListView.png" alt="esempio di interfaccia che usa ListView"/>
+<code>ListView</code> consente di elencare un numero qualsiasi di elementi dello stesso
+tipo, posso creare liste che contengono String dichiarando l'oggetto come 
+<code>ListView&lt;String&gt;</code> oppure se deve contenere numeri interi lo dichiarerò come
+<code>ListView&lt;Integer&gt;</code>.</p>
+<p>Per aggiungere un elemento alla lista bisogna recuperare il suo contenuto e successivamente
+aggiungere l'elemento al contenuto: <code>lista.getItems().add(elemento)</code>, 
+mentre per leggere quale sia l'elemento selezionato bisogna prima recuperare 
+l'indice dell'elemento selezionato e poi l'elemento stesso. Per recuperare l'indice: 
+<code>int indiceSelezionato = lista.getSelectionModel().getSelectedIndex()</code>
+e successivamente recuperare la selezione dall'elenco del contenuto:
+<code>elementoSelezionato = lista.getItems().get(indiceSelezionato)</code>.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DListView extends Application{
+    // creo una lista che conterrà delle Stringhe
+    <em>ListView&lt;String&gt; lista = new ListView&lt;&gt;();</em>
+    TextField campoTesto = new TextField();
+    
+    public void start(Stage ps) throws Exception {
+        GridPane pannello = new GridPane(); 
+        Button pInserisci = new Button("inserisci");
+        Button pLeggi = new Button("leggi");
+        pannello.add(lista,0,0);
+        pannello.add(pInserisci, 0, 1);
+        pannello.add(pLeggi, 0, 2);
+        pannello.add(campoTesto, 0, 3);
+        pInserisci.setOnAction(e->azioneInserisci());
+        pLeggi.setOnAction(e->azioneLeggi());
+        
+        Scene scena = new Scene(pannello,200,200);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    private void azioneInserisci() {
+        String testo = campoTesto.getText(); 
+        <em>lista.getItems().add(testo);</em>
+    }
+    
+    private void azioneLeggi() {
+        // recupero l'indice dell'elemento selezionato
+        <em>int indiceSelezionato = lista.getSelectionModel().getSelectedIndex();</em>
+        // recupero l'oggetto selezionato usando il suo indice
+        <em>String testoSelezionato = lista.getItems().get(indiceSelezionato);</em>
+        campoTesto.setText(testoSelezionato);
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="TextArea">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/TextArea.html">
+<small>javafx.scene.control.</small>TextArea</a></h3>
+<p><img src="immagini/dTextArea.png" alt="esempio di interfaccia che usa TextArea"/>
+Non sempre i testi occupano una sola riga, quando ci serve di lavorare con 
+una quantità di testo maggiore è utile il componente <code>TextArea</code>. 
+Questo componente è in grado di gestire testo multilinea aggiungendo delle barre di scorrimento
+all'occorrenza (sia orizzontali che verticali), per mandare a capo il testo è
+possibile inserire un "\n" direttamente nella stringa o impostare la proprietà 
+<em>WrapText</em> a <code>true</code>.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DTextArea extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>TextArea input = new TextArea();</em>
+        GridPane pannello = new GridPane();
+        pannello.add(input, 0, 0);
+        
+        input.setText("Alice cominciava a sentirsi assai stanca"
+                + " di sedere sul poggetto accanto a sua sorella, "
+                + "senza far niente: aveva una o due volte data "
+                + "un’occhiata al libro che la sorella stava leggendo");
+        // il testo va a capo automaticamente 
+        // senza inserire "\n"
+        <em>input.setWrapText(true);</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="ComboBox">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/ComboBox.html">
+<small>javafx.scene.control.</small>ComboBox</a></h3>
+<p><img src="immagini/dComboBox.png" alt="esempio di interfaccia che usa ComboBox"/>
+I <code>ComboBox</code> sono utili in due casi: quando si vuole obbligare l'utente a scegliere
+tra un limitato numero di valori oppure quando l'utente può scrivere ciò che vuole 
+(come in un normale <code>TextField</code>) ma  si vuole facilitare l'immissione di alcuni 
+particolari valori (in questo caso va impostata la proprietà <em>editable</em> 
+dell'oggetto ComboBox a <code>true</code>).</p>
+
+<p>Per aggiungere un elemento alla lista di quelli selezionabili bisogna recuperare 
+il suo contenuto e successivamente aggiungere l'elemento al contenuto: 
+<code>combo.getItems().add(elemento)</code>, 
+mentre per leggerne il contenuto basta utilizzare il metodo <code>getValue()</code>.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DComboBox extends Application{
+
+    <em>ComboBox&lt;String&gt; combo = new ComboBox&lt;&gt;();</em>
+    TextField testo = new TextField();
+    
+    public void start(Stage ps) throws Exception {
+        GridPane pannello = new GridPane();
+        pannello.add(testo, 0, 0);
+        pannello.add(combo,0,1);
+        combo.setOnAction(e->azione());
+        // inserisco alcuni elementi
+        <em>combo.getItems().add("giallo");
+        combo.getItems().add("verde");
+        combo.getItems().add("blu");</em>
+        // imposto come selezionato l'ultimo elemento
+        <em>combo.getSelectionModel().select(2);</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    public void azione() {
+        <em>String t = combo.getValue();</em>
+        testo.setText(t);
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="Spinner">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/Spinner.html">
+<small>javafx.scene.control.</small>Spinner</a></h3>
+<p><img src="immagini/dSpinner.png" alt="esempio di interfaccia che usa uno Spinner"/>
+Casella di testo con le freccette incrementa/decrementa: <code>Spinner</code>!
+Questi oggetti permettono di inserire diversi tipi di dati, qui per semplicità ci limitiamo
+ai valori interi per cui l'oggetto va dichiarato come <code>Spinner&lt;Integer&gt;</code>.</p>
+<p>Per poter limitare i valori inseribili va utilizzato un oggetto 
+<code>SpinnerValueFactory.IntegerSpinnerValueFactory</code> (si, c'è un punto nel nome... 
+perché è l'oggetto IntegerSpinnerValueFactory definito dentro l'oggetto SpinnerValueFactory)
+scrivendio una cosa del tipo
+<code style="white-space: normal">SpinnerValueFactory&lt;Integer&gt; valoriPossibili =
+ new SpinnerValueFactory.IntegerSpinnerValueFactory(
+<i>val_minimo</i>,<i>val_massimo</i>,<i>val_iniziale</i>)</code> successivamente
+va impostato con <code>spinner.setValueFactory(valoriPossibili);</code>.</p>
+<p>Per leggere il contenuto dell'elemento bisogna usare <code>getValue()</code> che ritorna
+il tipo che abbiamo usato per creare il controllo (int nel nostro caso) e non necessariamente String.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DSpinner extends Application{
+
+    <em>Spinner&lt;Integer&gt; input = new Spinner&lt;&gt;();</em>
+    TextField testo = new TextField();
+    
+    public void start(Stage ps) throws Exception {
+        GridPane pannello = new GridPane();
+        Button pulsante = new Button("calcola doppio");
+        pannello.add(input, 0, 0);
+        pannello.add(pulsante, 0, 1);
+        pannello.add(testo, 0, 2);
+
+        // creo un oggetto per limitare i valori possibili
+        // in questo caso i valori tra 1 e 10
+        <em>SpinnerValueFactory&lt;Integer&gt; valoriPossibili =
+            new SpinnerValueFactory.IntegerSpinnerValueFactory(1,10,6);</em>
+        // imposto il generatore di valori possibili
+        <em>input.setValueFactory(valoriPossibili);</em>
+        
+        pulsante.setOnAction(e->calcola());
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    private void calcola() {
+        int n = <em>input.getValue()</em> * 2;
+        testo.setText(""+n);
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="Slider">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/Slider.html">
+<small>javafx.scene.control.</small>Slider</a></h3>
+<p><img src="immagini/dSlider.png" alt="esempio di interfaccia che usa uno Slider"/>
+Selezionare un numero in un intervallo: lo slider! 
+Questo componente può essere personalizzato impostando il valore iniziale, finale e di 
+partenza direttamente nel costruttore. È possibile anche specificare
+se mostrare le tacche (<code>setShowTickMarks()</code>) 
+e la scala (<code>setShowTickLabels()</code>). L'elemento ha due scale:
+una maggiore e una minore (che può essere praticamente disabilitata impostando
+<code>setMinorTickCount(0)</code>).</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Dx extends Application{
+    
+    Label output = new Label("?");
+    // i parametri del costruttore sono:
+    // minimoValore, massimoValore, valoreIniziale
+    <em>Slider cursore = new Slider(0,10,6);</em>
+    
+    public void start(Stage ps) throws Exception {
+        Button pulsante = new Button("controlla");
+        GridPane pannello = new GridPane();
+        pannello.add(cursore, 0, 0);
+        pannello.add(pulsante, 0, 1);
+        pannello.add(output, 0, 2);
+        pulsante.setOnAction(e->azione());
+        
+        // voglio che mostri le tacche
+        <em>cursore.setShowTickMarks(true);</em>
+        // voglio che mostri le etichette
+        <em>cursore.setShowTickLabels(true);</em>
+        // quanto è grande l'unità principale
+        <em>cursore.setMajorTickUnit(1);</em>
+        // l'unità principale non va suddivisa ulterioremente
+        <em>cursore.setMinorTickCount(0);</em>
+        // deve muoversi a scatti
+        <em>cursore.setSnapToTicks(true);</em>
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    private void azione() {
+        // leggo il valore dal cursore
+        <em>double val = cursore.getValue();</em>
+        output.setText(""+val);
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section id="DatePicker">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/DatePicker.html">
+<small>javafx.scene.control.</small>DatePicker</a></h3>
+<p><img src="immagini/dDatePicker.png" alt="esempio di interfaccia che usa uno DatePicker"/>
+<code>DatePicker</code> è un elemento che permette di selezionare una data e come valore
+usa degli oggetti di tipo 
+<a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/LocalDate.html">
+<code>java.time.LocalDate</code></a> che possono essere creati in questo modo:
+<code>LocalDate data = LocalDate.of(<i>anno</i>, <i>mese</i>, <i>giorno</i>);</code>
+</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import java.time.LocalDate;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DDatePicker extends Application{
+
+    DatePicker selezioneData = new DatePicker();
+    TextField testo = new TextField();
+    
+    public void start(Stage ps) throws Exception {
+        GridPane pannello = new GridPane();
+        Button pulsante = new Button("leggi");
+        pannello.add(selezioneData, 0, 0);
+        pannello.add(pulsante, 0, 1);
+        pannello.add(testo, 0, 2);
+        
+        // creo una data specificando anno,mese,giorno
+        LocalDate data = LocalDate.of(2018, 12, 31);
+        // imposto la data iniziale visualizzata
+        selezioneData.setValue(data);
+        
+        pulsante.setOnAction(e->calcola());
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    private void calcola() {
+        LocalDate data = selezioneData.getValue();
+        testo.setText("il giorno "+data.getDayOfMonth()+
+                " del mese "+data.getMonthValue()+
+                " dell'anno "+data.getYear());
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="WebView">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.web/javafx/scene/web/WebView.html">
+<small>javafx.scene.web.</small>WebView</a></h3>
+<p><img src="immagini/dWebView.png" alt="esempio di interfaccia che usa uno WebView"/>
+Questo componente è in grado di visualizzare una pagina html direttamente tramite una 
+URL e di seguire i link che mostra, oppure può essere più semplicemente usato per 
+visualizzare un documento complesso con testi di diverse misure e colori usanto
+HTML e CSS.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.troppocomplicati;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+
+public class DWebView extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>WebView vistaWeb = new WebView();</em>
+        GridPane pannello = new GridPane();
+        
+        pannello.add(vistaWeb, 0, 0);
+        
+        String testo = "&lt;h1 style='background-color:yellow'&gt;"
+                + "Alice nel paese delle meraviglie&lt;/h1&gt;"
+                + "&lt;p style='font-family:sans-serif'&gt;&lt;b&gt;Alice&lt;/b&gt; "
+                + "cominciava a sentirsi assai stanca "
+                + "di sedere sul poggetto accanto a sua sorella, "
+                + "senza far niente: aveva una o due volte data "
+                + "un’occhiata al libro che la sorella stava leggendo&lt;/p&gt;";
+        
+        // imposto il testo da visualizzare
+        <em>vistaWeb.getEngine().loadContent(testo);</em>
+        
+        Scene scena = new Scene(pannello,200,200);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<h2 id="layout">Layout</h2>
+<p>I layout sono elemento che servono per organizzare il conenuto di una pagina. 
+Bisogna sempre tener presenti che possono essere inseriti l'uno dentro l'altro: 
+ad esempio in una casella di un <code>GridPane</code> posso inserire un <code>BorderPane</code>
+e a sua volta in uno dei suoi spazi posso inserire un <code>Accordion</code>. 
+In questa sezione inseriamo tutti gli elementi che servono ad organizzare dei contenuti 
+anche se tecnicamente non sarebbero layout.</p>
+<p>Alcuni contenitori (es: BorderPane) si espandono per occupare lo spazioa aloro disposizione
+ad esempio quando si allarga la finestra, altri (ad esempio il GridLayout) mantengono la dimensione
+minima necessaria per visualizzare gli elementi che contengono.</p>
+
+
+<section id="GridPane">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/layout/GridPane.html">
+<small>javafx.scene.layout.</small>GridPane</a></h3>
+<p><img src="immagini/dGridPane.png" alt="esempio di interfaccia con GridPane"/>
+Il <code>GridPane</code> permette di organizzare il suo contenuto usando un reticolo,
+ogni elemento occupa uno o più celle che vengono riferite usando la colonna e la riga.</p>
+<p>Per inserire un elemento è possibile usare 
+<code>pannello.add(<i>elemento</i>, <i>colonna</i>, <i>riga</i>)</code>
+ogni riga/colonna sarà tanto larga quanto serve per contenere i propri elementi, se un elemento
+deve occupare più spazi:
+<code>pannello.add(<i>elemento</i>, <i>colonna</i>, <i>riga</i>, <i>quante_colonne</i>, <i>quante_righe</i>)</code>.</p>
+<p>Questo elemento mantiene una dimensione tale da poter disegnare il suo contenuto anche se c'è 
+più spazio a disposizione.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DGridPane extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        GridPane pannello = new GridPane();
+        Button uno = new Button("uno");
+        Button due = new Button("due");
+        Button tre = new Button("tre");
+        Button quattro = new Button("quattro");
+        
+        // inserisco i pulsanti nel pannello
+        pannello.add(uno,     0, 0);
+        pannello.add(due,     1, 0);
+        // questo pulsante occupa due colonne
+        pannello.add(tre,     0, 1, 2, 1);
+        // questo pulsante occupa due righe
+        pannello.add(quattro, 2, 0, 1, 2);
+        
+        // indico ai pulsanti che possono occupare più spazio
+        // se ce ne è a loro disposizione
+        tre.setMaxSize(100, 100);
+        quattro.setMaxSize(100, 100);
+        
+        Scene scena = new Scene(pannello, 200, 200);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="BorderPane">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/layout/BorderPane.html">
+<small>javafx.scene.layout.</small>BorderPane</a></h3>
+<p><img src="immagini/dBorderPane.png" alt="esempio di interfaccia con BorderPane"/>
+Il <code>BorderPane</code> permette di organizzare un massimo di 5 elementi inseriti in
+posizioni fisse chiamate top, bottom, left, right, center. Gli elementi vengono disegnati 
+nella seguente maniera: se esiste un elemento inserito in alto gli viene riservata l'altezza che 
+gli serve e tutta la larghezza della finestra, stessa cosa per l'elemento in basso.
+Successivamente alll'elemento a sinistra verrà riservata tutta la larghezza che gli serve e tutta 
+l'altezza disponibile (visto che gli elementi sopra e sotto già occupano dello spazio), 
+discorso analogo per l'elemento a destra. Tutto quel che resta viene occupato dal centro.</p>
+<p>Questo contenitoer si espande per occupare tutto lo spazio disponibile.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+
+public class DBorderPane extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>BorderPane pannello = new BorderPane();</em>
+        Button sopra = new Button("sopra");
+        Button sotto = new Button("sotto");
+        Button destra = new Button("destra");
+        Button sinistra = new Button("sinistra");
+        Button centro = new Button("centro");
+        
+        // inserisco i pulsanti nel pannello
+        <em>pannello.setTop(sopra);
+        pannello.setBottom(sotto);
+        pannello.setLeft(sinistra);
+        pannello.setRight(destra);
+        pannello.setCenter(centro);</em>
+        
+        // impostare le dimensioni non è necessario ma se non 
+        // lo faccio i pulsanti pur avendo a disposizione dello 
+        // spazio non lo occuperanno 
+        sopra.setMaxSize(500, 500);
+        sotto.setMaxSize(500, 500);
+        sinistra.setMaxSize(500, 500);
+        destra.setMaxSize(500, 500);
+        centro.setMaxSize(500, 500);
+        
+        Scene scena = new Scene(pannello,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="TabPane">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/TabPane.html">
+<small>javafx.scene.control.</small>TabPane</a></h3>
+<p><img src="immagini/dTabPane.png" alt="esempio di interfaccia con TabPane"/>
+Il <code>TabPane</code> è un contenitore per una serie di 
+<a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/Tab.html">
+<code>Tab</code></a> (delle linguette). 
+Mostra in alto una serie di linguette con i nomi dei singoli pannelli e visualizza il 
+contenutoi soltanto del pannello selezionato. Normalmente va utilizzato un qualche tipo
+di pannello (ad esempio un GridPane) che viene inserito in ogni <code>Tab</code> che 
+a sua volta viene inserito nel <code>TabPane</code>.</p> 
+<p>Questo elemento si espande per occupare tutto lo spazio a disposizione.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.stage.Stage;
+
+public class DTabPane extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>TabPane pannelloPrincipale = new TabPane();</em>
+        // creo le singole linguette
+        <em>Tab linguetta1 = new Tab("uno");
+        Tab linguetta2 = new Tab("due");</em>
+        Label e1 = new Label ("Hello");
+        Label e2 = new Label ("World!");
+        // qui inserisco due etichette per semplicità
+        // ma in un caso normale dovrei inserire un altro 
+        // pannello (ad esempio un GridLayout) che contiene
+        // ulteriori elementi
+        <em>linguetta1.setContent(e1);
+        linguetta2.setContent(e2);</em>
+        // aggiungo le linguette al loro contenitore
+        <em>pannelloPrincipale.getTabs().add(linguetta1);
+        pannelloPrincipale.getTabs().add(linguetta2);</em>
+        
+        Scene scena = new Scene(pannelloPrincipale,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="Accordion">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/Accordion.html">
+<small>javafx.scene.control.</small>Accordion</a></h3>
+<p><img src="immagini/dAccordion.png" alt="esempio di interfaccia che usa Accordion"/>
+Un <code>Accordion</code> è un contenitore per una serie di 
+<a href="https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/TitledPane.html">
+<code>TitledPane</code></a> (un pannello con un titolo).
+Il nome indica già il comportamento di questo contenitore: come in una fisarmonica i pannelli si 
+allargano e restringono: uno soltanto può essere aperto in un determinato momento.</p>
+<p>I titoli dei pannelli vengono mostrati uno sotto l'altro e quando si preme su un titolo
+il pannello selezionato si apre e tutti gli altri si chiudono.
+Normalmente va utilizzato un qualche tipo di pannello (ad esempio un GridPane) che viene inserito 
+in ogni <code>TitledPane</code> che a sua volta viene inserito nell'<code>Accordion</code>.</p> 
+<p>Questo elemento si espande per occupare tutto lo spazio a disposizione.</p>
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.stage.Stage;
+
+public class DAccordion extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>Accordion fisarmonica = new Accordion();</em>
+        Label contenuto1 = new Label("ciao");
+        Label contenuto2 = new Label("mondo!");
+        // qui inserisco una etichetta in ognni pannello per semplicità
+        // ma in un caso normale dovrei inserire un altro 
+        // pannello (ad esempio un GridLayout) che contiene
+        // ulteriori elementi
+        <em>TitledPane pannello1 = new TitledPane("pannello1", contenuto1);
+        TitledPane pannello2 = new TitledPane("pannello2", contenuto2);</em>
+        // aggiungo le linguette al loro contenitore
+        <em>fisarmonica.getPanes().add(pannello1);
+        fisarmonica.getPanes().add(pannello2);</em>
+        
+        Scene scena = new Scene(fisarmonica,200,100);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<h2 id="grafica">Grafica</h2>
+<p>In questa sezione inseriamo elementi grafici come le immagini</p>
+
+
+<section id="ImageView">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/ImageView.html">
+<small>javafx.scene.image.</small>ImageView</a></h3>
+<p><img src="immagini/dImageView.png" alt="esempio di interfaccia che usa ImageView"/>
+Un <code>ImageView</code> è un elemento che permette di visualizzare una immagine
+bitmap in diversi formati (es: jpeg, png, gif).</p>
+<p>L'unica parte complessa è trovare l'immagine che va visualizzata, 
+per farlo usiamo un ulteriore oggetto
+<a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/Image.html">Image</a>
+a cui indichiamo di caricare l'immagoine dalla cartella in cui sta la nostra classe.</p>  
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DImageView extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        // leggo una immagine che si trova nella stessa cartella di questa classe
+        <em>Image i = new Image(getClass().getResourceAsStream("santoreggia.jpg"));</em>
+        <em>ImageView iw = new ImageView(i);</em>
+        GridPane pannello = new GridPane();
+        pannello.add(iw, 0, 0);
+        
+        Scene scena = new Scene(pannello);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+<section id="Polygon">
+<h3><a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/shape/Polygon.html">
+<small>javafx.scene.shape.</small>Polygon</a></h3>
+<p><img src="immagini/dPolygon.png" alt="esempio di interfaccia che usa Polygon"/>
+Un <code>Polygon</code> è un elemento che rappresenta un poligono qualsiasi, si costruisce
+specificando le coordinate di tutti i vertici.</p>  
+<span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
+<pre>
+package it.demo;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Polygon;
+import javafx.stage.Stage;
+
+public class DPolygon extends Application{
+    
+    public void start(Stage ps) throws Exception {
+        <em>Polygon poligono = new Polygon();
+        poligono.getPoints().addAll(new Double[]{
+            0.0, 0.0,
+            60.0, 30.0,
+            40.0, 40.0,
+            30.0, 60.0 });</em>
+        GridPane pannello = new GridPane();
+        pannello.add(poligono, 0, 0);
+        
+        Scene scena = new Scene(pannello);
+        ps.setScene(scena);
+        ps.setTitle("demo");
+        ps.show();
+    }
+    
+    public static void main(String args[]) {
+        launch(args);
+    }
+}
+</pre>
+</section>
+
+</article>
+</body>
+</html>

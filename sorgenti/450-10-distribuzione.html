@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="ciaoMondo ide" group="infrastruttura" -->
+<!-- changelog 2020-04-27 prima bozza dell'uso di jpackage -->
+<!-- changelog 2020-05-02 provato jpackage anche su windows -->
+<!-- changelog 2024-04-20 riscritto il capitolo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>distribuzione</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <script type="text/javascript" src="script/ide.js"></script>
+        <style>
+            em { color:black ; font-weight: normal; border-radius:0.3em ; 
+                display: inline-block; padding : 0.2em}
+            em.jdk { background-color: aqua }
+            em.cartella { background-color: lightgrey }
+            em.jar { background-color: orange }
+            em.main { background-color: lime }
+            em.ico { background-color: pink }
+            em.compilato { background-color: red }
+            code {line-height: 1.25em; text-align: left; }
+        </style> 
+    </head>
+<body>
+<header>
+<h1>distribuzione</h1>
+<p>distribuire il prodotto finale all'utente</p>
+</header>
+<article>
+
+<p>Ad un certo punto dopo aver fatto il programma bisogna darlo a chi ce lo ha chiesto... come?</p>
+
+<p>Java è nato come linguaggio multipiattaforma e fin dall'inizio della sua storia 
+la modalità per distribuire il software era quella di creare un file che gli utenti potessero
+eseguire su qualsiasi piattaforma soltanto avendo java installato.
+Questo approccio ha l'enorme vantaggio di permettere di avere un solo file che tutti 
+coloro che hanno Java installato (su macOS, Linux o Windows) possono eseguire il programma.
+Ma tutti coloro che non hanno Java installato? La risposta è facile "lo installano".</p> 
+<p>Con l'arrivo di Java14 abbiamo però una alternativa in più: creare una applicazione 
+che gira nativamente senza bisogno di avere Java installato. Questo grazie a nuovi strumenti
+e alla nuova licenza Open Source di Java.</p>
+
+<p>Quella che andremo a creare è una applicazione per windows (per gli altri sistemi operativi
+cambia poco, per macOS ad esempio servono però le firme digitali di uno sviluppatore registrato)
+partendo da un progetto java non modulare (non deve esserci un file chiamato package-info.java).</p>
+
+
+<h2>Configurazione dell'ambiente</h2>
+<p>Per fare questo lavoro ci servono alcuni strumenti e di organizzare delle cartelle:</p>
+<p>I pezzi di testo colorato cono importanti: se usarte dei percorsi diversi dovete scrivere
+il percorso che usate, in questo esempio metteremo quasi tutto sulla scrivania.</p>
+<ul>
+    <li>Utilizziamo Eclipse 2024-03 o una versione successiva</li>
+    <li>Scarichiamo il package "Full jdk" (contiene anche javaFX)
+    versione 21 di <a href="https://bell-sw.com/pages/downloads/#jdk-21-lts">Liberica</a> nel formato zip,
+    lo scompattiamo nella cartella <em class="jdk">c:\java\jdk-21</em> </li>
+    <li>creiamo una cartella vuota chiamata <em class="cartella">componenti</em> sulla scrivania</li>
+</ul>
+
+
+<h2>Raccogliere i file</h2>
+<p>Da Eclipse, dopo aver selezionato il nostro progetto
+selezionaiamo il menu "/file/export" poi nel gruppo "java" prendiamo "JAR file",
+nel pannello "JAR File Specification" facciamo attenzione ad aver spuntato
+"Export generated class files and resources" e nella sezione "Select the resource to export"
+selezionaiamo tutto ciò che c'è nella cartella src (attenzione che per default le immagini e 
+simili non sono selezionate) registriamo il file jar chiamandolo
+<em class="jar">applicazione.jar</em> nella cartella <em class="cartella">componenti</em> creata prima.</p>
+
+<p>Serve anche una icona per l'applicazione, deve essere in formato "ico" ma esistono anche
+on-line diversi convertitori, mettiamo anche questa immagine sulla
+scrivania e la chiamiamo <em class="ico">icona.ico</em></p>
+
+
+<h2>Creazione del pacchetto</h2>
+<p>Per poter proseguire ci serve di sapere il nome completamente qualificato 
+(sarebbe a dire quello composto dal pacchetto e il nome della classe)
+della classe che contiene il main del programma, nel nostro esempio è
+<em class="main">it.aspix.applicazione.Principale</em></p>
+
+<p>A questo punto proviamo a vedere se il file jar contiene tutto quello che ci serve.
+Aprire il prompt dei comandi di Windows nella scrivania (il prompt dovrebbe finire
+con "Desktop>") e poi scrivere <br/>
+<code><em class="jdk">c:\java\jdk-21</em>\bin\java -cp <em class="cartella">componenti</em>\<em class="jar">applicazione.jar</em> 
+<em class="main">it.aspix.applicazione.Principale</em></code><br/>
+il programma deve avviarsi.</p>
+
+<p>Non resta che fare il pacchetto servendoci di 
+<a href="https://docs.oracle.com/en/java/javase/21/docs/specs/man/jpackage.html">jpackage</a>! 
+Sempre con il Prompt dei comandi aperto nella cartella Desktop:
+attenzione che il comando è tutto su una riga, senza "a capo" nel mezzo!</p>
+
+
+<code>
+<em class="jdk">c:\java\jdk-21</em>\bin\jpackage --name nomeApp --app-version 1.0<br/> 
+--icon <em class="ico">icona.ico</em> --type app-image<br/> 
+--input <em class="cartella">componenti</em> --dest <em class="compilato">compilato</em><br/> 
+--add-modules javafx.controls,javafx.media,javafx.fxml,javafx.web <br/>
+--main-class <em class="main">it.aspix.applicazione.Principale</em> 
+--main-jar <em class="jar">applicazione.jar</em>
+</code>
+
+</article>
+</body>
+</html>

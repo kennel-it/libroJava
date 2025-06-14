@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="tryWithResources while" group="file" -->
+<!-- changelog 2017-07-04 inserito capitolo bozza -->
+<!-- changelog 2017-09-18 Reader funzionante -->
+<!-- changelog 2017-09-19 rimosssa piccola parte sui path -->
+<!-- changelog 2017-09-19 inserito esercizio e sistemato capitolo in generale -->
+<!-- changelog 2017-09-20 modificato programma di esempio (semplificato) e inserita prima bozza dei csv -->
+<!-- changelog 2017-09-22 LinenumberReader sostituito con BufferedReader -->
+<!-- changelog 2017-10-05 Aggiunta parte sulla scrittura dei file di testo -->
+<!-- changelog 2020-11-29 cambiato nome al capitolo (era "archiviareTesto") e fatte molte modifiche -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>fileCSV</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>fileCSV</h1>
+<p>un formato comune per lo scambio dei dati</p>
+</header>
+<article>
+
+
+<h2>Testi separati da virgole</h2>
+<p>Molto spesso le informazioni si trovano salvate in file che hanno una 
+formato chiamato csv (Comma Separated Values)
+che possiamo ottenere anche salvando i dati presenti in un foglio di calcolo.</p>
+<p>Questi file rappresentano una tabella in cui i dati di ogni colonna sono
+separati da una virgola e in cui tutte le righe hanno lo stesso numero di colonne
+(NB: una riga vuota rappresenterebbe una ulteriore riga di dati ma con zero colonne).</p>
+<p>Prendiamo come esempio un file in cui registriamo le nostre spese: 
+ogni riga contiene in sequenza una data, descrizione, denaro entrato, denaro uscito.
+Ad esempio le prime tre righe sono:</p>
+<pre>
+10-8-2017,pizzeria,0,25
+11-8-2017,regalo,50,0
+10-8-2017,pizzeria,0,35
+</pre>
+
+<p>Dovremmo ora costruire un programma che leggendo una riga alla volta scriva poi
+il totale delle entrate e delle uscite.</p>
+
+<pre>
+public class CommaSeparatedValues extends Application{
+  TextField cIngressi = new TextField();
+  TextField cUscite = new TextField();
+  Label eErrori = new Label("-");
+
+  @Override
+  public void start(Stage primaryStage) throws Exception {
+    Label eIngressi = new Label("ingressi:");
+    Label eUscite = new Label("uscite:");
+    GridPane pannello = new GridPane();
+    Button contabilizza = new Button("contabilizza");
+        
+    pannello.add(eIngressi, 0, 0);
+    pannello.add(cIngressi, 1, 0);
+    pannello.add(eUscite, 0, 1);
+    pannello.add(cUscite, 1, 1);
+    pannello.add(contabilizza, 0, 3);
+    pannello.add(eErrori, 1, 3);
+        
+    Scene scena = new Scene(pannello);
+    primaryStage.setScene(scena);
+    primaryStage.setTitle("contabilità");
+    primaryStage.show();
+        
+    contabilizza.setOnAction(e->calcolaSomme());
+  }
+    
+  public void calcolaSomme() {
+    String riga;
+    String parti[];
+    int ingresso = 0;
+    int uscita = 0;
+    try(
+      FileInputStream fis = new FileInputStream("/Users/edoardo/Desktop/spese.txt");
+      <em>InputStreamReader isr = new InputStreamReader(fis,"UTF-8");</em>
+      BufferedReader input = new BufferedReader(isr);
+    ){
+      while( (riga=input.readLine()) != null ) {
+        <em>parti = riga.split(",");
+        ingresso += Integer.parseInt(parti[2]);
+        uscita += Integer.parseInt(parti[3]);</em>
+      }
+      cIngressi.setText(""+ingresso);
+      cUscite.setText(""+uscita);
+    } catch (NumberFormatException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+     
+  public static void main(String args[]){
+    launch();
+  }
+}
+</pre>
+
+<p>In questo caso nella creazione dell'<code>InputStreamReader</code>
+abbiamo specificato anche la codifica dei caratteri.</p>
+
+<div class="test">
+   	<p>Nel programma qui sopra ho aperto un FileOutputStream ma non ho usato close() dopo aver letto... perché?</p> 
+	<a onclick="sbagliata(this)">dimenticanza <span class="spiegazione">no, fatto appositamente</span></a> 
+	<a onclick="giusta(this)">ho usato un try-with-resources <span class="spiegazione">si! visibile dalle tonde dopo la parola chiave try</span></a>
+	<a onclick="sbagliata(this)">non è necessario <span class="spiegazione">no, potrei perdere dati che volevo salvare</span></a> 
+</div>
+
+</article>
+</body>
+</html>

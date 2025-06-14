@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="ereditarieta" group="algoritmiStruttureDati" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>classiAstratte</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+        <style type="text/css">
+        	.old { color: red }
+        	.new { color: green }
+        	#pulsanteOld { background-color: rgba(255,0,0,0.5) }
+        	#pulsanteNew { background-color: rgba(0,200,0,0.5) }
+        	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
+        </style>
+        <script type="text/javascript">
+        	function mostra(quale){
+        		var elenco;
+        		elenco = document.getElementsByClassName("new");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className){
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        		elenco = document.getElementsByClassName("old");
+        		for (var i = 0; i < elenco.length; i++) {
+        			if(quale==elenco[i].className){
+        				elenco[i].style.display = "";
+        			}else{
+        				elenco[i].style.display = "none";
+        			}
+        		}
+        	}
+        </script>
+    </head>
+<body onload="mostra('old')" >
+<header>
+<h1>classi astratte</h1>
+<p>definizioni non complete di</p>
+</header>
+<article>
+<h2>I poligoni</h2>
+<p>Alla scuola elementare tutti abbiamo studiato alcune figure piane come il triangolo equilatero, il rettangolo ed il trapezio rettangolo. Ci ricordiamo anche che tali figure
+si chiamano poligoni. Per gestirle da programma queste figure dovremo fare una modellazione della realtà e per farlo realizzeremo le classi <code>TriangoloEquilatero</code>,
+<code>Rettangolo</code> e <code>TrapezioRettangolo</code> e riflettendo un po' potremmo considerare che ognuna di esse dovrebbe avere almeno la proprietà <code>base</code>
+e la proprietà <code>altezza</code> insieme ad altre proprietà specifiche di ciascuna classe. Per quanto riguarda i metodi potremmo dire che ciascuna classe
+ha almeno un metodo per calcolare il perimetro ed uno per calcolare l'area.</p>
+<pre>public class TriangoloEquilatero {
+   private double base, altezza;
+
+   public TriangoloEquilatero() {
+      base = altezza = 1.0; // Ipotizziamo un triangolo di base ed altezza unitaria
+   }
+
+   public TriangoloEquilatero(double base, double altezza) {
+      this.base = base;
+      this.altezza = altezza;
+   }
+
+   public double ottieniPerimetro() {
+      return base * 3.0;
+   }
+
+   public double ottieniArea() {
+      return base * altezza / 2.0;
+   }
+   
+   // Qui andrebbero realizzati i setter e i getter di base e altezza che però evitiamo per mantenere il codice più leggibile
+}
+
+public class Rettangolo {
+   private double base, altezza;
+
+   public Rettangolo() {
+      base = altezza = 1.0; // Ipotizziamo un rettangolo di base ed altezza unitaria (un quadrato, che è un particolare caso di rettangolo)
+   }
+
+   public Rettangolo(double base, double altezza) {
+      this.base = base;
+      this.altezza = altezza;
+   }
+
+   public double calcolaPerimetro() {
+      return base + base + altezza + altezza;
+   }
+
+   public double calcolaArea() {
+      return base * altezza;
+   }
+   
+   // Anche qui andrebbero realizzati i setter e i getter di base e altezza
+}
+
+
+public class TrapezioRettangolo {
+   private double baseMaggiore, baseMinore, altezza;
+
+   public TrapezioRettangolo() {
+      baseMaggiore = baseMinore = altezza = 1.0; // Ipotizziamo un rettangolo di base ed altezza unitaria (un quadrato, che è un particolare caso di rettangolo)
+   }
+
+   public TrapezioRettangolo(double baseMaggiore, double baseMaggiore, double altezza) {
+      this.baseMaggiore = baseMaggiore;
+      this.baseMinore = baseMinore;
+      this.altezza = altezza;
+   }
+
+   public double getPerimetro() {
+      double differenzaBasi = baseMaggiore - baseMinore;
+      // Si utilizza il teorema di Pitagora
+      double latoObliquo = Math.sqrt(altezza * altezza + differenzaBasi * differenzaBasi);
+      return baseMaggiore + baseMinore + altezza + latoObliquo;
+   }
+
+   public double getArea() {
+      return (baseMaggiore + baseMinore) * altezza / 2.0;
+   }
+   
+   // Anche qui andrebbero realizzati i setter e i getter di base e altezza
+}</pre>
+<p>Tali classi sono corrette ma il lavoro del programmatore che le usa (potremmo essere noi stessi) si potrebbe semplificare se le proprietà che si
+riferiscono ad un determinato fatto si chiamino tutte allo stesso modo e i metodi che svolgono la medesima azione condividano il nome. Nell'esempio appena
+sopra i metodi che calcolano il perimetro hanno tutti nomi diversi pur svolgendo tutti lo stesso lavoro, chiaramente con operazioni diverse; analogo
+discorso vale per l'area. Questo implica che l'utilizzatore delle classi deve cercare sempre tra i metodi per trovare quello opportuno.</p>
+<p>Un altro vantaggio lo potremmo ottenere direttamente al momento della stesura delle classi: creiamo una superclasse con tutte le proprietà e metodi
+comuni.<br/>
+Per quanto riguarda i metodi che hanno il medesimo scopo e questo viene raggiunto con algoritmi diversi nelle rispettive classi, come si può fare?<br/>
+La soluzione è indicare solo la firma del metodo (ricordiamo cosa è la firma: nome del metodo con la sequenza dei parametri) terminandola con il
+<code>;</code> senza il corpo. I metodi in cui non c'è il corpo chiaramente non potranno essere invocati perché non sono indicate le azioni da svolgere.
+Si dà a ciascuno di questi la denominazione di <em>metodo astratto</em> (appunto, non ha corpo) che in Java è<code>abstract</code> inserito appena prima
+del tipo restituito. Dato che nella classe ci sono metodi non invocabili, non si possono creare oggetti di questo tipo; tali classi si chiamano astratte
+e si inserisce la parola <code>abstract</code> prima della parola chiave <code>class</code>. La superclasse dell'esempio precedente sarà:</p>
+<pre>public abstract class Poligono {
+   private double base, altezza;
+
+   public Poligono() {
+      base = altezza = 1.0; // Ipotizziamo un poligono di base ed altezza unitaria
+   }
+
+   public Poligono(double base, double altezza) {
+      this.base = base;
+      this.altezza = altezza;
+   }
+
+   public abstract double getPerimetro();
+
+   public abstract double getArea();
+   
+   // Qui andrebbero realizzati i setter e i getter di base e altezza che però evitiamo per mantenere il codice più leggibile
+}
+</pre>
+
+<p>A questo punto si creano le classi estese a partire da quella qui sopra implementando i metodi che erano astratti</p>
+<pre>
+public class TriangoloEquilatero extends Poligono{
+   
+   public TriangoloEquilatero() {
+      super();
+   }
+
+   public TriangoloEquilatero(double base, double altezza) {
+      super(base, altezza);
+   }
+
+   public double getPerimetro() {
+      return base * 3.0;
+   }
+
+   public double getArea() {
+      return base * altezza / 2.0;
+   }
+}
+
+public class Rettangolo extends Poligono {
+
+   public Rettangolo() {
+      super();
+   }
+
+   public Rettangolo(double base, double altezza) {
+      super(base, altezza);
+   }
+
+   public double getPerimetro() {
+      return base + base + altezza + altezza;
+   }
+
+   public double getArea() {
+      return base * altezza;
+   }
+}
+
+
+public class TrapezioRettangolo extends Poligono {
+   private double baseMinore;
+
+   public TrapezioRettangolo() {
+      super();
+      baseMinore = 1.0; // Ipotizziamo un rettangolo di base ed altezza unitaria (un quadrato, che è un particolare caso di rettangolo)
+   }
+
+   public TrapezioRettangolo(double baseMaggiore, double baseMaggiore, double altezza) {
+      // si utilizza base della superclasse in veste di baseMaggiore
+      super(baseMaggiore, altezza);
+      this.baseMinore = baseMinore;
+   }
+
+   public double getPerimetro() {
+      double differenzaBasi = baseMaggiore - baseMinore;
+      // Si utilizza il teorema di Pitagora
+      double latoObliquo = Math.sqrt(altezza * altezza + differenzaBasi * differenzaBasi);
+      return baseMaggiore + baseMinore + altezza + latoObliquo;
+   }
+
+   public double getArea() {
+      return (baseMaggiore + baseMinore) * altezza / 2.0;
+   }
+
+}</pre>
+<p></p>
+
+</article>
+</body>
+</html>

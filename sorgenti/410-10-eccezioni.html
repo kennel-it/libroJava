@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="ereditarieta" group="algoritmiStruttureDati" -->
+<!-- changelog 2018-08-31 corretto errore formulazione esercizio eccezioni -->
+<!-- changelog 2018-09-03 dipendenza verso "ereditarieta" -->
+<!-- changelog 2018-09-04 messo in chiaro il discorso delle unchecked exceptions -->
+<!-- changelog 2019-08-27 spostato capito in algoritmi e strutture dati -->
+<!-- changelog 2021-11-02 aggiunta definizione di eccezione -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>eccezioni</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>eccezioni</h1>
+<p>gestione di situazioni fuori dalla norma</p>
+</header>
+<article>
+<cite>Legge di Murphy: se qualcosa può andar male, lo farà.</cite>
+<p>Durante la costruzione (e l'uso) dei programmi succede più spesso di quanto 
+vorremmo di vedere delle "scritte rosse" nella console di eclipse. Scritte che 
+servono per trovare gli errori a chi scrive il programma ma che aiutano ben
+poco chi il programma lo usa!</p>
+
+<p>Prendiamo per esempio questo programma che dovrebbe calcolare il 
+doppio di una numero. Cosa succede se l'utente scrive "ciao" nella prima casella?</p>
+<pre>
+public class EccezioniEsecizio1 extends Application {
+	TextField cDato = new TextField("numero");
+	TextField cRisposta = new TextField("");
+
+	public void start(Stage primaryStage) {		
+		Button pDoppio = new Button("doppio");
+		GridPane p = new GridPane();
+		p.add(cDato, 0, 0);
+		p.add(pDoppio, 0, 1);
+		p.add(cRisposta, 0, 2);
+		pDoppio.setOnAction( e -> scambia() );
+		Scene scena = new Scene(p);
+		primaryStage.setTitle("Doppio");
+		primaryStage.setScene(scena);
+		primaryStage.show();
+	}
+
+	public void scambia() {
+		String testo;
+		int numero,doppio;
+		testo = cDato.getText();
+		numero = Integer.parseInt(testo);
+		doppio = numero * 2;
+		cRisposta.setText(""+doppio);
+	}
+	
+	public static void main(String args[]){
+		launch();
+	}
+}
+</pre>
+
+<p>Semplice: il programma non funziona e nella console di eclipse vediamo:</p>
+<pre>Exception in thread "JavaFX Application Thread" java.lang.<em>NumberFormatException</em>: For input string: "ciao"</pre>
+
+<p><code>NumberFormatException</code> è il nome di una eccezione che rappresenta un problema con il numero
+da convertire ma ne esistono molte altre.</p>
+
+<dfn>Una <em>eccezione</em> è un particolare oggetto che estende <code>java.lang.Exception</code>
+e che rappresenta un problema che insorge a tempo di esecuzione.</dfn>
+
+
+<p>Esiste un modo per controllare cosa
+fare in caso si presenti una situazione del genere. Quello che ci serve è un costrutto sintattico
+chiamato try-catch che nella sua forma più semplice si usa così:</p>
+<pre>
+try{
+  /* parte di codice che può creare problemi */
+}catch( tipo_dell_eccezione nome){
+  /* codice per gestire l'eccezione */
+}
+</pre>
+<p>Se la parte del codice racchiusa nel <code>try</code> fosse composta da 10 linee 
+e l'eccezione venisse sollevata dalla prima linea le restanti 9 non verrebbero eseguite 
+e il programma passerebbe alla parte dentro al catch (se l'eccezione è del tipo giusto).</p> 
+
+<div class="test">
+   	<p>Nel caso dell'esempio sopra <code>tipo_dell_eccezione</code> cosa sarebbe?</p>
+    <a onclick="giusta(this)">NumberFormatException<span class="spiegazione">giusto! è il nome della classe che viene visualizzato nella console sulla prima riga</span></a>
+    <a onclick="sbagliata(this)">java.lang<span class="spiegazione">questo è il pacchetto a cui appartiene l'eccezione </span></a> 
+    <a onclick="sbagliata(this)">ciao<span class="spiegazione">questa è la stringa che ha causato l'eccezione</span></a> 
+</div>
+
+<p>In pratica quello che dobbiamo fare è sostituire una parte del nostro codice:</p> 
+<pre>
+public void scambia() {
+  String testo;
+  int numero,doppio;
+  testo = cDato.getText();
+  <em>try{</em>
+    numero = Integer.parseInt(testo);
+    doppio = numero * 2;
+    cRisposta.setText(""+doppio);
+  <em>}catch(NumberFormatException e){</em>
+    cRisposta.setText("hai scritto male il numero");
+  <em>}</em>
+}
+</pre>
+
+<div class="test">
+   	<p>Perché nel try non c'è soltanto la linea <code>numero = Integer.parseInt(testo);</code>?</p>
+   	<a onclick="sbagliata(this)">le altre andava bene anche metterle dopo la "}" del catch
+    	<span class="spiegazione">no, se <var>numero</var> non può essere calcolato non ha senso neanche calcolare il doppio</span>
+    </a>
+    <a onclick="giusta(this)">se non funziona quella le altre non potrebbero fare nulla
+    	<span class="spiegazione">giusto! se questa va male le altre non possono essere eseguite</span>
+    </a>
+</div>
+
+<p>È possibile anche che più di una cosa vada male... in questo caso posso mettere più catch:</p> 
+<pre>
+try{
+  /* parte di codice che può creare problemi */
+}catch( tipo_dell_eccezione_1 nome){
+  /* codice per gestire il problema del primo tipo */
+}catch( tipo_dell_eccezione_2 nome){
+  /* codice per gestire l'eccezione del secondo tipo */
+}
+</pre>
+
+<p>Una ultima considerazione: non tutte le eccezioni sono uguali... alcune eccezioni devono obbligatoriamente
+essere gestite dal programma altre no!</p>
+<div class="test">
+   	<p>Quali eccezioni devono essere gestite esplicitamente dal programma?</p>
+   	<a onclick="sbagliata(this)">NumberFormatException
+    	<span class="spiegazione">no, finora non l'abbiamo gestita e il compilatore non si è lamentato</span>
+    </a>
+    <a onclick="sbagliata(this)">ArithmeticException
+    	<span class="spiegazione">no, è l'eccezione che viene sollevata quando ad esempio si divide per zero, 
+    	finora non l'abbiamo gestita e il compilatore non si è lamentato</span>
+    </a>
+    <a onclick="giusta(this)">FileNotFoundException
+    	<span class="spiegazione">giusto!</span>
+    </a>
+</div>
+
+<p>La regola da applicare è questa: una eccezione va sempre gestita (con throws o try-catch)
+a meno che non ereditino da java.lang.RuntimeException, in questo caso non è obbligarorio farlo
+(e vengono chiamate <em>unchecked exceptions</em>).</p>
+
+</article>
+</body>
+</html>

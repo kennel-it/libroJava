@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="ciaoMondo" group="base" -->
+<!-- changelog 2020-08-19 semplificato il capitolo e messa definizione di assegnazione -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>assegnazione</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>assegnazione</h1>
+<p>assegnare un valore ad una variabile</p>
+</header>
+<article>
+<p>In java il simbolo <em>=</em> ci permette di assegnare un valore ad una variabile,
+non è da confondere con il simbolo usato per fare il confronto che invece è <em>==</em>
+ne con il concetto di uguaglianza della matematica.</p>
+
+<dfn>Un <em>assegnazione</em> è una istruzione con la forma
+<pre>nomeVariabile = espressione</pre>
+che valuta l'espressione sulla destra e ne mette il risultato nella variabile presente sulla sinistra.
+Il tipo dell'espressione deve essere lo stesso o meno preciso di quello della variabile.</dfn>
+
+<p>Tratteremo nei prossimi capitoli formalmente cosa è una espressione, per adesso il significato intuitivo
+delle espressioni viste a matematica va bene. Un esempio di assegnazione potrebbe essere 
+<code>x=4</code> che vuol semplicemente dire mettere il valore 4 dentro la variabile <var>x</var>
+oppure <code>x=y+1</code> che vuol dire "prendi il contenuto della variabile y, sommaci 1
+e quel che viene mettilo nella variabile x".</p>
+
+<p>Proviamo a vedere una assegnazione che potrebbe sembrare più particolare:</p>
+<pre>x = x + 4;</pre>
+
+<p>questa istruzione prende il valore della variabile x, ci aggiunge 4 e <em>poi</em> scrive il risultato sempre nella
+variabile x</p>
+
+<p>visto che questa scrittura è molto comune abbiamo un modo per abbreviarla:</p>
+<pre> x += 4;</pre>
+
+
+<div class="test">
+   	<p>Come posso fare per incrementare il valore di una variabile di 5 unità?</p>
+	<a onclick="giusta(this)">a+=5;<span class="spiegazione">uno dei modi possibili!</span></a> 
+	<a onclick="sbagliata(this)">a==5;<span class="spiegazione">questo è un modo per vedere se a è uguale a 5</span></a>
+	<a onclick="sbagliata(this)">a=5;<span class="spiegazione">così si assegna il valore 5 alla variabile a</span></a>
+	<a onclick="giusta(this)">a=a+5;<span class="spiegazione">uno dei modi possibili!</span></a>  
+</div>
+</article>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="condizionale salutaUtente vettore" group="algoritmiStruttureDati" -->
+<!-- changelog 2021-09-29 aggiunto elenco contenente alcuni metodi di String -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>stringhe</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>stringhe</h1>
+<p>gestione dei testi</p>
+</header>
+<article>
+<h2>Il problema</h2>
+<p>Capita spesso che si debba analizzare il contenuto di alcuni testi (frasi o parole). A volte può servire di prendere in considerazione un carattere
+alla volta, altre volte si vorrebbe sostituire un carattere con un altro; in certe occasioni si dovrebbe poter verificare se è presente un certo
+carattere (oppure una sequenza di caratteri) oppure, in fine, estrarre una sottostringa. Non c'è bisogno di dire che di frequente bisogna confrontare
+2 stringhe per sapere se sono uguali oppure no.</p>
+<h2>La soluzione</h2>
+<p>Per aiutarci a risolvere tutti questi piccoli problemi Java ci mette a disposizione una ricca quantità di metodi, qui ne riportiamo un piccolo
+elenco:</p>
+<dl id='definizioni'>
+<dt>length()</dt>
+<dd>Restituisce il numero di caratteri che fanno parte della stringa. Si dice che restituisce la lunghezza della stringa.</dd>
+<dt>equals(stringaDaConfrontare)</dt>
+<dd>Restituisce <code>true</code> se le 2 stringhe sono uguali, altrimenti restituisce <code>false</code><br/>Non si può (purtroppo) usare l'operatore
+<code>==</code> per confrontare le stringhe perché tale operatore andrebbe a vedere se la posizione delle 2 stringhe in memoria coincide quindi se sono
+esattamente la stessa stringa, non la stessa sequenza di caratteri.</dd>
+<dt>compareTo(stringaDaConfrontare)</dt>
+<dd>Per capire questo metodo bisogna far riferimento all'ordinamento alfabetico, quello che troviamo nei vocabolari. Diciamo che la parola "casa" segue
+la parola "cara" perché la prima lettera è una "c" per entrambe quindi analizza la seconda lettera: la "a" che è anch'essa uguale per entrambe. Passa
+quindi alla terza lettera che in "casa" è una "s" e in "cara" è una "r". Dato che nell'alfabeto la "r" viene prima di "s", diciamo che la parola "cara"
+precede la parola "casa" o, equivalentemente, la parola "casa" segue la parola "cara".<br/>
+Questo metodo restituisce un numero negativo (&lt;0) se la stringa che le viene passata come argomento segue quella su cui si è invocato <code>compareTo()</code>
+mentre restituisce un numero positivo (>0) se la stringa passata come argomento precede la stringa dell'invocazione. Nel caso in cui le 2 stringhe
+fossero uguali restituisce 0.<br/>
+Attenzione: le maiuscole e le minuscole fanno differenza: tutte le maiuscole precedono sempre le minuscole. In realtà per confrontare le 2 stringhe
+il metodo utilizza la tabella UTF-8.</dd>
+<dt>compareToIgnoreCase(stringaDaConfrontare)</dt>
+<dd>Valgono le stesse considerazioni di <code>compareTo()</code> con la differenza che qui non vengono tenuto in considerazione il fatto che il carattere
+sia maiuscolo o minuscolo</dd>
+<dt>charAt(posizioneDaLeggere)</dt>
+<dd>Restituisce il carattere (quindi di tipo <code>char</code>) che si trova nella posizione indicata. Le posizioni, come nei vettori, partono da 0 e
+quindi 0 è la prima posizione, segue la posizione 1 e così via. Chiaramente partendo 0 significa che l'ultima posizione valida è la lunghezza della stringa
+-1.</dd>
+<dt>substring(posizioneDaCuiEstrarre)</dt>
+<dd>Fornisce una nuova stringa che contiene esattamente i caratteri della stringa su cui è stato invocato il metodo a partire dalla posizione indicata
+fino alla fine. Esempio: data <code>String s = "sosta";</code> il metodo <code>s.substring(2)</code> restituisce la stringa "sta".<br/>
+Attenzione: la stringa sulla quale viene applicato il metodo non viene in alcun modo modificata.</dd>
+<dt>substring(posizioneDaCuiEstrarre, posizioneACuiFermarsi)</dt>
+<dd>Valgono le stesse considerazioni fatte per <code>substring(posizioneDaCuiEstrarre)</code> con in più il fatto che non arriva fino alla fine ma si ferma
+alla posizione indicata. Il carattere alla posizione a cui fermarsi non farà parte della stringa risultato.</dd>
+<dt>indexOf(carattere)</dt>
+<dd>Restituisce la posizione del carattere indicato all'interno della stringa a partire da 0. Se tale carattere è presente più volte, viene restiruita la
+posizione del primo carattere. Se il carattere cercato non è presente, restituisce -1.</dd>
+<dt>indexOf(sottostringa)</dt>
+<dd>Simile al metodo precedente. Se <code>sottostringa</code> è presente nella stringa da cui è invocato il metodo, restituisce la posizione del primo
+carattere di <code>sottostringa</code> a partire da 0. Se <code>sottostringa</code> fosse presente più volte, restituisce la posizione del primo carattere
+della prima volta in cui compare. Se invece non è presente, restituisce -1.</dd>
+<dt>indexOf(carattere, posizioneDiPartenza)</dt>
+<dd>Simile al metodo <code>indexOf(carattere)</code>, l'unica differenza è che non parte da 0 ma dalla posizione indicata.</dd>
+<dt>indexOf(sottostringa, posizioneDiPartenza)</dt>
+<dd>Simile al metodo <code>indexOf(sottostringa)</code>, l'unica differenza è che non parte da 0 ma dalla posizione indicata.</dd>
+<dt>replace(sottostringaAttuale, nuovaSottostringa)</dt>
+<dd>Restituisce una nuova stringa in cui ogni volta che viene incontrata unaa sequenza di caratteri come quella indicata in <code>sottostringaAttuale</code>
+questa viene rimossa e al suo posto viene inserita una sequenza di caratteri come quella indicata in <code>nuovaSottostringa</code>.</dd>
+<dt>split(stringaSeparatrice)</dt>
+<dd>Dà come risultato un vettore di stringhe ottenuto analizzando la stringa sulla quale si è invocato il metodo: partendo dalla posizione 0, ogni volta
+che si incontra la <code>stringaSeparatrice</code> tutti i caratteri a partire dall'ultimo separatore incontrato (escluso) o dall'inizio se questo non è
+stato mai incontrato, formeranno una stringa in una cella del vettore. La successiva seuqenza andrà nella cella successiva e così via fino alla fine.<br/>
+Esempio: data <code>String elenco = "Aldo,Giovanni,Giacomo";</code> il codice <code>String nomi[] = elenco.split(",");</code> fa sì che si crei un vettore
+di 3 stringhe così fatto:<br/>
+in <code>nomi[0]</code> c'è "Aldo"<br/>
+in <code>nomi[1]</code> c'è "Giovanni"<br/>
+in <code>nomi[2]</code> c'è "Giacomo"<br/>
+Se si mette la stringa vuota (""), ogni carattere della stringa a cui è stato applicato il metodo diverrà una stringa a sé stante in una cella del
+vettore.</dd>
+<dt>toCharArray()</dt>
+<dd>Costruisce e restituisce un vettore di caratteri (<code>char</code>) costituito dai singoli componenti della stringa.</dd>
+<dt>toLowerCase()</dt>
+<dd>Restituisce una stringa in cui tutti i caratteri sono minuscoli.</dd>
+<dt>toUpperCase()</dt>
+<dd>Restituisce una stringa in cui tutti i caratteri sono maiuscoli.</dd>
+<dt>trim()</dt>
+<dd>Restituisce una stringa in cui sono stati eliminati tutti gli spazi iniziali e finali ma non quelli intermedi.</dd>
+</dl>
+<pre>
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Caratteri extends Application{
+  TextField c_uno = new TextField();
+  TextField c_due = new TextField();
+  Label risposta = new Label();
+	
+  @Override
+  public void start(Stage s){
+    Label e_uno = new Label("primo parametro:");
+    Label e_due = new Label("secondo parametro:");
+    Label e_risposta = new Label("risposta:");
+    Button carattere = new Button("n_esimo carattere");
+    Button prima = new Button("confronta prima");
+		
+    GridPane gp = new GridPane();
+    gp.add(e_uno,0,0);
+    gp.add(c_uno,1,0);
+    gp.add(e_due,0,1);
+    gp.add(c_due,1,1);
+    gp.add(carattere,1,2);
+    gp.add(prima,1,3);
+    gp.add(e_risposta,0,4);
+    gp.add(risposta,1,4);
+		
+    Scene scena = new Scene(gp);
+    s.setScene(scena);
+    s.setTitle("Caratteri");
+    s.show();
+		
+    carattere.setOnAction(evento->prendiEnnesimoCarattere());
+    prima.setOnAction(evento->confrontaPrimaLettera());
+  }
+	
+  /* qui uso il metodo toCharArray per recuperare un intero array di caratteri */
+  private void prendiEnnesimoCarattere(){
+    String f = c_uno.getText();
+    int n = Integer.parseInt(c_due.getText());
+    char v[];
+    v = f.toCharArray();
+    risposta.setText(""+v[n]);
+  }
+	
+  /* qui uso anche charAt per recuperare un singolo carattere */
+  private void confrontaPrimaLettera(){
+    String f = c_uno.getText();
+    String s = c_due.getText();
+    char v[];
+    v = f.toCharArray();
+    char primoSotto;
+    primoSotto = s.charAt(0);
+		
+    if(v[0]==primoSotto){
+      risposta.setText("sono uguali");
+    }else{
+      risposta.setText("non sono uguali");
+    }
+  }
+	
+  public static void main(String x[]){
+    launch(x);
+  }
+}
+</pre>
+<p>Un'altra cosa utile potrebbe essere quella di costruire una stringa a partire da un vettore di caratteri, questo è facile:
+<code>String testo = new String(vettoreDiCaratteri)</code>.</p>
+<h3></h3>
+</article>
+</body>
+</html>

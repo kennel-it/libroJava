@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="" group="infrastruttura" -->
+<!-- changelog 2018-06-25 inglobato il capitolo interpreti -->
+<!-- changelog 2018-07-09 inglobato il capitolo sintassi -->
+<!-- changelog 2021-08-12 piccole sistemazioni al capitolo -->
+<!-- changelog 2021-08-24 ulteriori correzioni al capitolo -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>linguaggi</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>linguaggi</h1>
+<p>perché un linguaggio al posto di un altro</p>
+</header>
+<article>
+
+<h2>sintassi</h2>
+<p>Un linguaggio di programmazione è un linguaggio per mezzo del quale si
+possono scrivere dei programmi che, dopo aver subito alcune
+trasformazioni, verranno eseguiti da un computer. 
+Un linguaggio (informatico o non) è
+caratterizzato dalle sue regole sintattiche e dalle parole che ne
+costituiscono il vocabolario (dette <em>parole chiave</em> quando si parla di
+linguaggi di programmazione). Almeno apparentemente guardando sia la
+sintassi che il vocabolario un linguaggio di programmazione è più
+semplice rispetto ad un linguaggio umano.</p>
+<div class="curiosita">Il linguaggio di programmazione java ha 53 parole chiave, il C++ ne ha 84, VB 178.</div>
+<p>Il vocabolario di un
+linguaggio di programmazione è solitamente molto povero se confrontato
+con un linguaggio umano, per esemplificare la situazione possiamo
+considerare un linguaggio umano formato da alcune migliaia di parole
+mentre un linguaggio di programmazione ha poche decine di parole chiave.
+Oltre a questo le parole di un vocabolario umano sono soggette a
+trasformazioni (pensiamo ad esempio agli aggettivi o ai verbi) mentre le
+parole chiave di un linguaggio di programmazione sono immutabili. Una
+differenza che invece di solito passa inosservata tra i linguaggi umani
+e quelli di programmazione riguarda le maiuscole e le minuscole: per un
+linguaggio umano lo scrivere una parola in maiuscolo o in minuscolo non
+ne cambia il significato (almeno non sempre) e le maiuscole sono
+presenti solo all'inizio di una parola, per un linguaggio di
+programmazione (non tutti ma quasi) le tre parole “Musica”, “musica” e
+“muSIca” sono tutte diverse.</p>
+
+<dfn>Si dice <em>case sensitive</em> un linguaggio che distingue le lettere
+maiuscole dalle minuscole.</dfn>
+
+<p>Le regole sintattiche in un
+linguaggio di programmazione sono molto semplici e al contempo
+restrittive, un linguaggio umano permette "licenze poetiche" e ci
+consente di scegliere come organizzare una frase mentre un programma che
+non rispetta scrupolosamente le regole sintattiche del linguaggio viene
+semplicemente considerato non valido; è come dire che la frase "Il cane
+è nera" risulterebbe semplicemente sbagliata e nessuno sforzo verrebbe
+fatto per comprenderne il senso. Potremmo per analogia dire, ad esempio,
+che ogni frase che non termina con il punto è sbagliata e che se un
+racconto contiene una frase sbagliata è sbagliato per intero! Il fatto
+di avere delle regole così restrittive implica due cose: la prima è che
+le regole di un linguaggio di programmazione si apprendono più in fretta
+di quelle di un linguaggio umano (sia perché non ci sono "eccezioni"
+come nei linguaggi umani che perché sono molto poche), la seconda è che
+il minimo errore porta alla mancata comprensione di tutto il programma:
+in pratica abbiamo un comportamento binario: un programma o è corretto o
+non lo è, non ci sono vie di mezzo.</p>
+
+<div class="test">
+    <p>Quale tra le seguenti frasi è sintatticamente errata?</p>
+    <a onclick="sbagliata(this)">il cane è azzurro <span class="spiegazione">magari è improbabile ma la sintassi è corretta</span></a> 
+    <a onclick="sbagliata(this)">il mio cane sa volare <span class="spiegazione">magari è improbabile ma la sintassi è corretta</span></a> 
+    <a onclick="sbagliata(this)">sono le ore dieci e trenta <span class="spiegazione">forse non in questo momento ma la sintassi è corretta</span></a>
+    <a onclick="giusta(this)">il mio cane è bianca <span class="spiegazione">si</span></a>
+</div>
+
+<h2>Semantica</h2>
+<p>Finora abbiamo parlato si sintassi,
+un discorso diverso vale per la semantica di un programma cioè per il
+suo significato. Per capire il concetto di semantica possiamo considerare alcuni
+esempi. Le due frasi "The book is blue" e "Il libro è blu" hanno
+lo stesso significato (semantica) pur essendo scritte usando vocabolari
+e regole sintattiche diverse. Le frasi "La scuola termina alle una e
+trenta del pomeriggio" e "Alle 13:30 la scuola termina" hanno la stessa
+semantica sebbene espressa con una sintassi diversa. Nel caso di un
+programma la semantica riguarda (volendo semplificare un po') il suo
+risultato cioè il compito che viene svolto dal programma stesso: un
+programma scritto correttamente (dal punto di vista sintattico) potrebbe
+non esserlo dal punto di vista semantico e quindi potrebbe non portare a
+compimento il compito per cui era stato pensato. Facciamo un esempio:
+l'espressione "raggio*raggio*2" è formalmente corretta ma se era stata
+pensata per calcolare l'area di un cerchio non assolverà al suo compito.</p>
+
+<div class="test">
+    <p>Quale tra le seguenti espressioni è semanticamente errata se stiamo parlando di un quadrato?</p>
+    <a onclick="sbagliata(this)">area = lato x lato <span class="spiegazione">questa ha il significato giusto</span></a> 
+    <a onclick="sbagliata(this)">perimetro = 4 x lato <span class="spiegazione">questa ha il significato giusto</span></a> 
+    <a onclick="giusta(this)">perimetro = (2 + 4) x lato <span class="spiegazione">già, non si calcola così il perimetro</span></a>
+    <a onclick="giusta(this)">area = lato + lato <span class="spiegazione">già, non si calcola così l'area</span></a>
+</div>
+
+<p>Gli errori all'interno dei programmi vengono usualmente chiamati "bug".</p>
+    
+    
+<h2>Quale linguaggio scegliere</h2>
+
+<p>Riguardo ai linguaggi di programmazione è utile osservare che ne 
+esistono una enorme varietà: le differenze tra l'uno e l'altro sono notevoli. 
+Come esempio può essere utile guardare <a href="http://www.levenez.com/lang/">Computer Languages History</a>
+che mostra come alcuni dei principali linguaggi di programmazione si sono evoluti
+oppure <a href="https://helloworldcollection.github.io">The Hello World Collection</a>
+che raccoglie una miriade di programmi in diversi linguaggi che scrivono semplicemente "Hello World!"</p>
+
+<div class="curiosita">
+<img src="immagini/piet_hello_world.png" alt="Hello Wrold in Piet" style="float:right; margin-left:1em"/>
+<br/>Hello world nel linguaggio Piet
+</div>    	
+<p>Esistono linguaggi adatti a manipolare archivi di testo (es: AWK), 
+per elaborare problemi matematici (es: Fortran) altri adatti a creare velocemente programmi 
+per la gestione dei sistemi (Perl), altri ancora orientati verso l'intelligenza artificiale (come Lisp) 
+e come ultimo esempio alcuni nati per l'apprendimento dell'informatica come Scratch.</p>
+
+<p>Quello visto è soltanto un breve cenno sulla varietà dei linguaggi di programmazione, 
+ne nascono continuamente di nuovi dalle esigenze delle singole ditte o gruppi di lavoro;
+ad esempio javascript usato in maniera estremamente diffusa nel WEB è nato da un progetto 
+di Netscape e si è poi sviluppato fino a raggiungere uno standard.</p>
+
+<p>A quanto detto va aggiunto che formalmente un programma può essere scritto in un qualsiasi linguaggio, 
+nella scelta di quello giusto influiranno diversi fattori, tra cui: 
+cosa la sua sintassi ci permette di esprimere con semplicità? 
+Esistono parti di programma già scritte atte ad assolvere compiti specifici?</p>
+
+<p>Come esempio possiamo vedere due piccoli programmi scritti rispettivamente in Perl 
+e Java che scrivono semplicemente "Ciao mondo!" sul terminale.</p>
+
+Perl:
+<pre>print "Ciao mondo!\n";</pre>
+Java:
+<pre>
+class Ciao { 
+   public static void main(String argv[]){ 
+      System.out.print("Ciao mondo!\n"); 
+   } 
+}
+</pre>
+<p>Se però volessimo avere un programma con una interfaccia grafica non è detto che Perl resti il più semplice
+...e non è neanche detto che la lunghezza dei programmi sia l'unico parametro per valutare un linguaggio</p>
+
+<h2>Alto o basso livello?</h2>
+<p>I linguaggi di programmazione sono classificabili seguendo diversi parametri, 
+uno di uso comune è quello che distingue linguaggi di alto o basso livello.</p>
+
+<p>Con l'espressione "linguaggio ad alto livello" si intende un linguaggio che nella 
+sua struttura è più vicino (tutto è sempre molto relativo) al linguaggio umano e
+quindi al punto di vista della persona che scrive il programma, 
+mentre sono a basso livello quei linguaggi più vicini alla macchina.</p>
+  
+<p>Java può essere considerato un linguaggio ad alto livello, per fare un confronto possiamo
+usare "Hello World!" scritto in java e una versione dello stesso programma in
+un linguaggio di basso livello: l'Assembler</p>
+
+<pre>
+   ;; Hello World for the nasm Assembler (Linux)
+	
+   SECTION .data
+
+   msg db "Hello, world!",0xa ; 
+   len equ $ - msg
+
+   SECTION .text
+   global main
+
+main:
+   mov eax,4     ; write system call
+   mov ebx,1     ; file (stdou)
+   mov ecx,msg   ; string
+   mov edx,len   ; strlen
+   int 0x80      ; call kernel
+
+   mov eax,1     ; exit system call
+   mov ebx,0      
+   int 0x80      ; call kernel
+</pre>
+
+<p>Si vede facilmente che sebbene la sintassi di entrambe i linguaggi sia sconosciuta 
+il frammento di codice java è molto più comprensibile del frammento di assembler!</p>
+
+<h2>Esecuzione dei programmi</h2>
+<p>Dopo aver visto cosa è un linguaggio di programmazione vediamo ora come un computer 
+può eseguire le azioni specificate nel programma stesso iniziando subito dalle note dolenti: 
+un computer non è direttamente in grado di comprendere nessun programma sia questo scritto 
+in un linguaggio di alto o di basso livello. L'unica cosa che un computer 
+(e in particolare in questo caso il suo processore) può comprendere sono delle sequenze 
+di numeri che formano il "linguaggio macchina".</p> 
+
+<div class="curiosita">Il codice "04" è la somma per i processori intel a 32 bit ma non per gli ARM usati 
+ad esempio nei cellulari.</div><!-- http://www.read.seas.harvard.edu/~kohler/class/aosref/i386/ADD.htm -->
+<p>Il linguaggio macchina è formato da una serie di codici che indicano la singola 
+operazione da intraprendere, questi variano da processore a processore e quindi 
+se ho un programma in linguaggio macchina che funziona su un processore i7 
+non posso farlo funzionare su un processore Arm.</p> 
+
+<p>Ecco il codice macchina relativo ad un programma che scrive "ciao mondo" per
+il sistema operativo Linux su Intel<sup>&#174;</sup>️:</p>
+<pre>
+01111111 01000101 01001100 01000110 00000001 00000001 00000001 00000000 00000000 00000000 
+00000000 00000000 00000000 00000000 00000000 00000000 00000010 00000000 00000011 00000000 
+00000001 00000000 00000000 00000000 01010100 10000000 00000100 00001000 00110100 00000000 
+00000000 00000000 10000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+00110100 00000000 00100000 00000000 00000001 00000000 00101000 00000000 00000011 00000000 
+00000010 00000000 00000001 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
+00000000 10000000 00000100 00001000 00000000 10000000 00000100 00001000 01101111 00000000 
+00000000 00000000 01101111 00000000 00000000 00000000 00000101 00000000 00000000 00000000 
+00000000 00010000 00000000 00000000 00110001 11000000 01010000 01101000 01110010 01101100 
+01100100 00001010 01101000 01101111 00100000 01010111 01101111 01101000 01001000 01100101 
+01101100 01101100 10001001 11100001 10110000 00000100 00110011 11000011 10110011 00000001 
+00110010 11000010 10110010 00001100 11001101 10000000 10110000 00000001 11001101 10000000</pre>
+
+<p>Oltre che dipendere dallo specifico linguaggio macchina del processore 
+i programmi dipendono anche dal sistema operativo in esecuzione su quel processore; 
+normalmente quando, ad esempio, il nostro programma ha bisogno di un input 
+da parte dell'utente (deve ad esempio acquisire un numero) non lo fa direttamente 
+ma chiede al sistema operativo di farlo per suo conto. 
+Anche in questo caso le modalità con cui questo servizio va richiesto a 
+Windows sono diverse da quelle con cui va richiesto a Linux o a macOS.</p>
+
+<dfn>Una <em>macchina</em> è definita dall'architettura hardware che la costituisce e dal sistema 
+operativo in esecuzione.</dfn>
+
+<p>Per poter eseguire un programma scritto in un determinato 
+linguaggio di programmazione su una determinata macchina (che esegue un dato sistema operativo) 
+è necessario 
+un passo di traduzione: il nostro programma deve cioè essere reso comprensibile 
+per il computer su cui dovrà essere eseguito. Le strade possibili per 
+effettuare questa traduzione sono due:</p>
+<ol>
+	<li>traduco il programma per intero in linguaggio macchina e lo salvo su file così 
+	che chiunque abbia tale (o tali) file possa eseguirlo semplicemente avviandolo 
+	(ad esempio con un doppio click sull'icona)</li>
+	<li>salvo il programma così come lo ho scritto poi per eseguirlo utilizzerò un apposito programma
+	che istruzione per istruzione chiederà alla macchina di intraprendere il compito
+	richiesto</li>
+</ol>
+
+<dfn>Si chiama <em>programma sorgente</em> un file (comunemente in formato testo) che contiene 
+un programma o sue parti scritto in un linguaggio di programmazione 
+qualsiasi.</dfn>
+<p>Per chiarezza di trattazione un file di testo è uno di quei file che su Windows 
+si possono scrivere con il blocco note (non con Word o OpenOffice), 
+solitamente per scrivere questi file si usano però programmi
+più complicati del blocco note come 
+<a href="http://www.eclipse.org/">Eclipse</a> o
+<a href="https://netbeans.org/">NetBeans</a>.</p>
+
+<h3>Compilatori</h3>
+<p>La prima soluzione che analizziamo è quella detta "compilativa" 
+in cui un programma (detto appunto compilatore) si occupa della traduzione 
+del nostro programma da "programma sorgente" in un formato direttamente 
+comprensibile alla macchina detto "programma compilato", tradizionalmente alla famiglia dei linguaggi 
+compilati appartengono C e Pascal. Un ovvio vantaggio della soluzione compilativa 
+sta nel fatto che la traduzione una volta fatta non va ripetuta 
+e questo ci consente di avere programmi più efficienti (pensa ad una traduzione 
+di un discorso fatta da un interprete o alla traduzione già scritta su un foglio, 
+se a tradurre è un interprete la persona che parla di tanto in tanto deve fermarsi 
+per permettere all'interprete di tradurre), un ulteriore vantaggio è dato 
+dalla possibilità che hanno i compilatori di ottimizzare il 
+"programma in linguaggio macchina" generato, cioè di organizzare il programma 
+"tradotto" in modo da sfruttare a fondo la macchina su cui andrà a funzionare. 
+D'altro canto è anche vero che se compilo il mio programma per una macchina 
+(ad esempio windows con processori della famigli Intel) poi non posso 
+eseguirlo su un'altra (ad esempio macOS con processore della famiglia intel)
+per via del fatto che, come abbiamo visto, un programma 
+in linguaggio macchina è eseguibile solamente su una macchina specifica.</p> 
+
+<h3>Interpreti</h3>
+<div class="suggerimento">I sistemi operativi moderni permettono di avviare anche programmi
+da interpretare semplicemente facendoci doppio click: chiamano automaticamente
+l'interprete opportuno.</div>
+<p>La seconda soluzione è detta "interpretativa" in quanto il nostro programma 
+sorgente non viene tradotto in una unica soluzione ma ogni volta che deve essere 
+eseguito un apposito programma (detto appunto interprete) legge ogni singola istruzione 
+del programma sorgente e chiede alla macchina di intraprendere le azioni opportune. 
+A questo gruppo di linguaggi appartengono ad esempio Javascript e Python. 
+Anche questa soluzione ha dei vantaggi meno visibili ma altrettanto rilevanti: 
+alcuni linguaggi fanno uso di tecniche che traggono grande beneficio dalla presenza 
+degli interpreti (sempre per tornare all'esempio di prima se ho un interprete 
+posso cambiare il mio discorso durante la conferenza), il mio programma sorgente
+potrà funzionare su qualsiasi macchina in cui esiste l'opportuno interprete
+senza che io debba compilarlo separatamente. 
+Javascript viene ad esempio 
+scritto nelle pagine html ed eseguito dagli interpreti presenti nei diversi browsers: 
+in questo caso io sapendo che qualsiasi macchina connessa ad internet ha un browser 
+capace di comprendere javascript semplicemente inserisco nella pagina web 
+il programma sorgente, sarà poi il browser ad interpretarlo e quindi ad eseguirlo.</p>
+
+<h3>Un po' e un po'</h3>
+<p>Tra queste due soluzioni estreme ne esiste anche una ibrida, 
+è anche vero che negli esempi visti finora non abbiamo incontrato java 
+(che non ha nulla a che vedere con javascript).
+Un programma può essere compilato in un linguaggio intermedio tra un 
+linguaggio ad alto livello e il linguaggio macchina 
+(più semplice dal punto di vista del computer ma non ancora direttamente comprensibile) 
+che verrà poi interpretato, questo è il caso di java e di altri linguaggi di programmazione.</p>
+
+<p>Conviene a questo punto chiarire un punto riguardo la velocità di esecuzione 
+di un programma interpretato: in linea di principio più un programma è di alto livello 
+più impiegherà un interprete per eseguire una singola istruzione. 
+Per fare un esempio in assembler le singole operazioni esprimibili sono del tipo 
+“somma due numeri” oppure “verifica se l'ultima operazione ha dato esito zero” 
+mentre con java posso dire “apri un finestra sulla scrivania dell'utente”. 
+In pratica se volessi interpretare l'assembler mi troverei a chiedere alla macchina di eseguire 
+una operazione per ogni istruzione del programma sorgente, per java questo rapporto sarebbe molto diverso. 
+Oltre a questo è vero anche che un interprete (che è pur sempre un programma) 
+scritto per un linguaggio di livello più basso è più facile da scrivere, più piccolo e più veloce
+rispetto ad uno scritto per un linguaggio ad alto livello.</p> 
+
+<p>La compilazione in un linguaggio intermedio è una operazione che trasforma 
+il programma sorgente in un codice che è una via di mezzo tra 
+quello scritto dal programmatore e quello comprensibile alla macchina. 
+Sebbene possa sembrare che venga fatto un doppio lavoro questo non è vero: 
+la compilazione iniziale risolve molti dei problemi della traduzione ma crea un programma 
+che non è legato ad una determinata macchina, il secondo passo (quello di interpretazione) 
+si trova a lavorare su un programma scritto in maniera molto più semplice 
+e quindi potrà eseguire più in fretta le operazioni richieste.</p>
+
+<h3>Conclusioni</h3>
+<p>Ogni linguaggio in realtà può essere sia compilato che interpretato, 
+nessuno vieta per principio di avere un interprete "C" ma per varie ragioni (anche storiche) 
+il "C" è un linguaggio compilato mentre il "Basic" è un linguaggio interpretato. 
+A dire il vero essendo il C il linguaggio con cui si programmano i sistemi operativi 
+poco senso avrebbe un interprete "C": il sistema operativo è una parte di quella coppia
+che noi abbiamo chiamato "macchina" insieme al processore, se il C fosse interpretato chi farebbe
+funzionare l'interprete che a sua volta è un programma?</p> 
+
+<p>Questa distinzione classica fatta da sempre nel mondo dei linguaggi
+di programmazione ha sempre minore importanza, la distinzione è nata agli inizi dello sviluppo dell'informatica 
+(possiamo parlare genericamente degli anni cinquanta) 
+quando la velocità dei calcolatori lasciava molto a desiderare e i sitemi operativi non erano
+oggetti complessi come quelli di oggi. Attualmente per interpretare un programma si fa
+ricorso a delle tecniche molto sofisticate che portano ad avere prestazioni 
+paragonabili con la soluzione compilativa.</p>
+
+<h2>Macchine virtuali</h2>
+<p>Lo scenario introdotto nella sezione precedente è quello che viene poi
+supportato nel caso di Java (ma è una soluzione piuttosto comune) da quella che si chiama
+<em>macchina virtuale</em> cioè da uno strato software che si frappone tra la macchina 
+e il programma da eseguire.</p>
+<p>Lo scopo della macchina virtuale nel caso di Java è quello di nascondere le diversità
+che ci sono tra le diverse macchine: in pratica un programma compilato per la
+<em>JVM</em> (Java Virtual Machine) non deve tener conto del fatto che alcune operazioni
+(ad esempio la lettura dei file) viene fatta in maniera diversa in sistemi operativi diversi.</p> 
+<p>Attualmente la JVM interpreta un linguaggio chiamato bytecode 
+che viene prodotto dal compilatore java, per rendere più veloce l'esecuzione dei programmi 
+in realtà usa tecniche più sofisticate della semplice lettura di una istruzione alla volta ma 
+per quanto riguarda il suo uso resta un interprete di bytecode.</p>
+
+</article>
+</body>
+</html>

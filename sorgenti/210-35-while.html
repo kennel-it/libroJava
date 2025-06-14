@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="ripetizione" group="base" -->
+<!-- changelog 2017-07-04 inserito capitolo vuoto -->
+<!-- changelog 2017-09-05 inserito contenuto nel capitolo -->
+<!-- changelog 2020-01-10 corretti esempi -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>while</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>while</h1>
+<p>altre forme dei cicli</p>
+</header>
+<article>
+	<p>java (come la maggior parte degli altri linguaggi) ha più modi per descrivere i cicli: for, while e do-while.</p>
+	<p>Gli ultimi due prevedono soltanto di specificare una condizione che se verificata implica l'esecuzione del blocco 
+	di codice contenuta nel ciclo.</p>
+	<p>La differenza tra i due cicli while sta nel punto in cui viene fatto il controllo: 
+	il while lo fa all'inizio (e quindi il ciclo potrebbe non essere mai eseguito) mentre il do-while 
+	lo fa alla fine (e quindi il ciclo viene eseguito almeno una volta).</p>
+
+	<h2>while</h2>
+	<p>Un esempio di ciclo while è il seguente:</p>
+<pre>
+n=0;
+x=0;
+while(n&lt;5){
+   x = x+n;
+   n++;
+}</pre>
+<div class="test">
+   	<p>Quanto varrà la variabile x alla fine del frammento di programma sopra?</p>
+	<a onclick="giusta(this)">10 <span class="spiegazione">si, somma i numeri da zero a quattro</span></a>
+	<a onclick="sbagliata(this)">15 <span class="spiegazione">no, il 5 non lo somma</span></a>
+	<a onclick="sbagliata(this)">0 <span class="spiegazione">no, il corpo del ciclo viene eseguito</span></a>
+</div>
+
+
+<pre>
+n=0;
+x=10;
+while(n&gt;=10){
+   n++;
+   x=n;
+}</pre>
+<div class="test">
+        <p>Quanto varrà la variabile x alla fine del frammento di programma sopra?</p>
+        <a onclick="giusta(this)">10 <span class="spiegazione">giusto, il corpo del ciclo non viene mai eseguito</span></a>
+        <a onclick="sbagliata(this)">11 <span class="spiegazione">no, il corpo del ciclo non viene mai eseguito</span></a>
+        <a onclick="sbagliata(this)">12 <span class="spiegazione">no, il corpo del ciclo non viene due volte</span></a>
+</div>
+
+
+	<h2>do while</h2>
+	<p>Un esempio di ciclo do-while è il seguente:</p>
+<pre>
+x=10;
+n=10;
+do{
+   x++;
+   n++;
+}while(n&lt;10)</pre>
+<div class="test">
+   	<p>Quanto varrà la variabile x alla fine del frammento di programma sopra?</p>
+	<a onclick="sbagliata(this)">10 <span class="spiegazione">sbagliata, il corpo del ciclo nel do-while viene eseguito almeno una volta</span></a>
+	<a onclick="giusta(this)">11 <span class="spiegazione">giusto, il corpo del ciclo viene comunque eseguito almeno una volta: il controllo è in fondo</span></a>
+	<a onclick="sbagliata(this)">12 <span class="spiegazione">no, il corpo del ciclo non viene eseguito due volte</span></a>
+</div>
+</article>
+</body>
+</html>

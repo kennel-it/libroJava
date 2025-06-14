@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
+<!-- grafoIndice requires="vettore" group="algoritmiStruttureDati" -->
+<!-- changelog 2022-03-06 cambiata notazione per registrazione ascoltatore -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>vettoreDiOggetti</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+<body>
+<header>
+<h1>vettoreDiOggetti</h1>
+<p>vettori che contengono tipi non base</p>
+</header>
+<article>
+<p>Il vettore fino ad ora visto contiene un tipo elementare come l'intero (nulla cambierebbe se fosse un double). Molto spesso però ciascun elemento del vettore è
+   un oggetto. Un esempio è il vettore di String; sempre di oggetti ma questa volta visibili anche all'utente del nostro programma è il vettore di <code>Label</code>
+   oppure <code>TextField</code> o <code>Button</code> o via dicendo.</p>
+<p>Vero è che dichiarare un vettore di oggetti comporta qualche attenzione in più. Supponiamo di volere un programma che faccia la somma di 10 numeri; tali numeri
+   dovranno essere inseriti ciascuno in una diversa casella di testo. Alla pressione del pulsante si mostra il totale. Per risolvere il problema andiamo a dichiarare
+   nella classe la <code>Label</code> che contiene il risultato ed il vettore di <code>TextField</code> che contiene gli addendi. Osserva bene che nella classe c'è solo
+   l'individuazione del tipo perché la dichiarazione vera e propria è fatta in due passi nella <code>start()</code>: il primo è quello della dichiarazione del vettore
+   ed il secondo è quello della dichiarazione di ciascun elemento contenuto nelle locazioni del vettore stesso; tale opezione sarà eseguita in un <code>for</code> in
+   quanto va dichiarato ogni oggetto del vettore.</p>
+<pre>
+   public class Sommatore extends Application {
+   TextField <var>addendi</var>[];
+   Label <var>risultato</var> = new Label();
+   <br/>
+   public void start(Stage <var>primaryStage</var>) {
+      <var>addendi</var> = new TextField[10];
+      int <var>i</var>;
+      Label <var>totale</var> = new Label("Totale");
+      Button <var>somma</var> = new Button("Somma");
+      Label <var>spiegazioni</var>[] = new Label[10];
+      for(<var>i</var>=0;<var>i</var>&lt;10;<var>i</var>++) {
+         <var>addendi</var>[<var>i</var>] = new TextField();
+         <var>spiegazioni</var>[<var>i</var>] = new Label("Addendo"+(i+1));
+      }
+      GridPane <var>p</var> = new GridPane();
+      <var>p</var>.add(<var>somma</var>, 0, 10);
+      <var>p</var>.add(<var>totale</var>, 0, 11);
+      <var>p</var>.add(<var>risultato</var>, 1, 11);
+      for(<var>i</var>=0;<var>i</var>&lt;10;<var>i</var>++) {
+         <var>p</var>.add(<var>addendi</var>[<var>i</var>], 1, <var>i</var>);
+         <var>p</var>.add(<var>spiegazioni</var>[<var>i</var>], 0, <var>i</var>);
+      }
+      somma.setOnAction( e -&gt; addiziona() );
+      Scene <var>scena</var> = new Scene(p);
+      <var>primaryStage</var>.setTitle("Aggiungi");
+      <var>primaryStage</var>.setScene(<var>scena</var>);
+      <var>primaryStage</var>.show();
+   }
+   <br/>
+   public void addiziona() {
+      int i, s;
+      for(<var>i</var>=<var>s</var>=0;<var>i</var>&lt;10;<var>i</var>++) {
+         <var>s</var> += Integer.parseInt(<var>addendi</var>[<var>i</var>].getText());
+      }
+      <var>risultato</var>.setText(""+<var>s</var>);
+   }
+   <br/>
+   public static void main(String args[]){
+      launch();
+   }
+}</pre>
+</article>
+</body>
+</html>
