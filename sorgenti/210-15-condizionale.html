@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <!-- e-pub instrastructure: opf:properties="scripted" TOC:type="toc" -->
-<!-- grafoIndice requires="numeri" group="base" -->
+<!-- grafoIndice requires="tipi operatoriBooleani" group="base" -->
 <!-- changelog 2021-08-10 sistemazioni minori in tutto il capitolo -->
 <!-- changelog 2021-08-10 corretti nomi di funzione e variabili nell'esempio del ToggleButton -->
 <!-- changelog 2021-08-13 rimosso l'esempio su pari/dispari e spostato in booleani -->
 <!-- changelog 2021-08-13 piccoli aggiustamenti sull'uso dei ToggleButton -->
 <!-- changelog 2021-08-21 questo capitolo è stato fuso con quello sui booleani -->
 <!-- changelog 2021-10-10 corretto errore nella creazione della scena -->
+<!-- changelog 2025-07-15 spostati operatori booleani su altro capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
         <title>condizionale</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
-        <script type="text/javascript" src="script/test.js"></script>         
+        <script type="text/javascript" src="script/test.js"></script>
     </head>
     <body>
 <header>
@@ -182,49 +183,6 @@ if(x&lt;5){
 	<a onclick="sbagliata(this)">3<span class="spiegazione">no, x non è minore di 5</span></a>
 </div>
 
-<h2>Espressioni booleane</h2>
-<p>Nell'esempio precedente abbiamo usato come condizione lo stato di un pulsante
-(selezionato oppure no) ma questa è soltanto una possibilità.
-Possiamo utilizzare una qualsiasi espressione di cui sia possibile 
-dire se è vera o falsa (attenzione, il "vero/falso" non ha nulla a che fare con il "corretto/sbagliato"): 
-queste espressioni si chiamano "espressioni booleane"
-e in Java e il loro valore può essere soltanto <var>true</var> o <var>false</var> con il significato che 
-è facile immaginare. Ad esempio l'espressione <code>4&lt;2</code> vale <code>false</code>
-mentre <code>3&lt;7</code> vale <code>true</code>. </p>
-
-<p>Una espressione booleana si può ottenere sia combinando valori numerici che combinando valori
-booleani, andiamo avanti con ordine.</p>
-
-<h3>Operatori di confronto</h3>
-<p>Gli operatori di confronto hanno come argomento due valori numerici (ad eccezione di uguale e 
-diverso che operano anche su operandi boolean) e restituiscono come risultato un valore boolean.</p>
- 
-<dl>
-	<dt>==</dt>
-	<dd>a == b<br/>
-	<var>a</var> è uguale a <var>b</var>, vale true se <var>a</var> ha lo stesso valore di <var>b</var></dd>
-
-	<dt>!=</dt>
-	<dd>a != b<br/>
-	<var>a</var> è diverso da <var>b</var>, vale true se <var>a</var> non ha lo stesso valore di <var>b</var></dd>
-		
-	<dt>&gt;</dt>
-	<dd>a &gt; b<br/>
-	<var>a</var>  è maggiore di <var>b</var>, vale true se <var>a</var> è maggiore a <var>b</var></dd>
-
-	<dt>&gt;=</dt>
-	<dd>a &gt;= b<br/>
-	<var>a</var> è maggiore o uguale a <var>b</var>, vale true se <var>a</var> è maggiore o uguale a <var>b</var></dd>
-	
-	<dt>&lt;</dt>
-	<dd>a &lt; b<br/>
-	<var>a</var> è minore di <var>b</var>, vale true se <var>a</var> è minore di <var>b</var></dd>
-	
-	<dt>&lt;=</dt>
-	<dd>a &lt;= b<br/>
-	<var>a</var> è minore o uguale a <var>b</var>, vale true se <var>a</var> è minore o uguale a <var>b</var></dd>
-	
-</dl>
 
 <h4>Volume del cubo</h4>
 <p>Poniamo per esempio di voler realizzare un programma che calcoli il volume
@@ -288,61 +246,19 @@ Bene. Posto di aver già realizzato la funzione start(), scriviamo qui la funzio
    }</em>
 }</pre>
 
- 
-<h3>Operatori logici</h3>
-<p>Servono ad esprimere fatti abbastanza comuni come ad esempio: 
-"un voto è un numero maggiore di zero <em>e</em> minore o uguale a dieci",
-hanno come operandi dei valori booleani e come risultato un valore booleano.</p>
-
-<dl>
-	<dt>||</dt>
-	<dd>or, "oppure". Vale true se uno dei due operandi è true.
-		<table>
-			<tr><th>||</th><th>true</th><th>false</th></tr>
-			<tr><th>true</th><td>true</td><td>true</td></tr>
-			<tr><th>false</th><td>true</td><td>false</td></tr>
-		</table>
-		<code>true || false</code> vale <code>true</code>
-	</dd>
-	<dt>&amp;&amp;</dt>
-	<dd>and, "e". Vale true se entrambe i due operandi sono true.
-		<table>
-			<tr><th>&amp;&amp;</th><th>true</th><th>false</th></tr>
-			<tr><th>true</th><td>true</td><td>false</td></tr>
-			<tr><th>false</th><td>false</td><td>false</td></tr>
-		</table>
-		<code>true &amp;&amp; false</code> vale <code>false</code>
-	</dd>
-	<dt>!</dt>
-	<dd>not, "non". Inverte il valore di verità che lo segue, lavora su un singolo operando.
-		<table>
-			<tr><th></th><th>!</th></tr>
-			<tr><th>true</th><td>false</td></tr>
-			<tr><th>false</th><td>true</td></tr>
-		</table>
-		<code>!true</code> vale <code>false</code>
-	</dd>
-</dl>
-
-<div class="test">
-   	<p>Quanto vale <code>true &amp;&amp; (!false)</code> ?</p>
-	<a onclick="sbagliata(this)">false</a> 
-	<a onclick="giusta(this)">true</a>  
-</div> 
-
-<p>Sembrano complicati? Proviamo a scrivere il programma che controlla
+ <h3></h3>
+<p>Proviamo a scrivere il programma che controlla
 se un valore inserito è un possibile voto o meno, il dato lo leggiamo dalla casella
 <var>cVoto</var> e il risultato lo scriviamo in <var>eRisposta</var>:</p>
 <pre>
 public void controllaVoto(){
-  String testoVoto = cvoto.getText();
+  String testoVoto = cVoto.getText();
   int voto = Integer.parseInt(testoVoto);
 	
   if( <em>voto&gt;0 &amp;&amp; voto&lt;=10</em> ){
-    eVolume.setText(voto + " è un voto"); 
+    eVoto.setText(voto + " è un voto"); 
   } else {
-    volume = lato * lato * lato;
-    eVolume.setText(voto + " non è un voto");
+    eVoto.setText(voto + " NON è un voto");
   }
 }
 </pre>
@@ -367,13 +283,6 @@ public void controllaVoto(){
 	<a onclick="sbagliata(this)">3**7<span class="spiegazione">no, non ha un tipo perché è sbagliata</span></a>
 	<a onclick="giusta(this)">4&gt;3<span class="spiegazione">si, per la precisione vale <code>true</code></span></a>
 </div>
-
-<p>In Java gli operatori logici vengono valutati con una tecnica chiamata "a corto circuito"
-o "valutazione minima" che sta a significare che se l'operando sinistro è sufficiente per stabilire il
-risultato l'altro non viene neanche valutato. Prendiamo per esempio l'espressione 
-<code>4==2+2 || 78==12</code> visto che <code>4==2+2</code> è vera e che per l'operatore
-or se un operando vale true anche il risultato vale true la parte <code>78==12</code>
-non viene neanche considerata.</p>
 
 <h3>Radio</h3>
 <p>La casella di spunta si adopera in genere per attivare o meno una certa opzione. 

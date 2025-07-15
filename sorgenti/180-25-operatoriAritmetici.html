@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="salutaUtente tipi" group="base" -->
+<!-- changelog 2018-06-22 inglobato il capitolo tipiNumerici -->
+<!-- changelog 2019-08-31 inserita definizione di operatore -->
+<!-- changelog 2019-11-08 corretta minuscola iniziale in parseDouble e parseFloat -->
+<!-- changelog 2020-08-20 corretto link alla pagina dei tipi numerici -->
+<!-- changelog 2021-08-12 definizione di espressioni e riorganizzato il contenuto -->
+<!-- changelog 2021-08-20 piccoli aggiustamenti e messa definizione di tipo -->
+<!-- changelog 2021-09-27 corretto primo frammento di programma -->
+<!-- changelog 2023-10-25 Giulia: nell'esempio di "%" era per errore scritto "/" -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>operatoriAritmetici</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>         
+    </head>
+    <body>
+<header>
+<h1>operatoriAritmetici</h1>
+<p>operazioni aritmetiche con numeri forniti dall'utente</p>
+</header>
+<article>
+<p>Supponiamo ora di voler calcolare il prodotto di due numeri interi forniti dall'utente.  
+Ragionevolmente dovremo procedere in questo modo: leggere i due numeri, fare il prodotto e quindi visualizzerai i risultati.
+Bene. L'unico problema è che quando leggiamo il contenuto di un campo testo, 
+questo è di <em>tipo</em> testo (il nome del tipo per Java è <code>String</code>) e Java non consente di sommare 
+o moltiplicare due testi, consente di farlo soltanto utilizzando delle informazioni di tipo numerico.</p>
+
+
+<h2>Operatori numerici</h2>	
+<p>I valori numerici vengono utilizzati anche per fare calcoli, quindi per scrivere espressioni
+(le tratteremo nel dettaglio poco più avanti in questo capitolo), insieme agli operatori.</p> 
+
+<dfn>Un <em>operatore</em> è un simbolo (formato da uno o più caratteri) 
+che serve a produrre un risultato combinando il valore di uno o più operandi.</dfn>
+<!-- https://en.wikipedia.org/wiki/Operator_(computer_programming)
+https://www.tutorialspoint.com/computer_programming/computer_programming_operators -->
+
+<dl>
+	<dt>+</dt>
+	<dd>è il solito operatore per l'addizione: <code>4 + 7</code> è una espressione ammissibile, 
+	anche <code>k + 7</code> se <var>k</var> è una variabile di tipo numerico</dd>
+	
+	<dt>-</dt>
+	<dd>con due operandi è la sottrazione, usato nel modo usuale<br/>
+	con un solo operando posto dopo l'operatore è l'inversione di segno</dd>
+	
+	<dt>*</dt>
+	<dd>moltiplicazione, <code>k * m</code> è una espressione valida se <var>k</var> e <var>m</var>
+	sono due variabili numeriche</dd>
+	
+	<dt>/</dt>
+	<dd>quoziente, il risultato della divisione. Se si usano variabili in virgola mobile è il risultato 
+	che ci si aspetta: <code>15.0 / 4.0</code> dà come risultato <code>3.75</code>. Se si usano valori 
+	interi il risultato è quello delle divisioni che si facevano alle elementari! (quelle con il resto)
+	quindi: <code>10 / 3</code> fa <code>3</code>.</dd>
+	
+	<dt>%</dt>
+	<dd>resto della divisione, anche chiamato modulo. <code>10 % 3</code> fa <code>1</code></dd>
+</dl>
+
+<p>Il risultato di una operazione (l'applicazione di un operatore) è del tipo più preciso tra quelli coinvolti.
+Se per esempio sommo due int ottengo un int, se sommo un int e un double ottengo un double.</p>
+
+<h2>operatori di pre/post incremento</h2>
+<dl>
+	<dt>++</dt>
+	<dd>se posto prima di una variabile incrementa di uno il suo valore e poi la usa per eseguire il calcolo 
+	dell'espressione, 
+	se posto dopo i nome della variabile prima usa il valore della variabile stessa per calcolare il resto 
+	dell'espressione e poi ne incrementa il valore</dd>
+	
+	<dt>--</dt>
+	<dd>se posto prima di una variabile decrementa di uno il suo valore e poi la usa per eseguire il calcolo 
+	dell'espressione, 
+	se posto dopo i nome della variabile prima usa il valore della variabile stessa per calcolare il resto 
+	dell'espressione e poi ne decrementa il valore</dd>
+</dl>
+Gli operatori di pre (o post) incremento possono comparire sia all'interno di espressioni che come istruzioni a se.
+
+<div class="test">
+	<p>Quanto vale x dopo il seguente frammento di programma?</p>
+	<pre>x = 18<br/>x++;</pre>
+    <a onclick="sbagliata(this)">18<span class="spiegazione">no, c'era un incremento </span></a> 
+    <a onclick="giusta(this)">19</a> 
+</div>
+
+<div class="test">
+	<p>Quanto vale y dopo il seguente frammento di programma?</p>
+	<pre>x = 3<br/>y = x++ * 2;</pre>
+    <a onclick="giusta(this)">6<span class="spiegazione">esatto, prima calcola l'espressione e poi fa l'incremento</span></a> 
+    <a onclick="sbagliata(this)">8<span class="spiegazione">no, l'incremento viene fatto dopo il calcolo </span></a> 
+</div>
+
+<div class="test">
+	<p>Quanto valgono x e y dopo il seguente frammento di programma?</p>
+	<pre>x = 3<br/>y = --x * 3;</pre>
+    <a onclick="giusta(this)"   >x=2 e y=6<span class="spiegazione">giusto</span></a> 
+    <a onclick="sbagliata(this)">x=3 e y=6<span class="spiegazione">no, x viene decrementata</span></a>
+    <a onclick="sbagliata(this)">x=2 e y=9<span class="spiegazione">no, prima viene fatto il decremento della x e poi calcolata l'espressione</span></a> 
+    <a onclick="sbagliata(this)">x=3 e y=9<span class="spiegazione">no, va decrementata la x e poi calcolata l'espressione</span></a>  
+</div>
+
+<h2>Espressioni</h2>
+<dfn>Viene detta <em>espressione</em> una combinazione di valori e funzioni da cui si ottiene un nuovo valore.
+Il tipo dell'espressione è il tipo del risultato ottenuto.</dfn>
+<p>Sembra complicato? forse risulterà più semplice facendo alcuni esempi, teniamo conto soltanto delle seguenti
+dichiarazioni:</p>
+<pre>
+int x = 5;
+int y = 7;
+double m = 2.00;
+String s = "11";
+</pre>
+<p>E proviamo a vedere alcune espressioni e il loro tipo:</p>
+<dl>
+	<dt><code>x + y</code></dt>
+	<dd>Questa espressione combina due informazioni (variabili) di tipo int e quindi è una espressione di tipo int,
+	il suo valore è 12</dd>
+	
+	<dt><code>x * 3</code></dt>
+	<dd>Questa espressione combina due informazioni (una variabile e una costante) di tipo int 
+	e quindi è una espressione di tipo int, il suo valore è 15</dd>
+	
+	<dt><code>4</code></dt>
+	<dd>Anche questa è una espressione, ha una sola costante di tipo int e quindi è un espressione di tipo int,
+	il suo valore è 4</dd>
+	
+	<dt><code>Integer.parseInt(s)</code></dt>
+	<dd>Integer.parseInt() è una funzione che da un risultato di tipo int: di nuovo una espressione int, 
+	il suo valore è 11</dd>
+	
+	<dt><code>Integer.parseInt(s) + 18 </code></dt>
+	<dd>Integer.parseInt() è una funzione che da un risultato di tipo int, sommato ad un 
+	altro int... di nuovo una espressione intera, 29 per la precisione.</dd>
+	
+	<dt><code>y * m</code></dt>
+	<dd>siccome le due variabili sono di tipi diversi il risultato è del tipo più "ampio",
+	cioè che consente di rappresentare il numero più grande: double, il suo valore è 14.00</dd>
+	
+	<dt><code>(int)(m*1.3)</code></dt>
+	<dd>m e 1.3 sono double quindi il risultato è double ma c'è un cast: il tipo dell'espressione è int 
+	(ma il prodotto viene fatto tra due double quindi è double che poi verrà convertito in int) e il suo valore è 2</dd>
+	
+	<dt><code>y + x++</code></dt>
+	<dd>tutte variabili int, il suo tipo è int, il valore è 12, questa espressione cambia anche il valore di x che 
+	diventerà 6</dd>
+</dl>
+
+<h2>Precedenza degli operatori</h2>
+<p>Nelle espressioni del linguaggio linguaggio Java gli operatori hanno la precedenza usuale
+ma per un riferimento più preciso è disponibile una pagina del 
+<a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/operators.html">tutorial di Oracle</a>.</p>
+
+<p>Nella scrittura delle espressioni per modificare l'ordine in cui vanno eseguite le operazioni
+possono essere utilizzate soltanto le parentesi tonde.</p>
+
+<div class="test">
+	<p>Quanto vale <code>6 + 4 / 2</code> ?</p>
+    <a onclick="giusta(this)">8<span class="spiegazione">esatto</span></a> 
+    <a onclick="sbagliata(this)">5<span class="spiegazione">no, viene fatta prima la divisione</span></a> 
+</div>
+
+<div class="test">
+   	<p>Quanto vale l'espressione <code>4+5*2</code>?</p>
+	<a onclick="sbagliata(this)">18<span class="spiegazione">no, prima si fa il prodotto</span></a> 
+	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è corretta</span></a>
+	<a onclick="giusta(this)">14</a>
+</div>
+
+<div class="test">
+   	<p>Quale è il tipo dell'espressine <code>4+5*2</code>?</p>
+	<a onclick="sbagliata(this)">double<span class="spiegazione">no, non sono numeri con una parte decimale</span></a>
+	<a onclick="giusta(this)">int</a> 
+	<a onclick="sbagliata(this)">errore<span class="spiegazione">no, l'espressione è corretta e ha un tipo</span></a>
+</div>
+
+<div class="test">
+	<p>Quanto vale <code>[6 + (2 * 2) ] / 2</code> ?</p>
+    <a onclick="sbagliata(this)">5<span class="spiegazione">no, le parentesi quadre non posso essere usate</span></a> 
+    <a onclick="sbagliata(this)">4<span class="spiegazione">no, le parentesi quadre non posso essere usate</span></a>
+    <a onclick="giusta(this)">errore<span class="spiegazione">giusto, le parentesi quadre non posso essere usate</span></a> 
+</div>
+
+</article>
+</body>
+</html>

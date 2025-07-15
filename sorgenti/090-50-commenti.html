@@ -4,18 +4,20 @@
 <!-- changelog 2018-10-04 spiegati FIXME e TODO -->
 <!-- changelog 2019-09-16 spostati prima di javadoc FIXME e TODO -->
 <!-- changelog 2021-08-18 piccoli aggiustamenti -->
+<!-- changelog 2025-07-15 rimossa parte javadoc -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>commenti</title>
-        <link type="text/css" rel="stylesheet" href="style.css"/>     
+        <meta charset="UTF-8">
+        <link type="text/css" rel="stylesheet" href="style.css"/>
     </head>
     <body>
-    	<header>        
-    	<h1>commenti</h1>
-    	<p>come documentare i programmi direttamente nel file sorgente</p>
-    	</header>
-    	<article>
-    	
+        <header>
+        <h1>commenti</h1>
+        <p>come documentare i programmi direttamente nel file sorgente</p>
+        </header>
+        <article>
+
 <p>Il linguaggio Java mette a disposizione due modalità per inserire
 nel file sorgente del testo che verrà scartato dal compilatore e che serve quindi
 soltanto per chi legge il programma, scrivere questo tipo di testo ha tanti vantaggi
@@ -50,39 +52,7 @@ un commento, in futuro basta aprire il pannello "Tasks" di Eclipse per vedere co
 </dl>
 
 
-<h2><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/javadoc.html#CHDBEFIF">Javadoc</a></h2>
-<p>la piattaforma java ha un modo standard per scrivere commenti in modo che possa
-essere prodotta documentazione in maniera automatica.
-Questi commenti sono dei normali commenti multilinea ma iniziano con
-<code>/**</code> e terminano al solito con <code>*/</code> e contengono al loro interno
-degli speciali marcatori che iniziano con <code>@</code>, questi marcatori devono trovarsi
-all'inizio di una linea (possono essere preceduti da spazi bianchi e eventualmente da un asterisco). </p>
-<p>I commenti javadoc non possono essere messi ovunque, possono comparire prima di:
-dichiarazioni di classi, metodi o campi (variabili al livello di classe).</p> 
-        
-<h3>Classi</h3>
-<p>Prima della dichiarazione di una classe può essere inserito un commento per indicare 
-(tra le altre cose) cosa fa la classe stessa e chi l'ha scritta.</p>
-        
-<pre>/**
- * Questa classe somma il contenuto di due numeri inseriti dall'utente
- * <em>@author</em> Pluto
- */
-public class Sommatore extends Application {</pre>        
-        
-<h3>Metodi</h3>
-<p>Nel caso dei metodi (o funzioni) possiamo ad esempio descrivere i parametri e cosa la funzione
-ritorna (calcola).</p>
-<pre> /**
- * Calcola l'area del rettangolo
- * <em>@param</em> base la misura della base del rettangolo
- * <em>@param</em> altezza la misura dell'altezza del rettangolo
- * <em>@return</em> la mosura dell'area
- */
-public int area(int base, int altezza) {</pre>
 
-<div class="FIXME">da completare con altri tag</div>
-        
-		</article>
+        </article>
     </body>
 </html>

@@ -18,6 +18,8 @@
 <!-- changelog 2023-09-18 piccolissime correzioni -->
 <!-- changelog 2024-10-18 aggiornata schermata di download di liberica -->
 <!-- changelog 2024-12-21 inserite indicazioni per scegliere l'architettura -->
+<!-- changelog 2025-07-15 iserito hello world in modalità testo -->
+<!-- changelog 2025-07-15 piccole correzioni alla procedura di installazione -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -49,7 +51,7 @@ elenco di programmi utilizzati dagli sviluppatori per creare e gestire programmi
 Noi useremo soltanto alcuni di questi strumenti ma il JDK va comunque installato.</p>
 <p>Java ha un meccanismo predefinito per le versioni e dovremo farci attenzione:
 alcune versioni sono marcate come <em>LTS</em> cioè "Long Term Support" (versioni con lungo supporto)
-e scaricabili a lungo, fanno parte di questo gruppo la versione 11 e 17, altre versioni come 9-10-12-13-14-15-16
+e scaricabili a lungo, fanno parte di questo gruppo la versione 17 e 21, altre versioni come 14-15-16-18-19-20
 sono soltanto intermedie quindi quando ne esce una versione successiva la precedente non è più facile da trovare.</p>
 
 <p>In realtà non va installato "il" JDK ma "un" JDK perché ce ne sono molte versioni  e 
@@ -62,13 +64,12 @@ una delle versioni chiamate "LTS", l'ultima di questo tipo
 
 <p>Per via della licenza Open del JDK
 si può scegliere anche da quale produttore scaricare il JDK: funzionano tutti fondamentalmente
-allo stesso modo ma possono avere strumenti in più o assistenza più o meno lunga e in alcuni casi 
 a pagamento (con garanzie aggiuntive in questi casi).
 Ad esempio fanno una versione del JDK: 
 <a href="https://adoptium.net/">Adoptium Working Group</a>,
 <a href="https://www.oracle.com/it/java/technologies/javase-downloads.html">Oracle</a>,
 <a href="https://aws.amazon.com/it/corretto/">Amazon</a> 
-<a href="https://bell-sw.com/">BellSoft</a>
+<a href="https://bell-sw.com/pages/downloads/#jdk-21-lts">BellSoft</a>
 e anche <a href="https://www.microsoft.com/openjdk">Microsoft</a>.</p>
 
 <h3>Libreria grafica</h3>
@@ -92,9 +93,6 @@ qui riportiamo la soluzione più semplice che usa tutto software Open: Eclipse c
 di BellSoft (perché include già JavaFX e ci risparmia un po' di lavoro e di seccature) come JDK.</p>
 
 <h2>Installazione</h2>
-<p>Il lavoro da fare cambia a seconda del fatto che il sistema abbia già o meno una versione
-del JDK installato ma questo è facile da verificare: basta aprire un terminale, scrivere "java"
-e battere invio, se il comando da errore il JDK non c'è.</p>
 <p><em>Attenzione:</em> le indicazioni che verranno date qui sotto 
 vanno seguite molto scrupolosamente, prima di prendere una versione
 diversa da quella specificate è meglio chiedere perché potrebbe succedere che alcune combinazioni di
@@ -106,9 +104,10 @@ Edclipse/JDK non siano del tutto compatibili.</p>
     <li>Scaricare Eclipse
         <ul>
             <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
-            pagina dei download di Eclipse</a>, la versione deve essere 2023-06 o successiva 
-            (ad esempio 2023-09 o 2024-03 vanno bene)</li>
-            <li>Scaricare "Eclipse IDE for Enterprise Java and Web Developers", è un file zip,
+            pagina dei download di Eclipse</a>, la versione deve essere 2025-06 o successiva 
+            (ad esempio 2025-09 o 2026-03 vanno bene)</li>
+            <li>Non scaricare l'installer ma il file da scompattare 
+            "Eclipse IDE for Enterprise Java and Web Developers",
             fate però attenzione all'architettura (x86_64 o AArch64):
             <ul>
                 <li>Per Linux: da terminale usate il comando `uname -m` che vi darà l'indicazione necessaria</li>
@@ -147,6 +146,7 @@ Edclipse/JDK non siano del tutto compatibili.</p>
     		in cui Eclipse metterà tutti i file su cui lavora, la possiamo lasciare dove dice Eclipse o
     		crearne una sulla scrivania, una volta deciso click su "launch"</li>
     		<li>aprire le preferenze di Eclipse: menu "Window/Preferences"</li>
+            <li>Aprire il gruppo "Java" e poi selezionare "Installed JREs"</li>
     		<li>rimuovere l'unico JDK presente (e anche tutti gli altri se ce ne fossero) e poi
     		aggiungerne uno nuovo<br/>
             <img src="immagini/eclipse-configurazione-1.png" alt="confiugurazione jdk in eclipse"/></li> 
@@ -292,6 +292,51 @@ analogamente per creare una nuova classe click con il destro sul nome di un pacc
 "New" e "Class".</p>
 <p style="clear:both"></p>
 </section>
+
+        <h2>Il primo programma</h2>
+        <p>Classicamente il primo programma che si scrive con ogni linguaggio di programmazione
+        stampa semplicemente il testo "hello world!".</p>
+
+        <h3>Output su console</h3>
+        <p><img src="immagini/console_1.png" style="float:right; margin-left:0.5em" alt="poszione console in eclipse"/>
+        Lo strumento che permette di effettuare l'input e l'output testuale si chiama console
+        e prevede l'uso della sola tastiera per inserire i dati e di avere l'output
+        soltanto in formato testo. Come tutti gli altri programmi solitamente
+        gira in una finestra.</p>
+
+        <p>Nel caso di eclipse la console compare nella parte bassa dello schermo 
+        come impostazione predefinita, se non fosse visibile per 
+        aprirla bisogna usare il menu <span class="ide">/Window/Show View</span> 
+        e selezionare la voce <span class="ide">Console</span>
+        (se la voce "console" non compare direttamente click su 
+        <span class="ide">/Window/Show View/Other...</span> e dal gruppo 
+        <span class="ide">General</span> selezionare la voce <span class="ide">Console</span>).</p>
+
+        <h3>Hello World</h3>
+        <p>Dopo aver creato il progetto bisogna creare una nuova classe, 
+        nello svolgere le prossime operazione fai attenzione al Maiuscolo/minuscolo nei nomi degli elementi:
+        apri le cartelle del progetto, diventerà visibile una cartella <span class="ide">src</span>
+        fai click con il destro e poi click sul menu contestuale <span class="ide">New/class</span>,
+        chiamala <span class="ide">CiaoMondo</span> (nel campo Name) e scrivi <span class="ide">ciaomondo</span>
+        nel campo Package. A questo punto fai doppio click sulla classe appena creata per aprirla.</p>
+
+        <p>Il file "CiaoMondo", conterrà qualche linea di codice che va cancellata 
+        e sostituita con il programma qui sotto:</p>
+<pre>
+package ciaomondo;
+
+public class CiaoMondo {
+
+    public static void main(String[] args) {
+        System.out.println("Ciao mondo!");
+    }
+
+}</pre>
+
+        <p>Per eseguire il programma bisogna fare click con il destro sul programma stesso poi
+        selezionare il menu <span class="ide">Run As</span> e poi <span class="ide">Java Application</span>.
+        Il risultato compare nel pannello <span class="ide">Console</span>.
+        </p> 
 
 </article>
 </body>
