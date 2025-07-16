@@ -9,12 +9,13 @@
 <!-- changelog 2021-09-27 corretto primo frammento di programma -->
 <!-- changelog 2023-10-25 Giulia: nell'esempio di "%" era per errore scritto "/" -->
 <!-- changelog 2025-07-15 fuso con ex capitolo su assegnazione e rimossa parte su operatori -->
+<!-- changelog 2025-07-17 sostanzialmente riorganizzato l'intero capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
         <title>tipi</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
-        <script type="text/javascript" src="script/test.js"></script>         
+        <script type="text/javascript" src="script/test.js"></script>
     </head>
     <body>
 <header>
@@ -23,14 +24,25 @@
 </header>
 <article>
 
+<h2>dichiarazione</h2>
+<p>Java è un linguaggio con un forte controllo sui tipi e per questo
+prima di poter utilizzare una variabile è necessario dichiarare
+il suo tipo (cioè quali informazioni potrà contenere e
+quali operazioni sara possibile effettuarci).</p>
+
+<dfn>Una <em>dichiarazione</em> è una istruzione con la forma<br>
+<code>tipo nomeVariabile</code><br>
+che specifica che da questo punto in avanti esisterà la variabile
+<code>nomeVariabile</code> che potrà contenere soltanto valori
+del tipo specificato.</dfn>
+
 
 <h2>assegnazione</h2>
 <p>In java il simbolo <em>=</em> ci permette di assegnare un valore ad una variabile,
-non è da confondere con il simbolo usato per fare il confronto che invece è <em>==</em>
-ne con il concetto di uguaglianza della matematica.</p>
+non è da confondere con il concetto di uguaglianza della matematica.</p>
 
-<dfn>Un <em>assegnazione</em> è una istruzione con la forma
-<pre>nomeVariabile = espressione</pre>
+<dfn>Un <em>assegnazione</em> è una istruzione con la forma<br>
+<code>nomeVariabile = espressione</code><br>
 che valuta l'espressione sulla destra e ne mette il risultato nella variabile presente sulla sinistra.
 Il tipo dell'espressione deve essere lo stesso o meno preciso di quello della variabile.</dfn>
 
@@ -49,90 +61,40 @@ variabile x</p>
 <p>visto che questa scrittura è molto comune abbiamo un modo per abbreviarla:</p>
 <pre> x += 4;</pre>
 
+<p>Spesso resta comodo fare la prima assegnazione insieme alla dichiarazione
+di una variabile, ad esempio se voglio assegnare il valore 5 alla variabile
+intera <var>lunghezza</var> posso scrivere:<br>
+<code>int lunghezza = 5;</code><br>
+che è del tutto equivalente a:
+<code>int lunghezza;<br>lunghezza = 5;</code>.
 
 <div class="test">
     <p>Come posso fare per incrementare il valore di una variabile di 5 unità?</p>
     <a onclick="giusta(this)">a+=5;<span class="spiegazione">uno dei modi possibili!</span></a> 
-    <a onclick="sbagliata(this)">a==5;<span class="spiegazione">questo è un modo per vedere se a è uguale a 5</span></a>
     <a onclick="sbagliata(this)">a=5;<span class="spiegazione">così si assegna il valore 5 alla variabile a</span></a>
     <a onclick="giusta(this)">a=a+5;<span class="spiegazione">uno dei modi possibili!</span></a>  
 </div>
 
-
-
-<p>Supponiamo ora di voler calcolare il prodotto di due numeri interi forniti dall'utente.  
-Ragionevolmente dovremo procedere in questo modo: leggere i due numeri, fare il prodotto e quindi visualizzerai i risultati.
-Bene. L'unico problema è che quando leggiamo il contenuto di un campo testo, 
-questo è di <em>tipo</em> testo (il nome del tipo per Java è <code>String</code>) e Java non consente di sommare 
-o moltiplicare due testi, consente di farlo soltanto utilizzando delle informazioni di tipo numerico.</p>
+<h2>tipi di dato</h2>
 
 <dfn>Il <em>tipo</em> (o tipo di dato) indica le caratteristiche dei valori che una variabile o una espressione può assumere.
 Il tipo di una variabile viene definito al momento della sua dichiarazione e non può essere cambiato.</dfn>
 
-<p>Per ottenere la rappresentazione numerica (parliamo adesso di numeri interi)
-di un testo si fa così: <code>numero = Integer.parseInt( testo )</code>.</p>
-<p>Nella funzione che gestirà l'evento, posto che i campi testo degli operandi si chiamino 
-rispettivamente <var>operando1</var> ed <var>operando2</var> 
-mentre il campo testo per mostrare il risultato si chiami <var>risultato</var>, immetteremo il seguente frammento di codice:</p>
-<pre>public void calcola() {
-   String testo1, testo2, risposta;
-   int numero1, numero2, prodotto;
-   testo1 = operando1.getText();
-   testo2 = operando2.getText();
-   <em>numero1 = Integer.parseInt(testo1);
-   numero2 = Integer.parseInt(testo2);</em>
-   prodotto = numero1 * numero2;
-   <em>risposta = "" + prodotto</em>;
-   risultato.setText(risposta);
-}</pre>
+<h3>classificazione dei tipi</h3>
+<p>Java divide i tipi delle variabili in due grandi gruppi:
+<em>tipi base</em> e <em>tipi riferimento</em>.</p>
+<dl>
+    <dt>Tipi base</dt>
+    <dd>numeri interi (byte, short, int, long), numeri decimali (float, double),
+    booleani (boolean) e caratteri (char).</dd>
+    <dt>Tipi riferimento</dt>
+    <dd>in pratica tutti gli altri, ad esempio:
+    per rappresentare dei testi (String), vettori, pulsanti (Button)…</dd>
+</dl>
 
-<p>Da osservare come si fa l'operazione inversa, 
-cioè la conversione in testo del risultato a partire dall'intero prodotto. 
-Stiamo parlando dell'ultima riga evidenziata, il procedimento ha questa logica: 
-l'operatore + ha due significati diversi a seconda che si riferisca a numeri o a stringhe; 
-nel primo caso infatti esegue la normale addizione mentre nel secondo caso – 
-come visto in un precedente capitolo – esegue una concatenazione di testi. 
-Osservando la riga in questione (la penultima) vedrai che un argomento dell'operatore è 
-di tipo stringa e l'altro è di tipo intero. Quando uno degli operandi è di tipo stringa, 
-Java rappresenterà anche l'altro operando come stringa, eseguendo così una conversione 
-implicita da intero a testo. Dato che la stringa vuota concatenata ad una seconda stringa 
-(che è il risultato della trasformazione in stringa di <var>prodotto</var>) rende esattamente la seconda stringa, 
-abbiamo ottenuto ciò che si voleva.</p>
-
-<div class="test">
-   	<p>Se <var>lunghezza</var> è una variabile di tipo intero e <var>testo</var> è una variabile di tipo String 
-   	che contine la rappresentazione di un numero come posso fare per avere il valore che rappresenta in <var>lunghezza</var>?</p>
-    <a onclick="sbagliata(this)">Integer.parseInt(testo,lunghezza)<span class="spiegazione">Integer.parseInt() ha un solo argomento qui ne vengono usati due</span></a>
-    <a onclick="sbagliata(this)">testo=Integer.parseInt(lunghezza)<span class="spiegazione">L'argomento dei Integer.parseInt() deve essere il testo, come risultato dà un numero, qui l'argomento è un numero</span></a> 
-    <a onclick="giusta(this)">lunghezza=Integer.parseInt(testo)</a> 
-</div>
-
-<p>Per terminare prova ad analizzare la seguente funzione analoga alla precedente:</p>
-<pre>public void calcola() {
-   int numero1, numero2, prodotto;
-   <em>numero1 = Integer.parseInt(operando1.getText());
-   numero2 = Integer.parseInt(operando2.getText());</em>
-   prodotto = n1 * n2;
-   <em>risultato.setText("" + prodotto);</em>
-}</pre>
-
-<p>Come si vede si tratta della sola eliminazione delle variabili stringa che erano state utilizzate
-per leggere i valori (in questo caso l'istruzione per leggere è stata inserita direttamente in Ineger.parseInt() )
-o per calcolare il risultato che andava poi visualizzato.</p>
-
-<div class="esercizio">
-	<p>Crea un programma che calcola l'area e il perimetro di un quadrato, 
-	il lato del quadrato è un numero senza parte decimale.</p>
-</div>
-
-<h2>tipi numerici</h2>
-<p>I tipi fondamentali di Java sono 8 in tutto: di questi ben 6 servono a memorizzare dei numeri,
-con o senza parte decimale.</p>
-<p>I tipi senza parte decimale si differenziano in base al numero più grande (in valore assoluto) che possono contenere, 
-quelli con la parte decimale in base alla precisione che hanno (tecnicamente il numero di cifre per la
-mantissa e per esponente).</p>
-
-<h3>Numeri interi</h3>
+<h4>Tipi base: numeri interi</h4>
+<p>I tipi senza parte decimale si differenziano in base al numero più grande (in valore assoluto)
+che possono contenere.</p>
 <dl>
 	<dt>byte</dt>
 	<dd>un numero intero (con segno), occupa 8 bit bit in memoria, i suoi valori vanno da -128 a 127,
@@ -145,48 +107,74 @@ mantissa e per esponente).</p>
 	<dt class="importante">int</dt>
 	<dd>numero intero (con segno), occupa 32 bit in memoria, i suoi valori vanno da -2147483648 ... 2147483647,
 	per ricordarci facilmente nell'ordine di ± due miliardi, i valori di questo tipo in si scrivono normalmente: 
-	ad esempio456.</dd>
+	ad esempio <code>456</code>.</dd>
 
 	<dt>long</dt>
 	<dd>numero intero (con segno), occupa in memoria 64 bit, i suoi valori vanno da -9223372036854775808 a 9223372036854775807,
 	per ricordarci più facilmente nell'ordine di ± 10<sup>18</sup>.<br/>
-	I numeri di tipo long si scrivono postponendo una "L" al numero intero, "14456L" è un valore long valido.</dd>
+	I numeri di tipo long si scrivono postponendo una "L" al numero intero, 
+    ad esempio <code>14456L</code> è un valore long valido.</dd>
 </dl>
 
-<h3>Numeri in virgola mobile</h3>
+<h4>Tipi base: numeri decimali</h4>
+<p>Sono anche chiamati <em>numeri in virgola mobile</em>,
+e si differenziano in base alla precisione che hanno (tecnicamente il numero di cifre per la
+mantissa e per esponente).</p>
 <p>Nei numeri in virgola mobile per separare la parte intera da quella decimale si usa il "." come nella notazione 
-Anglosassone e non la "," come nella notazione Italiana.</p>
+anglosassone e non la "," come nella notazione italiana.</p>
 <dl>	
 	<dt>float</dt>
 	<dd>numero in virgola mobile, in memoria occupa 32 bit, il numero più piccolo memorizzabile è circa ±1,45x10<sup>-45</sup>
 	e il più grande è circa 3,4x10<sup>38</sup>
 	I numeri di tipo float si scrivono utilizzando il "." per separare la parte decimale e postponendo una 
-	"f" al numero, "14.456f" è un valore float valido.</dd>
+	"f" al numero, ad esempio <code>14.456f</code> è un valore float valido.</dd>
 	
 	<dt>double</dt>
 	<dd>numero in virgola mobile, in memoria occupa 64 bit, il numero più piccolo memorizzabile è circa ±4,5x10<sup>-324</sup>
 	e il più grande è circa 1,7x10<sup>308</sup>.<br/>
-	I numeri di tipo double si scrivono utilizzando il "." per separare la parte decimale, "14.456" è un valore double valido.</dd>
+	I numeri di tipo double si scrivono utilizzando il "." per separare la parte decimale,
+    ad esempio <code>14.456</code> è un valore double valido.</dd>
 </dl>
 
-<p>Analogamente a quanto visto per i numeri interi è possibile trasformare
-un testo in un numero float o double utilizzando rispettivamente <code>Float.parseFloat(stringa)</code> e 
-<code>Double.parseDouble(stringa)</code>.</p> 
+<h4>Tipi base: booleani</h4>
+<p>I booleani (a volte anche chiamati "valori di verità")
+sono rappresentati dal tipo <code>boolean</code>
+e possono contenere soltanto due valori: <code>true</code> o <code>false</code>.</p>
 
+<h4>Tipi base: caratteri</h4>
+<p>Il tipo che rappresenta un carattere è <code>char</code>,
+un char rappresenta un singolo carattere Unicode e va racchiuso tra
+virgolette singole, ad esempio: <code>'a'</code> oppure <code>'😱'</code>.</p>
 
 <div class="test">
    	<p>Quale dei seguenti tipi può contenere valori con la parte decimale?</p>
 	<a onclick="sbagliata(this)">byte <span class="spiegazione">no, numeri interi molto piccoli</span></a> 
 	<a onclick="giusta(this)">float</a>
 	<a onclick="sbagliata(this)">long <span class="spiegazione">no, numero interi molto grandi</span></a>
-	<a onclick="giusta(this)">double</a>  
+	<a onclick="giusta(this)">double </a>
+    <a onclick="sbagliata(this)">boolean<span class="spiegazione">no, soltanto true o false</span></a>
 </div>
 
+<h4>Tipi riferimento: testi, vettori, pulsanti …</h4>
+<p>I tipi riferimento sono molto numerosi e in più ognuno può definirne di nuovi,
+per comodità qui tratteremo soltanto il tipo che rappresenta i testi
+perché si usa molto spesso: String.</p>
+<p>Una variabile di tipo String contiene un testo Unicode di lunghezza arbitraria
+racchiuso tra doppie virgolette come ad esempio: "ciao" o "ཨ་རོགས".</p>
 
+<h2>Conversione di tipo</h2>
+<p>È a volte necessario convertire un valore da un tipo ad un altro,
+Java in automatico converte da un tipo meno preciso ad uno più preciso (es int → double 
+oppure byte → int).</p>
+<p>Se la variabile <var>i</var> è di tipo int e <var>d</var> è di tipo double posso 
+scrivere:<br>
+<code>d = i</code><br>
+ma non il viceversa (i=d).</p> 
 
-<h2>conversione di tipo</h2>
-<p>Non è possibile assegnare un valore più preciso ad un tipo meno preciso... sarebbe a dire
-che non posso mettere un valore in virgola mobile (ad esempio un double) in una variabile di tipo
+<h3>cast</h3>
+<p>Assegnare un valore più preciso ad un tipo meno preciso non può essere fatto
+automaticamente. Sarebbe a dire
+che non posso ad esempio mettere un valore in virgola mobile in una variabile di tipo
 intero perché si rischierebbe di perdere informazioni quindi se lo faccio java mi rileva un errore.</p>
 <p>È possibile però forzare questa operazione quando si è sicuri che il 
 valore sia convertibile usando l'operazione di <em>cast</em> che si fa 
@@ -204,7 +192,91 @@ semplicemente scartando dei byte.</p>
     <a onclick="giusta(this)">1<span class="spiegazione">giusto! 257 in binario è 100000001, siccome viene preso il solo byte più a destra il risultato è 1</span></a> 
 </div>
 
-<p>L'operazione di cast può essere fatta anche in altri contesti, qui ci siamo limitati a trattarla tra tipi base.</p>
+<p>L'operazione di cast può essere fatta anche in altri contesti che qui però non trattiamo.</p>
+
+<h3>convertire numeri in testi e viceversa</h3>
+<p>Le conversioni di questo genere sono meno ovvie e bisogna far uso di metodi specifici a
+seconda della conversione che si vuol fare:</p>
+<dl>
+    <dt>String → int</dt>
+    <dd><code>intero = Integer.parseInt(testo)</code></dd>
+    <dt>String → double</dt>
+    <dd><code>decimale = Double.parseDouble(testo)</code></dd>
+    <dt>numero → String</dt>
+    <dd><code>testo = String.valueOf(numero)</code>, spesso per comodità
+    si usa la conversione automatica che fa Java quando si concatena una variabile di 
+    qualsiasi tipo ad una String, ad esempio <code>testo = "" + numero</code>.</dd>
+</dl> 
+
+<h4>Esempio: prodotto di due numeri</h4>
+<p>Poniamo che la nostra interfaccia contenga due caselle di testo
+(cOperando1 e cOperando2) in cui l'utente scrive due numeri interi
+e una etichetta (eRisultato) in cui vogliamo
+che venga visualizzato il prodotto dei due numeri interi</p>
+<pre>public void calcolaProdotto() {
+   String testo1, testo2, risposta;
+   int numero1, numero2, prodotto;
+   testo1 = cOperando1.getText();
+   testo2 = cOperando2.getText();
+   <em>numero1 = Integer.parseInt(testo1);
+   numero2 = Integer.parseInt(testo2);</em>
+   prodotto = numero1 * numero2;
+   <em>risposta = String.valueOf(prodotto)</em>;
+   eRisultato.setText(risposta);
+}</pre>
+
+
+
+<h4>Esempio: divisione di due numeri</h4>
+<p>Poniamo che la nostra interfaccia contenga due caselle di testo
+(cOperando1 e cOperando2) in cui l'utente scrive due numeri decimali 
+e una etichetta (eRisultato) in cui vogliamo
+che venga visualizzato il rapporto tra i due numeri decimali</p>
+<pre>public void calcolaRapporto() {
+   String testo1, testo2, risposta;
+   double numero1, numero2, rapporto;
+   testo1 = cOperando1.getText();
+   testo2 = cOperando2.getText();
+   <em>numero1 = Double.parseDouble(testo1);
+   numero2 = Double.parseDouble(testo2);</em>
+   rapporto = numero1 / numero2;
+   <em>risposta = "" + rapporto</em>;
+   eRisultato.setText(risposta);
+}</pre>
+
+<p>Osservando la penultima riga vedrai che un argomento dell'operatore è 
+di tipo stringa e l'altro è di tipo double. Quando uno degli operandi è di tipo stringa, 
+Java rappresenterà anche l'altro operando come stringa, eseguendo così una conversione 
+implicita da double a testo. Dato che la stringa vuota concatenata ad una seconda stringa 
+(che è il risultato della trasformazione in stringa di <var>rapporto</var>)
+restituisce esattamente laa stringa rappresentante il numero,
+abbiamo ottenuto ciò che si voleva.</p>
+
+<div class="test">
+    <p>Se <var>lunghezza</var> è una variabile di tipo intero e <var>testo</var> è una variabile di tipo String 
+    che contiene la rappresentazione di un numero come posso fare per avere il valore che rappresenta in <var>lunghezza</var>?</p>
+    <a onclick="sbagliata(this)">Integer.parseInt(testo, lunghezza)<span class="spiegazione">Integer.parseInt() ha un solo argomento qui ne vengono usati due</span></a>
+    <a onclick="sbagliata(this)">testo=Integer.parseInt(lunghezza)<span class="spiegazione">L'argomento dei Integer.parseInt() deve essere il testo, come risultato dà un numero, qui l'argomento è un numero</span></a> 
+    <a onclick="giusta(this)">lunghezza=Integer.parseInt(testo)</a> 
+</div>
+
+<p>Per terminare prova ad analizzare la seguente funzione analoga alla precedente:</p>
+<pre>public void calcolaProdotto() {
+   int numero1, numero2, prodotto;
+   <em>numero1 = Integer.parseInt(operando1.getText());
+   numero2 = Integer.parseInt(operando2.getText());</em>
+   prodotto = n1 * n2;
+   <em>risultato.setText("" + prodotto);</em>
+}</pre>
+
+<p>Come si vede si tratta della sola eliminazione delle variabili stringa che erano state utilizzate
+per leggere i valori (in questo caso l'istruzione per leggere è stata inserita direttamente in Integer.parseInt() )
+o per calcolare il risultato che andava poi visualizzato.</p>
+
+<div class="esercizio">
+    <p>Crea un programma che calcola l'area e il perimetro di un quadrato, 
+    il lato del quadrato è un numero senza parte decimale.</p>
+</div>
 
 </article>
 </body>

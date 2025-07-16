@@ -8,34 +8,31 @@
 <!-- changelog 2021-08-20 piccoli aggiustamenti e messa definizione di tipo -->
 <!-- changelog 2021-09-27 corretto primo frammento di programma -->
 <!-- changelog 2023-10-25 Giulia: nell'esempio di "%" era per errore scritto "/" -->
+<!-- changelog 2025-07-16 inserita definizione di dichiarazione e alcuni esempi -->
+<!-- changelog 2025-07-17 sostanzialmente riorganizzato l'intero capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
         <title>operatoriAritmetici</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
-        <script type="text/javascript" src="script/test.js"></script>         
+        <script type="text/javascript" src="script/test.js"></script>
     </head>
     <body>
 <header>
 <h1>operatoriAritmetici</h1>
-<p>operazioni aritmetiche con numeri forniti dall'utente</p>
+<p>operazioni con i numeri</p>
 </header>
 <article>
-<p>Supponiamo ora di voler calcolare il prodotto di due numeri interi forniti dall'utente.  
-Ragionevolmente dovremo procedere in questo modo: leggere i due numeri, fare il prodotto e quindi visualizzerai i risultati.
-Bene. L'unico problema è che quando leggiamo il contenuto di un campo testo, 
-questo è di <em>tipo</em> testo (il nome del tipo per Java è <code>String</code>) e Java non consente di sommare 
-o moltiplicare due testi, consente di farlo soltanto utilizzando delle informazioni di tipo numerico.</p>
-
-
-<h2>Operatori numerici</h2>	
-<p>I valori numerici vengono utilizzati anche per fare calcoli, quindi per scrivere espressioni
-(le tratteremo nel dettaglio poco più avanti in questo capitolo), insieme agli operatori.</p> 
 
 <dfn>Un <em>operatore</em> è un simbolo (formato da uno o più caratteri) 
 che serve a produrre un risultato combinando il valore di uno o più operandi.</dfn>
 <!-- https://en.wikipedia.org/wiki/Operator_(computer_programming)
 https://www.tutorialspoint.com/computer_programming/computer_programming_operators -->
+
+
+<h2>Operatori aritmetici</h2>	
+<p>Questo tipo di operatori serve a combinare valori numerici, niente di più
+complicato delle classiche operazioni matematiche.</p> 
 
 <dl>
 	<dt>+</dt>
@@ -62,6 +59,23 @@ https://www.tutorialspoint.com/computer_programming/computer_programming_operato
 
 <p>Il risultato di una operazione (l'applicazione di un operatore) è del tipo più preciso tra quelli coinvolti.
 Se per esempio sommo due int ottengo un int, se sommo un int e un double ottengo un double.</p>
+
+<div class="test">
+    <p>Quanto vale la seguente espressione?</p>
+    <pre>10 / 6</pre>
+    <a onclick="giusta(this)"   >1<span class="spiegazione">giusto</span></a> 
+    <a onclick="sbagliata(this)">1.66667<span class="spiegazione">no, i valori sono interi e il risultato sarà intero</span></a>
+    <a onclick="sbagliata(this)">2<span class="spiegazione">no, 10 diviso 6 fa 1 (con resto 4 ma questo non importa)</span></a>
+</div>
+
+<div class="test">
+    <p>Quanto vale m alla fine del seguente frammento di programma?</p>
+    <pre>int x = 3<br>double y = 2.0;<br>double m;<br>m = x / y;</pre>
+    <a onclick="sbagliata(this)">1<span class="spiegazione">no, y è double e quindi il risultato è double</span></a>
+    <a onclick="sbagliata(this)">1.0<span class="spiegazione">no, viene calcolata la divisione compresa la parte decimale</span></a> 
+    <a onclick="giusta(this)"   >1.5<span class="spiegazione">giusto</span></a>  
+</div>
+
 
 <h2>operatori di pre/post incremento</h2>
 <dl>
@@ -103,7 +117,7 @@ Gli operatori di pre (o post) incremento possono comparire sia all'interno di es
 </div>
 
 <h2>Espressioni</h2>
-<dfn>Viene detta <em>espressione</em> una combinazione di valori e funzioni da cui si ottiene un nuovo valore.
+<dfn>Viene detta <em>espressione</em> una combinazione di valori, operatori e funzioni da cui si ottiene un nuovo valore.
 Il tipo dell'espressione è il tipo del risultato ottenuto.</dfn>
 <p>Sembra complicato? forse risulterà più semplice facendo alcuni esempi, teniamo conto soltanto delle seguenti
 dichiarazioni:</p>

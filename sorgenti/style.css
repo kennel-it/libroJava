@@ -167,7 +167,7 @@ var {
 }
 li { margin-top:0.2em }
 li a strong { font-size:110% }
-dt { font-weight: bold }
+dt { font-weight: bold ; margin-top:0.5em}
 /* --------------------------------------- i test ---------------------------------------------- */
 .test {
 	padding: 1em;
