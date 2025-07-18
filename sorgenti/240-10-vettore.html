@@ -3,6 +3,7 @@
 <!-- changelog 2018-06-28 corrette virgolette tipografiche -->
 <!-- changelog 2018-12-11 modificata parte iniziale del capitolo -->
 <!-- changelog 2025-01-07 tolta doppia assegnazione nel for ( a = b = 0) -->
+<!-- changelog 2025-07-18 riscritto il capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -17,15 +18,192 @@
 </header>
 <article>
 <h2>Il problema</h2>
-<p>Una variabile, si sa, può contenere un valore alla volta. Supponiamo allora che vogliamo mantenere, contemporaneamente, tutti i tempi che abbiamo
-   realizzato in un pomeriggio di allenamento in piscina. Per le conoscenze informatiche che abbiamo, il compito sembra piuttosto facile: dichiaro un
-   certo numero di variabili <code>int</code> ciascuna delle quali rappresenta un tempo. Potremmo per esempio scrivere:<br/>
-   <code>int t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;</code><br/>e se di questi tempi vogliamo sapere quanti sono superiori ad un tempo minimo indicato
-   dal coach, come si fa? L'unica soluzione è controllare variabile per variabile il fatto. L'operazione non può essere inserita in un <code>for</code>
-   perché non sono righe identiche: cambia (solo e soltanto) il nome della variabile, in particolare cambierebbe solo il numero che abbiamo apposto alla
-   variabile. Inoltre se un giorno facciamo 15 vasche anziché 10 dobbiamo modificare il programma.
-   Si può inventare qualcosa per cui le azioni si possono mettere nel ciclo?</p>
-   
+<p>Una variabile, si sa, può contenere un valore alla volta. Supponiamo allora che vogliamo mantenere,
+contemporaneamente, tutti i tempi che abbiamo realizzato in un pomeriggio di allenamento in piscina.
+Per le conoscenze informatiche che abbiamo, il compito sembra piuttosto facile: dichiaro un
+certo numero di variabili <code>int</code> ciascuna delle quali rappresenta un tempo.</p>
+<p>Potremmo per esempio scrivere:<br>
+<code>int t0, t1, t2, t3, t4, t5, t6, t7, t8, t9;</code><br>
+e se di questi tempi vogliamo sapere quanti sono superiori ad un tempo minimo indicato
+dal coach, come si fa? L'unica soluzione è controllare variabile per variabile il fatto.
+L'operazione non può essere inserita in un <code>for</code>
+perché non sono righe identiche: cambia (solo e soltanto) il nome della variabile,
+in particolare cambierebbe solo il numero che abbiamo apposto in fondo al nome della variabile.
+Inoltre se un giorno facciamo 15 vasche anziché 10 dobbiamo modificare il programma.
+Si può inventare qualcosa per cui le azioni si possono mettere nel ciclo?</p>
+
+<dfn>
+<strong>Un <em>vettore</em> (o array) è una struttura dati che contiene un determinato
+numero di valori dello stesso tipo.</strong><br>
+Per dichiarare un vettore si usa la sintassi<br>
+<code>tipo [] nomeVariabile</code><br>
+per assegnare un nuovo vettore ad una variabile si usa la sintassi<br>
+<code>nomeVariabile = new tipo[dimensione]</code><br>
+I singoli elementi del vettore sono numerati a partire da zero e si riferiscono usando la sintassi<br>
+<code>nomeVariabile[indice]</code><br>
+le variabili di tipo vettore hanno una particolare proprietà chiamata <code>length</code>
+che definisce il numero di elementi del vettore e si usa scrivendo<br>
+<code>nomeVettore.length</code>
+</dfn>
+
+<div class="suggerimento">Se un vettore viene creato con 10 elementi il primo è il numero 0
+e l'ultimo è il numero 9, se si usano indici inferiori allo 0 o superiori al 9
+si ottiene un errore "ArrayIndexOutOfBoundsException".</div>
+<p>Da notare che i vettori sono variabili di tipo riferimento e prima di essere usati
+vanno creati usando <code>new</code> (a differenza ad esempio delle varibili int)<p>
+
+    <div class="test" style="clear:both">
+        <p>Devo dichiarare il vettore <code>spese</code> che conterrà numeri decimali</p>
+        <a onclick="sbagliata(this)">double spese;<span class="spiegazione">questa è una normale variabile non un vettore</span></a>
+        <a onclick="sbagliata(this)">int [] spese;<span class="spiegazione">questo è un vettore ma del tipo sbagliato</span></a> 
+        <a onclick="giusta(this)">double [] spese;<span class="spiegazione">giusto!</span></a>
+    </div>
+    <div class="test">
+        <p>Ho già dichiarato il vettore <code>lunghezze</code> di tipo <code>int []</code>
+        adesso devo crearlo in modo che possa contenere 5 elementi</p>
+        <a onclick="sbagliata(this)">lunghezze = new int[]<span class="spiegazione">quando si crea un vettore è obbligatorio specificare la dimensione</span></a>
+        <a onclick="giusta(this)">lunghezze = new int[5]<span class="spiegazione">giusto!</span></a>
+        <a onclick="sbagliata(this)">lunghezze = new [5]<span class="spiegazione">manca il nome del tipo del vettore</span></a>
+    </div>
+   <div class="test">
+        <p>Ho già dichiarato il vettore <code>lunghezze=new int[12]</code>
+        adesso devo caricare nella variabile <code>int tavolo</code> l'ultimo valore del vettore</p>
+        <a onclick="sbagliata(this)">tavolo = lunghezze<span class="spiegazione">sono di tipi diversi</span></a>
+          <a onclick="sbagliata(this)">tavolo = lunghezze[12]<span class="spiegazione">ArrayIndexOutOfBoundsException</span></a>
+        <a onclick="giusta(this)">tavolo = lunghezze[11]<span class="spiegazione">giusto!</span></a>
+        <a onclick="sbagliata(this)">tavolo = lunghezze[0]<span class="spiegazione">questo è il primo valore</span></a>
+    </div>
+    <div class="test" style="clear:both">
+        <p>Ho un vettore chiamato <code>numeri</code> e voglio stampare sulla console la sua lunghezza</p>
+        <a onclick="sbagliata(this)">numeri.length<span class="spiegazione">questo non stampa sulla console</span></a>
+        <a onclick="sbagliata(this)">System.out.println( numeri )<span class="spiegazione">questo non stampa la lunghezza</span></a> 
+        <a onclick="giusta(this)">System.out.println( numeri.length )<span class="spiegazione">giusto!</span></a>
+    </div>
+
+<h2>Caricamento di un vettore</h2>
+<p>Dato che un vettore contiene più di un valore vediamo nelle sezioni successive
+alcune strategie per inserire i valori nel vettore.</p>
+
+<h3>Caricamento con elementi casuali</h3>
+<p>A volte può tornare utile inserire in un vettore tutti numeri casuali (o in effetti un qualsiasi valore)</p>
+
+<pre>
+<em>double v[] = new double[10];
+for(int i=0; i&lt;v.length; i++){
+    v[i] = Math.random();
+}</em>
+</pre>
+
+<div class="suggerimento">Se voglio estrarre un numero casuale intero tra 1 e 10 (compresi)
+posso usare la formula <code>numero = (int)(Math.random()*10+1)</code>.</div>
+
+<p>Questo esempio riempie il vettore <var>v</var> con dei numeri decimali
+maggiori o uguali a zero e minori di 1.</p>
+
+
+<h3>Caricamento di un elemento alla volta</h3>
+
+<p>Il frammento di programma sotto riporta lo schema normalmente utilizzato quando
+è necessario leggere un numero alla volta. In pratica l'utente scrive un numero
+e fa click su un pulsante, poi ne inserisce un altro e via di seguito.</p>
+<p>In questo caso la lunghezza del vettore è stabilita a priori.</p>
+
+
+<pre>public class Numeri extends Application {
+   TextField tNumero = new TextField();
+   <em>int numeri[];</em>
+   <em>int numeriInseriti;</em>
+
+   @Override
+   public void start(Stage primaryStage) {
+      /* Quanto necessario per la grafica... */
+
+      // creo un vettore con 10 posti
+      <em>numeri = new int[10];</em>
+      // tengo traccia di quanti ne ho già messi
+      // (nessuno all'inizio)
+      <em>numeriInseriti = 0;</em>
+
+      pInserisci.setOnAction( e-> inserisciNumero() );
+   }
+
+   public void inserisciNumero() {
+      // controllo se ho ancora spazio per inserire un nuovo numero
+      <em>if(numeriInseriti &lt; numeri.length) {</em>
+         // leggo il numero dalla casella, lo trasformo in intero
+         // e lo inserisco nella posizione opportuna del vettore
+         <em>numeri[numeriInseriti]=Integer.parseInt(tNumero.getText());</em>
+         // mi preparo per il prossimo inserimento
+         <em>numeriInseriti++;</em>
+         tNumero.setText(""); // pulisco la casella di testo rendendola pronta per il prossimo inserimento
+      <em>}</em>
+   }
+
+}</pre>
+
+
+<h3>Caricamento da un elenco</h3>
+
+<p>Il frammento di programma sotto riporta lo schema normalmente utilizzato quando
+è necessario leggere una sequenza di numeri separati da una virgola (o altro) 
+presenti in una stringa e inserirli in un vettore.</p>
+
+
+<pre>
+// la stringa potrebbe anche essere letta da una casella
+String testo = "1,8,12,19,21";
+// separo i singoli elementi della stringa in un vettore di oggetti di tipo String
+// è direttamente split che crea il vettore
+<em>String parti[] = testo.split(",");</em>
+// dichiaro e creo un vettore di numeri della stessa lunghezza
+<em>int [] numeri = new int[parti.length];</em>
+// inserisco i singoli elementi nel vettore numeri trasformandoli dal 
+// testo presente in parti nella posizione corrispondente
+<em>for(int i=0 ; i&lt;parti.length; i++ ){
+    numeri[i] = Integer.parseInt( parti[i] );
+}</em>
+</pre>
+
+
+    <div class="test">
+        <p>Quale dei seguenti blocchi di codice è equivalente a <code>tempi[pos++]=Integer.parseInt(tTempo.getText());</code></p>
+        <a onclick="sbagliata(this)">pos=pos+1;<br/>tempi[pos]=Integer.parseInt(tTempo.getText());</a> 
+        <a onclick="giusta(this)">tempi[pos]=Integer.parseInt(tTempo.getText());<br/>pos=pos+1;</a> 
+        <a onclick="giusta(this)">int o;<br/>o=Integer.parseInt(tTempo.getText());<br/>tempi[pos++]=o</a>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <h2>La soluzione</h2>
 <p>Il vettore non è altro che una variabile in grado di contenere <i>contemporaneamente</i> più valori. Quanti? Gli viene detto al momento della
    sua creazione. Andando in ordine: prima di tutto il vettore dobbiamo dichiararlo, 
@@ -106,12 +284,7 @@
 
 }</pre>
 
-	<div class="test">
-    	<p>Quale dei seguenti blocchi di codice è equivalente a <code>tempi[pos++]=Integer.parseInt(tTempo.getText());</code></p>
-        <a onclick="sbagliata(this)">pos=pos+1;<br/>tempi[pos]=Integer.parseInt(tTempo.getText());</a> 
-        <a onclick="giusta(this)">tempi[pos]=Integer.parseInt(tTempo.getText());<br/>pos=pos+1;</a> 
-        <a onclick="giusta(this)">int o;<br/>o=Integer.parseInt(tTempo.getText());<br/>tempi[pos++]=o</a>
-  	</div>
+
 
 <p>Fatto il caricamento, dobbiamo indicare in una casella di testo quanti sono i tempi superiori a quello previsto dal coach.<br/>Risolviamo il problema col
    seguente algoritmo: confronto ciascun tempo a partire dal primo fino all'ultimo con quello del coach. Ogni volta che il tempo risulta superiore incrementerò
