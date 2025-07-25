@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- grafoIndice requires="vettore" group="base" -->
+<!-- changelog 2025-07-25 separato dal capitolo vettori -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>eserciziVettori</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>
+        <style>
+            .vecchio { opacity:0.4; }
+        </style>
+    </head>
+<body>
+<header>
+<h1>eserciziVettori</h1>
+<p>un po' di pratica sui vettori</p>
+</header>
+<article>
+<h2>Esercizio nuoto</h2>
+<p>
+
+   <p>Quella cghe vogliamo creare è una applicazione che permetta ad un allenatore di una squadra
+   di nuoto di vedere quanti dei suoi atleti hanno fatto dei tempi troppo alti rispetto
+   ad un tempo specifico che decide l'allenatore.</p>
+   <p>Rispetto a quanto visto finora introduciamo una piccola variante: l'allenatore
+   all'inizio decide quanti tempi vuole immettere e li immette uno alla volta.</p>
+   
+   <p>Al momento di scrivere il programma non so quanto dovrà essere grande il vettore,
+   in questo caso si rimanderà l'<i>allocazione</i> della memoria (sarebbe a dire 
+   la creazione del vettore) a quando si saprà la grandezza, cioè dopo che 
+   l'utente l'avrà comunicata scrivendola in una casella e premendo il 
+   pulsante corrispondente: </p>
+<pre>
+public class Piscina extends Application {
+   TextField cNumeroTempi = new TextField();
+   TextField cTempo = new TextField();
+   Button pCreaVettore = new Button("inserisci numero tempi")
+   <em>int tempi[];</em>
+
+   @Override
+   public void start(Stage primaryStage) {
+      /* Quanto necessario per sistemare l'interfaccia grafica */
+      pCreaVettore.setOnAction( e -&gt; alloca());
+   }
+
+   public void alloca() {
+      int numTempi= Integer.parseInt(cNumeroTempi.getText());
+      <em>tempi = new int[numTempi];</em>
+   }
+
+}</pre>
+
+<p>La parte vista finora ci permette soltanto di creare (allocare spazio in memoria)
+il vettore <var>tempi</var> della dimensione adatta a poter contenere tutti i tempi
+che l'allenatore misurerà.</p>
+<p></p>
+
+<p>Una volta creato il vettore dobbiamo caricarlo (riempirlo di valori):
+per poter inserire i valori uno alla volta ci serve una variabile in più
+per tener conto del posto del vettore in cui dobbiamo inserire ciascun tempo:
+la chiamiamo <var>posizione</var>.</p>
+<p>L'allenatore inserisce un tempo alla volta in una casella di testo:
+inserirà tale tempo, poi premerà il pulsante e il numero che avrà inserito
+sarà aggiunto a quelli immessi in precedenza.
+Ogni numero che inserirà andrà inserito nella posizione seguente a quella in
+cui è stato immesso il precedente.
+Tale azione la svolgeremo ogni volta che l'utente premerà il relativo pulsante,
+per questo useremo la variabile <var>posizione</var>.</p>
+
+
+<pre>
+<span class="vecchio">
+public class Piscina extends Application {
+   TextField cNumeroTempi = new TextField();
+   TextField cTempo = new TextField();
+   Button pCreaVettore = new Button("inserisci numero tempi")
+   <em>int tempi[];</em></span>
+   Button pInserisci = new Button("inserisci tempo");
+   <em>int posizione;</em>
+<span class="vecchio">
+   @Override
+   public void start(Stage primaryStage) {
+      /* Quanto necessario per sistemare l'interfaccia grafica */
+      pCreaVettore.setOnAction( e -&gt; alloca());
+      </span>pInserisci.setOnAction( e -&gt; inserisciTempo());<span class="vecchio">
+   }
+
+   public void alloca() {
+      int numTempi= Integer.parseInt(cNumeroTempi.getText());
+      <em>tempi = new int[numTempi];
+      posizione = 0;</em></span>
+   <span class="vecchio">}</span>
+
+   public void inserisciTempo() {
+      <em>if(posizione &lt; tempi.length) {
+         tempi[posizione] = Integer.parseInt(cTempo.getText());
+         posizione++;</em>
+         cTempo.setText(""); // pulisco la casella
+      }
+   }
+
+<span class="vecchio">}</span>
+</pre>
+
+
+<p>Fatto il caricamento, dobbiamo indicare in una casella di testo quanti sono i tempi superiori
+ a quello previsto dal coach.<br/>Risolviamo il problema col
+   seguente algoritmo: confronto ciascun tempo a partire dal primo fino all'ultimo con quello 
+   del coach. Ogni volta che il tempo risulta superiore incrementerò di 1 un contatore.
+   Alla fine mostrerò il risultato in una specifica casella di testo. Il codice:</p>
+
+
+<pre>
+<span class="vecchio">
+public class Piscina extends Application {
+   TextField cNumeroTempi = new TextField();
+   TextField cTempo = new TextField();
+   Button pCreaVettore = new Button("inserisci numero tempi")
+   <em>int tempi[];</em>
+   Button pInserisci = new Button("inserisci tempo");
+   <em>int posizione;</em></span>
+   Button pLenti = new Button("conta lenti");
+   
+   <span class="vecchio">@Override
+   public void start(Stage primaryStage) {
+      /* Quanto necessario per sistemare l'interfaccia grafica */
+      pCreaVettore.setOnAction( e -&gt; alloca());
+      pInserisci.setOnAction( e -&gt; inserisciTempo());</span>
+      pLenti.setOnAction( e -&gt; contaLenti());
+   <span class="vecchio">}
+
+   public void alloca() {
+      int numTempi= Integer.parseInt(cNumeroTempi.getText());
+      <em>tempi = new int[numTempi];
+      posizione = 0;</em>
+   }
+
+   public void inserisciTempo() {
+      <em>if(posizione &lt; tempi.length) {
+         tempi[posizione] = Integer.parseInt(cTempo.getText());
+         posizione++;</em>
+         cTempo.setText(""); // pulisco la casella
+      }
+   }</span>
+   
+   public void contaLenti() {
+      int contatore;
+      int coach = Integer.parseInt(cCoach.getText());
+      contatore = 0;
+      <em>for(int indice = 0; indice &lt; tempi.length; indice++) {
+         if(tempi[indice] > coach) {
+            contatore++;
+         }
+      }</em>
+      eRisultati.setText("" + contatore);
+   }
+
+<span class="vecchio">}</span>
+</pre>
+
+<div class="esercizio"><p>Per una squadra di calcio viene data una casella di testo <code><var>tSquadra1</var></code>, una casella di testo
+   <code><var>tPuntiSquadra1</var></code> con relativo pulsante <code><var>inserisciRisultato1</var></code> ed in modo simmetrico per la seconda squadra di
+   calcio la casella <code><var>tSquadra2</var></code>, <code><var>tPuntiSquadra2</var></code> e <code><var>inserisciRisultato2</var></code>. Si inserisce
+   nella casella di testo del punteggio il valore <code>0</code> se la squadra ha perso; il punteggio <code>1</code> se ha pareggiato ed in fine <code>2</code>
+   se ha vinto. Tali valori si devono inserire per le ultime 5 partite, quindi ti dovrai appoggiare ad un vettore per la prima squadra ed un altro per la
+   seconda. Proprio come detto sopra, quando l'utente premerà il pulsante, il vecchio risultato si dovrà cancellare per facilitare l'immissione del nuovo.<br/>
+   Aggiungi ora una casella di testo per fornire il risultato (<code><var>tRisultato</var></code>) ed il relativo pulsante per calcolarlo
+   (<code><var>calcolaRisultato</var></code>): scrivere il nome della squadra che ha maggiore probabilità di vincere uno scontro diretto (confronta le somme).</p>
+</div>
+
+<!-- changelog 2017-09-13 formattati esercizi -->
+
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per sommare tutti gli elementi.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per sommare tutti gli elementi che sono multipli di 3.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per sommare tutti gli elementi che non sono multipli di 3.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per sommare tutti gli elementi che sono contemporaneamente multipli di 2 e di 3.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per contare gli elementi pari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per contare gli elementi dispari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per contare quante volte compare un determinato valore k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per stampare i valori degli elementi in posizione pari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per trovare l’elemento di valore massimo e l’indice (nell’intervallo da 0 a N-1) della sua posizione.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per trovare l’elemento di valore minimo e l’indice (nell’intervallo da 0 a N-1) della sua posizione.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per trovare la media dei suoi valori e contare i valori sopra la media.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se tutti gli elementi hanno valore maggiore di k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se tutti gli elementi hanno valore minore di k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se tutti gli elementi hanno valore k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se contiene almeno un elemento di valore maggiore di k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se contiene almeno un elemento di valore minore di k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se contiene almeno un elemento uguale a k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se contiene almeno un elemento pari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se contiene almeno un elemento dispari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se contiene almeno tre elementi uguali a k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se contiene almeno tre elementi consecutivi che valgono k.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se gli elementi in posizione pari sono pari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se gli elementi in posizione dispari sono pari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se gli elementi in posizione pari sono pari e quelli in posizione dispari sono dispari.</div>
+<div class="esercizio">Dato un array di 5 interi scrivere un programma Java per scambiare il valore in posizione 0 con quello in posizione 4.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per invertire gli elementi (cioè il primo deve andare al posto dell’ultimo e viceversa, il secondo al posto del penultimo, etc.).</div>
+<div class="esercizio">Dati due array di interi A è B (di dimensione N e M non necessariamente uguali) scrivere un  programma Java per verificare se tutti i valori di B appaiono in A.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se gli elementi seguono l’ordine crescente.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per verificare se tutti gli elementi contenuti sono pari.</div>
+<div class="esercizio">Dato un array di N interi scrivere un programma Java per contare gli elementi pari compresi tra 0 e 100.</div>
+<div class="esercizio">Dati due array A e B di N interi scrivere un programma Java per costruire un array C (di dimensione 2N) che contenga nelle prime N posizioni gli elementi di A e nelle rimanenti N
+    posizioni gli elementi di B.</div>
+<div class="esercizio">Dati due array A e B di N interi scrivere un programma Java per costruire un array C (di dimensione 2N) che contenga nelle posizioni di indice pari gli elementi di A e nelle posizioni di
+    indice dispari gli elementi di B.</div>
+
+<div class="esercizio">Dato un array di N caratteri (dichiarato con char[] A=…) scrivere un programma Java per verificare se contiene almeno una 'a'.</div>
+<div class="esercizio">Dato un array di N caratteri scrivere un programma Java per verificare se contiene almeno tre 'a'.</div>
+<div class="esercizio">Dato un array di N caratteri scrivere un programma Java per verificare se contiene almeno tre 'a' consecutive.</div>
+<div class="esercizio">Dato un array di N caratteri scrivere un programma Java per verificare se contiene almeno tre caratteri qualsiasi consecutivi.</div>
+<div class="esercizio">Dato un array di N caratteri scrivere un programma Java per verificare se l’ordine dei caratteri determina una sequenza palindroma (cioè che non cambia se letta al contrario;
+    ad esempio la sequenza 'a','c','e','c','a' è palindroma).</div>
+<div class="esercizio">Dato un array di N caratteri scrivere un programma Java per verificare se contiene un’alternanza di 'a' e 'b' 
+(due esempi: {'a', 'b', 'a', 'b', 'a'} e {'b','a', 'b', 'a', 'b', 'a'}).</div>
+
+</article>
+</body>
+</html>
