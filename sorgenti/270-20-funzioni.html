@@ -6,6 +6,7 @@
 <!-- changelog 2020-08-25 corretto errore chiamata funzione daStringaAVettore -->
 <!-- changelog 2020-08-28 corretto nome funzione nelle definizioni finali -->
 <!-- changelog 2020-08-25 cambiato nome sezione in "Passaggio per valore" -->
+<!-- changelog 2025-07-31 prima riorganizzazione più formale del capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8"/>
@@ -48,7 +49,6 @@
             }
         </script>
         <style type="text/css">
-        	.rip { font-weight: bold; color:blue }
         	#stack { border:3px solid #ddd ; margin-top:0em}
         	.prog .esecuzione { background-color:yellow }
         	h2 { margin-bottom:0em }
@@ -127,12 +127,12 @@ public class MediaMaggiorePlain extends Application{
     }
     
     void trovaMassimo(){
-        <span class="rip">String testi[] = valori.getText().split(" ");</span>
-        <span class="rip">int numeri[] = new int[testi.length];</span>
+        <em>String testi[] = valori.getText().split(" ");</em>
+        <em>int numeri[] = new int[testi.length];</em>
         int massimo;
-        <span class="rip">for (int i = 0; i &lt; testi.length; i++) {</span>
-            <span class="rip">numeri[i] = Integer.parseInt(testi[i]);</span>
-        <span class="rip">}</span>
+        <em>for (int i = 0; i &lt; testi.length; i++) {
+           numeri[i] = Integer.parseInt(testi[i]);
+        }</em>
         
         massimo = numeri[0];
         for (int i = 1; i &lt; numeri.length; i++) {
@@ -144,12 +144,12 @@ public class MediaMaggiorePlain extends Application{
     }
     
     void calcolaMedia(){
-        <span class="rip">String testi[] = valori.getText().split(" ");</span>
-        <span class="rip">int numeri[] = new int[testi.length];</span>
+        <em>String testi[] = valori.getText().split(" ");</em>
+        <em>int numeri[] = new int[testi.length];</em>
         int somma=0,media;
-        <span class="rip">for (int i = 0; i &lt; testi.length; i++) {</span>
-            <span class="rip">numeri[i] = Integer.parseInt(testi[i]);</span>
-        <span class="rip">}</span>
+        <em>for (int i = 0; i &lt; testi.length; i++) {
+            numeri[i] = Integer.parseInt(testi[i]);
+        }</em>
         
         for (int i = 0; i &lt; numeri.length; i++) {
             somma += numeri[i];
@@ -177,13 +177,13 @@ Questa funzione farà un lavoro ben determinato: leggerà i dati dalla casella <
 e avrà come risultato un vettore di interi, in pratica: </p>
 
 <pre>
-int[] leggiDati(){
+<em>int[]</em> leggiDati(){
     String testi[] = valori.getText().split(" ");
     int numeri[] = new int[testi.length];
     for (int i = 0; i &lt; testi.length; i++) {
         numeri[i] = Integer.parseInt(testi[i]);
     }
-    return numeri;
+    return <em>numeri</em>;
 }
 </pre>
 
@@ -202,7 +202,7 @@ scrivere il nome della funzione perché si trova nella nostra classe
 (non serve scrivere il nome di un oggetto seguito da ".")</p>
 
 <pre>void trovaMassimo(){
-    <span class="rip">int numeri[] = leggiDati()</span>;
+    <em>int numeri[] = leggiDati()</em>;
     int massimo;
        
     massimo = numeri[0];
@@ -216,13 +216,103 @@ scrivere il nome della funzione perché si trova nella nostra classe
 </pre>
 
 <h2>Passaggio di parametri</h2>
+
+<p>La funzione vista in precedenza calcola un risultato ma non ha nessun valore
+in input su cui lavorare: è possibile però fornirglieli utilizzando il <em>passaggio
+di parametri</em>.</p>
+
+<p>Il passaggio dei parametri (che sono delle variabili) si fa indicando tra le parentesi
+tonde che seguono il nome della funzione una sequenza di dichiarazioni,
+proviamo a vedere ad esempio una funzione che calcola il totale di una spesa:</p>
+
+
+<pre>
+// definizione
+double calcolaPrezzoTotale(<em>int quantita, double prezzoUnitario</em>) {
+    double totale;
+
+    totale = quantita * prezzoUnitario;
+
+    return totale;
+}</pre>
+
+<pre>
+// uso (chiamata)
+double t;
+int q = 5;
+double pu = 3.2;
+<em>t = calcolaPrezzoTotale(q , pu)</em>;
+</pre>
+
+<p>I parametri presenti nella definizione si chiamano <em>parametri formali</em> mentre
+quelli nella chiamata vengono detti <em>parametri attuali</em>.</p>
+
+<p>In questo caso i parametri sono due:
+<var>quantita</var> di tipo int e <var>prezzoUnitario</var> di tipo  double.
+L'ordine dei parametri è importante così come il tipo: quando chiamo la funzione
+i parametri forniti (parametri attuali)
+devono combaciare con quelli attesi (parametri formali) sia nel tipo che
+nell'ordine.</p>
+
+<p>In Java il  passaggio dei parametri (dalla funzione che chiama a quella
+che viene chiamata) avviene per valore: questo vuol dire che nel parametro formale
+viene copiato il valore passato come parametro attuale.</p>
+
+<pre>
+static void incrementaNumero(int i){
+    i++;
+}
+public static void main(String args[]){
+    int x=1;
+    System.out.println(x); // stampa "1"
+    incrementaNumero(x);
+    System.out.println(x); // stampa sempre "1"
+}
+</pre>
+
+<p>In caso i parametri siano di tipo riferimento quello che viene passato
+è una copia dell'indirizzo di memoria del parametro attuale: questo significa
+che se la funzione apporta delle modifiche al parametro formale queste queste
+saranno in pratica applicate anche al parametro attuale,
+sarà molto più chiaro con un esempio:</p>
+
+<pre>
+static void incrementaElementi(int m[]){
+    for(int i=0; i&lt;m.length; i++){
+        m[i]++;
+    }
+}
+public static void main(String args[]){
+    int [] v = new int[2];
+    v[0] = 4;
+    v[1] = 2;
+    int s;
+
+    s = v[0]+v[1];
+    System.out.println(s); // stampa "6"
+    incrementaElementi(v);
+    s = v[0]+v[1];
+    System.out.println(s); // stampa "8"
+}
+</pre>
+
+
+
+
+
+
+
+
+
+
+<h2>Continua esempio</h2>
 <p>Rispetto all'esempio precedente potrebbe succedere che l'elenco dei numeri
 si trovi in una casella oppure in un'altra, in questo caso la nostra funzione non va più bene
 perché legge sempre dalla stessa casella: potrebbe in questo caso far comodo 
 modificare la nostra funzione in modo che prenda come input un testo (String) 
 e restituisca un vettore di numeri (esattamente come prima).</p>
 <pre>
-int[] daStringaAVettore(<span class="rip">String testo</span>){ 
+int[] daStringaAVettore(<em>String testo</em>){ 
     String testi[] = testo.split(" ");
     int numeri[] = new int[testi.length];
     for (int i = 0; i &lt; testi.length; i++) {
@@ -237,7 +327,7 @@ vuole un dato in input (un testo) quindi leggerò un testo e lo fornirò come in
 si dice che "lo passerò come parametro"):</p>
 
 <pre>String testoCasella = valori.getText();
-<span class="rip">int numeri[] = daStringaAVettore(testoCasella)</span>;
+<em>int numeri[] = daStringaAVettore(testoCasella)</em>;
 </pre>
 
 <p>Adesso possiamo riassumere: una dichiarazione di funzione è un tipo seguito da un nome
@@ -314,11 +404,8 @@ somma viene copiato nella variabile a che quindi a questo punto conterrà 12.</p
     <p id="didascaliaFunz"></p>
 </div>
 
-<h2>Passaggio per valore</h2>
-<p>In Java il  passaggio dei parametri (dalla funzione che chiama a quella che viene chiamata)
-avviene per valore, questo vuol dire che nel parametro formale viene copiato il valore passato come
-parametro attuale. Sembra complicato? Vediamo con un esempio.</p>
 
+<div class="test">
 <pre>
 public class Incrementa {
     static int incrementa(int x){ 
@@ -332,7 +419,6 @@ public class Incrementa {
     }
 }
 </pre>
-<div class="test">
     <p>cosa comparirà come risultato del programma sopra?</p>
     <a onclick="sbagliata(this)">11, 11<span class="spiegazione">no, la variabile a non viene modificata
     dalla funzione perché x contiene una copia del valore di a, non è la stessa variabile</span></a> 

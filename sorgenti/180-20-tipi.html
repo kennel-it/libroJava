@@ -10,6 +10,7 @@
 <!-- changelog 2023-10-25 Giulia: nell'esempio di "%" era per errore scritto "/" -->
 <!-- changelog 2025-07-15 fuso con ex capitolo su assegnazione e rimossa parte su operatori -->
 <!-- changelog 2025-07-17 sostanzialmente riorganizzato l'intero capitolo -->
+<!-- changelog 2025-07-31 inserita descrizione aggiuntiva per i tipi riferimento -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -164,6 +165,13 @@ racchiuso tra doppie virgolette come ad esempio: "ciao" o "ཨ་རོགས".<
 
 <p>Una qualsiasi variabile di tipo riferimento se non viene inizializzata
 assume un valore speciale: <code>null</code></p>
+
+<p>Il valore contenuto in una variabile di tipo riferimento è l'indirizzo
+di memoria in cui inizia l'oggetto rappresentato dalla varibile stessa.
+Ad esempio una variabile <code>String testo</code> possiamo ipotizzare che contenga una
+sequenza di caratteri che saranno memorizzati in una sequenza di byte: il
+valore di <var>testo</var> è l'indirizzo di memoria in cui inizia la 
+sequenza di byte in questione.</p>
 
 <h2>Conversione di tipo</h2>
 <p>È a volte necessario convertire un valore da un tipo ad un altro,

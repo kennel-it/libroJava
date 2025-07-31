@@ -48,27 +48,6 @@
         		document.getElementById("grafo").style.display='none';
         		document.getElementById("toc").style.display='block';
         	}
-        	var httpRequest;
-		function elaboraRisultato(){
-		    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-		        console.log("elaboro risultati");
-		        var risposta = JSON.parse(httpRequest.responseText);
-		        var lista = new Array();
-		        for(var i=0; i<risposta.length; i++){
-		        		lista.push(risposta[i].title);
-		        }
-		        evidenziaNodi(lista);
-		        document.getElementById("risultatoRicerca").innerHTML = 
-		        		"trovati "+risposta.length+" elementi";
-		    }
-		}
-		function eseguiRicerca(){
-		    console.log("cerco");
-		    httpRequest = new XMLHttpRequest();
-		    httpRequest.onreadystatechange = elaboraRisultato;
-		    httpRequest.open('GET', 'cerca.php?q='+document.getElementById("q").value);
-		    httpRequest.send();
-		}
 		
 		function logoIDE(){
 			document.getElementById("IDE").src= "immagini/ide_"+localStorage.getItem("ide")+".png";
