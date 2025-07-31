@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- grafoIndice requires="vettore" group="base" -->
 <!-- changelog 2025-07-25 separato dal capitolo vettori -->
+<!-- changelog 2025-07-31 inserita illustrazione per esercizio piscina -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8"/>
@@ -35,7 +36,7 @@
 public class Piscina extends Application {
    TextField cNumeroTempi = new TextField();
    TextField cTempo = new TextField();
-   Button pCreaVettore = new Button("inserisci numero tempi")
+   Button pCreaVettore = new Button("inserisci numero tempi");
    <em>int tempi[];</em>
 
    @Override
@@ -111,7 +112,7 @@ public class Piscina extends Application {
    Alla fine mostrerò il risultato in una specifica casella di testo. Il codice:</p>
 
 
-<pre>
+<pre><img src="immagini/esempio_piscina.png" alt="finestra esempio nuotatori"><br>
 <span class="vecchio">
 public class Piscina extends Application {
    TextField cNumeroTempi = new TextField();
@@ -120,6 +121,7 @@ public class Piscina extends Application {
    <em>int tempi[];</em>
    Button pInserisci = new Button("inserisci tempo");
    <em>int posizione;</em></span>
+   TextField cCoach = new TextField();
    Button pLenti = new Button("conta lenti");
    
    <span class="vecchio">@Override
