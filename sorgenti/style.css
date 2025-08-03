@@ -1,32 +1,14 @@
-* {
-    /* colori di base delle sezioni */
-    --colore-sfondo-noGroup: #f5f5f5; /* grey 100 */
-    --colore-sfondo-infrastruttura: #90caf9; /* blue 200 */
-    --colore-sfondo-base: #7cb342 ; /* Light Green 600 */
-    --colore-sfondo-grafica: #ffee58 ; /* yellow 400 */
-    --colore-sfondo-file: #ba68c8 ; /* purple 300 */
-    --colore-sfondo-algoritmiStruttureDati: #a1887f ; /* brown 300 */
-    --colore-sfondo-riferimenti: #b0bec5 ; /* blue grey 200 */
-    --colore-sfondo-giochi: #ff9100 ; /* orange A400 */
-    /* i relativi light */
-    --colore-sfondo-noGroup-chiaro: #ffffff; /* grey 100 */
-    --colore-sfondo-infrastruttura-chiaro: #c3fdff; /* blue 200 */
-    --colore-sfondo-base-chiaro: #aee571 ; /* Light Green 600 */
-    --colore-sfondo-grafica-chiaro: #ffff8b ; /* yellow 400 */
-    --colore-sfondo-file-chiaro: #ee98fb ; /* purple 300 */
-    --colore-sfondo-algoritmiStruttureDati-chiaro: #d3b8ae ; /* brown 300 */
-    --colore-sfondo-riferimenti-chiaro: #e2f1f8 ; /* blue grey 200 */
-    --colore-sfondo-giochi-chiaro: #ffc246 ; /* orange A400 */
-    /* i relativi dark */
-    --colore-sfondo-noGroup-scuro: #c2c2c2; /* grey 100 */
-    --colore-sfondo-infrastruttura-scuro: #5d99c6; /* blue 200 */
-    --colore-sfondo-base-scuro: #4b830d ; /* Light Green 600 */
-    --colore-sfondo-grafica-scuro: #c9bc1f ; /* yellow 400 */
-    --colore-sfondo-file-scuro: #883997 ; /* purple 300 */
-    --colore-sfondo-algoritmiStruttureDati-scuro: #725b53 ; /* brown 300 */
-    --colore-sfondo-riferimenti-scuro: #808e95 ; /* blue grey 200 */
-    --colore-sfondo-giochi-scuro: #c56200 ; /* orange A400 */
+/* color noGroup #f5f5f5 grey 100 */
+/* color infrastruttura #90caf9 blue 200 */
+/* color base #7cb342 Orange 600 */
+/* color grafica #ffee58 yellow 400 */
+/* color file #ba68c8 Green 400 */
+/* color algoritmiStruttureDati #a1887f */
+/* color riferimenti #a1887f */
+/* color giochi #ff9100 */
+/* placeholder color map HTML */
 
+* {
     box-sizing:border-box;
     --colore-primario: #ffab40; /* orange A700 */
     --colore-primario-chiaro: #ffdd71; /* light di orange A700 */
@@ -34,7 +16,7 @@
     --colore-primario-testo: #000000;
     --colore-primario-chiaro-testo: #000000;
     --colore-primario-scuro-testo: #000000;
-    
+
     --colore-secondario: #00bfa5; /* teal A700 */
     --colore-secondario-scuro: #008e76; /* dark di teal A700 */
     --colore-secondario-testo: #000000; 
@@ -72,8 +54,8 @@ body.algoritmiStruttureDati  nav { background-color: var(--colore-sfondo-algorit
 body.riferimenti             nav { background-color: var(--colore-sfondo-riferimenti-chiaro) }
 body.giochi                  nav { background-color: var(--colore-sfondo-giochi-chiaro) }
 nav {
-	margin:0; padding: 1rem;
-	display: flex; flex-direction: row 
+    margin:0; padding: 1rem;
+    display: flex; flex-direction: row 
 }
 nav a { color: white } 
 nav#toc a { color: black } /* per indice in elenco */
@@ -90,27 +72,27 @@ nav > * {
     text-align:center; text-decoration: none;
     margin:0em 1em; padding:0.5em; 
 }
-
+/* --------------------------- parti fondamentali della pagina --------------------------------- */
 article, section { margin:1em 5% ; padding-bottom:3em}
 h2 { 
-	text-align: left;
-    margin-top:3em;
+    text-align: left;
+    margin-top:3rem;
     border-bottom:1px dashed #444; 
 }
 h3 { 
     text-align: left; 
-    margin-top:2em;
+    margin-top:2rem;
     border-bottom:1px dotted #999; 
 }
 p, dfn {
     text-align: justify;
-    line-height: 1.5em;
+    line-height: 1.5rem;
 }
 em {
     font-style: normal; font-weight: bold; color: var(--colore-primario-scuro) ;
 }
 dfn {
-	display: block;
+    display: block;
     padding: 0.75em;
     background-color: var(--colore-primario); color: var(--colore-primario-testo);
     border-top: 0.5em solid var(--colore-primario-scuro) 
@@ -119,8 +101,8 @@ dfn em { color: var(--colore-primario-testo) }
 img.screen_shot { border:1px solid gray; margin: 0.5em }
 img.iconaIDE { height: 2ex; }
 .approfondimento { 
-	font-family: Helvetica, Arial, sans-serif;
-	font-weight: 100;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
     border-left: 0.2em dashed orange;
     border-right: 0.2em dashed orange;
     padding: 0em 1em;
@@ -128,8 +110,13 @@ img.iconaIDE { height: 2ex; }
     color: #613515;
 }
 .approfondimento:before {
-	font-size:150%; content: "🔍 per saperne di più"; background-color:orange; padding:0.2em
+    font-size:150%; content: "🔍 per saperne di più"; background-color:orange; padding:0.2em
 }
+li { margin-top:0.2em }
+strong { font-size:125% ; font-weight: normal; font-style: normal}
+dt { font-weight: bold ; margin-top:0.5em}
+table { border-collapse: collapse }
+td,th { border:1px solid #444 ; padding:0.25em}
 /* ------------------------------------ codice sorgente ---------------------------------------- */
 pre, div.pseudo {
     padding: 0.5em;
@@ -146,12 +133,8 @@ pre, div.pseudo {
 pre code { white-space: pre; display: inline-block; padding:2px;width: 100%}
 pre .esecuzione { background-color:yellow }
 pre var { font-size: 100% }
-div.pseudo {
-    /* FIXME: andrebbe messo un colore per distinguere */
-    background-color: #eef;
-}
 code {
-	font-family: "Courier", "Courier New", monospace;
+    font-family: "Courier", "Courier New", monospace;
     font-size: 125%;
     color: #700;
     padding-left:0.25em; padding-right:0.25em;
@@ -165,10 +148,6 @@ var {
 	font-size: 110%;
 	font-style: italic 
 }
-li { margin-top:0.2em }
-strong { font-size:125% ; font-weight: normal; font-style: normal}
-li a strong { font-size:110% }
-dt { font-weight: bold ; margin-top:0.5em}
 /* --------------------------------------- i test ---------------------------------------------- */
 .test {
 	padding: 1em;
@@ -194,9 +173,14 @@ dt { font-weight: bold ; margin-top:0.5em}
 .test a.spiega span.spiegazione { display:inline }
 .rispostaGiusta { background-color: lime !important}
 .rispostaSbagliata { background-color: red !important}
-
-table { border-collapse: collapse }
-td,th { border:1px solid #444 ; padding:0.25em}
+/* --------------------------------- gli esercizi da completare -------------------------------- */
+.riempiSpazi { white-space: pre; font-family: monospace ; font-size:150%; line-height: 1.4em}
+.riempiSpazi span { border:1px solid gray; display:inline-block; vertical-align:baseline }
+.riempiSpazi em { color:red; font-weight: bold }
+.riempiSpazi .giusta { background: green }
+.riempiSpazi .sbagliata { background: red }
+.mostraSoluzione { color:blue ; font-weight: bold}
+.controllaRisposta { color:blue ; font-weight: bold} 
 /* -------------------------------------- gli esercizi ----------------------------------------- */
 .esercizio {
     margin-top:4em;
@@ -226,17 +210,21 @@ div.curiosita, div.suggerimento {
     text-align: left;
     background-color: var(--colore-secondario); color: var(--colore-secondario-testo);
 }
-div.suggerimento {    
+div.suggerimento {
     white-space: normal !important;
     overflow:auto; 
     border-top: 0.5rem solid var(--colore-secondario-scuro);
 }
 
-
 .FIXME { background-color: yellow; color:red; padding:1em ; margin:1em}
 
+
+
+
+
+/* -------------------------------------- non più usato ---------------------------------------- */
 .IDE_inutile { display: none }
-.ide { 
+.ide {
 	font-family: Courier, monospaced ;
 	padding-left:0.25em; padding-right:0.25em
 }
@@ -251,23 +239,13 @@ div.suggerimento {
 }
 p.eclipse, p.netbeans {background-position: 0.10em 0.2em;}
 section.eclipse, section.netbeans {background-position: 0.10em 0.2em; background-size:2em 2em; }
-    
-.netbeans { 
+.netbeans {
 	background-color: rgb(240,240,255);
 	background-image: url(immagini/ide_netbeans.png);
 	border-color: rgb(200,200,215);
 }
-.eclipse { 
+.eclipse {
 	background-color: rgb(255,240,240);
     background-image: url(immagini/ide_eclipse.png);
     border-color: rgb(215,200,200);
 }
-
-/* gli esercizi da completare */
-.riempiSpazi { white-space: pre; font-family: monospace ; font-size:150%; line-height: 1.4em}
-.riempiSpazi span { border:1px solid gray; display:inline-block; vertical-align:baseline }
-.riempiSpazi em { color:red; font-weight: bold }
-.riempiSpazi .giusta { background: green }
-.riempiSpazi .sbagliata { background: red }
-.mostraSoluzione { color:blue ; font-weight: bold}
-.controllaRisposta { color:blue ; font-weight: bold} 
