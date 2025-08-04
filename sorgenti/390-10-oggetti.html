@@ -467,11 +467,12 @@ non varia da istanza a istanza della classe <code>Autoveicolo</code>.</p>
 <p>Per enfatizzare il fatto che tali metodi possono essere invocati indipendentemente
 dall'oggetto su cui si sta lavorando, o anche semplicemente se esiste o meno un oggetto
 della classe Autoveicolo anche qui si inserisce la parola static:</p>
-<pre>private static double prezzoBenzina;
+<pre>
+static double prezzoBenzina;
 
-    public static double litriDieciEuro() {
-        return 10/prezzoBenzina;
-    }</pre>
+static double litriDieciEuro() {
+    return 10/prezzoBenzina;
+}</pre>
 
 <p>Quando nel programma si vuole utilizzare questo metodo, si dovrà utilizzare la forma
 <code>Autoveicolo.litriDieciEuro()</code> cioè si fa riferimento
