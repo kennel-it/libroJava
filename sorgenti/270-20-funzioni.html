@@ -6,6 +6,7 @@
 <!-- changelog 2020-08-28 corretto nome funzione nelle definizioni finali -->
 <!-- changelog 2020-08-25 cambiato nome sezione in "Passaggio per valore" -->
 <!-- changelog 2025-07-31 prima riorganizzazione più formale del capitolo -->
+<!-- changelog 2025-08-04 completata riorganizzazione del capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8"/>
@@ -296,61 +297,26 @@ public static void main(String args[]){
 </pre>
 
 
+<h2>Valore restituito</h2>
+<p>Ogni funzione può o meno restituire un valore a chi l'ha chiamata: il tipo
+del valore restituito viene dichiarato prima del nome della funzione e in
+caso che non ci sia un valore da restituire questo viene indicato con
+la parola chiave <code>void</code> al posto del tipo.</p>
+<p>All'interno della funzione la parola chiave <code>return</code>
+serve per terminare la funzione e restituire a chi l'ha chiamata il valore
+dell'espressione che la segue (es: <code>return a*7;</code>).
+Ovviamente il valore restituito deve
+essere del tipo dichiarato prima del nome della funzione, in caso di una
+funzione <code>void</code> il return non è necessario (ma se si vuole
+usarlo non deve essere eseguito da nessuna espressione).</p>
 
+<dfn>Una <em>funzione</em> (o metodo) è un blocco di codice che può ricevere dei parametri
+in ingresso ed eventualmente restituire un singolo valore in uscita.</dfn>
 
+<p>Adesso possiamo riassumere: una dichiarazione di funzione è un tipo (oppure void)
+seguito da un nome (stesse regole dei nomi di variabili) e da una lista di parametri tra parentesi tonde 
+(anche se non ce ne è nessuno va bene) e un blocco di codice racchiuso tra graffe.</p>
 
-
-
-
-
-
-<h2>Continua esempio</h2>
-<p>Rispetto all'esempio precedente potrebbe succedere che l'elenco dei numeri
-si trovi in una casella oppure in un'altra, in questo caso la nostra funzione non va più bene
-perché legge sempre dalla stessa casella: potrebbe in questo caso far comodo 
-modificare la nostra funzione in modo che prenda come input un testo (String) 
-e restituisca un vettore di numeri (esattamente come prima).</p>
-<pre>
-int[] daStringaAVettore(<em>String testo</em>){ 
-    String testi[] = testo.split(" ");
-    int numeri[] = new int[testi.length];
-    for (int i = 0; i &lt; testi.length; i++) {
-        numeri[i] = Integer.parseInt(testi[i]);
-    }
-    return numeri;
-}
-</pre>
-
-<p>In questo caso per usare la funzione sarà necessario fare un passaggio in più perché la funzione 
-vuole un dato in input (un testo) quindi leggerò un testo e lo fornirò come input (in realtà
-si dice che "lo passerò come parametro"):</p>
-
-<pre>String testoCasella = valori.getText();
-<em>int numeri[] = daStringaAVettore(testoCasella)</em>;
-</pre>
-
-<p>Adesso possiamo riassumere: una dichiarazione di funzione è un tipo seguito da un nome
-(stesse regole dei nomi di variabili) e da una lista di parametri tra parentesi tonde 
-(anche se non ce ne è nessuno va bene) e un blocco di codice racchiuso tra graffe, in pratica:</p>
-<dl>
-    <dt>daStringaAVettore</dt>
-    <dd>il nome della funzione (viene usato ad esempio per chiamarla)</dd>
-    <dt>int[]</dt>
-    <dd>(la parte prima del nome) la funzione restituirà (a chi l'ha chiamata) un vettore di interi</dd>
-    <dt>String testo</dt>
-    <dd>la funzione richiede un parametro (si chiamano parametri formali) 
-    di tipo String che all'interno della funzione
-    sarà riferito come <code>testo</code> (cioè all'interno della
-    funzione potremmo usare una variabile chiamata <code>testo</code></dd>
-</dl>
-
-<div class="test">
-    <p>Riguardo <code>public int calcolaNumero(int a, int b)</code> quali delle seguenti affermazioni sono vere?</p>
-    <a onclick="sbagliata(this)">restituisce una stringa</a> 
-    <a onclick="giusta(this)">ha due parametri</a>
-    <a onclick="sbagliata(this)">ha un parametro intero</a>
-    <a onclick="giusta(this)">si chiama calcolaNumero</a>  
-</div>
 
 <h2>Come funziona</h2>
 <p>Usiamo l'esempio qui sotto per definire con precisione come funzionano le cose: il programma
@@ -401,6 +367,59 @@ somma viene copiato nella variabile a che quindi a questo punto conterrà 12.</p
 </pre>
     </div>
     <p id="didascaliaFunz"></p>
+</div>
+
+
+
+
+
+
+
+
+<h2>Continua esempio</h2>
+<p>Tornando all'esempio iniziale potrebbe succedere che l'elenco dei numeri
+si trovi in una casella oppure in un'altra, in questo caso la nostra funzione
+<code>leggiDati()</code> non va più bene
+perché legge sempre dalla stessa casella: potrebbe far comodo 
+modificare la funzione in modo che prenda come input un testo 
+e restituisca un vettore di numeri (esattamente come prima). 
+Chiamiamo questa nuova funzione <em>daStringaAVettore</em>.</p>
+<pre>
+int[] daStringaAVettore(<em>String testo</em>){ 
+    String testi[] = testo.split(" ");
+    int numeri[] = new int[testi.length];
+    for (int i = 0; i &lt; testi.length; i++) {
+        numeri[i] = Integer.parseInt(testi[i]);
+    }
+    return numeri;
+}
+</pre>
+
+<p>In questo caso per usare la funzione sarà necessario fare un passaggio in più perché la funzione 
+vuole un dato in input (un testo) quindi leggerò un testo e lo passerò come parametro:</p>
+
+<pre>String testoCasella = valori.getText();
+<em>int numeri[] = daStringaAVettore(testoCasella)</em>;
+</pre>
+
+<p>Nel nostro caso:</p>
+<dl>
+    <dt>int[]</dt>
+    <dd>(la parte prima del nome) la funzione restituirà (a chi l'ha chiamata) un vettore di interi</dd>
+    <dt>daStringaAVettore</dt>
+    <dd>il nome della funzione (viene usato ad esempio per chiamarla)</dd>
+    <dt>String testo</dt>
+    <dd>la funzione richiede un parametro formale
+    di tipo String che all'interno del corpo della funzione
+    sarà riferito con la variabile <code>testo</code></dd>
+</dl>
+
+<div class="test">
+    <p>Riguardo <code>public int calcolaNumero(int a, int b)</code> quali delle seguenti affermazioni sono vere?</p>
+    <a onclick="sbagliata(this)">restituisce una stringa</a> 
+    <a onclick="giusta(this)">ha due parametri</a>
+    <a onclick="sbagliata(this)">ha un parametro intero</a>
+    <a onclick="giusta(this)">si chiama calcolaNumero</a>  
 </div>
 
 

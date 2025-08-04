@@ -20,6 +20,7 @@
 <!-- changelog 2021-08-19 correzioni su static -->
 <!-- changelog 2021-08-19 ritocco su risparmio vincolato: aggiunto un getter e un setter -->
 <!-- changelog 2022-04-28 corretto nome di variabile errato -->
+<!-- changelog 2025-08-04 riorganizzato per intero il capitolo -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -221,7 +222,7 @@ sono delle funzioni che possono far riferimento alle proprietà dell'oggetto.</p
     // metodi 
 }</pre>
 
-<dfn>Una <em>proprietà</em> è una variabile dichiarata all'interno di una classe 
+<dfn>Una <em>proprietà</em> (o attributo) è una variabile dichiarata all'interno di una classe 
 e concorre a rappresentarne lo stato.</dfn>
 <!-- https://en.wikipedia.org/wiki/Property_(programming) -->
 
@@ -236,15 +237,18 @@ https://www.geeksforgeeks.org/methods-in-java/ -->
 <p>Mentre per distinguere una proprietà dall'altra si usa solo il nome, per distinguere due metodi non basta indicarne il
 nome perché con lo stesso nome possono esserci più metodi. Allora per chiarire a quale ci si riferisce, in modo tale da
 disambiguare l'identificazione e rendere l'invocazione del metodo univoca si passa a controllare i parametri. Di questi si
-controlla la sequenza dei tipi di argomenti e verrà invocato quello che ha l'esatta corrispondenza.<br/>
-Chiaramente Java non permette di creare due metodi con la stessa firma, cioè se si crea un metodo con lo stesso nome di un
-altro fatto in precedenza ma la sequenza dei tipi è diversa non ci sono problemi. Se invece corrisponde verrà dato errore.</p>
-<p>Esempio<br/>
+controlla la sequenza dei tipi di argomenti e verrà invocato quello che ha l'esatta corrispondenza.</p>
+<p>Chiaramente Java non permette di creare due metodi con la stessa firma nella stessa classe.</p>
+
+<p>Ad esempio avere due metodi 
 <code>public int faiMessaggio(String nome, int anni)</code> e <code>public int faiMessaggio(String nome, int eta)</code> è
 errore perché corrisponde il nome del metodo, entrambi hanno come primo parametro una stringa (non importa il nome della
-variabile) ed entrambi hanno il tipo successivo intero quindi ci sarebbe ambiguità.<br/>
+variabile) ed entrambi hanno il tipo successivo intero quindi ci sarebbe ambiguità.</p>
+
+<p>Invece avere
 <code>public int faiMessaggio(String nome, String anni)</code> e <code>public int faiMessaggio(String nome, int anni)</code> è
 corretto perché l'ultimo argomento in un caso è una stringa e nell'altro caso è un intero.</p>
+
 <p>Nell'esempio dell'autoveicolo un metodo ci consente data una distanza (parametro) di calcolare
 quanto spenderemo per il percorso (risultato). In pratica un metodo è una funzione definita in una 
 classe che oltre ai parametri può utilizzare anche i valori presenti nello stato, per calcolare
@@ -264,18 +268,54 @@ la spesa servirà anche di utilizzare il consumo di un determinato autoveicolo
         <span class="spiegazione">giusto, è una delle sue proprietà</span></a>
 </div>  
 
+<h2>Costruttore</h2>
 
-<h3>Istanze</h3>
+<p>Un particolare metodo è quello che viene usato quando costruiamo una nuovo oggetto:
+il costruttore. Si riconosce perché ha lo stesso nome della classe e 
+nessun tipo ritornato (non c'è scritto <code>void</code>, 
+è proprio assente). Per ogni classe è possibile definire molteplici costruttori con parametri diversi,
+posso per esempio pensare ad un costruttore di Autoveicolo che voglia il solo numero di targa e 
+uno diverso che voglia sia numero di targa che il modello. 
+Se non si definisce nessun costruttore nella classe java 
+ne definisce uno predefinito che non accetta nessun parametro.</p>
+
+<div class="test">
+    <p>Quale è un possibile costruttore per la classe <code>Tavolo</code>?</p> 
+    <a onclick="sbagliata(this)">public int calcola(int a, int b){...}
+        <span class="spiegazione">non si chiama come la classe e ritorna un valore di tipo int</span></a> 
+    <a onclick="sbagliata(this)">public void Tavolo(){...}
+        <span class="spiegazione">void non deve essere presente</span></a>
+    <a onclick="giusta(this)">public Tavolo(){...}
+        <span class="spiegazione">giusto, un costruttore senza parametri</span></a>
+    <a onclick="giusta(this)">public Tavolo(int gambe){...}
+        <span class="spiegazione">giusto, un costruttore che vuol sapere quante gambe ha il tavolo</span></a>
+</div>
+
+<p>A questo punto possiamo scrivere l'intera classe <code>Autoveicolo</code>:</p>
+<pre>
+public class Autoveicolo {
+    String targa;
+    String modello;
+    double kmAlLitro;
+
+    public Autoveicolo(String t, String m, double l){
+        targa = t;
+        modello = m;
+        kmAlLitro = l;
+    }
+
+    public double costoPercorso(double numeroKilometri) {
+        return numeroKilometri/kmAlLitro*1.5;
+    }
+}</pre>
+
+
+<h2>Istanze</h2>
 <p>Una classe ci permette di definire come si comporta una certa entità... abbiamo ad esempio 
 definito quali caratteristiche ha un Autoveicolo qualsiasi ma come
 posso fare per creare qualcosa che rappresenti la mia particolare automobile che è una 
 "Stelvio" targata "CF876RT" che percorre 14km con un litro di carburante? 
-Posso farlo creando una particolare <em>istanza</em> della classe Autoveicolo.</p>
-
-<p>Data la nostra classe di esempio potremmo creare tre sue diverse istanze:
-<code>automobileMario</code>, <code>automobileLucia</code> e 
-<code>automobileLuigi</code>che avranno lo stesso tipo ma ciascuna avrà un proprio stato 
-e quindi una sua targa, un suo modello e un suo consumo.</p>
+Posso farlo creando una particolare <em>istanza</em> della classe <code>Autoveicolo</code>.</p>
 
 <dfn>Un <em>oggetto</em> è una istanza di una classe e viene creato a tempo di esecuzione con l'operatore 
 <code>new</code>.</dfn>
@@ -289,8 +329,39 @@ gli stessi valori su ogni proprietà (immaginiamo due Autoveicoli con stessa tar
 e poi li confronto usando <code>==</code> questo mi restituirà falso 
 perché vengono confrontati i due riferimenti (che sono numeri che indicano
 l'indirizzo di memoria in cui si trova l'oggetto) che sono diversi 
-(questo è il motivo per cui gli oggetti String non si confrontano con == ma utilizzando
+(questo è il motivo per cui gli oggetti String non si confrontano con <code>==</code> ma utilizzando
 il metodo <code>equals()</code>).</p>
+
+<p>Data la nostra classe di esempio potremmo creare tre sue diverse istanze:
+<code>automobileMario</code>, <code>automobileLucia</code> e 
+<code>automobileLuigi</code>che avranno lo stesso tipo ma ciascuna avrà un proprio stato 
+e quindi una sua targa, un suo modello e un suo consumo.</p>
+<pre>
+Autoveicolo automobileMario = new Autoveicolo("az897rr", "Panda", 18.3);
+Autoveicolo automobileLucia = new Autoveicolo("pp915er", "Corsa", 16.3);
+Autoveicolo automobileLuigi = new Autoveicolo("ba523et", "Discovery", 6.3);
+</pre>
+
+<p>Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
+<code>Button pulsante = <em>new Button()</em></code>. Con questa istruzione abbiamo creato 
+una nuova istanza (un oggetto) della classe <code>Button</code> usando l'operatore <code>new</code>
+e chiamando dopo di lui uno dei suoi costruttori.<br/>
+
+
+Ma si può scrivere anche la dichiarazione: <code>Button pulsante = new <em>Button("Premi qui")</em></code>
+e anche questa volta abbiamo invocato un metodo che si chiama come la classe. 
+L'unica differenza è che il primo metodo invocato non aveva argomenti, questo qui ha un argomento di tipo stringa.
+Quale è lo scopo dei 2 costruttori della classe Button? 
+Avere modi diversi per creare dei Button (sono tre), chi ha scritto la classe
+ha deciso in quali modi sia possibile instanziarla, possiamo ipotizzare che nel primo caso si vuole un pulsante senza testo 
+e nel secondo caso si vuole un pulsante con del testo al suo interno.</p>
+
+<p>Ogni istanza di una classe avrà le stesse proprietà ma con valori diversi, per accedere a queste proprietà
+(o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
+di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
+si vuole usare.
+Se ho creato una istanza <code>automobileMario</code> di <code>Autoveicolo</code>
+posso impostare la sua targa scrivendo <code>automobileMario.targa="xd987tt"</code>.</p>
 
 <div class="test">
     <p>Quale dei seguenti non è un operatore?</p>
@@ -315,178 +386,7 @@ il metodo <code>equals()</code>).</p>
         <span class="spiegazione">giusto, alla memoria principale</span></a>
     <a onclick="sbagliata(this)">la classe Autoveicolo
         <span class="spiegazione">no, un riferimento ad una sua istanza</span></a>
-</div>  
-
-
-<p>Ogni istanza di una classe avrà le stesse proprietà ma con valori diversi, per accedere a queste proprietà
-(o anche ai metodi) si usa la <em>notazione punto</em>: se voglio accedere ad una proprietà
-di un oggetto scrivo il nome di una istanza seguita dal punto e dal nome della proprietà (o del metodo) che
-si vuole usare.
-Se ho creato una istanza <code>automobileMario</code> di <code>Autoveicolo</code>
-posso impostare la sua targa scrivendo <code>automobileMario.targa="xd987tt"</code>.</p>
-
-
-<h2>Costruttore</h2>
-
-<p>Un particolare metodo è quello che viene usato quando costruiamo una nuova istanza
-di una classe: il costruttore. Si riconosce perché ha lo stesso nome della classe e 
-nessun tipo ritornato (non c'è scritto <code>void</code>, 
-è proprio assente). Per ogni classe è possibile definire molteplici costruttori con parametri diversi,
-posso per esempio pensare ad un costruttore di Autoveicolo che voglia il solo numero di targa e 
-uno diverso che voglia sia numero di targa che il modello. 
-Se non si definisce nessun costruttore nella classe java 
-ne definisce uno predefinito che non accetta nessun parametro.</p>
-
-<div class="test">
-    <p>Quale è un possibile costruttore per la classe <code>Tavolo</code>?</p> 
-    <a onclick="sbagliata(this)">public int calcola(int a, int b){...}
-        <span class="spiegazione">non si chiama come la classe e ritorna un valore di tipo int</span></a> 
-    <a onclick="sbagliata(this)">public void Tavolo(){...}
-        <span class="spiegazione">void non deve essere presente</span></a>
-    <a onclick="giusta(this)">public Tavolo(){...}
-        <span class="spiegazione">giusto, un costruttore senza parametri</span></a>
-    <a onclick="giusta(this)">public Tavolo(int gambe){...}
-        <span class="spiegazione">giusto, un costruttore che vuol sapere quante gambe ha il tavolo</span></a>
-</div>  
-
-<p>Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
-<code>Button pulsante = <em>new Button()</em></code>. Con questa istruzione abbiamo creato 
-una nuova istanza (un oggetto) della classe <code>Button</code> usando l'operatore <code>new</code>
-e chiamando dopo di lui uno dei suoi costruttori.<br/>
-
-
-Ma si può scrivere anche la dichiarazione: <code>Button pulsante = new <em>Button("Premi qui")</em></code>
-e anche questa volta abbiamo invocato un metodo che si chiama come la classe. 
-L'unica differenza è che il primo metodo invocato non aveva argomenti, questo qui ha un argomento di tipo stringa.
-Quale è lo scopo dei 2 costruttori della classe Button? 
-Avere modi diversi per creare dei Button (sono tre), chi ha scritto la classe
-ha deciso in quali modi sia possibile instanziarla, possiamo ipotizzare che nel primo caso si vuole un pulsante senza testo 
-e nel secondo caso si vuole un pulsante con del testo al suo interno.</p>
-
-<h3>Confronto</h3>
-<p>Proviamo a confrontare due programmi che svoilgono lo stesso lavoro: il primo con un approccio ad 
-oggetti, il secondo procedurale.</p>
-
-<p>La <span onclick="mostraNascondi('new','old')" class="pulsante" id="pulsanteNew">nuova versione ad oggetti</span> 
-usa un <em>oggetto</em>: <code>Autoveicolo</code> con le <em>proprietà</em>
-<code>marca</code>, <code>modello</code> e <code>kmAlLitro</code> 
-mentre i <em>metodi</em> sono: un <em>costruttore</em>  
-un altro per calcolare il costo di un percorso.</p>
-<p>La <span onclick="mostraNascondi('old','new')" class="pulsante" id="pulsanteOld">vecchia versione procedurale</span> del programma non usa gli oggetti</p>
-
-<div class="new">
-<h3>File: Autoveicolo.java</h3>
-<pre>
-public class Autoveicolo {
-	String targa;
-	String modello;
-	double kmAlLitro;
-	
-	public Autoveicolo(String t, String m, double l){
-		targa = t;
-		modello = m;
-		kmAlLitro = l;
-	}
-	
-	public double costoPercorso(double numeroKilometri) {
-		return numeroKilometri/kmAlLitro*1.5;
-	}
-}
-</pre>
 </div>
-<h3>File: Programma.java</h3>
-<pre>
-public class Programma extends Application{
-	<span class="old">
-	String targa[];
-	String modello[];
-	double kmAlLitro[];</span>
-	<span class="new">Autoveicolo automobili[];</span>
-	int autoRegistrate = 0;
-	
-	TextField inTarga = new TextField();
-	TextField inModello = new TextField();
-	TextField inLitri = new TextField();
-	TextField calcTarga = new TextField();
-	TextField calcKm = new TextField();
-	Label risposta = new Label();
-	
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		Button aggiungi = new Button("aggiungi auto");
-		Button calcolaSpesa = new Button("calcola spesa");
-		GridPane gp = new GridPane();
-		gp.add(new Label("targa:"),0,0);
-		gp.add(inTarga,1,0);
-		gp.add(new Label("modello:"),0,1);
-		gp.add(inModello,1,1);
-		gp.add(new Label("consumo:"),0,2);
-		gp.add(inLitri,1,2);
-		gp.add(aggiungi,1,3);
-		gp.add(new Label("targa:"),0,4);
-		gp.add(calcTarga,1,4);
-		gp.add(new Label("km/l:"),0,5);
-		gp.add(calcKm,1,5);
-		gp.add(calcolaSpesa,1,6);
-		gp.add(new Label("spesa:"),0,7);
-		gp.add(risposta,1,7);
-		
-		Scene scena = new Scene(gp);
-		primaryStage.setScene(scena);
-		primaryStage.setTitle("automobili");
-		primaryStage.show();
-		
-		aggiungi.setOnAction(e->aggiungiAuto());
-		calcolaSpesa.setOnAction(e->azioneSpesa());
-		// ci prendiamo una licenza: non ci saranno mai più di 100 automobili
-		<span class="old">targa = new String[100];
-		modello = new String[100];
-		kmAlLitro = new double[100];</span>
-		<span class="new">automobili = new Autoveicolo[100];</span>
-	}
-	
-	public static void main(String args[]){
-		launch(args);
-	}
-	
-	private void aggiungiAuto(){
-		String t = inTarga.getText();
-		String m = inModello.getText();
-		double km = Double.parseDouble(inLitri.getText());
-		
-		<span class="old">targa[autoRegistrate] = t;
-		modello[autoRegistrate] = m;
-		kmAlLitro[autoRegistrate] = km;</span><span class="new">automobili[autoRegistrate] = new Autoveicolo(t, m, km);</span>
-		autoRegistrate++;
-		risposta.setText(t+" registrata");
-	}
-	
-	private void azioneSpesa(){
-		String t = calcTarga.getText();
-		double kilometri = Double.parseDouble(calcKm.getText());
-		<span class="old">int trovato = -1;</span><span class="new">Autoveicolo trovata = null;</span>
-		double spesa;
-		
-		for(int i=0;i&lt;autoRegistrate;i++){
-			<span class="old">if(targa[i].equals(t)) {
-				trovato=i;
-			}</span><span class="new">if(automobili[i].targa.equals(t)) {
-				trovata = automobili[i];
-			}</span>
-		}
-		<span class="old">if(trovato!=-1) {
-			spesa = kilometri/kmAlLitro[trovato]*1.5;
-			risposta.setText("l'automobile "+modello[trovato]+" spende "+spesa );
-		}</span>
-		<span class="new">if(trovata!=null) {
-			spesa = trovata.costoPercorso(kilometri);
-			risposta.setText("l'automobile "+trovata.modello+" spende "+spesa );
-		}</span>else{
-			risposta.setText("non trovo "+t);
-		}
-	}
-}
-</pre>
 
 <div class="test">
     <p>Facendo riferimento alla classe Autoveicolo definito qui sopra</p>
@@ -541,6 +441,52 @@ passata al costruttore nella proprietà <code>targa</code> di questo oggetto (qu
 è più chiaro da leggere rispetto a quello che 
 <span onclick="mostraNascondi('senzaThis','conThis')" class="pulsante" id="pulsanteOld">non usa this</span>.</p>
 
+<h2>Una per tutti: le proprietà statiche</h2>
+<p>Riprendiamo l'esempio dell'automobile, poniamo che il nostro programma tratti
+soltanto di automobili a benzina e che vogliamo aggiungere una proprietà <var>prezzoBenzina</var>:
+il prezzo della benzina ovviamente non varia da automobile a automobile.
+A cosa serve allora una proprietà che si deve impostare sempre allo stesso valore per ogni oggetto creato?</p>
+
+<p>Non ha significato dire che il il costo della benzina per <code>automobileMario</code> è 1,78€/litro
+che lascerebbe intendere che per altre automobili il prezzo è diverso.
+Sarebbe senz'altro più comodo dire: tutti gli oggetti creati di tipo Autoveicolo condividono il fatto che 
+la benzina ha un certo costo.</p>
+
+<p>Quello che vogliamo dire è che <em>tutti gli oggetti della classe Autoveicolo pagano la
+benzina 1,78€/litro</em>.<br/>
+Quindi, considereremo concettualmente sbagliato avere la proprietà <code>private double prezzoBenzina;</code>.</p>
+<p>Per rappresentare
+in Java questa situazione, andiamo a scrivere la proprietà aggiungendo la parola chiave <em>static</em>:
+<code><em>static</em> double prezzoBenzina;</code>.
+La variabile per rappresentare una proprietà creata in questo modo è unica e condivisa da tutti gli oggetti della classe,
+esiste anche se non viene creata alcuna istanza.</p>
+
+<p>Poniamo ora di voler calcolare quanti litri di benzina possiamo acquistare con 10€:
+per calcolarlo abbiamo bisogno soltanto della variabile <var>prezzoBenzina</var> e questo valore
+non varia da istanza a istanza della classe <code>Autoveicolo</code>.</p>
+<p>Per enfatizzare il fatto che tali metodi possono essere invocati indipendentemente
+dall'oggetto su cui si sta lavorando, o anche semplicemente se esiste o meno un oggetto
+della classe Autoveicolo anche qui si inserisce la parola static:</p>
+<pre>private static double prezzoBenzina;
+
+    public static double litriDieciEuro() {
+        return 10/prezzoBenzina;
+    }</pre>
+
+<p>Quando nel programma si vuole utilizzare questo metodo, si dovrà utilizzare la forma
+<code>Autoveicolo.litriDieciEuro()</code> cioè si fa riferimento
+direttamente alla classe piuttosto che ad una sua istanza.</p>
+
+<p>In definitiva esiste un modo per far sì che tutti gli oggetti della stessa classe condividano un valore:
+usare il modificatore <code>static</code>. Le variabili e i metodi così definiti possono essere usati senza
+creare una istanza della classe cioè senza creare un oggetto con <code>new</code>. Esempi di proprietà e
+metodi statici già disponibili in Java sono Math.PI o Math.random() o anche Integer.parseInt().<br/>
+Attenzione ad una cosa: i metodi <code>static</code> possono vedere soltanto le variabili <code>static</code>
+perché non facendo parte di una istanza di una classe non possono vedere le varaibili di istanza
+(quelle non <code>static</code>) le quali vengono create, appunto, col <code>new</code>.</p>
+
+
+
 <h2>Organizzare gli oggetti</h2>
 <p>Abbiamo già detto che un programma è spesso formato da molte classi, 
 un paio di meccanismi ci consentono di tenerle organizzate:</p>
@@ -584,315 +530,161 @@ Per un approfondimento vedi <a href="https://docs.oracle.com/javase/tutorial/jav
     possono fare i controlli</li>
 </ul>
 
+<p>Quello che si fa normalmente è definire una qualsiasi proprietà come <code>private</code>
+e poi definire due metodi che ci consentono di impostarne o leggerne il valore.
+Questi metodi hanno per convenzione il nome che inizia con <em>get</em> o <em>set</em>
+a seconda che si voglia leggere o impostare il valore della proprietà, vediamo
+ad esempio questo meccanismo per la proprietà <var>targa</var>:</p>
 
-<h2>Esempio: il risparmio vincolato</h2>
-<p>Nel momento in cui otteniamo del denaro si presentano varie opportunità: la prima è quella di spenderlo tutto e subito, 
-un'altra è quella di investirlo in modo che produca del guadagno. Tra le possibilità di investimento c'è quella di vincolarlo
-per un periodo di tempo predeterminato (ad esempio un anno), in tal caso verremo messi a conoscenza, nel momento del deposito,
-e quindi nel momento della creazione del vincolo quale è la percentuale di interessi (percentuale di guadagno) che avrò e da
-questa percentuale si calcola la somma in effetti guadagnata.</p>
+<pre>
+    <em>private</em> String targa;
 
-<p>Quali sono le informazioni che caratterizzano un risparmio vincolato?<br/>
-Innanzi tutto chi è il possessore di tale risparmio, quindi il nome ed il cognome. Si potrebbe aggiungere qualcosa come il
-codice fiscale per identificare in modo unico colui a cui si riferisce tale risparmio vincolato perché ci sono alcune persone
-con lo stesso nome e cognome (omonimi). Visto lo scopo puramente esemplificativo possiamo comunque ipotizzare che gli omonimi
-non esistono e quindi per capire di quale individuo si tratta è sufficiente il nome e cognome.
-Un'altra informazione necessaria è il numero del risparmio vincolato e questo deve essere unico; una persona può avere più
-risparmi vincolati e quindi serve un sistema per distinguerli. Seguono la cifra vincolata, la percentuale di interessi garantita,
-l'anno del vincolo. Anche in quest'ultima informazione, per semplificare, ipotizziamo una cosa che non accade nella realtà:
-i soldi verranno vincolati solo il primo gennaio di un dato anno (i soldi andranno chiaramente consegnati prima).<br/>
-Abbiamo ora fatto l'analisi della realtà che andava modellata avendo scelto ciò che è importante registrare, andiamo a scrivere
-intanto queste informazioni ottenendo:</p>
+    // per leggere il valore della proprietà targa
+    <em>public String getTarga(){
+        return targa;
+    }</em>
 
-<h3>file RisparmioVincolato.java</h3>
-<pre>public class RisparmioVincolato {
-   String nome;
-   String cognome;
-   int codice;
-   double importo;
-   short anno;
-   double interessiPercentuale;
-}</pre>
+    // per impostare il valore della proprietà targa
+    <em>public void setTarga(String targa){
+        this.targa=targa;
+    }</em>
+</pre>
 
-<p>Quali sono le informazioni che deve avere un oggetto appena si crea?<br/>
-Stabiliamo 2 alternative:
-<ul>
-    <li>nella prima vogliamo la possibilità di creare un oggetto senza che sia specificato alcun dato perché tutte le
-    informazioni verranno impostate successivamente. In tal caso le proprietà avranno valori particolari</li>
-    <li>nella seconda vogliamo la possibilità di impostare tutti i dati perché si conoscono già tutte le informazioni. In
-    tal caso è possibile verificare che i valori forniti verifichino determinate condizioni.</li>
-</ul> 
-avendo previsto le 2 alternative sopra descritte avremo bisogno di due costruttori la cui sintassi, lo ricordiamo, è piuttosto semplice:
-<code>NomeClasse(tipo argomento, tipo argomento, ...) { ... }</code>.</p>
-<p>La classe sopra con in più i costruttori sarà:</p>
-
-<h3>file RisparmioVincolato.java con i costruttori</h3>
-<pre>public class RisparmioVincolato {
-   String nome;
-   String cognome;
-   int codice;
-   double importo;
-   short anno;
-   double interessiPercentuale;
-
-   /* Imposto tutti valori scelti da me senza nessun significato particolare
-    * ma che chiaramente non possono riferirsi ad alcun vincolo 
-    * di risparmio reale 
-    */
-   <em>RisparmioVincolato() {
-      nome = "&lt;indefinito&gt;";      
-      cognome = "&lt;indefinito&gt;";
-      codice = -1;
-      importo = 0.0;
-      anno = -1;
-      interessiPercentuale = 0.0;
-   }</em>
-
-   <em>public RisparmioVincolato(String nome, String cognome, int codice, double importo, short anno, double interessiPercentuale) {
-      this.nome = nome;
-      this.cognome = cognome;
-      this.codice = codice;
-      this.importo = importo;
-      // Ci mettiamo anche un banale controllo sulle date: l'anno dal 1970 al 2025 
-      if(anno &lt; 1970) {
-         anno = 1970;
-      } else if(anno &gt; 2025) {
-         anno = 2025;
-      }      
-      this.anno = anno;
-      this.interessiPercentuale = interessiPercentuale;
-   }</em>
-}</pre>
-
-<p>Sarebbe utile che l'oggetto ci permetta di sapere sia quanto si guadagnerà allo scadere del periodo, sia quanti soldi
-si avranno in totale (la somma vincolata alla quale si aggiungono gli interessi). Affinché il metodo possa fornire il
-guadagno, che è un numero con la virgola, dobbiamo scegliere tra i tipi <code>float</code> e <code>double</code>.
-La preferennza ricade su <code>double</code> per avere la massima precisione. 
-Il metodo ha bisogno di argomenti? Detto in modo diverso, il metodo ha bisogno di ulteriori informazioni per poter calcolare
-il risultato? La risposta è no perché tutte le informazioni necessarie sono già memorizzate nelle proprietà della classe: 
-sono necessari sia l'importo che il tasso (la percentuale) di interessi.<br/>
-Discorso analogo per il capitale (cioè i soldi posseduti) totale.</p>
-
-<pre>public class RisparmioVincolato {
-
-    // stesse dichiarazioni di proprietà e costruttori dell'esempio sopra 
-
-   <em>public double fornisciGuadagno() {
-      double guadagno = importo*interessiPercentuale/100; //formula per il calcolo degli interessi
-      return guadagno;
-   }</em>
-
-   <em>public double fornisciCapitale() {
-      double guadagno = fornisciGuadagno(); //anziché rifare il calcolo invochiamo il metodo sopra
-      double capitale = guadagno + importo;
-      return capitale;
-   }</em>
-}</pre>
-
-<p>Ora, dopo aver dichiarato la classe RisparmioVincolato con tutte le sue caratteristiche, usiamola in un programma
-normale. Possiamo pensare di avere un form per l'inserimento dei dati relativi ad un investimento di tipo risparmio
-vincolato. Al click di un pulsante per l'acquisizione dei dati, tutto ciò che è presente nel form verrà usato per costruire
-un oggetto della classe definita qui sopra, subito dopo si puliranno tutti i campi e si farà una sintesi di quanto letto in
-una etichetta.<br/>
-Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capitale totale alla fine del periodo.</p>
-<pre>public class InterfacciaGrafica extends Application {
-    TextField tNome = new TextField();
-    TextField tCognome = new TextField();
-    TextField tCodice = new TextField();
-    TextField tImporto = new TextField();
-    TextField tAnno = new TextField();
-    TextField tInteressiPercentuale = new TextField();
-    Label lNomeCognome = new Label("Nome e cognome");
-    Label lData = new Label("Data vincolo");
-    Label lGuadagnoETotale = new Label("Guadagno in €");
-    <em>RisparmioVincolato risparmio;</em>
-
-    public void start(Stage finestra) {
-       Label lNome = new Label("Nome");
-       Label lCognome = new Label("Cognome");
-       Label lCodice = new Label("Codice");
-       Label lImporto = new Label("Importo");
-       Label lDataVincolo = new Label("Anno");
-       Label lInteressiPercentuale = new Label("Interessi");
-       Button bAcquisisci = new Button("Acquisisci");
-       Button bMostra = new Button("Mostra guadagno");
-       bAcquisisci.setOnAction(e->acquisisci());
-       bMostra.setOnAction(e->mostra());
-       GridPane pannello = new GridPane();
-       pannello.add(lNome, 0, 0);
-       pannello.add(tNome, 1, 0);
-       pannello.add(lCognome, 0, 1);
-       pannello.add(tCognome, 1, 1);
-       pannello.add(lCodice, 0, 2);
-       pannello.add(tCodice, 1, 2);
-       pannello.add(lImporto, 0, 3);
-       pannello.add(tImporto, 1, 3);
-       pannello.add(lInteressiPercentuale, 0, 4);
-       pannello.add(tInteressiPercentuale, 1, 4);
-       pannello.add(lDataVincolo, 0, 5);
-       pannello.add(tAnno, 1, 5);
-       pannello.add(bAcquisisci, 0, 6);
-       pannello.add(bMostra, 1, 6);
-       pannello.add(lNomeCognome, 0, 7, 2, 1);
-       pannello.add(lData, 0, 8, 2, 1);
-       pannello.add(lGuadagnoETotale, 0, 9, 2, 1);
-       Scene scena = new Scene(pannello,500,500);
-       finestra.setScene(scena);
-       finestra.setTitle("prospetto d'investimento");
-       finestra.show();
-    }
-
-    public void acquisisci() {
-       String sNome = tNome.getText();
-       String sCognome = tCognome.getText();
-       int iCodice = Integer.parseInt(tCodice.getText());
-       double fImporto = Double.parseDouble(tImporto.getText());
-       double fInteressi = Double.parseDouble(tInteressiPercentuale.getText());
-       short iAnno = (short) Integer.parseInt(tAnno.getText());
-       // La new la facciamo qui piuttosto che insieme agli altri oggetti di tipo 
-       // TextField perché solo qui sappiamo quali valori usare nel costruttore
-       <em>risparmio = new RisparmioVincolato(sNome, sCognome, iCodice, fImporto, iAnno, fInteressi);</em>
-       // In questo momento tutte le informazioni lette sono memorizzate nelle proprietà dell'oggetto risparmio,
-       // non sevono più i dati nel form che quindi viene pulito per un prossimo eventuale inserimento
-       tNome.setText("");
-       tCognome.setText("");
-       tCodice.setText("");
-       tImporto.setText("");
-       tInteressiPercentuale.setText("");
-       tAnno.setText("");
-       lNomeCognome.setText("Vincolo di " + risparmio.nome + " " + risparmio.cognome);
-       lData.setText("fatto l'anno " + risparmio.anno + "con interessi del " + risparmio.interessiPercentuale + "%");
-    }
-
-    public void mostra() {
-       lGuadagnoETotale.setText("Guadagno previsto " + 
-         <em>risparmio.fornisciGuadagno()</em> + "€; il capitale diventerà " + 
-         <em>risparmio.fornisciCapitale()</em> + "€");
-    }
-
-    public static void main(String args[]) {
-       launch();
-    }
-}</pre>
-
-<p>Nel metodo <code>acquisisci()</code> del programma sopra proposto, vengono prima lette tutte le informazioni del form, poste in delle
-variabili e poi queste vengono usate per invocare il costruttore opportuno nel quale vengono eseguiti dei controlli sulla correttezza
-dei dati. Più avanti, nelle ultime 2 righe del metodo, si accede in lettura alle proprietà poco sopra impostate.<br/>
-Segue ora una alternativa del metodo <code>acquisisci()</code> che vuole raggiungere lo stesso obiettivo utilizzando però l'altro
-costruttore:</p>
-
-<pre>public class InterfacciaGrafica extends Application {
-[...]
-
-    public void acquisisci() {
-       String sNome = tNome.getText();
-       String sCognome = tCognome.getText();
-       int iCodice = Integer.parseInt(tCodice.getText());
-       double fImporto = Double.parseDouble(tImporto.getText());
-       double fInteressi = Double.parseDouble(tInteressiPercentuale.getText());
-       short iAnno = (short) Integer.parseInt(tAnno.getText());
-       // Alternativa, utilizziamo il costruttore senza argomenti
-       <em>risparmio = new RisparmioVincolato();</em>
-       // A questo punto vanno impostati i valori delle proprietà
-       risparmio.nome = sNome;
-       risparmio.cognome = sCognome;
-       risparmio.codice = iCodice;
-       risparmio.importo = fImporto;
-       risparmio.anno = iAnno;
-       risparmio.interessiPercentuale = fInteressi;
-       // E, come prima, si puliscono i campi del form
-       tNome.setText("");
-       tCognome.setText("");
-       tCodice.setText("");
-       tImporto.setText("");
-       tInteressiPercentuale.setText("");
-       tAnno.setText("");
-       lNomeCognome.setText("Vincolo di " + risparmio.nome + " " + risparmio.cognome);
-       lData.setText("fatto l'anno " + risparmio.anno + "con interessi del " + risparmio.interessiPercentuale + "%");
-    }
-
-[...]
-}</pre>
-
-<p>La variante sopra proposta ha un difetto: lascia alla classe <code>InterfacciaGrafica</code> la possibilità di modificare
-direttamente le variabili interne alla classe. In questo modo dalla classe <code>RisparmioVincolato</code> non è possibile
-eseguire alcun controllo sulla validità dei valori che vengono loro assegnati. Se ad esempio un utente inserisse nella casella
-anno del form il valore 44, per il programma in esecuzione tutto sarebbe corretto, così come tutto funzionerebbe se il
-solito utente, stavolta nel campo importo, inserisse il valore -12.0. Chiaramente tutto ciò è concettualmente sbagliato.</p>
-
-<p>Per prevenire tali situazioni è necessario un sistema per cui risulti impossibile accedere direttamente alle proprietà della
-classe <code>RisparmioVincolato</code> da qualsiasi altra classe, come nel caso di <code>InterfacciaGrafica</code>.</p>
-
-<p>Se rendiamo private tutte le proprietà di <code>RisparmioVincolato</code>, come si può fare ad impostare il capitale o la
-percentuale di interessi al di là del costruttore?<br/>
-La soluzione è fornire dei metodi che impostano, dopo aver effettuato controlli di correttezza, le variabili private: tali
-metodi vengono chiamati setters. Serviranno poi altri metodi che forniscono il valore di queste variabili private (ogni metodo
-ne fornisce una): sono i getters.</p>
-
-<p>Facciamo l'esempio con la sola proprietà <code>importo</code>, chiaramente il lavoro fatto su questa proprietà va replicato
-per tutte le altre. La riga della dichiarazione della proprietà differisce per la sola aggiunta della parola chiave
-<code>private</code> mentre compaiono in  più i metodi <code>setImporto()</code> e <code>getImporto()</code>:</p>
-<pre>private double importo;
-
-public void setImporto(double euro) {
-   if(euro > 0) {
-      importo = euro; //Anche se la proprietà è privata, il metodo della stessa classe accede a tutte le variabili
-   } else {
-      importo = 0;
-}
-
-public double getImporto() {
-   return importo;
-}</pre>
-
-<p>A questo punto il metodo <code>acquisisci()</code> sopra riportato non funzionerebbe più (provare per credere). La nuova
-versione sostituisce necessariamente l'accesso alle proprietà con l'accesso ai metodo setters e getters:</p>
-
-<pre>public class InterfacciaGrafica extends Application {
-[...]
-
-    public void acquisisci() {
-       String sNome = tNome.getText();
-       String sCognome = tCognome.getText();
-       int iCodice = Integer.parseInt(tCodice.getText());
-       double fImporto = Double.parseDouble(tImporto.getText());
-       double fInteressi = Double.parseDouble(tInteressiPercentuale.getText());
-       short iAnno = (short) Integer.parseInt(tAnno.getText());
-       // Alternativa, utilizziamo il costruttore senza argomenti
-       <em>risparmio = new RisparmioVincolato();</em>
-       // A questo punto vanno impostati i valori tramite l'invocazione dei setters
-       risparmio.setNome(sNome);
-       risparmio.setCognome(sCognome);
-       risparmio.setCodice(iCodice);
-       risparmio.setImporto(fImporto);
-       risparmio.setAnno(iAnno);
-       risparmio.setInteressiPercentuale(fInteressi);
-       // Come prima, si puliscono i campi del form
-       tNome.setText("");
-       tCognome.setText("");
-       tCodice.setText("");
-       tImporto.setText("");
-       tInteressiPercentuale.setText("");
-       tAnno.setText("");
-       // A questo punto anche per la lettura dei dati non si può accedere alle proprietà
-       // ma bisogna usare i metodi: i getters
-       lNomeCognome.setText("Vincolo di " + risparmio.getNome() + " " + risparmio.getCognome());
-       lData.setText("fatto l'anno " + risparmio.getAnno() + "con interessi del " + risparmio.getInteressiPercentuale() + "%");
-    }
-
-[...]
-}</pre>
-
-
-<p>Eclipse può aiutarci nella generazione dei getters and setters: 
-click col destro sulla classe nel Package Explorer o sullo sfondo nella finestra del sorgente quindi
-click sulla voce Generate getters and setters...<br/>
+<p>Eclipse può aiutarci nella generazione dei getters and setters:
+click col destro sulla classe nel Package Explorer o sullo sfondo nella finestra del sorgente
+quindi click sulla voce Generate getters and setters...<br>
 Nella finestra che si aprirà si scelgono i setters e getters per le singole proprietà o per tutte.</p>
 
-<h3>file it/esempi/Primo.java</h3>
-<pre> <!--presente sia in "oggetti" che in "ereditarietà" -->
-package it.esempi;
+<h2>Automobile: confronto tra versione procedurale e a oggetti</h2>
+<p>Proviamo a confrontare due programmi che svoilgono lo stesso lavoro: il primo con un approccio ad 
+oggetti, il secondo procedurale.</p>
 
+<p>La <span onclick="mostraNascondi('new','old')" class="pulsante" id="pulsanteNew">nuova versione ad oggetti</span> 
+usa un <em>oggetto</em>: <code>Autoveicolo</code> con le <em>proprietà</em>
+<code>marca</code>, <code>modello</code> e <code>kmAlLitro</code> 
+mentre i <em>metodi</em> sono: un <em>costruttore</em>  
+un altro per calcolare il costo di un percorso.</p>
+<p>La <span onclick="mostraNascondi('old','new')" class="pulsante" id="pulsanteOld">vecchia versione procedurale</span> del programma non usa gli oggetti</p>
+
+<div class="new">
+<h3>File: Autoveicolo.java</h3>
+<pre>
+public class Autoveicolo {
+    String targa;
+    String modello;
+    double kmAlLitro;
+
+    public Autoveicolo(String targa, String modello, double kmAlLitro){
+        this.targa = targa;
+        this.modello = modello;
+        this.kmAlLitro = kmAlLitro;
+    }
+
+    public double costoPercorso(double numeroKilometri) {
+        return numeroKilometri/kmAlLitro*1.5;
+    }
+}
+</pre>
+</div>
+<h3>File: Programma.java</h3>
+<pre>
+public class Programma extends Application{
+    <span class="old">
+    String targa[];
+    String modello[];
+    double kmAlLitro[];</span>
+    <span class="new">Autoveicolo automobili[];</span>
+    int autoRegistrate = 0;
+    
+    TextField inTarga = new TextField();
+    TextField inModello = new TextField();
+    TextField inLitri = new TextField();
+    TextField calcTarga = new TextField();
+    TextField calcKm = new TextField();
+    Label risposta = new Label();
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Button aggiungi = new Button("aggiungi auto");
+        Button calcolaSpesa = new Button("calcola spesa");
+        GridPane gp = new GridPane();
+        gp.add(new Label("targa:"),0,0);
+        gp.add(inTarga,1,0);
+        gp.add(new Label("modello:"),0,1);
+        gp.add(inModello,1,1);
+        gp.add(new Label("consumo:"),0,2);
+        gp.add(inLitri,1,2);
+        gp.add(aggiungi,1,3);
+        gp.add(new Label("targa:"),0,4);
+        gp.add(calcTarga,1,4);
+        gp.add(new Label("km/l:"),0,5);
+        gp.add(calcKm,1,5);
+        gp.add(calcolaSpesa,1,6);
+        gp.add(new Label("spesa:"),0,7);
+        gp.add(risposta,1,7);
+        
+        Scene scena = new Scene(gp);
+        primaryStage.setScene(scena);
+        primaryStage.setTitle("automobili");
+        primaryStage.show();
+        
+        aggiungi.setOnAction(e->aggiungiAuto());
+        calcolaSpesa.setOnAction(e->azioneSpesa());
+        // ci prendiamo una licenza: non ci saranno mai più di 100 automobili
+        <span class="old">targa = new String[100];
+        modello = new String[100];
+        kmAlLitro = new double[100];</span>
+        <span class="new">automobili = new Autoveicolo[100];</span>
+    }
+    
+    public static void main(String args[]){
+        launch(args);
+    }
+    
+    private void aggiungiAuto(){
+        String t = inTarga.getText();
+        String m = inModello.getText();
+        double km = Double.parseDouble(inLitri.getText());
+        
+        <span class="old">targa[autoRegistrate] = t;
+        modello[autoRegistrate] = m;
+        kmAlLitro[autoRegistrate] = km;</span><span class="new">automobili[autoRegistrate] = new Autoveicolo(t, m, km);</span>
+        autoRegistrate++;
+        risposta.setText(t+" registrata");
+    }
+    
+    private void azioneSpesa(){
+        String t = calcTarga.getText();
+        double kilometri = Double.parseDouble(calcKm.getText());
+        <span class="old">int trovato = -1;</span><span class="new">Autoveicolo trovata = null;</span>
+        double spesa;
+        
+        for(int i=0;i&lt;autoRegistrate;i++){
+            <span class="old">if(targa[i].equals(t)) {
+                trovato=i;
+            }</span><span class="new">if(automobili[i].targa.equals(t)) {
+                trovata = automobili[i];
+            }</span>
+        }
+        <span class="old">if(trovato!=-1) {
+            spesa = kilometri/kmAlLitro[trovato]*1.5;
+            risposta.setText("l'automobile "+modello[trovato]+" spende "+spesa );
+        }</span>
+        <span class="new">if(trovata!=null) {
+            spesa = trovata.costoPercorso(kilometri);
+            risposta.setText("l'automobile "+trovata.modello+" spende "+spesa );
+        }</span>else{
+            risposta.setText("non trovo "+t);
+        }
+    }
+}
+</pre>
+
+
+<h2>Test!</h2>
+<h3>Primo.java</h3>
+<p>Data la classe:</p>
+<pre>
 public class Primo {
     int x;
     boolean y;
@@ -969,171 +761,9 @@ public class Primo {
     <a onclick="sbagliata(this)">#3#</a>
 </div>
 
-<h2>Una per tutti: le proprietà statiche</h2>
-<p>Riprendiamo l'esempio del risparmio vincolato. Abbiamo fatto i conti senza le tasse: sappiamo infatti che in tutti i
-tipi di risparmio lo Stato ci chiede una percentuale sull'intero capitale o sul guadagno. In questo esempio supponiamo
-che si debbano pagare le tasse sul capitale totale. Tali tasse saranno una percentuale o una quota fissa (ad esempio 5€)
-e in entrambi i casi tali tasse non sono diverse per i vari risparmi: il risparmio vincolato di Luca ha le stesse tasse
-del risparmio vincolato di Valentina e così via.<br/>
-A cosa serve allora una proprietà che si deve impostare sempre allo stesso valore per ogni oggetto creato?</p>
-
-<p>Sarebbe senz'altro più comodo dire: tutti gli oggetti creati di tipo RisparmioVincolato condividono il fatto che ci
-sono tasse forfettarie (cioè fisse) e per tutti tali tasse sono uguali. Non ha allora significato dire che il risparmio
-di Luca ha tasse per 5€ perché lascia sott'intendere che tutti gli altri risparmi possono avere valori diversi. 
-Quello che vogliamo dire è che <em>tutti gli oggetti della classe RisparmioVincolato hanno tasse per 5€</em>.<br/>
-Quindi, ipotizzando di avere la proprietà <code>private double tasse;</code> e relativi metodi
-<code>public void setTasse(double cifra)</code> e <code>public double getTasse()</code>:</p>
-<pre>RisparmioVincolato risparmiDiLuca = new RisparmioVincolato("Luca", "Pecci", 123321, 5000.0f, 2022, 0.005f);
-risparmioVincolato.setTasse(5.0f);
-</pre>
-
-<p>Lo consideriamo concettualmente sbagliato perché, come detto sopra, ogni oggetto ha una sua tassazione cosa che invece,
-secondo il nostro modello, non è vera: le tasse sono uguali per tutti gli importi e tutti i risparmiatori. Per rappresentare
-in Java questa situazione, andiamo a scrivere la proprietà aggiungendo una parola chiave:
-<code>private <em>static</em> double tasse;</code> e osserviamo che tale parola è <em>static</em>. La variabile per
-rappresentare una proprietà creata in questo modo è unica e condivisa da tutti gli oggetti della classe. È creata e
-unica sia nel caso in cui c'è un solo oggetto creato, sia che ce ne sono molti, sia che non ce n'è nessuno.<br/>
-I metodi che intervengono sulle proprietà statiche potrebbero essere come quelli riportati qualche riga più su, ma noi vogliamo
-enfatizzare il fatto che tali metodi possono essere invocati indipendentemente da quale oggetto si stia lavorando, o anche
-semplicemente se esiste o meno un oggetto della classe RisparmioVincolato. Anche qui si inserisce la parola static:</p>
-<pre>private static double tasse;
-
-    public static double getTasse() {
-        return tasse;
-    }
-
-    public static void setTasse(double tasse) {
-        this.tasse = tasse;
-    }</pre>
-    
-<p>Quando nel programma si vuole utilizzare uno di questi due metodi, si dovrà utilizzare la forma
-<code>RisparmioVincolato.getTasse()</code> oppure <code>RisparmioVincolato.setTasse(5.0f)</code> cioè si fa riferimento
-direttamente alla classe piuttosto che ad una sua istanza.</p>
-
-<div class="approfondimento">
-<p>Un altro possibile utilizzo delle variabili statiche lo potremmo pensare sul numero del risparmio vincolato. Perché il
-numero del risparmio lo dovremmo considerare come un progressivo che parte da 1 (il primo risparmio che si registra) e ogni
-nuovo risparmio vincolato avrà come valore il numero intero successivo, quindi si aggiungerà 1 al precedente. Per far questo
-è necessario mantenere memoria di quale sia stato l'ultimo valore assegnato. Facilmente lo possiamo fare con la proprietà
-statica. In questo caso al costruttore non verrà dato il codice come argomento perché se lo calcolerà da solo e questo
-spesso è un bene perché evita la possibilità di duplicazione del codice:</p>
-
-<h3>versione finale di RisparmioVincolato.java</h3>
-<pre>public class RisparmioVincolato {
-   <em>private</em> String nome;
-   <em>private</em> String cognome;
-   <em>private</em> int codice;
-   <em>private</em> double importo;
-   <em>private</em> short anno;
-   <em>private</em> double interessiPercentuale;
-   <em>private</em> static int ultimoAssegnato = 0;
-   <em>private</em> static double tasse;
-
-   // Dato che devo controllare l'intervallo ammissibile dell'anno del vincolo in 2 punti
-   // diversi, creo un metodo privato che verrà poi invocato dal costruttore e dal setter
-   <em>private boolean impostaDataCorretta(short anno) { 
-      if(anno &lt; 1970) {
-         anno = 1970;
-      } else if(anno &gt;2020) {
-         anno = 2025;
-      }
-      this.anno = anno;
-   }</em>
-
-   public RisparmioVincolato() {
-      nome = "&lt;indefinito&gt;";     //this può essere omesso perché non c'è ambiguità con variabili locali
-      cognome = "&lt;indefinito&gt;";
-      ultimoAssegnato++;
-      codice = ultimoAssegnato;
-      importo = 1.0;
-      impostaDataCorretta(1970);
-      interessiPercentuale = 0.0;
-   }
-
-   public RisparmioVincolato(String nome, String cognome, double importo, short anno, double interessiPercentuale) {
-      this.nome = nome;
-      this.cognome = cognome;
-      ultimoAssegnato++;
-      codice = ultimoAssegnato;
-      this.importo = importo;
-      this.interessiPercentuale = interessiPercentuale;
-      impostaDataCorretta(anno);
-   }
-
-   public void setNome(String nome) {
-      this.nome = nome;
-   }
-
-   public String getNome() {
-      return nome;
-   }
-
-   public void setCognome(String nome) {
-      this.cognome = cognome;
-   }
-
-   public String getCognome() {
-      return cognome;
-   }
-
-   public void setData(short anno) {
-      impostaDataCorretta(anno);
-   }
-
-   public String getDescrizione() {
-      String d = "Importo di " + importo + " vincolato da " + nome + " " + cognome;
-      return d;
-   }
-
-   public double fornisciGuadagno() {
-      double guadagno = importo * interessiPercentuale / 100 - tasse;
-      return guadagno;
-   }
-
-   public void setImporto(double importo) {
-      this.importo = importo;
-   }
-
-   public double getImporto() {
-      return importo;
-   }
-
-   public double fornisciCapitale() {
-      double guadagno = fornisciGuadagno();
-      double capitale = guadagno + importo;
-      return capitale;
-   }
-
-   <em>public static double getTasse() {
-      return tasse;
-   }
-
-   public static void setTasse(double tasse) {
-      this.tasse = tasse;
-   }
-
-   public static int getUltimoCodiceUsato() {
-      return ultimoAssegnato;
-   }</em>
-}</pre>
-
-<p>Nella classe <code>Interfaccia</code> si può conoscere quale è stato l'ultimo codice assegnato invocando
-<code>RisparmioVincolato.getUltimoCodiceUsato()</code>.</p>
-</div>
-
-<p>In definitiva esiste un modo per far sì che tutti gli oggetti della stessa classe condividano un valore:
-usare il modificatore <code>static</code>. Le variabili e i metodi così definiti possono essere usati senza
-creare una istanza della classe cioè senza creare un oggetto con <code>new</code>. Esempi di proprietà e
-metodi statici già disponibili in Java sono Math.PI o Math.sin() o anche Integer.parseInt().<br/>
-Attenzione ad una cosa: i metodi <code>static</code> possono vedere soltanto le variabili <code>static</code>
-perché non facendo parte di una istanza di una classe non possono vedere le varaibili di istanza
-(quelle non <code>static</code>) le quali vengono create, appunto, col <code>new</code>.</p>
-
-<h3>file it/esempi/Esempio.java</h3>
+<h3>Esempio.java</h3>
 <p>Data la classe:</p>
 <pre>
-package it.esempio;
-
 public class Esempio {
     public static n;
     public int w;
