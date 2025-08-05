@@ -1,11 +1,12 @@
-# per compilare il libro:
-  - creare cartella "compilati"
-  - click con il destro su "build.xml" e run as Ant build
+## compilare il libro
+
+Bisogna usare [ebook](https://github.com/kennel-it/ebook)
+
 
 # debug in locale
-Se firefox solleva eccezioni per richieste cors utilizzando i file (senza passare per server web)
-va impostata a false la proprietà security.fileuri.strict_origin_policy (accessibile via about:config)
-come reference: http://kb.mozillazine.org/Security.fileuri.strict_origin_policy
+
+Usare un web server tipo `jwebserver` o `python3 -m http.server `
+
 
 # come scrivere i link per l'indice
 - `titlepage.xhtml?+interfacce polimorfismo archiviareOggetti`
