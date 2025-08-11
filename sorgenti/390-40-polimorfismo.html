@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<!-- autoIndex requires="funzioni oggetti" group="algoritmiStruttureDati" -->
+<!-- autoIndex requires="funzioni oggetti ereditarietà" group="algoritmiStruttureDati" -->
 <!-- changelog 2017-07-04 inserito capitolo vuoto -->
 <!-- changelog 2017-08-07 inserito blocco contenuti -->
 <!-- changelog 2017-08-22 aggiunto costruttore come esempio di polimorfismo -->
 <!-- changelog 2020-09-20 definizione iniziale e riscritta parte sui generics -->
+<!-- changelog 2025-08-07 modificata parte iniziale del capitolo (definizione e metodi) -->
+<!-- changelog 2025-08-11 inserita parte Overriding -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -18,10 +20,14 @@
 </header>
 <article>
 
-<p class="FIXME">[serve revisione] Usando il termine <em>polimorfismo</em> facciamo riferimento a un metodo
-o una classe che può operare su oggetti di tipo diverso.</p>
+<dfn>La parola <em>polimorfismo</em> deriva dal greco e significa “molte forme”.
+In Java, questo concetto si manifesta con due possibilità:<br>
+1 - avere più metodi con lo stesso nome
+ma parametri diversi nella stessa classe (overloading)<br>
+2 - trattare oggetti di sottoclassi come se fossero
+della superclasse (overriding).</dfn>
 
-<h2>Metodi</h2><!-- Ad hoc polymorphism, function overloading -->
+<h2>Metodi (overloading)</h2>
 <p>Questo tipo di polimorfismo è noto anche come <em>function overloading</em>.</p>
 <p>All'interno di una classe possiamo avere più metodi con lo stesso
 nome: l'importante è che il numero degli argomenti o il loro tipo non coincidano.
@@ -65,6 +71,66 @@ class Persona {
 } 
 </pre>
 
+
+<h2>Classi (overriding)</h2>
+<p>Una classe figlia eredita tutti i metodi della classe padre,
+ma può decidere di ridefinirne alcuni.
+Quando un metodo viene ridefinito (overridden),
+nella classe figlia prende il posto di quello originale,
+e ogni volta che quel metodo viene chiamato su un’istanza della classe
+figlia verrà eseguita la nuova versione invece di quella ereditata.</p>
+
+<p>In java per esplicitare che un metodo sovrascrive
+quello della classe padre si mette l'annotazione
+<code>@Override</code> prima della definizione del metodo,
+questo non è obbligatorio ma fa si che il compilatore controlli
+che in effetti si stia facendo overriding.</p>
+
+<p>Vediamo un esempio di overriding definendo la classe
+<code>Animale</code> con un solo metodo.</p>
+<pre>class Animale {
+  public String verso() {
+    return "Verso generico";
+  }
+}</pre>
+
+<p>Ora estendiamo la classe e facciamo overriding del metodo
+<code>verso()</code></p>
+<pre>class Cane extends Animale {
+  <em>@Override</em>
+  public String verso() {
+    return "Bau!";
+  }
+}</pre>
+
+<p>Scriviamo una classe di prova per vedere cosa viene
+stampato quando si chiama il metodo <code>verso()</code>
+su diversi oggetti:</p>
+<pre>class Prova {
+  public static void main(String[] args) {
+    Animale animale = new Animale();
+    Cane cane1 = new Cane();
+    Animale cane2 = new Cane();
+
+    System.out.println(animale.verso());  // Output: Verso generico
+    System.out.println(cane1.verso());    // Output: Bau!
+    System.out.println(cane2.verso());    // Output: Bau!
+  }
+}</pre>
+
+
+<p>Vediamo in ordine il perché dei diversi output:</p>
+<ul>
+    <li><code>Verso generico</code>
+    perché il primo oggetto è di tipo <em>Animale</em></li>
+    <li><code>Bau!</code> perché l'oggetto
+    cane1 è di tipo <em>Cane</em></li>
+    <li><code>Bau!</code> perché sebbene la variabile sia di tipo
+    <em>Animale</em> l'oggetto a cui fa riferimento è in realtà un
+    <em>Cane</em> e quindi viene utilizzato il metodo
+    verso() della classe Cane</li>
+</ul>
+
 <section class="approfondimento">
     <h2>Classi (generics)</h2>
     <p>Oltre che nei metodi si possono definire anche degli oggetti (classi) parametrici: proviamo
@@ -91,7 +157,7 @@ class Persona {
     per comodità non è necessario inserire di nuovo il tipo dell'oggetto contenuto, quindi in genere avremo:<br/>
     <code>ListView&lt;String&gt; l = new <em>ListView&lt;&gt;</em>()</code>
     </p>
-    
+
 </section>
 
 </article>

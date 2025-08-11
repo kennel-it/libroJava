@@ -12,6 +12,7 @@
 <!-- changelog 2021-08-25 corretti in risparmio vincolato pluriennale riferimenti a risparmio vincolato -->
 <!-- changelog 2021-10-24 un paio di commenti in più in risparmio vincolato -->
 <!-- changelog 2024-05-01 capitolo semplificato e apportate molte modifiche -->
+<!-- changelog 2025-08-11 correzioni e rimossa parte su esempio risparmio vincolato -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
     	<meta charset="UTF-8"/>
@@ -45,10 +46,10 @@ La classe, con relativi costruttori, sarà una cosa del tipo:</p>
    public String telefono;
 
    public Persona() {
-      nome = "&lt;indefinito&gt;";
-      cognome = "&lt;indefinito&gt;";
+      nome = "indefinito";
+      cognome = "indefinito";
       annoNascita = -1;
-      telefono = "&lt;indefinito&gt;";
+      telefono = "indefinito";
    }
 
    public Persona(String nome, String cognome, int annoNascita, String telefono) {
@@ -75,8 +76,8 @@ tramite il seguente:</p>
    public boolean religione; // false in caso si avvalga dell'attività alternativa
 
    public Studente() {
-      super();	// Per la spiegazione di super() guarda il paragrafo che segue
-      classe = "&lt;non assegnata&gt;";
+      super(); // Per la spiegazione di super() guarda il paragrafo che segue
+      classe = "non assegnata";
       religione = true;
    }
 
@@ -103,27 +104,27 @@ e l'altra con quattro argomenti per chiamare il secondo costruttore di <code>Per
 Nel capitolo oggetti, al paragrafo Organizzare gli oggetti, si diceva però
 che lasciare le proprietà e alcuni particolari metodi liberamente usabili da altre classi potrebbe
 non essere un bene. Mettendo il modificatore <code>private</code> sulle
-proprietà della classe si otterrebbe un errore in quanto la classe estesa non potrebbe
+proprietà della classe <code>Persona</code> si otterrebbe un errore in quanto la classe estesa non potrebbe
 accedere alle proprietà della classe padre. La classe derivata è a tutti gli effetti
-un'altra classe e quindi nulla traspare.<br/>
+un'altra classe e quindi nulla di ciò che è definito privato traspare.<br/>
 La soluzione viene nella parola chiave <code>protected</code>:
 sta ad indicare che quanto segue (metodo o proprietà) è visibile solo a tutti i metodi della classe stessa
 (ovviamente), a tutte le classi che estendono questa e a tutte quelle classi presenti nello stesso pacchetto.
-Nel momento in cui andremo a dichiarare oggetti, dovremo porreal livello di visibilità di ogni 
-metodo e in particolare delle proprietà.<br/>
+Nel momento in cui andremo a dichiarare oggetti, dovremo porre attenzione al livello di visibilità di ogni 
+metodo e proprietà.<br/>
 La classe persona a questo punto sarà:</p>
 
 <pre>public class Persona {
-   protected String nome, cognome;
-   protected String ruolo;
-   protected float stipendio;
-   protected boolean categoria;
+   <em>protected</em> String nome;
+   <em>protected</em> String cognome;
+   <em>protected</em> int annoNascita;
+   <em>protected</em> String telefono;
 
    public Persona() {
-      nome = "&lt;indefinito&gt;";
-      cognome = "&lt;indefinito&gt;";
+      nome = "indefinito";
+      cognome = "indefinito";
       annoNascita = -1;
-      telefono = "&lt;indefinito&gt;";
+      telefono = "indefinito";
    }
 
    public Persona(String nome, String cognome, int annoNascita, String telefono) {
@@ -133,13 +134,21 @@ La classe persona a questo punto sarà:</p>
       this.telefono = telefono;
    }
 
-   /* da aggiungere i metodfi get/set per le proprietà */
+   /* da aggiungere i metodi get/set per le proprietà */
 }</pre>
+
+<p>Una ulteriore attenzione nel momento della progettazione di una classe va
+fatta su quali proprietà e metodi si vuole siano visibili alle classi che estenderanno la classe
+che ora stiamo costruendo. Può essere che alcune proprietà e/o metodi preferiamo
+renderli privati e quindi la classe che andrà ad estenderla non potrà usarli direttamente.</p>
+
+
 <p>Allo stesso modo si potrà realizzare la classe <code>Professore</code>
-estensione di <code>Persona</code>.</p>
+estensione di <code>Persona</code> che tiene conto di due caratteristiche
+aggiuntive: la materia insegnata e lo stipendio.</p>
 <pre>public class Professore extends Persona {
    protected String materia;
-   protected double stipendio;
+   <em>private</em> double stipendio;
 
    public Professore() {
       super();
@@ -147,66 +156,33 @@ estensione di <code>Persona</code>.</p>
       stipendio = 0;
    }
 
-   public Professore(String nome, String cognome, String materia) {
+   public Professore(String nome, String cognome, String materia, double stipendio) {
       super(nome, cognome, -1, "");
       this.materia = materia;
+      this.stipendio = stipendio;
    }
+   
+   // permette di leggere la proprietà stipendio che è privata
+   public double getStipendio(){
+      return stipendio;
+   }
+   
+   // volutamente non c'è setStipendio
 }
 </pre>
-
-
-<h3>Prevalenza</h3>
-<p>Aggiungiamo un metodo a ciascuna classe per avere una stringa che contenga 
-in un testo discorsivo tutte le informazioni dell'oggetto. Il metodo avrà, per comodità, lo
-stesso nome in tutte le implementazioni: lo chiameremo <code>miPresento()</code>.</p>
-<pre>
-/* nell'oggetto Persona */
-public String miPresento() {
-   return "Sono " + nome + " " + cognome + ", nato nel " + annoNascita + " [tel: " + telefono + "]";
-}</pre>
-
-<pre>
-/* nell'oggetto Professore */
-public String miPresento() {
-   return "Sono il prof." + nome + " " + cognome + ", insegno "+materia;
-}</pre>
-
-
-<p>Nel momento in cui una classe e la sua superclasse presentano ciascuna un metodo
-con lo stesso nome e stessi tipi e sequenza di parametri,
-il metodo della classe nasconde quello della superclasse, quindi creando un oggetto di tipo
-Professore verrà eseguito il <code>miPresento()</code> definito in Professore
-e non quello definito in Persona.</p>
-
-<p>Nell'implementazione che segue, quella di <code>Studente</code>,
-è presente l'annotazione <code>@Override</code> che sta ad informare il compilatore che il metodo che
-segue ha la stessa firma (quindi stesso nome del metodo e stesssa sequenza di tipi di parametri)
-di quello nella superclasse. Tale indicazione non è abbligatoria ma ci aiuta
-a evitare di scrivere male il nome del metodo e la sequenza dei tipi dei parametri.</p>
-<pre>
-@Override
-public String miPresento() {
-   return "Sono " + nome + " " + cognome + ", frequento la classe "+classe;
-}</pre>
-<p>Se si provasse a modificare qualcosa lla firma del metodo <code>miPresento()</code>
-come il nome o aggiungendo un qualsiasi parametro, si otterrebbe un errore.</p>
-
-<p>Un metodo che si comporta come <code>miPresento()</code> viene normalemente chiamato
-<code>toString()</code> ed è definito nella classe <code>java.lang.Object</code>,
-moltissime classi lo ridefiniscono ed è il metodo che viene usato per rappresentare
-come stringa qualsiasi oggetto, lo chiameremo sempre così anche noi, quello
-definito in <code>Object</code> stampa il nome della classe e un codice numerico identificativo
-dell'oggetto stesso.</p>
-
+<p>Chi ha progettato la classe <code>Professore</code> ha ad esempio deciso che
+lo stipendio una volta creato l'oggetto non si può più modificare
+ma si può soltanto leggere.</p>
 
 <h2>In sintesi</h2>
 <p>Quando quello che vogliamo fare non è creare una nuova classe ma aggiungere/modificare delle funzionalità di una oggetto esistente va usata la parola
 chiave <code>extends</code> nella dichiarazione della classe seguita dal nome della classe che si vuole ampliare/cambiare. In questo caso l'oggetto definito avrà
 tutte le proprietà e tutti i comportamenti di quello originale con le aggiunte o le modifiche indicate nella classe.</p>
 
-<dfn>Java è un linguaggio ad <em>ereditarietà singola</em> cioè una classe può estendere soltanto una classe alla volta.</dfn>
+<dfn>Java è un linguaggio ad <em>ereditarietà singola</em>
+cioè una classe estende sempre e soltanto un'altra classe.</dfn>
 
-<p>Ogni classe ne estende obbligatoriamente un'altra, in caso che la parola chiave
+<p>In caso che la parola chiave
 <code>extends</code> non sia presente la classe che si sta definendo extenderà
 <code>java.lang.Object</code>. Ovviamente questo meccanismo forma delle catene:
 la classe A estende la classe B che a sua volta estende C e così via. Quando
@@ -217,11 +193,6 @@ se non c'è guarderà in B, se non c'è guarderà in C e alla fine in Object.</p
 <p><code>super</code> è il riferimento alla classe padre o superclasse e quindi
 <code>super()</code> è il riferimento al relativo costruttore, all'interno delle parentesi ci
 saranno gli argomenti del caso.</p>
-
-<p>Una ulteriore attenzione nel momento della progettazione di una classe va
-fatta su quali proprietà e metodi si vuole siano visibili alle classi che estenderanno la classe
-che ora stiamo costruendo. Può essere che alcune proprietà e/o metodi preferiamo
-renderli privati e quindi la classe che andrà ad estendere estesa non potrà usarli direttamente.</p>
 
 
 <section class="approfondimento">
@@ -246,47 +217,6 @@ non è una sottoclasse diretta di Node, la gerarchia completa è:
 Object→<em>Node</em>→Parent→Region→Control→Labeled→<em>Label</em> Però vista la gerarchia
 <code>Label</code> è anche un <code>Node</code>.</p>
 </section>
-
-
-<h2>Risparmio vincolato pluriennale</h2>
-<p>Riprendiamo l'esempio del risparmio vincolato. In quel caso la somma che si otteneva era data alla fine dell'anno di investimento. Ipotizziamo però che riusciamo a
-trattenerci dallo spendere quei soldi e li manteniamo vincolati per un certo numero di anni, diciamo da 1 a 7. Quale sarà la somma totale alla fine?<br/>
-Di certo ci appoggeremo al codice già scritto nella classe <code>RisparmioVincolato</code> e quindi creeremo una classe estesa che eredita quanto fatto in
-<code>RisparmioVincolato</code>. Osserviamo che non c'è bisogno di accedere direttamente alle proprietà della superclasse perché basta usare i getter per prenderne i valori
-ed i setter per impostarli:</p>
-<pre>public class RisparmioVincolatoPluriennale extends RisparmioVincolato {
-   private byte durataAnni; //facendola privata eventuali classi che estenderanno questa non avranno accesso alla proprietà. Una scelta.
-
-   public RisparmioVincolatoPluriennale() {
-      super();
-      durataAnni = 1;
-   }
-
-   public RisparmioVincolatoPluriennale(String nome, String cognome, float importo, short anno, double interessiPercentuale, byte durataAnni) {
-      super(nome, cognome, importo, anno, interessiPercentuale);
-      if(durataAnni &gt;=1 &amp;&amp; durataAnni &lt;=7) {
-         this.durataAnni = durataAnni;
-      } else {
-         this.durataAnni = 1;
-      }
-   }
-
-   double fornisciCapitale() {
-      if(durataAnni == 0) {
-         return 0;
-      }
-      // La percentuale di interessi che viene pubblicizzata è riferita ad un periodo di un anno.
-      // Invochiamo il metodo della superclasse che calcola il nuovo capitale a fine periodo, per il numero di periodi indicato
-      double importo = getImporto();
-      for(int i = 0; i &lt; durataAnni; i++) {
-         setImporto(super.fornisciCapitale());	// viene invocato il metodo della superclasse setImporto() aggiornando il capitale sul quale si fa il calcolo
-                                                // deve essere invocato fornisciCapitale() della classe padre, per indicare questo fatto si usa super
-      }
-      double capitale = getImporto();           // metodo della classe padre
-      setImporto(importo);	                    // si rimette l'importo al valore iniziale, come se nulla fosse cambiato
-      return capitale;
-   }
-}</pre>
 
 <h2>Esercizio</h2>
 <h3>Primo.java</h3>

@@ -13,6 +13,7 @@
 <!-- changelog 2021-08-24 inserita parte con definizioni -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="UTF-8">
     <title>quickReference</title>
     <link type="text/css" rel="stylesheet" href="style.css"/>
     <style type="text/css">
@@ -51,7 +52,8 @@
 		#definizioni { column-count: 1 }
 		#definizioni dt { margin-top: 1em; background-color: #d8efcb ; padding:0.25em }
 		#definizioni dt span { font-weight: bold ; font-size:75%; padding-left:2em }
-		
+		#definizioni dt span::before { content: "→"; }
+            
 		/* patch per il foglio globale */
 		nav#top { display:none }
 		

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- autoIndex requires="esempioOggetto ereditarietà polimorfismo" group="algoritmiStruttureDati" -->
+<!-- changelog 2025-08-11 separato capitolo da quello dell'ereditarietà -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    	<meta charset="UTF-8"/>
+        <title>esempioEreditarietà</title>
+        <link type="text/css" rel="stylesheet" href="style.css"/>
+        <script type="text/javascript" src="script/test.js"></script>  
+    </head>
+<body>
+<header>
+<h1>esempio ereditarieta</h1>
+<p>ulteriori dettagli sul risparmio vincolato</p>
+</header>
+<article>
+
+
+<h2>Risparmio vincolato pluriennale</h2>
+<p>Riprendiamo l'esempio del risparmio vincolato. In quel caso la somma che si otteneva era data alla fine dell'anno di investimento. Ipotizziamo però che riusciamo a
+trattenerci dallo spendere quei soldi e li manteniamo vincolati per un certo numero di anni, diciamo da 1 a 7. Quale sarà la somma totale alla fine?<br/>
+Di certo ci appoggeremo al codice già scritto nella classe <code>RisparmioVincolato</code> e quindi creeremo una classe estesa che eredita quanto fatto in
+<code>RisparmioVincolato</code>. Osserviamo che non c'è bisogno di accedere direttamente alle proprietà della superclasse perché basta usare i getter per prenderne i valori
+ed i setter per impostarli:</p>
+<pre>public class RisparmioVincolatoPluriennale extends RisparmioVincolato {
+   private byte durataAnni; //facendola privata eventuali classi che estenderanno questa non avranno accesso alla proprietà. Una scelta.
+
+   public RisparmioVincolatoPluriennale() {
+      super();
+      durataAnni = 1;
+   }
+
+   public RisparmioVincolatoPluriennale(String nome, String cognome, float importo, short anno, double interessiPercentuale, byte durataAnni) {
+      super(nome, cognome, importo, anno, interessiPercentuale);
+      if(durataAnni &gt;=1 &amp;&amp; durataAnni &lt;=7) {
+         this.durataAnni = durataAnni;
+      } else {
+         this.durataAnni = 1;
+      }
+   }
+
+   public double fornisciCapitale() {
+      if(durataAnni == 0) {
+         return 0;
+      }
+      // La percentuale di interessi che viene pubblicizzata è riferita ad un periodo di un anno.
+      // Invochiamo il metodo della superclasse che calcola il nuovo capitale a fine periodo, per il numero di periodi indicato
+      double importo = getImporto();
+      for(int i = 0; i &lt; durataAnni; i++) {
+         setImporto(super.fornisciCapitale());	// viene invocato il metodo della superclasse setImporto() aggiornando il capitale sul quale si fa il calcolo
+                                                // deve essere invocato fornisciCapitale() della classe padre, per indicare questo fatto si usa super
+      }
+      double capitale = getImporto();           // metodo della classe padre
+      setImporto(importo);	                    // si rimette l'importo al valore iniziale, come se nulla fosse cambiato
+      return capitale;
+   }
+}</pre>
+
+
+</article>
+</body>
+</html>
