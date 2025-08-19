@@ -20,18 +20,20 @@
 <h2>Invio in una TextField</h2>
 <p>A volte non è necessario avere un pulsante, ci basta che quando l'utente preme invio in un campo di testo
 il programma esegua l'azione: basta legare l'evento azione alla casella stessa!</p>
-<pre>casellaDiTesto.setOnAction(e->azione());</pre>
+<pre><code>
+casellaDiTesto.setOnAction(e->azione());
+</code></pre>
 
 <h2>Comunicare un messaggio all'utente</h2>
 <p>Quando non basta scrivere un avviso in una etichetta possiamo aprire una finestra per
 comunicare un messaggio all'utente:</p>
-<pre>
+<pre><code>
 Alert dialogoAllerta = new Alert(AlertType.CONFIRMATION, "Sei sicuro che vuoi formattare il sistema?");
 Optional&lt;ButtonType&gt; risposta = dialogoAllerta.showAndWait();
 if(risposta.isPresent() &amp;&amp; risposta.get() == ButtonType.OK) {
     eRisposta.setText("Neanche per scherzo!");
 }
-</pre>
+</code></pre>
 <p>Abbiamo usato in tutto tre oggetti: <code>Alert</code> che serve a creare la finestra di dialogo e 
 </p>
 <ul>
@@ -53,7 +55,7 @@ if(risposta.isPresent() &amp;&amp; risposta.get() == ButtonType.OK) {
 
 <h2>Chiedere un dato all'utente bloccando il programma</h2>
 <p>Se serve di dover chiedere un dato all'utente in una finestra separata si può usare un frammento di codice come il seguente:</p>
-<pre>
+<pre><code>
 TextInputDialog dialogoInput = new TextInputDialog();
 dialogoInput.setTitle("Tokyo");
 dialogoInput.setHeaderText("Gruppo viaggio");
@@ -62,29 +64,29 @@ Optional&lt;String&gt; risposta = dialogoInput.showAndWait();
 if(risposta.isPresent()){
 	eRisposta.setText("persone: "+risposta.get());
 }
-</pre>
+</code></pre>
 <p>Come comportamento predefinito la finestra mostra una icona con un "?"
 ma se questo non fosse accettabile per noi possiamo eliminarlo utilizzando 
 <code>dialogoInput.setGraphic(null)</code> oppure visualizzare un'altra immagine...
 con il frammento di codice qui sotto prendiamo una immagine situata nel pacchetto
 "immagini" (il percorso inizia con "/" ed è relativo all'inizio
 della gerarchia dei pacchetti).</p>
-<pre>
+<pre><code>
 ImageView iv = new ImageView("/immagini/foto.jpg");
 dialogoInput.setGraphic(iv);
-</pre>
+</code></pre>
 
 
 <h2>Chiedere un nome di file</h2>
 <p>La classe <code><a href="http://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html">javafx.stage.FileChooser</a></code>
 è quello che ci serve:</p>
-<pre>
+<pre><code>
 FileChooser selettoreFile = new FileChooser();
 String cartellaPartenza = System.getProperties().getProperty("user.home");
 selettoreFile.setInitialDirectory(new File(cartellaPartenza));
 selettoreFile.getExtensionFilters().addAll(new ExtensionFilter("File html", "*.html"));
 File fileSelezionato = selettoreFile.showOpenDialog( finestra );
-</pre>
+</code></pre>
 <p>Qui abbiamo usato anche <code>System.getProperties().getProperty("user.home");</code>
 per trovare la cartella home dell'utente che sta usando il programma (ci sono 
 <a href="https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html">altre proprietà</a>) e
@@ -108,7 +110,7 @@ noi useremo una sua subclasse che è
 <p>Vale qui come in tutti i casi che si lavorano con javafx: tutte le operazioni con gli oggetti
 appartenenti a questa libreria vanno fatte nel Thread di JavaFX (va bene aprire la finestra
 in un metodo che gestisce un evento).</p>
-<pre>
+<pre><code>
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -122,11 +124,12 @@ public class SecondaFinestra extends Stage{
     setScene(scene); 
   }
 }
-</pre>
+</code></pre>
 <p>Per aprire la finestra serve un frammento di codice come questo:</p>
-<pre>SecondaFinestra finestra = new SecondaFinestra();
+<pre><code>
+SecondaFinestra finestra = new SecondaFinestra();
 finestra.show();
-</pre>
+</code></pre>
 <p>Nell'esempio la seconda finestra viene aperta e il metodo che l'ha aperta continua
 ad andare avanti, se si volesse attendere la chiusura della finestra per proseguire bisognerebbe 
 usare <code>showAndWait()</code> al posto di <code>show()</code>.</p>

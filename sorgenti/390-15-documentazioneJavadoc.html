@@ -27,12 +27,13 @@ di tempo e permettere ad altri programmatori di capire come funziona il nostro c
 alla fine della linea.</p>
 
 <h3>commenti su più linee</h3>
-<pre><em>/* scambio il contenuto
+<pre><code>
+<em>/* scambio il contenuto
 di base e altezza */</em> 
 t = base;
 base = altezza;
 altezza = t;
-</pre>    	
+</code></pre>
 <p>In questo caso il commento inizia con <code>/*</code> e termina 
 con <code>*/</code>.</p> 
 
@@ -62,25 +63,27 @@ dichiarazioni di classi, metodi o campi (variabili al livello di classe).</p>
 <p>Prima della dichiarazione di una classe può essere inserito un commento per indicare 
 (tra le altre cose) cosa fa la classe stessa e chi l'ha scritta.</p>
         
-<pre>/**
+<pre><code>
+/**
  * Questa classe somma il contenuto di due numeri inseriti dall'utente
  * <em>@author</em> Pluto
  */
-public class Sommatore extends Application {</pre>        
-        
+public class Sommatore extends Application {
+</code></pre>
+
 <h3>Metodi</h3>
 <p>Nel caso dei metodi (o funzioni) possiamo ad esempio descrivere i parametri e cosa la funzione
 ritorna (calcola).</p>
-<pre> /**
+<pre><code>
+/**
  * Calcola l'area del rettangolo
  * <em>@param</em> base la misura della base del rettangolo
  * <em>@param</em> altezza la misura dell'altezza del rettangolo
  * <em>@return</em> la mosura dell'area
  */
-public int area(int base, int altezza) {</pre>
+public int area(int base, int altezza) {
+</code></pre>
 
-<div class="FIXME">da completare con altri tag</div>
-        
 		</article>
     </body>
 </html>

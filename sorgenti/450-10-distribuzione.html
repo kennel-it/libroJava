@@ -19,7 +19,6 @@
             em.main { background-color: lime }
             em.ico { background-color: pink }
             em.compilato { background-color: red }
-            code {line-height: 1.25em; text-align: left; }
         </style> 
     </head>
 <body>
@@ -92,14 +91,14 @@ Sempre con il Prompt dei comandi aperto nella cartella Desktop:
 attenzione che il comando è tutto su una riga, senza "a capo" nel mezzo!</p>
 
 
-<code>
-<em class="jdk">c:\java\jdk-21</em>\bin\jpackage --name nomeApp --app-version 1.0<br/> 
---icon <em class="ico">icona.ico</em> --type app-image<br/> 
---input <em class="cartella">componenti</em> --dest <em class="compilato">compilato</em><br/> 
---add-modules javafx.controls,javafx.media,javafx.fxml,javafx.web <br/>
+<pre><code>
+<em class="jdk">c:\java\jdk-21</em>\bin\jpackage --name nomeApp --app-version 1.0 
+--icon <em class="ico">icona.ico</em> --type app-image
+--input <em class="cartella">componenti</em> --dest <em class="compilato">compilato</em>
+--add-modules javafx.controls,javafx.media,javafx.fxml,javafx.web
 --main-class <em class="main">it.aspix.applicazione.Principale</em> 
 --main-jar <em class="jar">applicazione.jar</em>
-</code>
+</code></pre>
 
 </article>
 </body>

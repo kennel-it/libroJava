@@ -54,13 +54,17 @@ oppure <code>x=y+1</code> che vuol dire "prendi il contenuto della variabile y, 
 e quel che viene mettilo nella variabile x".</p>
 
 <p>Proviamo a vedere una assegnazione che potrebbe sembrare più particolare:</p>
-<pre>x = x + 4;</pre>
+<pre><code>
+x = x + 4;
+</code></pre>
 
 <p>questa istruzione prende il valore della variabile x, ci aggiunge 4 e <em>poi</em> scrive il risultato sempre nella
 variabile x</p>
 
 <p>visto che questa scrittura è molto comune abbiamo un modo per abbreviarla:</p>
-<pre> x += 4;</pre>
+<pre><code>
+x += 4;
+</code></pre>
 
 <p>Spesso resta comodo fare la prima assegnazione insieme alla dichiarazione
 di una variabile, ad esempio se voglio assegnare il valore 5 alla variabile
@@ -224,7 +228,8 @@ seconda della conversione che si vuol fare:</p>
 (cOperando1 e cOperando2) in cui l'utente scrive due numeri interi
 e una etichetta (eRisultato) in cui vogliamo
 che venga visualizzato il prodotto dei due numeri interi</p>
-<pre>public void calcolaProdotto() {
+<pre><code>
+public void calcolaProdotto() {
    String testo1, testo2, risposta;
    int numero1, numero2, prodotto;
    testo1 = cOperando1.getText();
@@ -234,8 +239,8 @@ che venga visualizzato il prodotto dei due numeri interi</p>
    prodotto = numero1 * numero2;
    <em>risposta = String.valueOf(prodotto)</em>;
    eRisultato.setText(risposta);
-}</pre>
-
+}
+</code></pre>
 
 
 <h4>Esempio: divisione di due numeri</h4>
@@ -243,7 +248,8 @@ che venga visualizzato il prodotto dei due numeri interi</p>
 (cOperando1 e cOperando2) in cui l'utente scrive due numeri decimali 
 e una etichetta (eRisultato) in cui vogliamo
 che venga visualizzato il rapporto tra i due numeri decimali</p>
-<pre>public void calcolaRapporto() {
+<pre><code>
+public void calcolaRapporto() {
    String testo1, testo2, risposta;
    double numero1, numero2, rapporto;
    testo1 = cOperando1.getText();
@@ -253,7 +259,8 @@ che venga visualizzato il rapporto tra i due numeri decimali</p>
    rapporto = numero1 / numero2;
    <em>risposta = "" + rapporto</em>;
    eRisultato.setText(risposta);
-}</pre>
+}
+</code></pre>
 
 <p>Osservando la penultima riga vedrai che un argomento dell'operatore è 
 di tipo stringa e l'altro è di tipo double. Quando uno degli operandi è di tipo stringa, 
@@ -272,13 +279,15 @@ abbiamo ottenuto ciò che si voleva.</p>
 </div>
 
 <p>Per terminare prova ad analizzare la seguente funzione analoga alla precedente:</p>
-<pre>public void calcolaProdotto() {
+<pre><code>
+public void calcolaProdotto() {
    int numero1, numero2, prodotto;
    <em>numero1 = Integer.parseInt(operando1.getText());
    numero2 = Integer.parseInt(operando2.getText());</em>
    prodotto = n1 * n2;
    <em>risultato.setText("" + prodotto);</em>
-}</pre>
+}
+</code></pre>
 
 <p>Come si vede si tratta della sola eliminazione delle variabili stringa che erano state utilizzate
 per leggere i valori (in questo caso l'istruzione per leggere è stata inserita direttamente in Integer.parseInt() )

@@ -33,7 +33,8 @@
    cRisposta.setText(sequenza);
 }</pre>
 <p>Questo programma può essere trasformato in uno equivalente componendo la stringa sequenza ogni volta di un nuovo numero:</p>
-<pre>public void compilaElenco() {
+<pre><code>
+public void compilaElenco() {
    String sequenza = "1";
    sequenza += ", 2";
    sequenza += ", 3";
@@ -45,10 +46,12 @@
    sequenza += ", 9";
    sequenza += ", 10";
    cRisposta.setText(sequenza);
-}</pre>
+}
+</code></pre>
 <p>Certo, quest'ultimo è di gran lunga più complesso del primo. Ha però dei vantaggi nascosti che faremo venir fuori piano piano. Intanto complichiamolo
    ancora un po' usando un valore intero anziché il numero nella stringa:</p>
-<pre>public void compilaElenco() {
+<pre><code>
+public void compilaElenco() {
    String sequenza = 1 + "";
    sequenza += ", " + 2;
    sequenza += ", " + 3;
@@ -60,10 +63,12 @@
    sequenza += ", " + 9;
    sequenza += ", " + 10;
    cRisposta.setText(sequenza);
-}</pre>
+}
+</code></pre>
 <p>Bene, il più è fatto. Vorrei a questo punto sostituire quelle costanti numeriche con una variabile (la chiamerò <code>n</code>) che parte da 1 e verrà
    di volta in volta incrementata di 1.</p>
-<pre>public void compilaElenco() {
+<pre><code>
+public void compilaElenco() {
    int n = 2;
    String sequenza = "1";
    <em>sequenza += ", " + n;
@@ -84,15 +89,20 @@
    n++;
    sequenza += ", " + n;</em>
    cRisposta.setText(sequenza);
-}</pre>
+}
+</code></pre>
 <p>Il programma sarà diventato tanto più lungo ma possiamo osservare che a parte le prime 2 righe e l'ultima 
 le altre sono 2 righe ripetute. Detto in modo diverso si desume che le righe:</p>
-<pre>public void compilaElenco() {
+<pre><code>
+public void compilaElenco() {
    int n = 2;
-   String sequenza = "1";</pre>
+   String sequenza = "1";
+</code></pre>
 <p>vanno eseguite una sola volta; mentre le righe</p>
-<pre>sequenza += ", " + n;
-   n++;</pre>
+<pre><code>
+sequenza += ", " + n;
+   n++;
+</code></pre>
 <p>vanno ripetute 9 volte in quanto l'1 è già stato fatto; queste due righe si dovranno ripetere 
    per tutti gli interi a partire dal 2 fino ad arrivare al 10. Un lettore attento avrà notato che in effetti nel
    programma l'istruzione <code>n++</code> in fondo manca ma volendocela mettere non
@@ -133,12 +143,15 @@ for(inizializzazione delle variabili ; condizione ; incremento) {
    altrimenti ci attaccheremmo anche 11! In definitiva diciamo che <em>si ripete tutte le volte che</em> 
    <code>n&lt;=10</code>. 
    Ok, abbiamo detto tutto quindi produciamo finalmente il codice:</p>
-<pre>sequenza = "1";
+<pre><code>
+sequenza = "1";
 for(n = 2; n &lt;= 10; n++) {
    sequenza += ", " + n;
-}</pre>
+}
+</code></pre>
 <p>e quindi la funzione completa apparirà come:</p>
-<pre>public void compilaElenco() {
+<pre><code>
+public void compilaElenco() {
    int n;
    String sequenza;
    sequenza = "1";
@@ -146,12 +159,14 @@ for(n = 2; n &lt;= 10; n++) {
       sequenza += ", " + n;
    }
    cRisposta.setText(sequenza);
-}</pre>
+}
+</code></pre>
 <p>Certo, non è corto come la prima versione che abbiamo proposto, ma se anziché 10 elementi ne volessi 10.000, cosa cambia in quello e in questo?</p>
 <p>Veniamo allora al nostro primo quesito. Al momento della redazione del programma non abbiamo idea di quale sia il numero che l'utente vuole. Lo si
    chiederà allora con una <code>TextField</code> e lo si userà come estremo. Ultima considerazione: <code>n</code> non partirà da <code>1</code> ma da
    <code>0</code>.</p>
-<pre>public void compilaElenco() {
+<pre><code>
+public void compilaElenco() {
    int n, massimo;
    String sequenza;
    massimo = Integer.parseInt(tNumero.getText());
@@ -160,11 +175,13 @@ for(n = 2; n &lt;= 10; n++) {
       sequenza += ", " + n;
    }
    cRisposta.setText(sequenza);
-}</pre>
+}
+</code></pre>
 
 <dfn>L'<em>istruzione for</em> è composta da 4 parti: una inizializzazione, una condizione, un incremento e un corpo
 secondo la sintassi:
-<pre>for( inizializzazione ; condizione ; incremento ){
+<pre>
+for( inizializzazione ; condizione ; incremento ){
   corpo;
 }</pre>
 L'inizializzazione viene eseguita per prima e una sola volta, poi viene controllata la condizione e se è vera 
@@ -174,10 +191,12 @@ si esegue l'incremento e si torna a controllare la condizione per procedere allo
 <div class="test">
    	<p>Quanto varrà la variabile <var>n</var> alla fine del seguente frammento di programma?</p>
    	
-<pre>n=0;
+<pre><code>
+n=0;
 for(a=0;a&lt;=5;a++){
   n+=a;
-}</pre>
+}
+</code></pre>
 	<a onclick="sbagliata(this)">0 <span class="spiegazione">no, vengono aggiunti i valori di a che non è sempre zero</span></a> 
 	<a onclick="sbagliata(this)">1 <span class="spiegazione">no, a non assume soltanto il valore 1</span></a>
 	<a onclick="sbagliata(this)">11 <span class="spiegazione">no, vengono sommati tutti i valori da 1 a 5 compresi gli estremi</span></a>
@@ -205,7 +224,8 @@ for(a=0;a&lt;=5;a++){
    numero in intero. Si prende poi ogni intero a partire da 2 (1 ed il numero stesso lo sono sempre quindi non ci interessano) fino ad arrivare al precedente del numero dato e si
    verifica per ciascuno se è divisibile. In altri termini si verifica se il resto della divisione intera tra il numero dato ed il numero in questione dà
    resto uguale a zero. Se lo è, lo si aggiunge alla stringa della sequenza dei divisori altrimenti... niente:</p>
-<pre>public void individuaDivisori() {
+<pre><code>
+public void individuaDivisori() {
    int numero, contatore;
    String sequenza;
    numero = Integer.parseInt(tNumero.getText());
@@ -217,7 +237,8 @@ for(a=0;a&lt;=5;a++){
    }
    sequenza += ", " + numero;
    tRisultato.setText(sequenza);
-}</pre>
+}
+</code></pre>
 
 <h2>Numero primo</h2>
 <p>Ultimo esempio molto simile (ma solo in apparenza!) al precedente: dato un numero fornito dall'utente, dire se è primo oppure no.</p>
@@ -234,7 +255,8 @@ for(a=0;a&lt;=5;a++){
    scrive per l'ultima volta? Questa domanda te la propongo perché solo l'ultimo messaggio scritto dal programma sarà quello presente nella <code>TextField</code>
    e quindi visibile dall'utente. Bene, l'ultima <code>if</code> la farai con <code>numero-1</code> che mai è divisore di <code>numero</code>, da qui il
    problema:</p>
-<pre>public void numeroPrimo() {
+<pre><code>
+public void numeroPrimo() {
    int numero, contatore;
    numero = Integer.parseInt(tNumero.getText());
    for(contatore = 2; contatore &lt; numero; contatore++) {
@@ -244,7 +266,8 @@ for(a=0;a&lt;=5;a++){
          tRisultato.setText("Il numero è primo!");
       }
    }
-}</pre>
+}
+</code></pre>
 
 <div class="test">
    	<p>Quanto varrà la variabile n alla fine del seguente frammento di programma?</p>
@@ -261,7 +284,8 @@ for(a=0;a==5;a++){
 <p>Una soluzione può essere quella di andare a scrivere nella casella di testo prima di iniziare il <code>for</code>. Ci scriveremo che non abbiamo trovato
 divisori, quindi è primo. Poi nella <code>if</code> (senza <code>else</code>) se è divisore sovrascriveremo il messaggio dicendo che ci sono divisori,
 altrimenti rimarrà quello:</p>
-<pre>public void numeroPrimo() {
+<pre><code>
+public void numeroPrimo() {
    int numero, contatore;
    numero = Integer.parseInt(tNumero.getText());
    tRisultato.setText("Il numero è primo!");
@@ -270,7 +294,8 @@ altrimenti rimarrà quello:</p>
          tRisultato.setText("Il numero non è primo");
       }
    }
-}</pre>
+}
+</code></pre>
 <div class="approfondimento">
 <p>Domanda: e se invece fuori dal ciclo scrivessi "non primo" e poi dentro al ciclo mettessi
 una condizione per scrivere quando è primo? tipo <code>numero%contatore!=0</code>... funzionerebbe?</p>
@@ -284,7 +309,8 @@ una condizione per scrivere quando è primo? tipo <code>numero%contatore!=0</cod
    se abbiamo trovato un divisore (non qual caso il numero non è primo) o meno (in questo caso è primo).</p>
    <p>Visto che la variabile deve indicare semplicemente trovato/non trovato la scelta giusta è di usare un boolean 
    e di dare un nome comprensibile alla variabile.</p>
-<pre>public void numeroPrimo() {
+<pre><code>
+public void numeroPrimo() {
   int numero, contatore;
   <em>boolean divisoreTrovato;</em>
   numero = Integer.parseInt(tNumero.getText());
@@ -299,7 +325,8 @@ una condizione per scrivere quando è primo? tipo <code>numero%contatore!=0</cod
   } else {
     eRisultato.setText("Il numero è primo!");
   }
-}</pre>
+}
+</code></pre>
 
 <div class="test">
    	<p>Cosa si poteva scrivere nella condizione dell'if al posto di <code>divisoreTrovato</code>?</p>

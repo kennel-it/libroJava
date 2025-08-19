@@ -30,7 +30,7 @@ viene usato per creare animazioni che ad esempio spostano oggetti tra due
 punti sullo schermo, noi lo useremo più semplicemente per chiamare una funzione 
 che aggiorna una specie di cronometro. In questo caso JavaFX 
 chiamerà la nostra funzione ad intervalli di tempo prefissati.</p>
-<pre>
+<pre><code>
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -68,7 +68,7 @@ public class Timer1 extends Application{
     launch();
   }
 }
-</pre>
+</code></pre>
 
 <h2>Tempi precisi!</h2>
 <p>Se serve di avere tempi precisi di esecuzione possiamo usare un'altra via:
@@ -76,7 +76,7 @@ public class Timer1 extends Application{
 questo oggetto ci permette di eseguire del codice ogni volta che la finestra viene 
 aggiornata, non abbiamo degli intervalli precisi ma ci viene passato un parametro che
 rappresenta il tempo attuale espresso in miliardesimi di secondo.</p>
-<pre>
+<pre><code>
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -121,7 +121,7 @@ public class Timer2 extends Application{
     launch();
   }
 }
-</pre>
+</code></pre>
 
 </article>
 </body>

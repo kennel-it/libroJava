@@ -10,11 +10,6 @@
         <title>algoritmiVettori</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>
-        <style>
-        	table {border-collapse: collapse}
-        	td,th { border:1px solid gray ; padding:0.25em; text-align: center}
-        	th { font-size: 0.75em ; font-weight: normal}
-        </style>         
     </head>
 <body>
 <header>
@@ -54,7 +49,8 @@ vettore fino a quel punto analizzata: quando arriveremo all'ultima posizione tal
 <var>massimo</var>
 conterrà il massimo di tutto il vettore. Non rimane che fornire l'algoritmo:</p>
 
-<pre>public void cercaMassimo() {
+<pre><code>
+public void cercaMassimo() {
    int massimo, indice;
    // considero il primo elemento come il massimo
    massimo = vet[0];
@@ -66,7 +62,8 @@ conterrà il massimo di tutto il vettore. Non rimane che fornire l'algoritmo:</p
       }</em>
    }
    tRisultato.setText(massimo + "");
-}</pre>
+}
+</code></pre>
 
 <p>Per esercizio individua il minimo in un vettore disordinato.</p>
 
@@ -80,7 +77,8 @@ e verificare se questo è uguale a quello cercato, in caso lo sia imposto a
 true una varibile chiamata <var>trovato</var>. Dopo aver finito la scansione 
 visualizzo il risultato controllando il valore di tale variabile.</p> 
 
-<pre>public void cercaInSerie() {
+<pre><code>
+public void cercaInSerie() {
    int indice, numeroCercato;
    numeroCercato = Integer.parseInt(tNumeroCercato.getText());
    // visto che non l'ho ancora trovato imposto la varibile a false
@@ -95,7 +93,8 @@ visualizzo il risultato controllando il valore di tale variabile.</p>
    } else {          
       tRisultato.setText("NON trovato");
    }
-}</pre>
+}
+</code></pre>
 
 <p>Funziona... ma possiamo migliorarlo in un paio di modi:</p>
 <ol>
@@ -103,7 +102,8 @@ visualizzo il risultato controllando il valore di tale variabile.</p>
 	<li>il confronto <code>trovato==true</code> è inutile, <var>trovato</var> è di per se una espressione booleana</li>
 </ol>
 
-<pre>public void cercaInSerie() {
+<pre><code>
+public void cercaInSerie() {
    int indice, numeroCercato;
    numeroCercato = Integer.parseInt(tNumeroCercato.getText());
    boolean trovato = false;
@@ -117,7 +117,8 @@ visualizzo il risultato controllando il valore di tale variabile.</p>
    } else {          
       tRisultato.setText("NON trovato");
    }
-}</pre>
+}
+</code></pre>
 
 <p>In questo modo il programma continua ad eseguire il ciclo se valgono entrambe le seguenti cose:</p>
 <ul>
@@ -137,7 +138,8 @@ dopodiché, solo nel caso in cui si sia trovato il numero cercato, sovrascrive i
 contenuto di tale variabile col valore di <var>indice</var> 
 che indica appunto la posizione dell'elemento.</p> 
 
-<pre>public void cercaInSerie() {
+<pre><code>
+public void cercaInSerie() {
    int indice;
    int numeroCercato = Integer.parseInt(tNumeroCercato.getText());
    // visto che non l'ho ancora trovato inizializzo la variabile a -1
@@ -151,14 +153,16 @@ che indica appunto la posizione dell'elemento.</p>
       }</em>
    }
    tRisultato.setText("" + posizioneElemento);
-}</pre>
+}
+</code></pre>
 
 <p>Il programma sopra funziona... ma non trova il primo elemento ma l'ultimo
 perché una volta trovato continua la ricerca in effetti anche sprecando tempo,
 possiamo però modificare il ciclo for in modo che continui a cercare soltanto 
 se non ha trovato niente (sarebbe a dire se <code>posizioneElemento==-1</code>):</p>
 
-<pre>public void cercaInSerie() {
+<pre><code>
+public void cercaInSerie() {
    int indice;
    int numeroCercato = Integer.parseInt(tNumeroCercato.getText());
    int posizioneElemento = -1;
@@ -169,14 +173,15 @@ se non ha trovato niente (sarebbe a dire se <code>posizioneElemento==-1</code>):
       }
    }
    tRisultato.setText("" + posizioneElemento);
-}</pre>
+}
+</code></pre>
 
 <section class="approfondimento">
 <p>Possiamo un po' migliorare il codice: mettiamo la condizione della if direttamente 
 all'interno della condizione del <code>for</code> facendo sì che 
 il ciclo vada avanti finche l'indice sta nel vettore e l'elemento attuale non sia quello cercato
 (detto in altre parole quando l'elemento attuale è quello cercato escxe dal ciclo).</p>
-<pre>
+<pre><code>
    for(indice = 0; indice &lt; vet.length <em>&amp;&amp; vet[indice] != numeroCercato</em>; indice++) {
    	 // nel ciclo non rimane nulla da fare
    }
@@ -184,19 +189,22 @@ il ciclo vada avanti finche l'indice sta nel vettore e l'elemento attuale non si
       tRisultato.setText("" + indice);
    } else {           //Il for si è fermato perché indice == n, quindi l'elemento non c'è
       tRisultato.setText("-1");
-   }</pre>
-   
+   }
+</code></pre>
+
 <p>Avrai senz'altro osservato che il <code>for</code> ha corpo vuoto. In questo caso anziché mettere 
 le graffe aperte e chiuse possiamo mettere il <code>;</code>.
 Nel complesso la funzione nella sua ultima stesura sarà:</p>
-<pre>public void cercaInSerie() {
+<pre><code>
+public void cercaInSerie() {
    for(indice = 0; indice &lt; vet.length &amp;&amp; vet[indice] != numeroCercato; indice++)<em>;</em>
    if(indice &lt; vet.length) {   //Il for si è fermato prima, quindi l'abbiamo trovato
       t_risultato.setText("" + indice);
    } else {           //Il for si è fermato perché indice == n, quindi l'elemento non c'è
       t_risultato.setText("-1");
    }
-}</pre>
+}
+</code></pre>
 
 </section>
 
@@ -271,7 +279,8 @@ se invece il vettore è ordinato in modo decrescente il massimo sarà nella prim
    diviene <code><var>metà</var> + 1</code>quindi 9. Ci troviamo ad avere a questo punto <code><var>inf</var> &gt; <var>sup</var></code> quindi terminiamo la
    ricerca perché l'elemento non è presente nel vettore.</p>
 <p>Tale metodo di ricerca si chiama <em>Ricerca binaria</em> o <em>Ricerca dicotomica</em>. Non rimane che presentare la funzione:</p>
-<pre>public void ricercaBinaria() {
+<pre><code>
+public void ricercaBinaria() {
    int inf, sup, metà;
    boolean trovato=false;
    numeroCercato = Integer.parseInt(tNumeroCercato.getText());
@@ -293,7 +302,8 @@ se invece il vettore è ordinato in modo decrescente il massimo sarà nella prim
    } else {
       tRisultato.setText("NON trovato");
    }
-}</pre>
+}
+</code></pre>
 <div class="esercizio">
 Dato un vettore di <code><var>n</var></code> elementi, caricarlo in modo disordinato quindi individuare il massimo elemento che non sia però
    superiore della media.

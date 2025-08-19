@@ -11,7 +11,7 @@
             h2 { clear: both }
             img { padding:1.25em; border: 1px solid gray; margin:0.5em }
             div.test {clear:both }
-        </style>         
+        </style>
     </head>
 <body>
 <header>
@@ -26,13 +26,13 @@
     Questi riferimenti non sono però direttamente manipolabili come in altri linguaggi.</p>
   
     <p>Proviamo a vedere...</p>
-<pre>
+<pre><code>
 TextField b = new TextField("pluto");
 TextField a = new TextField("paperino");
 String x;
 a=b;
 x = a.getText();
-</pre>
+</code></pre>
 <div class="test">
         <p>Quanto varrà la variabile x alla fine del frammento di programma sopra?</p>
         <a onclick="sbagliata(this)">errore <span class="spiegazione">no, il programma è corretto</span></a>
@@ -61,12 +61,12 @@ x = a.getText();
 
   <p>Proviamo a vedere come possiamo dichiarare il <code>Nodo</code> nel caso di una coda che 
   memorizzi delle stringhe:</p>
-<pre>
+<pre><code>
 public class Nodo {
     String dato;
     Nodo successivo;
 }
-</pre>
+</code></pre>
 
   <p>Parafrasi: un <code>Nodo</code> è formato da un <code>dato</code> (in questo caso una stringa)
   e un modo per raggiungere l'elemento successivo. L'oggetto non contiene un altro nodo al suo 
@@ -84,7 +84,7 @@ public class Nodo {
   <p>La nostra implementazione inserisce in coda e estrae in testa, per esercizio è possibile fare
   l'inverso.</p> 
 
-<pre>
+<pre><code>
 public class Coda {
   private Nodo testa;
     
@@ -131,7 +131,7 @@ public class Coda {
   }
 
 }
-</pre>
+</code></pre>
 
     <h2>Implementazione della pila</h2>
     <p>La <em>pila</em> non è poi molto diversa dalla coda,
@@ -143,13 +143,16 @@ public class Coda {
     <p>Per evitare confusione chiamiamo <code>ElementoPila</code> quello che prima
     abbiamo chiamato <code>Nodo</code>, ma come è facile vedere sono praticamente uguali.</p>
     <h2>ElementoPila</h2>
-<pre>public class ElementoPila {
+<pre><code>
+public class ElementoPila {
     public String dato;
     public ElementoPila precedente;
-}</pre>
+}
+</code></pre>
 
     <h2>Pila</h2>
-<pre>package lezioni.strutturedati;
+<pre><code>
+package lezioni.strutturedati;
 
 /****************************************************************************
  * Una pila con le operazioni fondamentali
@@ -202,7 +205,8 @@ public class Pila {
     public boolean vuota(){
         return testa == null;
     }
-}</pre>
+}
+</code></pre>
 
 <div class="test">
     <p>Quanto varrà la variabile n alla fine del seguente frammento di programma?</p>

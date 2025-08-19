@@ -16,19 +16,9 @@
                 border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer;
                 clear: both; display: table;
             }
-            h2, h3, pre { clear: both }
             h2 { padding-top:2em }
-            h3 small { font-size:80%; font-weight: normal }
             pre { display: none }
-            p { text-indent: 0 }
-            img { float: left ; margin-right: 2em; margin-bottom:1em}
             .nascondi { color: red ; background-color: rgba(255,0,0,0.5) }
-            pre { display:none }
-            li { margin:1.5em }
-            li a { display: inline }
-            
-            dl { display: grid ; grid-template-columns: auto 1fr}
-            dt,dd { padding-top:0.25em }
         </style>   
         <script type="text/javascript">
             function mostraNascondiCodice(cosa){
@@ -79,7 +69,7 @@ questo tipo di impostazioni e usa invece <code>setTranslateX()</code> e <code>se
 <p>L'oggetto <code>Image</code> permette di gestire immagini sia in formato jpeg che png (con trasparenze)
 e gif (anche animato).</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -129,7 +119,7 @@ public class Oggetti extends Application {
         primaryStage.show();
     }
 }
-</pre>
+</code></pre>
 </section>
 
 
@@ -143,7 +133,7 @@ dei piccoli spostamenti.</p>
 questo scade porto la pallina un pixel più avanti.</p>
 <p>Questa volta per posizionare la pallina usiamo la proprietà translate al posto di center!</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -191,7 +181,7 @@ public class MovimentoOrizzontale extends Application {
         pallina.setTranslateX(pallinaX);</em>
     }
 }
-</pre>
+</code></pre>
 </section>
 
 
@@ -204,7 +194,7 @@ ma non è neanche troppo difficile da fare.</p>
 quando la posizione è tale per cui la pallina tocca il bordo la rimando indietro (l'invremento 
 diventa -1 ), e viceversa quando tocca il bordo sinistro.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -260,11 +250,8 @@ public class RimbalzoOrizzontale extends Application {
         pallina.setCenterX(pallinaX);</em>
     }
 }
-</pre>
+</code></pre>
 </section>
-
-
-
 
 
 <section id="collisione">
@@ -278,7 +265,7 @@ L'immagine a sinistra mostra il caso pessimo di due immagini uguali: quella sull
 ruotata di 45°, il calcolo della collisione avviene sul rettangolo di ingombro (in rosso)
 quindi risulta che le due barre collidono.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 import javafx.application.Application;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
@@ -325,8 +312,9 @@ public class Collisione extends Application {
         primaryStage.show();
     }
 }
-</pre>
+</code></pre>
 </section>
+
 
 <section id="collisioneIntersezione">
 <h2>Collisione per intersezione</h2>
@@ -340,7 +328,7 @@ altrimenti gli oggetti non si toccano.</p>
 <p>Due aspetti negativi: è più lenta di quella sui bounding box e non funziona sulle immagini
 (però con un po' di fantasia...).</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 import javafx.application.Application;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
@@ -383,7 +371,7 @@ public class CollisionePerIntersezione extends Application {
         }
     }
 }
-</pre>
+</code></pre>
 </section>
 
 </article>

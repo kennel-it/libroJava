@@ -38,38 +38,38 @@ ritornato.</p>
 <p>Prendiamo per esempio una classe che consente di impostare il lato di una figura
 che dovrebbe essere un numero in virgola mobile ma che permettiamo di impostare come testo
 per comodità dell'utilizzatore.</p>
-<pre>
+<pre><code>
 class Quadrato {
-	private double lato;
-	
-	public void setLato(double d){
-		lato = d;
-	}
-	
-	public void setLato(String l){
-		lato = Double.parseDouble(l);
-	}
-} 
-</pre>
+    private double lato;
+
+    public void setLato(double d){
+        lato = d;
+    }
+
+    public void setLato(String l){
+        lato = Double.parseDouble(l);
+    }
+}
+</code></pre>
 
 <p>Spesso è utile ad esempio avere diversi costruttori per lo stesso oggetto:
 in questo caso l'oggetto <code>Persona</code> può essere costruito sia fornendo nome e altezza 
 che il solo nome:</p>
-<pre>
+<pre><code>
 class Persona {
-	private double altezza;
-	private String nome;
-	
-	public Persona(String n, double a){
-		nome = n;
-		altezza = a;
-	}
-	
-	public Persona(String n){
-		nome = n;
-	}
-} 
-</pre>
+    private double altezza;
+    private String nome;
+
+    public Persona(String n, double a){
+        nome = n;
+        altezza = a;
+    }
+
+    public Persona(String n){
+        nome = n;
+    }
+}
+</code></pre>
 
 
 <h2>Classi (overriding)</h2>
@@ -88,25 +88,30 @@ che in effetti si stia facendo overriding.</p>
 
 <p>Vediamo un esempio di overriding definendo la classe
 <code>Animale</code> con un solo metodo.</p>
-<pre>class Animale {
+<pre><code>
+class Animale {
   public String verso() {
     return "Verso generico";
   }
-}</pre>
+}
+</code></pre>
 
 <p>Ora estendiamo la classe e facciamo overriding del metodo
 <code>verso()</code></p>
-<pre>class Cane extends Animale {
+<pre><code>
+class Cane extends Animale {
   <em>@Override</em>
   public String verso() {
     return "Bau!";
   }
-}</pre>
+}
+</code></pre>
 
 <p>Scriviamo una classe di prova per vedere cosa viene
 stampato quando si chiama il metodo <code>verso()</code>
 su diversi oggetti:</p>
-<pre>class Prova {
+<pre><code>
+class Prova {
   public static void main(String[] args) {
     Animale animale = new Animale();
     Cane cane1 = new Cane();
@@ -116,7 +121,8 @@ su diversi oggetti:</p>
     System.out.println(cane1.verso());    // Output: Bau!
     System.out.println(cane2.verso());    // Output: Bau!
   }
-}</pre>
+}
+</code></pre>
 
 
 <p>Vediamo in ordine il perché dei diversi output:</p>

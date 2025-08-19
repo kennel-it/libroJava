@@ -22,7 +22,8 @@ trattenerci dallo spendere quei soldi e li manteniamo vincolati per un certo num
 Di certo ci appoggeremo al codice già scritto nella classe <code>RisparmioVincolato</code> e quindi creeremo una classe estesa che eredita quanto fatto in
 <code>RisparmioVincolato</code>. Osserviamo che non c'è bisogno di accedere direttamente alle proprietà della superclasse perché basta usare i getter per prenderne i valori
 ed i setter per impostarli:</p>
-<pre>public class RisparmioVincolatoPluriennale extends RisparmioVincolato {
+<pre><code>
+public class RisparmioVincolatoPluriennale extends RisparmioVincolato {
    private byte durataAnni; //facendola privata eventuali classi che estenderanno questa non avranno accesso alla proprietà. Una scelta.
 
    public RisparmioVincolatoPluriennale() {
@@ -54,7 +55,7 @@ ed i setter per impostarli:</p>
       setImporto(importo);	                    // si rimette l'importo al valore iniziale, come se nulla fosse cambiato
       return capitale;
    }
-}</pre>
+}</code></pre>
 
 
 </article>

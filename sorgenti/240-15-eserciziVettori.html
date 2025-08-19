@@ -8,9 +8,6 @@
         <title>eserciziVettori</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>
-        <style>
-            .vecchio { opacity:0.4; }
-        </style>
     </head>
 <body>
 <header>
@@ -32,7 +29,7 @@
    la creazione del vettore) a quando si saprà la grandezza, cioè dopo che 
    l'utente l'avrà comunicata scrivendola in una casella e premendo il 
    pulsante corrispondente: </p>
-<pre>
+<pre><code>
 public class Piscina extends Application {
    TextField cNumeroTempi = new TextField();
    TextField cTempo = new TextField();
@@ -50,7 +47,8 @@ public class Piscina extends Application {
       <em>tempi = new int[numTempi];</em>
    }
 
-}</pre>
+}
+</code></pre>
 
 <p>La parte vista finora ci permette soltanto di creare (allocare spazio in memoria)
 il vettore <var>tempi</var> della dimensione adatta a poter contenere tutti i tempi
@@ -70,7 +68,7 @@ Tale azione la svolgeremo ogni volta che l'utente premerà il relativo pulsante,
 per questo useremo la variabile <var>posizione</var>.</p>
 
 
-<pre>
+<pre><code>
 <span class="vecchio">
 public class Piscina extends Application {
    TextField cNumeroTempi = new TextField();
@@ -102,7 +100,7 @@ public class Piscina extends Application {
    }
 
 <span class="vecchio">}</span>
-</pre>
+</code></pre>
 
 
 <p>Fatto il caricamento, dobbiamo indicare in una casella di testo quanti sono i tempi superiori
@@ -111,8 +109,8 @@ public class Piscina extends Application {
    del coach. Ogni volta che il tempo risulta superiore incrementerò di 1 un contatore.
    Alla fine mostrerò il risultato in una specifica casella di testo. Il codice:</p>
 
-
-<pre><img src="immagini/esempio_piscina.png" alt="finestra esempio nuotatori"><br>
+<p><img src="immagini/esempio_piscina.png" alt="finestra esempio nuotatori"></p>
+<pre><code>
 <span class="vecchio">
 public class Piscina extends Application {
    TextField cNumeroTempi = new TextField();
@@ -159,7 +157,7 @@ public class Piscina extends Application {
    }
 
 <span class="vecchio">}</span>
-</pre>
+</code></pre>
 
 <div class="esercizio"><p>Per una squadra di calcio viene data una casella di testo <code><var>tSquadra1</var></code>, una casella di testo
    <code><var>tPuntiSquadra1</var></code> con relativo pulsante <code><var>inserisciRisultato1</var></code> ed in modo simmetrico per la seconda squadra di

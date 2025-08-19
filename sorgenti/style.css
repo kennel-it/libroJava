@@ -10,16 +10,17 @@
 
 * {
     box-sizing:border-box;
-    --colore-primario: #ffab40; /* orange A700 */
-    --colore-primario-chiaro: #ffdd71; /* light di orange A700 */
-    --colore-primario-scuro: #c77c02; /* dark di orange A700 */
-    --colore-primario-testo: #000000;
-    --colore-primario-chiaro-testo: #000000;
-    --colore-primario-scuro-testo: #000000;
+    --colore-testo: #000000;
+    --colore-testo-poco-evidenziato: #9c1f26;
+    --colore-testo-molto-evidenziato: #c75e02;
 
-    --colore-secondario: #00bfa5; /* teal A700 */
-    --colore-secondario-scuro: #008e76; /* dark di teal A700 */
-    --colore-secondario-testo: #000000; 
+    --colore-box-evidenziati-sfondo: #ffdd71;
+    --colore-box-evidenziati-bordo: #ffab40;
+    --colore-box-evidenziati-rilievo: #ffab40;
+
+    --colore-suggerimenti-testo: #000000; 
+    --colore-suggerimenti-sfondo: #05dfdf;
+    --colore-suggerimenti-bordo: #00acac;
 }
 
 body    { font-family: Verdana, sans-serif; margin:0em }
@@ -72,7 +73,7 @@ nav > * {
     text-align:center; text-decoration: none;
     margin:0em 1em; padding:0.5em; 
 }
-/* --------------------------- parti fondamentali della pagina --------------------------------- */
+/* --------------------------- parti principali della pagina --------------------------------- */
 article, section { margin:1em 5% ; padding-bottom:3em}
 h2 { 
     text-align: left;
@@ -89,72 +90,78 @@ p, dfn {
     line-height: 1.5rem;
 }
 em {
-    font-style: normal; font-weight: bold; color: var(--colore-primario-scuro) ;
+    font-style: italic; font-weight: normal; color: var(--colore-testo-poco-evidenziato) ;
 }
 dfn {
     display: block;
     padding: 0.75em;
-    background-color: var(--colore-primario); color: var(--colore-primario-testo);
-    border-top: 0.5em solid var(--colore-primario-scuro) 
+    background-color: var(--colore-box-evidenziati-sfondo);
+    border-top: 0.5em solid var(--colore-box-evidenziati-bordo) 
 }
-dfn em { color: var(--colore-primario-testo) }
+dfn em { font-style: normal; font-weight: bold; font-size: 115%; color: var(--colore-testo-molto-evidenziato) }
 img.screen_shot { border:1px solid gray; margin: 0.5em }
 img.iconaIDE { height: 2ex; }
-.approfondimento { 
-    font-family: Helvetica, Arial, sans-serif;
-    font-weight: 100;
-    border-left: 0.2em dashed orange;
-    border-right: 0.2em dashed orange;
-    padding: 0em 1em;
-    margin-top: 2em;
-    color: #613515;
-}
-.approfondimento:before {
-    font-size:150%; content: "🔍 per saperne di più"; background-color:orange; padding:0.2em
-}
 li { margin-top:0.2em }
 strong { font-size:125% ; font-weight: normal; font-style: normal}
 dt { font-weight: bold ; margin-top:0.5em}
 table { border-collapse: collapse }
 td,th { border:1px solid #444 ; padding:0.25em}
+
+
+.approfondimento { 
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 100;
+    border-left: 0.2em dashed var(--colore-box-evidenziati-bordo);
+    border-right: 0.2em dashed var(--colore-box-evidenziati-bordo);
+    padding: 0em 1em;
+    margin-top: 2em;
+}
+.approfondimento:before {
+    content: "🔍 per saperne di più";
+    font-size: 150%;
+    background-color: var(--colore-box-evidenziati-sfondo); 
+    padding: 0.2em;
+}
+
+
+.FIXME { background-color: yellow; color:red; padding:1em ; margin:1em}
+
 /* ------------------------------------ codice sorgente ---------------------------------------- */
-pre, div.pseudo {
-    padding: 0.5em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    white-space: pre;
+pre, code, var, samp { font-family: "Courier", "Courier New", monospace }
+pre {
+    clear: both;
+    margin: 1em 0em;
     font-family: monospace;
     font-size: 115%;
-    line-height: 125%;
-    overflow: scroll;
-    background-color: #eee;
-    clear: both;
+    overflow: auto;
 }
-pre code { white-space: pre; display: inline-block; padding:2px;width: 100%}
-pre .esecuzione { background-color:yellow }
-pre var { font-size: 100% }
+pre > * {
+    line-height: 125%; padding: 0.5em;
+}
+pre samp { display: block; background-color: #a7fa9d; }
+pre code { display: block; background-color: #eeeeee; }
+p code { color: var(--colore-testo-poco-evidenziato); white-space: nowrap;}
 code {
-    font-family: "Courier", "Courier New", monospace;
-    font-size: 125%;
-    color: #700;
-    padding-left:0.25em; padding-right:0.25em;
-    white-space: nowrap; 
-    word-wrap: normal;
-    overflow-wrap: normal;
+    padding:0.5em
 }
-var { 
-	font-family: "Courier", "Courier New", monospace;
-	color: #a45920; 
-	font-size: 110%;
-	font-style: italic 
+code em {
+	font-style: normal;
 }
+var {
+    color: #a45920; 
+    font-size: 110%;
+    font-style: italic 
+}
+pre var { font-size:100% }
+.vecchio { opacity:0.4; }
+pre .esecuzione { background-color:yellow } /* lo usa l'interpreter visuale */
 /* --------------------------------------- i test ---------------------------------------------- */
 .test {
 	padding: 1em;
     margin-top:0.5em;
     margin-bottom:0.5em;
-    background-color: var(--colore-primario-chiaro);
-    border-top: 0.5rem solid var(--colore-primario);
+    background-color: var(--colore-box-evidenziati-sfondo);
+    border-top: 0.5rem solid var(--colore-box-evidenziati-bordo);
 }
 .test p {
     margin: 0;
@@ -164,28 +171,30 @@ var {
 .test a {
     display: inline-table;
     margin: 0.5em; 
-    padding: 0.25em;
-    background-color: var(--colore-primario); color: var(--colore-primario-testo);
+    padding: 0.5em 0.75em;
+    background-color: var(--colore-box-evidenziati-rilievo);
+    box-shadow: 1px 1px 3px black;
+    border-radius:0.5em;
 }
 .test a span.spiegazione { display:none ; font-size:85% }
 .test a span.spiegazione:before { content: " (" }
 .test a span.spiegazione:AFTER  { content: ")"  }
 .test a.spiega span.spiegazione { display:inline }
 .rispostaGiusta { background-color: lime !important}
-.rispostaSbagliata { background-color: red !important}
+.rispostaSbagliata { background-color: #ff6161 !important}
 /* --------------------------------- gli esercizi da completare -------------------------------- */
 .riempiSpazi { white-space: pre; font-family: monospace ; font-size:150%; line-height: 1.4em}
 .riempiSpazi span { border:1px solid gray; display:inline-block; vertical-align:baseline }
 .riempiSpazi em { color:red; font-weight: bold }
 .riempiSpazi .giusta { background: green }
-.riempiSpazi .sbagliata { background: red }
+.riempiSpazi .sbagliata { background: #ff6161 }
 .mostraSoluzione { color:blue ; font-weight: bold}
 .controllaRisposta { color:blue ; font-weight: bold} 
-/* -------------------------------------- gli esercizi ----------------------------------------- */
+/* -----------------------------i testi degli esercizi da svolgere ----------------------------- */
 .esercizio {
     margin-top:4em;
     padding: 0.5rem;
-    background-color: var(--colore-primario-chiaro); color: var(--colore-primario-chiaro-testo);
+    background-color: var(--colore-box-evidenziati-sfondo);
 }
 .esercizio + .esercizio { margin-top:1em }
 .esercizio p { margin:0 }
@@ -196,28 +205,25 @@ body {
 div.esercizio:before {
     counter-increment: section;      /* Increment the section counter */
     content: "esercizio " counter(section); /* Display the counter */
-    font-size:85%; color: #888;
+    font-size:85%;
     display: block;
     margin:-0.5rem -0.5rem 0.5rem -0.5rem;
-    background-color: red;
     padding: 0.25rem;
-    background-color: var(--colore-primario); color: var(--colore-primario-testo);
+    background-color: var(--colore-box-evidenziati-bordo)
 }
 /* -------------------------------------- i box a lato ----------------------------------------- */
 div.curiosita, div.suggerimento {
     float:right; clear:both; width:25%; font-size:85% ;
     padding:1em ; margin: 1em 0em 1em 2em ; 
     text-align: left;
-    background-color: var(--colore-secondario); color: var(--colore-secondario-testo);
+    background-color: var(--colore-suggerimenti-sfondo); 
+    color: var(--colore-suggerimenti-testo);
 }
 div.suggerimento {
     white-space: normal !important;
     overflow:auto; 
-    border-top: 0.5rem solid var(--colore-secondario-scuro);
+    border-top: 0.5rem solid var(--colore-suggerimenti-bordo);
 }
-
-.FIXME { background-color: yellow; color:red; padding:1em ; margin:1em}
-
 
 
 

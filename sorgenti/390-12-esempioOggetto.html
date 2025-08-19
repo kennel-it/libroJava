@@ -57,29 +57,32 @@ Abbiamo ora fatto l'analisi della realtà che andava modellata avendo scelto ci�
 intanto queste informazioni ottenendo:</p>
 
 <h3>file RisparmioVincolato.java</h3>
-<pre>public class RisparmioVincolato {
+<pre><code>
+public class RisparmioVincolato {
    String nome;
    String cognome;
    int codice;
    double importo;
    short anno;
    double interessiPercentuale;
-}</pre>
+}
+</code></pre>
 
 <p>Quali sono le informazioni che deve avere un oggetto appena si crea?<br/>
-Stabiliamo 2 alternative:
+Stabiliamo 2 alternative:</p>
 <ul>
     <li>nella prima vogliamo la possibilità di creare un oggetto senza che sia specificato alcun dato perché tutte le
     informazioni verranno impostate successivamente. In tal caso le proprietà avranno valori particolari</li>
     <li>nella seconda vogliamo la possibilità di impostare tutti i dati perché si conoscono già tutte le informazioni. In
     tal caso è possibile verificare che i valori forniti verifichino determinate condizioni.</li>
 </ul> 
-avendo previsto le 2 alternative sopra descritte avremo bisogno di due costruttori la cui sintassi, lo ricordiamo, è piuttosto semplice:
+<p>avendo previsto le 2 alternative sopra descritte avremo bisogno di due costruttori la cui sintassi, lo ricordiamo, è piuttosto semplice:
 <code>NomeClasse(tipo argomento, tipo argomento, ...) { ... }</code>.</p>
 <p>La classe sopra con in più i costruttori sarà:</p>
 
 <h3>file RisparmioVincolato.java con i costruttori</h3>
-<pre>public class RisparmioVincolato {
+<pre><code>
+public class RisparmioVincolato {
    String nome;
    String cognome;
    int codice;
@@ -114,7 +117,8 @@ avendo previsto le 2 alternative sopra descritte avremo bisogno di due costrutto
       this.anno = anno;
       this.interessiPercentuale = interessiPercentuale;
    }</em>
-}</pre>
+}
+</code></pre>
 
 <p>Sarebbe utile che l'oggetto ci permetta di sapere sia quanto si guadagnerà allo scadere del periodo, sia quanti soldi
 si avranno in totale (la somma vincolata alla quale si aggiungono gli interessi). Affinché il metodo possa fornire il
@@ -125,7 +129,8 @@ Il metodo ha bisogno di argomenti? Detto in modo diverso: il metodo ha bisogno d
 servono l'importo e il tasso (la percentuale) di interessi.<br/>
 Discorso analogo per il capitale (cioè i soldi posseduti) totale.</p>
 
-<pre>public class RisparmioVincolato {
+<pre><code>
+public class RisparmioVincolato {
 
     // stesse dichiarazioni di proprietà e costruttori dell'esempio sopra 
 
@@ -139,7 +144,8 @@ Discorso analogo per il capitale (cioè i soldi posseduti) totale.</p>
       double capitale = guadagno + importo;
       return capitale;
    }</em>
-}</pre>
+}
+</code></pre>
 
 <p>Ora, dopo aver dichiarato la classe RisparmioVincolato con tutte le sue caratteristiche, usiamola in un programma
 normale. Possiamo pensare di avere un form per l'inserimento dei dati relativi ad un investimento di tipo risparmio
@@ -147,7 +153,8 @@ vincolato. Al click di un pulsante per l'acquisizione dei dati, tutto ciò che �
 un oggetto della classe definita qui sopra, subito dopo si puliranno tutti i campi e si farà una sintesi di quanto letto in
 una etichetta.<br/>
 Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capitale totale alla fine del periodo.</p>
-<pre>public class InterfacciaGrafica extends Application {
+<pre><code>
+public class InterfacciaGrafica extends Application {
     TextField tNome = new TextField();
     TextField tCognome = new TextField();
     TextField tCodice = new TextField();
@@ -225,7 +232,8 @@ Al click di un ulteriore pulsante, poi, verrà mostrato il guadagno ed il capita
     public static void main(String args[]) {
        launch();
     }
-}</pre>
+}
+</code></pre>
 
 <p>Nel metodo <code>acquisisci()</code> del programma sopra proposto, vengono prima lette tutte le informazioni del form, poste in delle
 variabili e poi queste vengono usate per invocare il costruttore opportuno nel quale vengono eseguiti dei controlli sulla correttezza
@@ -233,7 +241,8 @@ dei dati. Più avanti, nelle ultime 2 righe del metodo, si accede in lettura all
 Segue ora una alternativa del metodo <code>acquisisci()</code> che vuole raggiungere lo stesso obiettivo utilizzando però l'altro
 costruttore:</p>
 
-<pre>public class InterfacciaGrafica extends Application {
+<pre><code>
+public class InterfacciaGrafica extends Application {
     // resto del programma
 
     public void acquisisci() {
@@ -264,7 +273,8 @@ costruttore:</p>
     }
 
     // resto del programma
-}</pre>
+}
+</code></pre>
 
 <p>La variante sopra proposta ha un difetto: lascia alla classe <code>InterfacciaGrafica</code> la possibilità di modificare
 direttamente le variabili interne alla classe. In questo modo dalla classe <code>RisparmioVincolato</code> non è possibile
@@ -284,7 +294,8 @@ ne fornisce una): sono i getters.</p>
 <p>Facciamo l'esempio con la sola proprietà <code>importo</code>, chiaramente il lavoro fatto su questa proprietà va replicato
 per tutte le altre. La riga della dichiarazione della proprietà differisce per la sola aggiunta della parola chiave
 <code>private</code> mentre compaiono in  più i metodi <code>setImporto()</code> e <code>getImporto()</code>:</p>
-<pre>private double importo;
+<pre><code>
+private double importo;
 
 public void setImporto(double euro) {
    if(euro > 0) {
@@ -295,12 +306,14 @@ public void setImporto(double euro) {
 
 public double getImporto() {
    return importo;
-}</pre>
+}
+</code></pre>
 
 <p>A questo punto il metodo <code>acquisisci()</code> sopra riportato non funzionerebbe più (provare per credere). La nuova
 versione sostituisce necessariamente l'accesso alle proprietà con l'accesso ai metodo setters e getters:</p>
 
-<pre>public class InterfacciaGrafica extends Application {
+<pre><code>
+public class InterfacciaGrafica extends Application {
     // resto del programma
 
     public void acquisisci() {
@@ -333,7 +346,8 @@ versione sostituisce necessariamente l'accesso alle proprietà con l'accesso ai 
     }
 
     // resto del programma
-}</pre>
+}
+</code></pre>
 
 
 <div class="approfondimento">
@@ -345,7 +359,8 @@ statica. In questo caso al costruttore non verrà dato il codice come argomento 
 spesso è un bene perché evita la possibilità di duplicazione del codice:</p>
 
 <h3>versione finale di RisparmioVincolato.java</h3>
-<pre>public class RisparmioVincolato {
+<pre><code>
+public class RisparmioVincolato {
    <em>private</em> String nome;
    <em>private</em> String cognome;
    <em>private</em> int codice;
@@ -441,7 +456,8 @@ spesso è un bene perché evita la possibilità di duplicazione del codice:</p>
    public static int getUltimoCodiceUsato() {
       return ultimoAssegnato;
    }</em>
-}</pre>
+}
+</code></pre>
 
 <p>Nella classe <code>Interfaccia</code> si può conoscere quale è stato l'ultimo codice assegnato invocando
 <code>RisparmioVincolato.getUltimoCodiceUsato()</code>.</p>

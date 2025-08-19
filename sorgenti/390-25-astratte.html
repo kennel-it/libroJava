@@ -13,29 +13,8 @@
         	#pulsanteNew { background-color: rgba(0,200,0,0.5) }
         	.pulsante { border:1px solid gray; padding:0em 0.5em; border-radius:0.5em ; cursor:pointer}
         </style>
-        <script type="text/javascript">
-        	function mostra(quale){
-        		var elenco;
-        		elenco = document.getElementsByClassName("new");
-        		for (var i = 0; i < elenco.length; i++) {
-        			if(quale==elenco[i].className){
-        				elenco[i].style.display = "";
-        			}else{
-        				elenco[i].style.display = "none";
-        			}
-        		}
-        		elenco = document.getElementsByClassName("old");
-        		for (var i = 0; i < elenco.length; i++) {
-        			if(quale==elenco[i].className){
-        				elenco[i].style.display = "";
-        			}else{
-        				elenco[i].style.display = "none";
-        			}
-        		}
-        	}
-        </script>
     </head>
-<body onload="mostra('old')" >
+<body>
 <header>
 <h1>classi astratte</h1>
 <p>definizioni non complete di</p>
@@ -47,7 +26,8 @@ si chiamano poligoni. Per gestirle da programma queste figure dovremo fare una m
 <code>Rettangolo</code> e <code>TrapezioRettangolo</code> e riflettendo un po' potremmo considerare che ognuna di esse dovrebbe avere almeno la proprietà <code>base</code>
 e la proprietà <code>altezza</code> insieme ad altre proprietà specifiche di ciascuna classe. Per quanto riguarda i metodi potremmo dire che ciascuna classe
 ha almeno un metodo per calcolare il perimetro ed uno per calcolare l'area.</p>
-<pre>public class TriangoloEquilatero {
+<pre><code>
+public class TriangoloEquilatero {
    private double base, altezza;
 
    public TriangoloEquilatero() {
@@ -119,7 +99,8 @@ public class TrapezioRettangolo {
    }
    
    // Anche qui andrebbero realizzati i setter e i getter di base e altezza
-}</pre>
+}
+</code></pre>
 <p>Tali classi sono corrette ma il lavoro del programmatore che le usa (potremmo essere noi stessi) si potrebbe semplificare se le proprietà che si
 riferiscono ad un determinato fatto si chiamino tutte allo stesso modo e i metodi che svolgono la medesima azione condividano il nome. Nell'esempio appena
 sopra i metodi che calcolano il perimetro hanno tutti nomi diversi pur svolgendo tutti lo stesso lavoro, chiaramente con operazioni diverse; analogo
@@ -132,7 +113,8 @@ La soluzione è indicare solo la firma del metodo (ricordiamo cosa è la firma: 
 Si dà a ciascuno di questi la denominazione di <em>metodo astratto</em> (appunto, non ha corpo) che in Java è<code>abstract</code> inserito appena prima
 del tipo restituito. Dato che nella classe ci sono metodi non invocabili, non si possono creare oggetti di questo tipo; tali classi si chiamano astratte
 e si inserisce la parola <code>abstract</code> prima della parola chiave <code>class</code>. La superclasse dell'esempio precedente sarà:</p>
-<pre>public abstract class Poligono {
+<pre><code>
+public abstract class Poligono {
    private double base, altezza;
 
    public Poligono() {
@@ -150,10 +132,10 @@ e si inserisce la parola <code>abstract</code> prima della parola chiave <code>c
    
    // Qui andrebbero realizzati i setter e i getter di base e altezza che però evitiamo per mantenere il codice più leggibile
 }
-</pre>
+</code></pre>
 
 <p>A questo punto si creano le classi estese a partire da quella qui sopra implementando i metodi che erano astratti</p>
-<pre>
+<pre><code>
 public class TriangoloEquilatero extends Poligono{
    
    public TriangoloEquilatero() {
@@ -218,8 +200,8 @@ public class TrapezioRettangolo extends Poligono {
       return (baseMaggiore + baseMinore) * altezza / 2.0;
    }
 
-}</pre>
-<p></p>
+}
+</code></pre>
 
 </article>
 </body>

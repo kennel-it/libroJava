@@ -26,38 +26,38 @@ poco chi il programma lo usa!</p>
 
 <p>Prendiamo per esempio questo programma che dovrebbe calcolare il 
 doppio di una numero. Cosa succede se l'utente scrive "ciao" nella prima casella?</p>
-<pre>
+<pre><code>
 public class EccezioniEsecizio1 extends Application {
-	TextField cDato = new TextField("numero");
-	TextField cRisposta = new TextField("");
-
-	public void start(Stage primaryStage) {		
-		Button pDoppio = new Button("doppio");
-		GridPane p = new GridPane();
-		p.add(cDato, 0, 0);
-		p.add(pDoppio, 0, 1);
-		p.add(cRisposta, 0, 2);
-		pDoppio.setOnAction( e -> scambia() );
-		Scene scena = new Scene(p);
-		primaryStage.setTitle("Doppio");
-		primaryStage.setScene(scena);
-		primaryStage.show();
-	}
-
-	public void scambia() {
-		String testo;
-		int numero,doppio;
-		testo = cDato.getText();
-		numero = Integer.parseInt(testo);
-		doppio = numero * 2;
-		cRisposta.setText(""+doppio);
-	}
-	
-	public static void main(String args[]){
-		launch();
-	}
+    TextField cDato = new TextField("numero");
+    TextField cRisposta = new TextField("");
+    
+    public void start(Stage primaryStage) {		
+        Button pDoppio = new Button("doppio");
+        GridPane p = new GridPane();
+        p.add(cDato, 0, 0);
+        p.add(pDoppio, 0, 1);
+        p.add(cRisposta, 0, 2);
+        pDoppio.setOnAction( e -> scambia() );
+        Scene scena = new Scene(p);
+        primaryStage.setTitle("Doppio");
+        primaryStage.setScene(scena);
+        primaryStage.show();
+    }
+    
+    public void scambia() {
+        String testo;
+        int numero,doppio;
+        testo = cDato.getText();
+        numero = Integer.parseInt(testo);
+        doppio = numero * 2;
+        cRisposta.setText(""+doppio);
+    }
+    
+    public static void main(String args[]){
+        launch();
+    }
 }
-</pre>
+</code></pre>
 
 <p>Semplice: il programma non funziona e nella console di eclipse vediamo:</p>
 <pre>Exception in thread "JavaFX Application Thread" java.lang.<em>NumberFormatException</em>: For input string: "ciao"</pre>
@@ -91,20 +91,20 @@ e il programma passerebbe alla parte dentro al catch (se l'eccezione è del tipo
 </div>
 
 <p>In pratica quello che dobbiamo fare è sostituire una parte del nostro codice:</p> 
-<pre>
+<pre><code>
 public void scambia() {
-  String testo;
-  int numero,doppio;
-  testo = cDato.getText();
-  <em>try{</em>
-    numero = Integer.parseInt(testo);
-    doppio = numero * 2;
-    cRisposta.setText(""+doppio);
-  <em>}catch(NumberFormatException e){</em>
-    cRisposta.setText("hai scritto male il numero");
-  <em>}</em>
+    String testo;
+    int numero,doppio;
+    testo = cDato.getText();
+    <em>try{</em>
+        numero = Integer.parseInt(testo);
+        doppio = numero * 2;
+        cRisposta.setText(""+doppio);
+    <em>}catch(NumberFormatException e){</em>
+        cRisposta.setText("hai scritto male il numero");
+    <em>}</em>
 }
-</pre>
+</code></pre>
 
 <div class="test">
    	<p>Perché nel try non c'è soltanto la linea <code>numero = Integer.parseInt(testo);</code>?</p>

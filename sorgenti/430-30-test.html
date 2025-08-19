@@ -25,7 +25,7 @@ Abbiamo però alcuni modi per trovare cosa non va.</p>
 quello che compare nelle console, non serve farsi impessionare
 dal numero di righe, è piuttosto semplice trovare dove sta il problema.
 Vediamo ad esempio l'output qui sotto:</p>
-<pre>
+<pre><samp>
 Exception in thread "JavaFX Application Thread" <em>java.lang.ArithmeticException: / by zero</em>
     at <em>it.aspix.librojava.DebuggerEsercizio2.prova(DebuggerEsercizio2.java:32)</em>
     at it.aspix.librojava.DebuggerEsercizio2.lambda$0(DebuggerEsercizio2.java:22)
@@ -73,7 +73,7 @@ Exception in thread "JavaFX Application Thread" <em>java.lang.ArithmeticExceptio
     at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:556)
     at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:942)
     at javafx.graphics/com.sun.glass.ui.mac.MacView.notifyMouse(MacView.java:127)
-</pre>
+</samp></pre>
 <p>Le informazioni che ci interessano sono due:</p>
 <dl>
 <dt>l'eccezione</dt>
@@ -128,7 +128,7 @@ che eventualmente si fermerà la prossima volta che passerà su un punto di inte
 il controllo "Terminate" (numero 7 in figura) serve, 
 come è facile immaginare, per fermare il programma.</p>
 
-<h2>Esercitazione: modifica l'interfaccia del debugger</h2>
+<h2>Esercitazione 1: modifica l'interfaccia del debugger</h2>
 <p>L'interfaccia predefinita del debugger è piuttosto affollata, proviamo
 a rimuovere degli elementi che adesso non ci servono per farla diventare simile a quella qui sotto.</p>
 <p>Per spostare i pannelli è sufficiente fare drag &amp; drop, mentre per eliminare alcune parti 
@@ -140,7 +140,7 @@ e togliere (con attenzione!) alcune delle parti che non ci servono, nel nostro c
 <p>Una volta impostata l'interfaccia proviamo a vedere come funziona
 il seguente programma individuando quale è il numero estratto per poi provare se funziona
 correttamente.</p>
-<pre>
+<pre><code>
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -184,11 +184,12 @@ public class DebuggerEsercizio2 extends Application {
 	public static void main(String args[]){
 		launch();
 	}
-}</pre>
+}
+</code></pre>
 
 <h2>Esercitazione 2</h2>
 <p>Trovare l'errore nel seguente programma che dovrebbe scambiare le due parole contenute in una frase usando il debugger.</p>
-<pre>
+<pre><code>
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -236,7 +237,7 @@ public class DebuggerEsercizio extends Application {
 		launch();
 	}
 }
-</pre>
+</code></pre>
 
 </article>
 </body>

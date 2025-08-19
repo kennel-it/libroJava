@@ -87,12 +87,12 @@ alcune strategie per inserire i valori nel vettore.</p>
 <h3>Caricamento con elementi casuali</h3>
 <p>A volte può tornare utile inserire in un vettore tutti numeri casuali (o in effetti un qualsiasi valore)</p>
 
-<pre>
+<pre><code>
 <em>double v[] = new double[10];
 for(int i=0; i&lt;v.length; i++){
     v[i] = Math.random();
 }</em>
-</pre>
+</code></pre>
 
 <div class="suggerimento">Se voglio estrarre un numero casuale intero tra 1 e 10 (compresi)
 posso usare la formula <code>numero = (int)(Math.random()*10+1)</code>.</div>
@@ -109,7 +109,8 @@ e fa click su un pulsante, poi ne inserisce un altro e via di seguito.</p>
 <p>In questo caso la lunghezza del vettore è stabilita a priori.</p>
 
 
-<pre>public class Numeri extends Application {
+<pre><code>
+public class Numeri extends Application {
    TextField tNumero = new TextField();
    <em>int numeri[];</em>
    <em>int numeriInseriti;</em>
@@ -139,7 +140,8 @@ e fa click su un pulsante, poi ne inserisce un altro e via di seguito.</p>
       <em>}</em>
    }
 
-}</pre>
+}
+</code></pre>
 
 
 <h3>Caricamento da un elenco</h3>
@@ -149,7 +151,7 @@ e fa click su un pulsante, poi ne inserisce un altro e via di seguito.</p>
 presenti in una stringa e inserirli in un vettore.</p>
 
 
-<pre>
+<pre><code>
 // la stringa potrebbe anche essere letta da una casella
 String testo = "1,8,12,19,21";
 // separo i singoli elementi della stringa in un vettore di oggetti di tipo String
@@ -162,7 +164,7 @@ String testo = "1,8,12,19,21";
 <em>for(int i=0 ; i&lt;parti.length; i++ ){
     numeri[i] = Integer.parseInt( parti[i] );
 }</em>
-</pre>
+</code></pre>
 
     <div class="test">
         <p>Quale dei seguenti blocchi di codice è equivalente a <code>tempi[pos++]=Integer.parseInt(tTempo.getText());</code></p>

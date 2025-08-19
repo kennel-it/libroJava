@@ -32,27 +32,31 @@ Nel momento in cui l'utente premerà l'effettivo pulsante per avviare l'elaboraz
 il programma andrà a verificare se il pulsante di spunta è – appunto – spuntato o meno.</p>
 
 <p>Il pulsante di spunta si chiama – in JavaFX – CheckBox e viene dichiarato allo 
-stesso modo degli altri oggetti grafici, quindi:</p>
-<pre>CheckBox scontoPresente = new CheckBox();</pre>
+stesso modo degli altri oggetti grafici, quindi:
+<code>CheckBox scontoPresente = new CheckBox();</code></p>
 
 <p>Dove inserisci tale dichiarazione?
 Così nel metodo start():</p>
-<pre>public class Sconto extends Application { 
+<pre><code>
+public class Sconto extends Application { 
   @Override
   public void start(Stage primaryStage) {
-    CheckBox scontoPresente = new CheckBox();</pre>
+    CheckBox scontoPresente = new CheckBox();
+</code></pre>
 <p>Oppure così direttamente nella classe fuori dai qualsiasi metodo?</p>
-<pre>public class Sconto extends Application { 
+<pre><code>
+public class Sconto extends Application { 
   CheckBox scontoPresente = new CheckBox();
   @Override
-  public void start(Stage primaryStage) {</pre>
+  public void start(Stage primaryStage) {
+</code></pre>
 <p>La scelta giusta è di inserirlo al livello di classe
 (fuori dai metodi) perché con quest'oggetto il programma interagirà sia al momento della sua disposizione 
 nella finestra sia nel momento in cui l'utente avvia il calcolo, quindi alla pressione del pulsante.</p>
 <p>Nel metodo start() inseriremo anche il testo che dovrà visualizzare in quanto per ora comparirebbe 
 il solo quadratino senza alcunché di spiegazione. La tecnica per impostare il testo di un oggetto è 
-sempre la stessa: usare il metodo setText("testo") che nel nostro esempio sarà:</p>
-<pre>scontoPresente.setText("applica sconto");</pre>
+sempre la stessa: usare il metodo setText("testo") che nel nostro esempio sarà:
+<code>scontoPresente.setText("applica sconto");</code></p>
 
 <p>In alternativa potremmo usare il sistema più compatto che fa indicare il testo direttamente alla costruzione
 dell'oggetto:</p>
@@ -64,23 +68,26 @@ altrimenti la cifra spesa rimarrà immutata. Osserva che il programma non sa a p
 in cui tu lo stai scrivendo, se ci sarà o no lo sconto; serve quindi che tutte le istruzioni del calcolo 
 siano eseguite solo ed esclusivamente se tale fatto sarà verificato. Per questo si utilizza l'istruzione <code>if</code>, 
 in italiano SE. La logica di funzionamento è la seguente:</p>
-<div class="pseudo">
+<pre>
 SE fatto da verificare è vero ALLORA
    fai tutto ciò che serve
 FINE SE
-</div>
+</pre>
 <p>che applicato all'esempio in questione diviene</p>
-<div class="pseudo">SE è presente la spunta su scontoPresente ALLORA
+<pre>
+SE è presente la spunta su scontoPresente ALLORA
    fai il calcolo dello sconto
    sottrai tale sconto
-FINE SE</div>
+FINE SE</pre>
 
 <p>Se quanto sopra scritto in italiano è chiaro puoi passare direttamente alla versione 
 Java che è pari pari quello sopra riportato a meno della scrittura nello specifico linguaggio:</p>
-<pre><em>if( scontoPresente.isSelecteded() ) {</em>
+<pre><code>
+<em>if( scontoPresente.isSelecteded() ) {</em>
    //fai il calcolo dello sconto
    //sottrai lo sconto dal costo
-<em>}</em></pre>
+<em>}</em>
+</code></pre>
 
 <p>Saltano subito all'occhio alcune cose sulla <code>if</code> ed una sulla spunta. Cominciamo da quest'ultima: 
 il metodo <code>isSelected()</code> vale vero se è visuazzata la spunta, altrimenti varrà falso; 
@@ -96,7 +103,7 @@ che dovranno essere eseguite nel caso in cui la condizione è vera. Ciò vuol di
 ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
 
 <p>Il programma, in definitiva e a meno delle importazioni di rito è il seguente:</p>
-<pre>public class Sconto extends Application { 
+<pre><code>public class Sconto extends Application { 
    TextField scontrino = new TextField();
    <em>CheckBox scontoPresente = new CheckBox();</em>
    TextField daPagare = new TextField();
@@ -141,7 +148,8 @@ ossia non c'è la spunta, tali istruzioni non vanno eseguite.</p>
    public static void main(String[] args) {
       launch(args);
    }
-}</pre>
+}
+</code></pre>
 
 <h2>if</h2>
 <p>A questo punto introduciamo formalmente l'istruzione if:</p>
@@ -163,7 +171,7 @@ trovare nuovamente un if.</p>
 
 <div class="test">
    	<p>Quanto vale y alla fine di questo frammento di programma?</p>
-<pre>
+<pre><code>
 int x=7;
 int y=0;
 if(x&lt;5){
@@ -175,7 +183,7 @@ if(x&lt;5){
     y=2;
   }
 }
-</pre>
+</code></pre>
 	<a onclick="sbagliata(this)">0<span class="spiegazione">no, il valore della y viene modificato</span></a> 
 	<a onclick="giusta(this)">1</a>
 	<a onclick="sbagliata(this)">2<span class="spiegazione">no, giustamente si va nella parte else dell'if esterno ma poi...</span></a>
@@ -192,7 +200,7 @@ e una etichetta che si chiama <var>eVolume</var> in cui visualizzeremo il risult
 Se l'utente scriverà un numero negativo nell'etichetta scriveremo 
 "errore: lato negativo".</p>
 
-<pre>
+<pre><code>
 public void calcolaVolume(){
   String testoLato = cLato.getText();
   int lato = Integer.parseInt(testoLato);
@@ -205,7 +213,7 @@ public void calcolaVolume(){
     eVolume.setText(""+volume);
   }
 }
-</pre>
+</code></pre>
 <p>In questo caso l'espressione booleana è <code>lato &lt; 0</code> che varrà
 true se ad esempio il lato è lungo "-7" e false se ad esempio il lato misura "8".</p>
 <p>Per esercizio costruisci il programma e verificane il funzionamento.</p>
@@ -218,12 +226,13 @@ e la risposta sarà: un numero è divisibile per 2 se il resto della divisione
 (stiamo parlando di divisione tra numeri interi) è 0, 
 altrimenti non è divisibile per 2, quindi non è pari e cioè è dispari:</p>
 
-<div class="pseudo">SE il resto della divisione tra il numero e 2 è uguale a 0 ALLORA
+<pre>
+SE il resto della divisione tra il numero e 2 è uguale a 0 ALLORA
    scrivi "il numero è pari"
 ALTRIMENTI
    scrivi "il numero è dispari"
 FINE SE
-</div>
+</pre>
 
 <div class="test">
    	<p>La parte else in un condizionale...</p>
@@ -235,7 +244,8 @@ FINE SE
 <p>In Java per calcolare il resto si usa l'operatore <b>%</b>. 
 Ad esempio 17%10 dà come risultato 7, 8%3 dà come risultato 2 e 55%5 dà come risultato 0. 
 Bene. Posto di aver già realizzato la funzione start(), scriviamo qui la funzione del calcolo:</p>
-<pre>public void verificaPari() {
+<pre><code>
+public void verificaPari() {
    int num;
    num = Integer.parseInt(numero.getText());  //numero è il nome della TextBox con il dato di input
    <em>if(num%2 == 0) {
@@ -243,13 +253,14 @@ Bene. Posto di aver già realizzato la funzione start(), scriviamo qui la funzio
    <em>} else {
       messaggio.setText("il numero è dispari");
    }</em>
-}</pre>
+}
+</code></pre>
 
- <h3></h3>
+<h3>Voto</h3>
 <p>Proviamo a scrivere il programma che controlla
 se un valore inserito è un possibile voto o meno, il dato lo leggiamo dalla casella
 <var>cVoto</var> e il risultato lo scriviamo in <var>eRisposta</var>:</p>
-<pre>
+<pre><code>
 public void controllaVoto(){
   String testoVoto = cVoto.getText();
   int voto = Integer.parseInt(testoVoto);
@@ -260,7 +271,7 @@ public void controllaVoto(){
     eRisposta.setText(voto + " NON è un voto");
   }
 }
-</pre>
+</code></pre>
 
 <div class="test">
    	<p>Quanto vale l'espressione <code>voto&gt;0 &amp;&amp; voto&lt;=10</code> se voto vale 8?</p>
@@ -307,7 +318,8 @@ e per averlo non selezionato scriveremo <code>nomePulsante.setSelected(false)</c
 metodo vale pari anche per le <code>CheckBox</code>; puoi quindi mettere o togliere spunte direttamente da
 programma come meglio credi. Passiamo finalmente al codice:</p>
 
-<pre>TextField nome = new TextField();
+<pre><code>
+TextField nome = new TextField();
 <em>RadioButton maschio = new RadioButton();
 RadioButton femmina = new RadioButton();</em>
 TextField saluto = new TextField();
@@ -350,7 +362,8 @@ public void saluta(){
    } else {
       saluto.setText ("Gentile sig.ra " + nome.getText() + " benvenuta!");
    }
-}</pre>
+}
+</code></pre>
 
 <div class="test">
    	<p>Come si controlla la presenza della spunta su una casella CheckBox?</p>
@@ -371,7 +384,9 @@ in ogni gruppo soltanto un pulsante può essere selezionato (es: se si seleziona
 deselezionato). Se ci sono più gruppi si dichiarano più oggetti 
 <code>ToggleGroup</code> e ciascun pulsante radio andrà legato al proprio gruppo. 
 Per legare un pulsante radio ad un gruppo è sufficiente usare il metodo <code>setToggleGroup()</code> in questo modo:</p>
-<code>nomePulsanteRadio.setToggleGroup(nomeGruppo);</code>
+<pre><code>
+nomePulsanteRadio.setToggleGroup(nomeGruppo);
+</code></pre>
 
 <div class="esercizio">
 	<p>Esercizio: il fantomatico dott. Finger ha inventato la formula per calcolare 

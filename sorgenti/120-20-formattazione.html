@@ -14,7 +14,7 @@
             .codiceEOutput :nth-child(2) { 
                 margin:1em; border:1px solid black;
             }
-        </style>   
+        </style>
     </head>
     <body>
     	<header>
@@ -35,9 +35,11 @@
 		di spazio tra ogni lato del bordo della finestra ed i controlli all'interno. Scriveremo:</p>
 
 <div class="codiceEOutput">
-<pre>griglia.setPadding(new Insets(10, 10, 10, 10));
+<pre><code>
+griglia.setPadding(new Insets(10, 10, 10, 10));
 griglia.setHgap(20); 
-griglia.setVgap(40);</pre>
+griglia.setVgap(40);
+</code></pre>
 <img src="immagini/formattazione_finestra_spaziatura.png" alt="Esempio di pagging e gap" style="margin:1em; border:1px solid black"/>
 </div>
 
@@ -150,7 +152,8 @@ griglia.setVgap(40);</pre>
 		Il <code>GridPane</code> ci offre la possibilità di allineare il contenuto di ciascuna colonna e
 		ciascuna riga. Iniziamo con l'esempio che permette di allineare a destra la prima colonna ed a sinistra la seconda, al centro tutte le righe:</p>
 <div class="codiceEOutput">
-<pre>ColumnConstraints vincoliPrimaColonna = new ColumnConstraints();
+<pre><code>
+ColumnConstraints vincoliPrimaColonna = new ColumnConstraints();
 vincoliPrimaColonna.setHalignment(HPos.RIGHT);
 ColumnConstraints vincoliSecondaColonna = new ColumnConstraints();
 vincoliSecondaColonna.setHalignment(HPos.CENTER);
@@ -162,7 +165,8 @@ RowConstraints vincoliRiga1 = new RowConstraints();
 vincoliRiga1.setValignment(VPos.CENTER);
 RowConstraints vincoliRiga2 = new RowConstraints();
 vincoliRiga2.setValignment(VPos.CENTER);
-griglia.getRowConstraints().addAll(vincoliRiga0, vincoliRiga1, vincoliRiga2);</pre>
+griglia.getRowConstraints().addAll(vincoliRiga0, vincoliRiga1, vincoliRiga2);
+</code></pre>
 <img src="immagini/formattazione_finestra_righeColonne.png" alt="Allineamento nelle righe e nelle colonne" />
 </div>
 		<p>Quel che si fa è creare degli oggetti che rappresentano 

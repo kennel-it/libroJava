@@ -74,20 +74,20 @@ Ovviamente tutte le informazioni di un veicolo saranno registrate allo stesso in
 <p>Quella mostrata qui sotto è una possibile soluzione.</p>
 
 <h3>File: Programma.java</h3>
-<pre>
+<pre><code>
 public class Programma extends Application{
     String targa[];
     String modello[];
     double kmAlLitro[];
     int autoRegistrate = 0;
-    
+
     TextField inTarga = new TextField();
     TextField inModello = new TextField();
     TextField inLitri = new TextField();
     TextField calcTarga = new TextField();
     TextField calcKm = new TextField();
     Label risposta = new Label();
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Button aggiungi = new Button("aggiungi auto");
@@ -107,12 +107,12 @@ public class Programma extends Application{
         gp.add(calcolaSpesa,1,6);
         gp.add(new Label("spesa:"),0,7);
         gp.add(risposta,1,7);
-        
+
         Scene scena = new Scene(gp);
         primaryStage.setScene(scena);
         primaryStage.setTitle("automobili");
         primaryStage.show();
-        
+
         aggiungi.setOnAction(e->aggiungiAuto());
         calcolaSpesa.setOnAction(e->azioneSpesa());
         // ci prendiamo una licenza: non ci saranno mai più di 100 automobili
@@ -120,29 +120,29 @@ public class Programma extends Application{
         modello = new String[100];
         kmAlLitro = new double[100];
     }
-    
+
     public static void main(String args[]){
         launch(args);
     }
-    
+
     private void aggiungiAuto(){
         String t = inTarga.getText();
         String m = inModello.getText();
         double km = Double.parseDouble(inLitri.getText());
-        
+
         targa[autoRegistrate] = t;
         modello[autoRegistrate] = m;
         kmAlLitro[autoRegistrate] = km;
         autoRegistrate++;
         risposta.setText(t+" registrata");
     }
-    
+
     private void azioneSpesa(){
         String t = calcTarga.getText();
         double kilometri = Double.parseDouble(calcKm.getText());
         int trovato = -1;
         double spesa;
-        
+
         for(int i=0;i&lt;autoRegistrate;i++){
             if(targa[i].equals(t)) {
                 trovato=i;
@@ -154,11 +154,11 @@ public class Programma extends Application{
         }else{
             risposta.setText("non trovo "+t);
         }
-        
+
     }
-    
+
 }
-</pre>
+</code></pre>
 
 <p>Questa soluzione funziona... e non è poco! 
 Esiste però una diversa corrente di sviluppo del software che dice che è possibile seguire un altro approccio: 
@@ -216,11 +216,13 @@ che riguardano l'entità.</p>
 <p>Le proprietà sono usuali dichiarazioni di variabili fatte al livello di classe e i metodi
 sono delle funzioni che possono far riferimento alle proprietà dell'oggetto.</p>
 
-<pre>class Nome {
+<pre><code>
+class Nome {
     // proprietà
     
     // metodi 
-}</pre>
+}
+</code></pre>
 
 <dfn>Una <em>proprietà</em> (o attributo) è una variabile dichiarata all'interno di una classe 
 e concorre a rappresentarne lo stato.</dfn>
@@ -292,7 +294,7 @@ ne definisce uno predefinito che non accetta nessun parametro.</p>
 </div>
 
 <p>A questo punto possiamo scrivere l'intera classe <code>Autoveicolo</code>:</p>
-<pre>
+<pre><code>
 public class Autoveicolo {
     String targa;
     String modello;
@@ -307,7 +309,8 @@ public class Autoveicolo {
     public double costoPercorso(double numeroKilometri) {
         return numeroKilometri/kmAlLitro*1.5;
     }
-}</pre>
+}
+</code></pre>
 
 
 <h2>Istanze</h2>
@@ -336,11 +339,11 @@ il metodo <code>equals()</code>).</p>
 <code>automobileMario</code>, <code>automobileLucia</code> e 
 <code>automobileLuigi</code>che avranno lo stesso tipo ma ciascuna avrà un proprio stato 
 e quindi una sua targa, un suo modello e un suo consumo.</p>
-<pre>
+<pre><code>
 Autoveicolo automobileMario = new Autoveicolo("az897rr", "Panda", 18.3);
 Autoveicolo automobileLucia = new Autoveicolo("pp915er", "Corsa", 16.3);
 Autoveicolo automobileLuigi = new Autoveicolo("ba523et", "Discovery", 6.3);
-</pre>
+</code></pre>
 
 <p>Possiamo a questo punto rivedere una riga di codice che abbiamo scritto molte volte:
 <code>Button pulsante = <em>new Button()</em></code>. Con questa istruzione abbiamo creato 
@@ -390,10 +393,10 @@ posso impostare la sua targa scrivendo <code>automobileMario.targa="xd987tt"</co
 
 <div class="test">
     <p>Facendo riferimento alla classe Autoveicolo definito qui sopra</p>
-<pre>Autoveicolo autoAnna = new Autoveicolo("uj7643pl", "Ferrari 488", 11);
+<pre><code>Autoveicolo autoAnna = new Autoveicolo("uj7643pl", "Ferrari 488", 11);
 Autoveicolo autoLuigi = new Autoveicolo("tg530oo", "Fiat panda", 21); 
 autoLuigi.kmAlLitro = 29;
-</pre> 
+</code></pre> 
     <p>Quanto valgono rispettivamente autoAnna.kmAlLitro e autoLuigi.kmAlLitro ?</p>
     <a onclick="giusta(this)">11 e 29
         <span class="spiegazione">giusto, la prorietà kmAlLitro di autoAnna è stata
@@ -416,12 +419,12 @@ per evitare di far confusione tra i nomi delle proprietà e i nomi dei parametri
 <p>Proviamo a vedere come è possibile riscrivere il costruttore del nostro Autoveicolo
 (in effetti normalmente vengono scritti così):</p>
 <h3>File: Autoveicolo.java aggiornato</h3>
-<pre>
+<pre><code>
 public class Autoveicolo {
     String targa;
     String modello;
     double kmAlLitro;
-    
+
     <span class="senzaThis">public Autoveicolo(String t, String m, double l){
         targa = t;
         modello = m;
@@ -432,7 +435,7 @@ public class Autoveicolo {
         this.kmAlLitro = kmAlLitro;
     }</span>
 }
-</pre>
+</code></pre>
 <p>L'istruzione <code><em>this.targa = targa</em></code> serve a copiare il valore della variabile <code>targa</code> 
 passata al costruttore nella proprietà <code>targa</code> di questo oggetto (quello che stiamo creando).</p>
 
@@ -467,12 +470,13 @@ non varia da istanza a istanza della classe <code>Autoveicolo</code>.</p>
 <p>Per enfatizzare il fatto che tali metodi possono essere invocati indipendentemente
 dall'oggetto su cui si sta lavorando, o anche semplicemente se esiste o meno un oggetto
 della classe Autoveicolo anche qui si inserisce la parola static:</p>
-<pre>
+<pre><code>
 static double prezzoBenzina;
 
 static double litriDieciEuro() {
     return 10/prezzoBenzina;
-}</pre>
+}
+</code></pre>
 
 <p>Quando nel programma si vuole utilizzare questo metodo, si dovrà utilizzare la forma
 <code>Autoveicolo.litriDieciEuro()</code> cioè si fa riferimento
@@ -537,19 +541,19 @@ Questi metodi hanno per convenzione il nome che inizia con <em>get</em> o <em>se
 a seconda che si voglia leggere o impostare il valore della proprietà, vediamo
 ad esempio questo meccanismo per la proprietà <var>targa</var>:</p>
 
-<pre>
-    <em>private</em> String targa;
+<pre><code>
+<em>private</em> String targa;
 
-    // per leggere il valore della proprietà targa
-    <em>public String getTarga(){
-        return targa;
-    }</em>
+// per leggere il valore della proprietà targa
+<em>public String getTarga(){
+    return targa;
+}</em>
 
-    // per impostare il valore della proprietà targa
-    <em>public void setTarga(String targa){
-        this.targa=targa;
-    }</em>
-</pre>
+// per impostare il valore della proprietà targa
+<em>public void setTarga(String targa){
+    this.targa=targa;
+}</em>
+</code></pre>
 
 <p>Eclipse può aiutarci nella generazione dei getters and setters:
 click col destro sulla classe nel Package Explorer o sullo sfondo nella finestra del sorgente
@@ -569,7 +573,7 @@ un altro per calcolare il costo di un percorso.</p>
 
 <div class="new">
 <h3>File: Autoveicolo.java</h3>
-<pre>
+<pre><code>
 public class Autoveicolo {
     String targa;
     String modello;
@@ -585,10 +589,10 @@ public class Autoveicolo {
         return numeroKilometri/kmAlLitro*1.5;
     }
 }
-</pre>
+</code></pre>
 </div>
 <h3>File: Programma.java</h3>
-<pre>
+<pre><code>
 public class Programma extends Application{
     <span class="old">
     String targa[];
@@ -596,14 +600,14 @@ public class Programma extends Application{
     double kmAlLitro[];</span>
     <span class="new">Autoveicolo automobili[];</span>
     int autoRegistrate = 0;
-    
+
     TextField inTarga = new TextField();
     TextField inModello = new TextField();
     TextField inLitri = new TextField();
     TextField calcTarga = new TextField();
     TextField calcKm = new TextField();
     Label risposta = new Label();
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Button aggiungi = new Button("aggiungi auto");
@@ -623,12 +627,12 @@ public class Programma extends Application{
         gp.add(calcolaSpesa,1,6);
         gp.add(new Label("spesa:"),0,7);
         gp.add(risposta,1,7);
-        
+
         Scene scena = new Scene(gp);
         primaryStage.setScene(scena);
         primaryStage.setTitle("automobili");
         primaryStage.show();
-        
+
         aggiungi.setOnAction(e->aggiungiAuto());
         calcolaSpesa.setOnAction(e->azioneSpesa());
         // ci prendiamo una licenza: non ci saranno mai più di 100 automobili
@@ -637,29 +641,29 @@ public class Programma extends Application{
         kmAlLitro = new double[100];</span>
         <span class="new">automobili = new Autoveicolo[100];</span>
     }
-    
+
     public static void main(String args[]){
         launch(args);
     }
-    
+
     private void aggiungiAuto(){
         String t = inTarga.getText();
         String m = inModello.getText();
         double km = Double.parseDouble(inLitri.getText());
-        
+
         <span class="old">targa[autoRegistrate] = t;
         modello[autoRegistrate] = m;
         kmAlLitro[autoRegistrate] = km;</span><span class="new">automobili[autoRegistrate] = new Autoveicolo(t, m, km);</span>
         autoRegistrate++;
         risposta.setText(t+" registrata");
     }
-    
+
     private void azioneSpesa(){
         String t = calcTarga.getText();
         double kilometri = Double.parseDouble(calcKm.getText());
         <span class="old">int trovato = -1;</span><span class="new">Autoveicolo trovata = null;</span>
         double spesa;
-        
+
         for(int i=0;i&lt;autoRegistrate;i++){
             <span class="old">if(targa[i].equals(t)) {
                 trovato=i;
@@ -679,22 +683,22 @@ public class Programma extends Application{
         }
     }
 }
-</pre>
+</code></pre>
 
 
 <h2>Test!</h2>
 <h3>Primo.java</h3>
 <p>Data la classe:</p>
-<pre>
+<pre><code>
 public class Primo {
     int x;
     boolean y;
-    
+
     public Primo(int k, boolean p) {
         x = k;
         y = p;
     }
-    
+
     public int leggiVal() {
         int p;
         if(y) {
@@ -704,16 +708,16 @@ public class Primo {
         }
         return p;
     }
-    
+
     public String descrivi(){
         return "n:"+x;
     }
-    
+
     private boolean check(){
         return x&lt;100;
     }
 }
-</pre>
+</code></pre>
 <div class="test">
     <p>Cosa è <code>Primo</code>?</p>
     <a onclick="giusta(this)">il nome della classe</a> 
@@ -764,7 +768,7 @@ public class Primo {
 
 <h3>Esempio.java</h3>
 <p>Data la classe:</p>
-<pre>
+<pre><code>
 public class Esempio {
     public static n;
     public int w;
@@ -776,7 +780,7 @@ public class Esempio {
         return n + c;
     }
 }
-</pre>
+</code></pre>
 
 <div class="test">
     <p>Considera il seguente frammento di programma inserito in un'altra classe:<br/>

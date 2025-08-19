@@ -19,7 +19,7 @@
     questo motivo le parti di programma che gestiscono la lettura o la scrittura dei dati 
     si trovano all'inerno di blocchi try-catch come quello qui sotto</p>
 
-<pre>
+<pre><code>
 try {
     FileReader flussoCaratteri = new FileReader("/Volumes/ramdisk/k.txt");
     BufferedReader lettoreDiRighe = new BufferedReader(flussoCaratteri);
@@ -32,14 +32,15 @@ try {
 } catch (IOException e) {
     System.out.println("Problemi durante la lettura");
 }
-</pre>
+</code></pre>
+
 	<p>Questo è uno schema piuttosto usuale: creo gli oggetti che fanno I/O, leggo (o scrivo) e poi chiudo,
 	il tutto racchiuso in un blocco try-catch per intercettare eventuali eccezioni.
 	È talmente usuale che possiamo usare una scorciatoia chiamata <em>try with resources</em>
 	che ci consente di evitare di scrivere (o di dimenticare!) il close: 
 	all'uscita del try le risorse aperte nel try stesso verranno chiuse in automatico da java in 
 	ogni caso (che siano state sollevate eccezioni o meno).</p>
-<pre>
+<pre><code>
 <em>try(
     FileReader flussoCaratteri = new FileReader("/Volumes/ramdisk/k.txt");
     BufferedReader lettoreDiRighe = new BufferedReader(flussoCaratteri);
@@ -51,7 +52,7 @@ try {
 } catch (IOException e) {
     System.out.println("Problemi durante la lettura");
 }
-</pre>
+</code></pre>
 
     <p>Come si vede le due righe che contenevano i <code>close()</code> sono sparite 
     e prima della graffa di apertura del <code>try</code> sono state inserite due dichiarazioni 

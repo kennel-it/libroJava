@@ -52,7 +52,7 @@ tutto il codice che riguarda la finestra manualmente potrebbe essere noioso...</
 nello stesso pacchetto (cioè nella stessa cartella) e vedere cosa succede.</p>
 
 <h3>File: NomeCognome.java</h3>
-<pre>
+<pre><code>
 package it.aspix.librojava.fxml;
 
 <span class="new">import javafx.fxml.FXML;
@@ -118,11 +118,12 @@ import javafx.stage.Stage;
 		risposta.setText(combinato);
 	}
 }
-</pre><!-- fine programma -->
+</code></pre>
+
 <div class="new">
 <h3>File: NomeCognomePannello.fxml</h3>
 <p>Questo file non deve essere scritto manualmente: può essere costruito usando un apposito programma chiamato SceneBuilder.</p>
-<pre>
+<pre><code>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
 &lt;?import javafx.geometry.Insets?&gt;
@@ -146,11 +147,11 @@ import javafx.stage.Stage;
       &lt;Insets bottom="10.0" left="10.0" right="10.0" top="10.0" /&gt;
    &lt;/padding&gt;
 &lt;/GridPane&gt;
+</code></pre>
 
-</pre>
 </div>
 <h3>File: stili.css</h3>
-<pre>
+<pre><code>
 .label {
 	-fx-text-fill: yellow;
 }
@@ -158,7 +159,7 @@ import javafx.stage.Stage;
 #sfondo {
 	-fx-background-color: black;
 }
-</pre><!-- fine css -->
+</code></pre><!-- fine css -->
 <h2>Come procedere</h2>
 <p>Ovviamente il vantaggio sta nell'avere un programma che non contiene tutta la parte
 ripetitiva riguardante le interfacce ma se dovessimo scrivere manualmente il file .fxml

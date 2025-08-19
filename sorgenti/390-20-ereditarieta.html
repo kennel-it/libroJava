@@ -39,7 +39,8 @@ Queste persone possono essere i commessi del bar, il personale negli uffici,
 quelli che fanno il servizio al corridoio, il dirigente e così via.
 Di queste persone ci interessa il nome, il cognome, l'anno di nascita e il numero di telefono.
 La classe, con relativi costruttori, sarà una cosa del tipo:</p>
-<pre>public class Persona {
+<pre><code>
+public class Persona {
    public String nome;
    public String cognome;
    public int annoNascita;
@@ -58,7 +59,8 @@ La classe, con relativi costruttori, sarà una cosa del tipo:</p>
       this.annoNascita = annoNascita;
       this.telefono = telefono;
    }
-}</pre>
+}
+</code></pre>
 
 <p>Prendiamo in considerazione ora gli alunni: senza dubbio sono persone! 
 Sono persone un po' particolari perché oltre le caratteristiche comuni a tutte le persone,
@@ -71,7 +73,8 @@ si va a creare una nuova classe, in questo caso Studente, e questa non la si fa 
 da zero ma si fa in modo che abbia già in partenza tutto ciò che è nella classe Persona.
 In altre parole la classe Studente <em>estende</em> la classe Persona. Esplicitiamo tutti questi concetti
 tramite il seguente:</p>
-<pre>public class Studente <em>extends Persona</em> {
+<pre><code>
+public class Studente <em>extends Persona</em> {
    public String classe;
    public boolean religione; // false in caso si avvalga dell'attività alternativa
 
@@ -86,7 +89,8 @@ tramite il seguente:</p>
       this.classe = classe;
       this.religione = religione;
    }
-}</pre>
+}
+</code></pre>
 
 <p>In questo esempio <code>Persona</code> è la superclasse 
 (o classe padre) di <code>Studente</code> che viene detta <em>classe figlia</em>.</p>
@@ -114,7 +118,8 @@ Nel momento in cui andremo a dichiarare oggetti, dovremo porre attenzione al liv
 metodo e proprietà.<br/>
 La classe persona a questo punto sarà:</p>
 
-<pre>public class Persona {
+<pre><code>
+public class Persona {
    <em>protected</em> String nome;
    <em>protected</em> String cognome;
    <em>protected</em> int annoNascita;
@@ -135,7 +140,8 @@ La classe persona a questo punto sarà:</p>
    }
 
    /* da aggiungere i metodi get/set per le proprietà */
-}</pre>
+}
+</code></pre>
 
 <p>Una ulteriore attenzione nel momento della progettazione di una classe va
 fatta su quali proprietà e metodi si vuole siano visibili alle classi che estenderanno la classe
@@ -146,7 +152,8 @@ renderli privati e quindi la classe che andrà ad estenderla non potrà usarli d
 <p>Allo stesso modo si potrà realizzare la classe <code>Professore</code>
 estensione di <code>Persona</code> che tiene conto di due caratteristiche
 aggiuntive: la materia insegnata e lo stipendio.</p>
-<pre>public class Professore extends Persona {
+<pre><code>
+public class Professore extends Persona {
    protected String materia;
    <em>private</em> double stipendio;
 
@@ -169,7 +176,7 @@ aggiuntive: la materia insegnata e lo stipendio.</p>
    
    // volutamente non c'è setStipendio
 }
-</pre>
+</code></pre>
 <p>Chi ha progettato la classe <code>Professore</code> ha ad esempio deciso che
 lo stipendio una volta creato l'oggetto non si può più modificare
 ma si può soltanto leggere.</p>
@@ -199,18 +206,22 @@ saranno gli argomenti del caso.</p>
 <h3>Quanti tipi ha un oggetto?</h3>
 <p>La risposta immediata è: uno! Purtroppo però non è del tutto vero: ovviamente un oggetto
 è del tipo che si è scritto nella dichiarazione:</p>
-<pre>Studente mario = new Studente();</pre>
+<pre><code>
+Studente mario = new Studente();
+</code></pre>
 <p><code>mario</code> è di tipo <code>Studente</code> ma... non è anche una
 <code>Persona</code>? Si, lo è, in effetti è perfettamente legale scrivere sotto alla riga precedente</p>
-<pre>Persona anonimo = mario;</pre>
+<pre><code>
+Persona anonimo = mario;
+</code></pre>
 <p>In questo modo però utilizzando la variabile <code>anonimo</code>
 potrò utilizzare soltanto i metodi definiti in <code>Persona</code> o una sua superclasse,
 non più quelli di <code>Studente</code>.
 È altresì possibile usare la variabile <code>mario</code> in tutti i contesti in cui
 serve di usare una <code>Persona</code>. Questo spiega perché usando JavaFX per aggiungere
 un elemento ad una griglia usando il metodo <code>add()</code> si possono inserire molte cose
-diverse, la dichiarazione del metodo dice:</p>
-<pre>add(Node figlio, int indiceColonna, int indiceRiga)</pre>
+diverse, la dichiarazione del metodo dice:
+<code>add(Node figlio, int indiceColonna, int indiceRiga)</code></p>
 <p>Sia <code>Button</code> che <code>Label</code> sono sottoclassi di <code>Node</code>
 quindi possono essere utilizzate nel metodo add, in verità Label (e neanche Button) 
 non è una sottoclasse diretta di Node, la gerarchia completa è:
@@ -220,7 +231,7 @@ Object→<em>Node</em>→Parent→Region→Control→Labeled→<em>Label</em> Pe
 
 <h2>Esercizio</h2>
 <h3>Primo.java</h3>
-<pre>
+<pre><code>
 package it.esempio;
 
 public class Primo {
@@ -233,9 +244,9 @@ public class Primo {
     return "n:"+x;
   }
 }
-</pre>
+</code></pre>
 <h3>Secondo.java</h3>
-<pre>
+<pre><code>
 package it.esempio;
 
 public class Secondo extends Primo {
@@ -249,7 +260,7 @@ public class Secondo extends Primo {
     return c+x+c;
   }
 }
-</pre>
+</code></pre>
 
 <div class="test">
    	<p>L'oggetto <code>Secondo</code> ha un metodo <code>leggiVal()</code>?</p> 

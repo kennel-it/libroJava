@@ -30,7 +30,7 @@ se un utente fa click su un punto della tela vogliamo sapere anche su quale punt
 e in quella occasione leggere le coordinate in cui si trova il puntatore del mouse 
 e disegnare un piccolo quadrato li sotto.</p>
 
-<pre>
+<pre><code>
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -70,11 +70,11 @@ public class Pittore extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 
 <p>La parte evidenziata è diversa da quella solita che usiamo con i pulsanti:</p>
 <ul>
-	<li>il metodo inizia con "add" e non con "set" per enfatizzare il fatto che in questo caso possiamo mettere più
+	<li>il metodo inizia con <em>add</em> e non con <em>set</em> per enfatizzare il fatto che in questo caso possiamo mettere più
 	gestori degli eventi, usando <code>setOnAction</code> ne potevamo mettere soltanto uno</li>
 	<li>specifichiamo esplicitamente di quale evento vogliamo occuparci: 
 	<code>MouseEvent.MOUSE_CLICKED</code> cioè il click del mouse</li>
@@ -91,22 +91,22 @@ ma anche il semplice movimento o il trascinamento del mouse.</p>
 le indicazioni di seguito: il programma deve 
 avere un Canvas chiamato <code>tela</code> a cui collegheremo 3 gestori di eventi:</p>
 
-<pre>
+<pre><code>
 tela.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> gestisciClick(e));
 tela.addEventHandler(MouseEvent.MOUSE_MOVED, e -> gestisciMovimento(e));
 tela.addEventHandler(MouseEvent.MOUSE_DRAGGED, e -> gestisciTrascinamento(e));
-</pre>
+</code></pre>
 
 <p>Al click del mouse il programma deve disegnare un cerchio blu di diametro 9 pixel.</p> 
 
 <p>Il metodo che gestisce il movimento del mouse disegna un
 quadratino giallo sotto al puntatore:</p>
-<pre>
+<pre><code>
 public void gestisciMovimento(MouseEvent e) {
 	gc.setFill(Color.YELLOW);
 	gc.fillRect(e.getX() - 2, e.getY() - 2, 5, 5);
 }
-</pre>
+</code></pre>
 
 <p><code>gestisciTrascinamento(e)</code> fa esattamente la stessa cosa soltanto che 
 il quadratino è di colore verde.</p>

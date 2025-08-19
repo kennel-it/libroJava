@@ -13,7 +13,7 @@
             h2 { clear: both }
             img { padding:1.25em; border: 1px solid gray; margin:0.5em }
             div.test {clear:both }
-        </style>         
+        </style>
     </head>
 <body>
 <header>
@@ -55,7 +55,8 @@
         <dd>rimuove l'elemento presente alla posizione specificata</dd>
     </dl>
     <p>Proviamo a vedere un esempio:</p>
-<pre>// alla creazione di un ArrayiList specifico il tipo degli oggetti che conterrà
+<pre><code>
+// alla creazione di un ArrayiList specifico il tipo degli oggetti che conterrà
 ArrayList&lt;String&gt; elenco = new ArrayList&lt;String&gt;();
 elenco.add("cane");     // elenco conterrà ["cane"] 
 elenco.add("gatto");    // elenco conterrà ["cane", "gatto"]
@@ -69,7 +70,8 @@ System.out.println(nome); // stamperà pollo
 System.out.println(elenco.size()); // stamperà "3" 
 elenco.remove(1);       // elenco conterrà ["pollo", "gatto"]
 System.out.println(elenco.size()); // stamperà "2"
-</pre>   
+</code></pre>
+
     <h2>Le code</h2>
     <p>Una <em>coda</em> (a volte chiamata anche lista) è in pratica l'implemantazione informatica 
     di una coda alla cassa del supermercato: 
@@ -109,7 +111,8 @@ System.out.println(elenco.size()); // stamperà "2"
     <p>Formalmente nella libreria standard java ci sono diversi oggetti che implementano le code,
     va bene ad esempio <code>java.util.LinkedList</code> che in realtà ha qualche metodo
     in più rispetto all'implemtazione di base, vediamo un esempio:</p> 
-<pre>String nome;
+<pre><code>
+String nome;
 LinkedList&lt;String&gt; codaDiNomi = new LinkedList&lt;String&gt;();
 codaDiNomi.add("mario"); // la coda ha un solo elemento: "mario"
 codaDiNomi.add("lucia"); // in fondo alla coda adesso c'è "lucia"
@@ -119,8 +122,8 @@ System.out.println( nome );
 nome = codaDiNomi.element(); // "lucia" perché è l'elemento in testa alla coda
 System.out.println( nome );
 nome = codaDiNomi.remove();  // ancora "lucia" perché element() non lo aveva estratto
-System.out.println( nome );</pre>
-    
+System.out.println( nome );
+</code></pre>
     
     <h2>Le pile</h2>
     <p>Una <em>pila</em> gestisce gli oggetti un po' come... la pila dei piatti: l'ultimo piatto 
@@ -170,7 +173,7 @@ System.out.println( nome );</pre>
     sono i nomi standard che si usano in questo contesto. Il metodo <code>peek</code> guarda in
     cima alla pila ma non rimuove l'elemento. Proviamo a vedere un esempio:</p>
     
-<pre>
+<pre><code>
 String nome;
 Stack&lt;String&gt; pilaDiNomi = new Stack&lt;String&gt;();
 pilaDiNomi.push("mario"); // la pila ha un solo elemento: "mario"
@@ -184,7 +187,7 @@ nome = pilaDiNomi.pop();  // ancora "lucia" perché peek() non lo aveva estratto
 System.out.println( nome );
 nome = pilaDiNomi.pop();  // "mario", quello rimasto in cima alla pila
 System.out.println( nome );
-</pre>
+</code></pre>
 
    
 </article>

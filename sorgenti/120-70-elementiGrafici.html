@@ -7,7 +7,7 @@
 <!-- changelog 2020-02-11 aggiunto Polygon -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-    	<meta charset="UTF-8"/>
+        <meta charset="UTF-8"/>
         <title>elementiGrafici</title>
         <link type="text/css" rel="stylesheet" href="style.css"/>
         <script type="text/javascript" src="script/test.js"></script>  
@@ -27,10 +27,8 @@
             pre { display:none }
             li { margin:1.5em }
             li a { display: inline }
-            
             dl { display: grid ; grid-template-columns: auto 1fr}
             dt,dd { padding-top:0.25em }
-            
         </style> 
         <script type="text/javascript">
             function mostraNascondiCodice(cosa){
@@ -115,7 +113,7 @@ ma per farla breve diciamo così: se serve gestire numeri interi il tipo da usar
 <code>Label</code> contiene un testo non modificabile dall'utente ma impostabile soltanto da
 programma.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -146,7 +144,7 @@ public class DTextField extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="Button">
@@ -156,7 +154,7 @@ public class DTextField extends Application{
 L'oggetto <code>Button</code> è solitamente utilizzato per permettere all'utente di 
 richiedere l'avvio di una azione, per questo di usa il metodo <code>setOnAction()</code>.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -192,7 +190,7 @@ public class DButton extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="TextField">
@@ -205,7 +203,7 @@ se serve intercettare la pressione dell'invio da parte dell'utente si può usare
 <code>setPromptText()</code> serve per inserire un testo che viene mostrato se 
 il cursore non è nella casella e l'utente non ha scritto nulla .</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -245,7 +243,7 @@ public class DTextField extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="CheckBox">
@@ -256,7 +254,7 @@ public class DTextField extends Application{
 il metodo <code>isSelected()</code> che ritorna un boolean permette di controllare se
 la casella è stata spuntata o meno.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -299,7 +297,7 @@ public class DCheckBox extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="RadioButton">
@@ -313,7 +311,7 @@ che quando viene selezionato un radio del gruppo gli altri vengano deselezionati
 <p>Per dire ad un RadioButton di quale gruppo fa parte bisogna usare <code>setToggleGroup()</code>
 mentre per verificare se l'oggetto è selezionato va usato <code>isSelected()</code>.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -374,7 +372,7 @@ public class DRadioButton extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="ListView">
@@ -393,7 +391,7 @@ l'indice dell'elemento selezionato e poi l'elemento stesso. Per recuperare l'ind
 e successivamente recuperare la selezione dall'elenco del contenuto:
 <code>elementoSelezionato = lista.getItems().get(indiceSelezionato)</code>.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -443,7 +441,7 @@ public class DListView extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="TextArea">
@@ -457,7 +455,7 @@ all'occorrenza (sia orizzontali che verticali), per mandare a capo il testo è
 possibile inserire un "\n" direttamente nella stringa o impostare la proprietà 
 <em>WrapText</em> a <code>true</code>.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -491,7 +489,7 @@ public class DTextArea extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="ComboBox">
@@ -509,7 +507,7 @@ il suo contenuto e successivamente aggiungere l'elemento al contenuto:
 <code>combo.getItems().add(elemento)</code>, 
 mentre per leggerne il contenuto basta utilizzare il metodo <code>getValue()</code>.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -551,7 +549,7 @@ public class DComboBox extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="Spinner">
@@ -572,7 +570,7 @@ va impostato con <code>spinner.setValueFactory(valoriPossibili);</code>.</p>
 <p>Per leggere il contenuto dell'elemento bisogna usare <code>getValue()</code> che ritorna
 il tipo che abbiamo usato per creare il controllo (int nel nostro caso) e non necessariamente String.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -620,7 +618,7 @@ public class DSpinner extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 
@@ -646,7 +644,7 @@ e la scala (<code>setShowTickLabels()</code>). L'elemento ha due scale:
 una maggiore e una minore (che può essere praticamente disabilitata impostando
 <code>setMinorTickCount(0)</code>).</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -699,7 +697,7 @@ public class Dx extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 
@@ -727,7 +725,7 @@ usa degli oggetti di tipo
 <code>LocalDate data = LocalDate.of(<i>anno</i>, <i>mese</i>, <i>giorno</i>);</code>
 </p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import java.time.LocalDate;
@@ -776,7 +774,7 @@ public class DDatePicker extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="WebView">
@@ -788,7 +786,7 @@ URL e di seguire i link che mostra, oppure può essere più semplicemente usato 
 visualizzare un documento complesso con testi di diverse misure e colori usanto
 HTML e CSS.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.troppocomplicati;
 
 import javafx.application.Application;
@@ -826,7 +824,7 @@ public class DWebView extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <h2 id="layout">Layout</h2>
@@ -855,7 +853,7 @@ deve occupare più spazi:
 <p>Questo elemento mantiene una dimensione tale da poter disegnare il suo contenuto anche se c'è 
 più spazio a disposizione.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -896,7 +894,7 @@ public class DGridPane extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="BorderPane">
@@ -912,7 +910,7 @@ l'altezza disponibile (visto che gli elementi sopra e sotto già occupano dello 
 discorso analogo per l'elemento a destra. Tutto quel che resta viene occupato dal centro.</p>
 <p>Questo contenitoer si espande per occupare tutto lo spazio disponibile.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -957,7 +955,7 @@ public class DBorderPane extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="TabPane">
@@ -973,7 +971,7 @@ di pannello (ad esempio un GridPane) che viene inserito in ogni <code>Tab</code>
 a sua volta viene inserito nel <code>TabPane</code>.</p> 
 <p>Questo elemento si espande per occupare tutto lo spazio a disposizione.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -1012,7 +1010,7 @@ public class DTabPane extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="Accordion">
@@ -1030,7 +1028,7 @@ Normalmente va utilizzato un qualche tipo di pannello (ad esempio un GridPane) c
 in ogni <code>TitledPane</code> che a sua volta viene inserito nell'<code>Accordion</code>.</p> 
 <p>Questo elemento si espande per occupare tutto lo spazio a disposizione.</p>
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -1066,7 +1064,7 @@ public class DAccordion extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <h2 id="grafica">Grafica</h2>
@@ -1084,7 +1082,7 @@ per farlo usiamo un ulteriore oggetto
 <a href="https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/Image.html">Image</a>
 a cui indichiamo di caricare l'immagoine dalla cartella in cui sta la nostra classe.</p>  
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -1113,7 +1111,7 @@ public class DImageView extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 <section id="Polygon">
@@ -1123,7 +1121,7 @@ public class DImageView extends Application{
 Un <code>Polygon</code> è un elemento che rappresenta un poligono qualsiasi, si costruisce
 specificando le coordinate di tutti i vertici.</p>  
 <span onclick="mostraNascondiCodice(this)" class="pulsante">mostra codice</span>
-<pre>
+<pre><code>
 package it.demo;
 
 import javafx.application.Application;
@@ -1154,7 +1152,7 @@ public class DPolygon extends Application{
         launch(args);
     }
 }
-</pre>
+</code></pre>
 </section>
 
 </article>

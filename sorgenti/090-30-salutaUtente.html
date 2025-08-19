@@ -32,8 +32,10 @@ Per questo gli oggetti appena indicati si dichiareranno appena sotto la riga con
 in modo tale che siano utilizzabili (correttamente si dice <a href="090-25-visibilita.xhtml">visibili</a>)
 nel resto del programma.</p>
 
-<pre>Label messaggio = new Label();
-TextField nome = new TextField();</pre>
+<pre><code>
+Label messaggio = new Label();
+TextField nome = new TextField();
+</code></pre>
 
 <p>Il tipo <code>Label</code> crea un oggetto di tipo testo col quale l'utente non interagisce (un testo scritto che non può essere modificato), 
 in questo caso il messaggio di saluto mentre il tipo <code>TextField</code> crea un oggetto di tipo casella 
@@ -52,8 +54,10 @@ Tale modo di procedere sarà quello che dovrai sempre usare per importare gli og
 <code>start</code> vai a dichiarare altri due oggetti che servono al programma: una casella per scrivere un testo e un pulsante
 (va bene inserirli nella riga dopo alla dichiarazione di <code>start</code>).</p>
 
-<pre>Label mettiNome = new Label();
-Button eseguiSaluto = new Button();</pre>
+<pre><code>
+Label mettiNome = new Label();
+Button eseguiSaluto = new Button();
+</code></pre>
 
 <div class="test">
    	<p>Quale è il tipo degli oggetti usati per permettere all'utente di inserire dei dati?</p>
@@ -68,20 +72,26 @@ Button eseguiSaluto = new Button();</pre>
 griglia organizzata in righe e colonne nella quale inserire i componenti. Prima di tutto lo dichiariamo 
 (subito dopo le 2 precedenti):</p>
 
-<pre>GridPane griglia = new GridPane();</pre>
+<pre><code>
+GridPane griglia = new GridPane();
+</code></pre>
 
 <p>Risolvi l'import come sopra. Ora bisogna impostare il testo visualizzato nei vari oggetti, tranne il campo testo
 (continua ad inserire le righe sotto alle precedenti):</p>
 
-<pre>mettiNome.setText("Nome:");
+<pre><code>
+mettiNome.setText("Nome:");
 messaggio.setText("Sono impaziente...");
-eseguiSaluto.setText("Premi qui");</pre>
+eseguiSaluto.setText("Premi qui");
+</code></pre>
 
 <p>per quanto riguarda il <code>TextField</code> anziché mostrare un testo (sempre impostabile col metodo 
 <code>setText</code>), puoi mostrare un suggerimento (in grigio) che scomparirà non appena l'utente inizierà a 
 inserire del testo nella casella:</p>
 
-<pre>nome.<em>setPromptText</em>("Nome o nomignolo per salutarti");</pre>
+<pre><code>
+nome.<em>setPromptText</em>("Nome o nomignolo per salutarti");
+</code></pre>
 
 <p>Ora che gli oggetti sono pronti non rimane che piazzarli nella griglia e quindi aggiungerli 
 come suoi elementi. Queste operazioni le effettuerai col metodo <code>add(oggetto, numeroColonna, numeroRiga)</code>
@@ -90,7 +100,9 @@ Fai attenzione al fatto che le righe e le colonne sono numerate progressivamente
 La seguente riga di programma (che puoi inserire ancora sotto alle precedenti)
 mette l'etichetta <var>mettiNome</var> nella prima riga e prima colonna di <code>griglia</code>:</p>
 
-<pre>griglia.add(mettiNome, 0, 0);</pre>
+<pre><code>
+griglia.add(mettiNome, 0, 0);
+</code></pre>
 
 <div class="test">
 	<p>Se volessi inserire un pulsante chiamato <var>esegui</var> nell'angolo in alto a sinistra del GridPane 
@@ -101,9 +113,11 @@ mette l'etichetta <var>mettiNome</var> nella prima riga e prima colonna di <code
 </div>
 
 <p>La stessa operazione va svolta per gli altri 3 controlli:</p>
-<pre>griglia.add(nome, 1, 0);
+<pre><code>
+griglia.add(nome, 1, 0);
 griglia.add(eseguiSaluto, 1, 1);
-griglia.add(messaggio, 1, 2);</pre>
+griglia.add(messaggio, 1, 2);
+</code></pre>
 
 <div class="test">
 	<p>Le griglie numerano le righe a partire da</p>
@@ -117,11 +131,13 @@ avere come area <var>griglia</var> e non <var>principale</var>.
 Vai un po' più giù dove trovi <code>pSaluto.setText("Ciao Mondo!")</code>
 (all'interno del metodo esegui). E modificala come così:</p>
 
-<pre>public void esegui() {
+<pre><code>
+public void esegui() {
    String utente;
    utente = nome.getText();
    messaggio.setText("Signor " + utente + " Le auguro buona giornata!");
-}</pre>
+}
+</code></pre>
 
 <p>In questo metodo possiamo vedere la dichiarazione di una variabile di tipo String chiamata utente 
 (prima riga) nella quale inserirai ciò che ha scritto l'utente. Le variabili di questo tipo servono a contenere dei testi.</p>

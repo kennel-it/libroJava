@@ -1,0 +1,38 @@
+/* pulizia per collisioni stili documento principale */
+.bloccoLavoro code { 
+    padding-top : 0 ; padding-bottom:0;
+    display: inline-block;
+    background: transparent;
+}
+
+.stack { border:3px solid #ddd ; margin-top:0em}
+
+.i1 { padding-left:0em }
+.i2 { padding-left:2em }
+.i3 { padding-left:4em }
+
+.bloccoLavoro {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 0em;
+}
+.bloccoLavoro > * {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.bloccoLavoro > *:FIRST-CHILD {
+    align-self: center;
+}
+.bloccoLavoro > *:FIRST-CHILD div{
+    border: 2px solid red;
+    border-radius: 0.35em;
+    background-color: #ddd;
+    padding:0.25em;
+    margin:0.5em;
+}
+.bloccoLavoro > *:nth-child(2){
+    background-color: #e0e0e0;
+}
+.bloccoLavoro > *:nth-child(3){
+    background-color: #eaeaea;
+}

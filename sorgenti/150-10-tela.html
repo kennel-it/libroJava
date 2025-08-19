@@ -28,7 +28,7 @@ e ci consente di disegnarci su linee, cerchi, punti e via di seguito.</p>
 
 <p>Vediamo direttamente un esempio:</p>
 
-<pre>
+<pre><code>
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -69,7 +69,8 @@ public class HelloCanvas extends Application {
   public static void main(String[] args) {
     launch(args);
   }
-}</pre>
+}
+</code></pre>
 
 <p>Come avrai notato non possiamo disegnare direttamente su un canvas ma ci serve ottenere
 un oggetto di tipo GraphicsContext che abbiamo chiamato <var>gc</var>.</p>
@@ -140,24 +141,24 @@ scrivere <var>Image immagine = new Image("it/ittfoligno/terzal/dolomiti.jpg");</
 </ul>
 <div><img src="immagini/esempio_canvas.png" alt="Una linea e un cerchio"/></div>
 
-<pre>
+<pre><code>
 gc.setLineWidth(1);
 gc.setStroke(Color.RED);
 gc.strokeLine(0, 100, 400, 50);
 gc.setStroke(Color.GREEN);
 gc.strokeOval(50, 0, 200, 200);
-</pre>
+</code></pre>
 
 <h3>Cerchio e quadrato</h3>
 <p>In questo altro disegno che usa un Canvas 200x200 
 abbiamo un quadrato rosso di lato 200 e un cerchio verde di diametro 200:</p>
-<pre>
+<pre><code>
 gc.setLineWidth(2);
 gc.setStroke(Color.RED);
 gc.strokeRect(0, 0, 200, 200); 
 gc.setStroke(Color.GREEN);
 gc.strokeOval(0, 0, 200, 200);
-</pre>
+</code></pre>
 <div><img src="immagini/esempio_canvas2.png" alt="Una linea e un cerchio"/></div>
 
 <h2>Effetti speciali</h2>
@@ -166,11 +167,11 @@ un pulsante e l'usuale codice per gestire la sua pressione:</p>
 <pre>pulsante.setOnAction( e -&gt; clickEffetto() );</pre>
 
 <p>Inseriamo poi prima della chiusura della classe il seguente frammento di codice:</p>
-<pre>
+<pre><code>
 public void clickEffetto(){
     gc.applyEffect(new GaussianBlur(20));
 }
-</pre>
+</code></pre>
 <p>Siccome l'oggetto <var>gc</var> viene usato sia in start che in clickEffetto dovremo anche spostare
 la sua dichiarazione (soltanto la dichiarazione!) al livello di classe (fuori da start).</p>
 

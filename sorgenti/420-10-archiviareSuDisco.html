@@ -65,8 +65,10 @@
   <p>L'esempio qui sotto usa l'oggetto <code>File</code> 
   e stampa true o false sulla console a seconda che il file il 
   cui percorso assoluto è "c:/Users/pluto/esempio.txt" esista o meno.</p>  
-<pre>File mioFile = new File("c:/Users/pluto/esempio.txt");
-System.out.println(mioFile.exists());</pre>
+<pre><code>
+File mioFile = new File("c:/Users/pluto/esempio.txt");
+System.out.println(mioFile.exists());
+</code></pre>
   
   
   <h2>Leggere/scrivere bytes</h2>
@@ -86,17 +88,21 @@ System.out.println(mioFile.exists());</pre>
   </div>
   
   <p>Qui sotto un frammento di programma che scrive un byte in un file.</p>
-<pre>File mioFile = new File("c:\\Users\\pluto\\esempio.txt");
+<pre><code>
+File mioFile = new File("c:\\Users\\pluto\\esempio.txt");
 FileOutputStream flussoBytes = new FileOutputStream(mioFile);
 flussoBytes.write(45);
-flussoBytes.close();</pre>
+flussoBytes.close();
+</code></pre>
 
    <p>Mentre questo legge un byte da disco:</p>
-<pre>File mioFile = new File("c:\\Users\\pluto\\esempio.txt");
+<pre><code>
+File mioFile = new File("c:\\Users\\pluto\\esempio.txt");
 FileInputStream flussoBytes = new FileInputStream(mioFile);
 int n = flussoBytes.read();
 System.out.println(n);
-flussoBytes.close();</pre>
+flussoBytes.close();
+</code></pre>
 
     <p>Due cose vanno notate: leggere un byte alla volta è praticamente inutile per noi che
     vogliamo leggere un testo, è possibile creare un FileOutputStream o FileInputStream in maniera più
@@ -111,11 +117,13 @@ flussoBytes.close();</pre>
     <p>Il primo esempio che vediamo usa un <code>OutputStreamWriter</code> 
     per scrivere "ciao" in un file di testo:</p>
     
-<pre>FileOutputStream flussoBytes = new FileOutputStream("c:\\Users\\pluto\\esempio.txt");
+<pre><code>
+FileOutputStream flussoBytes = new FileOutputStream("c:\\Users\\pluto\\esempio.txt");
 OutputStreamWriter flussoCaratteri = new OutputStreamWriter(flussoBytes,"UTF-8");
 flussoCaratteri.write("ciao");
 flussoCaratteri.close();
-flussoBytes.close();</pre>
+flussoBytes.close();
+</code></pre>
 
     <p>Un oggetto di tipo <code>OutputStreamWriter</code> è in grado di scrivere dei testi su disco usando
     una precisa codifica, in questo caso abbiamo scelto "UTF-8" ma se ne possono sceglie altre come
@@ -128,9 +136,11 @@ flussoBytes.close();</pre>
     
     <p>Siccome normalmente i dati si scrivono su un file su disco il programma sopra
     può essere abbreviato in:</p>
-<pre>FileWriter flussoCaratteri = new FileWriter("c:\\Users\\pluto\\esempio.txt");
+<pre><code>
+FileWriter flussoCaratteri = new FileWriter("c:\\Users\\pluto\\esempio.txt");
 flussoCaratteri.write("è");
-flussoCaratteri.close();</pre>
+flussoCaratteri.close();
+</code></pre>
     <p>In questo caso però non possiamo specificare l'encoding e quindi verrà utilizzato quello 
     predefinito sul sistema in uso (Windows e macOS hanno due default diversi).</p> 
      
@@ -138,13 +148,14 @@ flussoCaratteri.close();</pre>
     <code>InputStreamReader</code> che a sua volta usa un <code>FileInputStream</code> oppure usare
     un <code>FileReader</code> direttamente: vediamo la soluzione più breve.</p>
 
-<pre>FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
+<pre><code>
+FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
 char caratteri[] = new char[1000];
 <em>int caratteriLetti = flussoCaratteri.read(caratteri);
 String testo = new String(caratteri,0,caratteriLetti);</em>
 System.out.println(testo);
 flussoCaratteri.close();
-</pre>
+</code></pre>
 
     <p>Come si vede dalla prima riga evidenziata sopra quel che possiamo leggere da un reader è un 
     elenco di caratteri, devo quindi fornire al metodo <code>read()</code> un vettore in
@@ -158,7 +169,9 @@ flussoCaratteri.close();
     <p>Dalle ultime versioni di java è possibile anche creare un FileReader 
     specificando il persorso e l'encoding, la sintassi è un pochino più complicata ma non tanto:</p>
     
-<pre>FileReader flussoCaratteri = new FileReader("percorso.txt",Charset.forName("UTF-8"))</pre>    
+<pre><code>
+FileReader flussoCaratteri = new FileReader("percorso.txt",Charset.forName("UTF-8"))
+</code></pre>
 
 
     <h2>Leggere/scrivere righe di testo</h2>
@@ -170,20 +183,24 @@ flussoCaratteri.close();
     che legge la prima riga di un file.</p>
     
     
-<pre>FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
+<pre><code>
+FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
 BufferedReader lettoreDiRighe = new BufferedReader(flussoCaratteri);
 String testo = lettoreDiRighe.readLine();
 System.out.println(testo);
 lettoreDiRighe.close();
-flussoCaratteri.close();</pre>
+flussoCaratteri.close();
+</code></pre>
 
     <p>Scrivere una riga alla volta si può fare semplicemente usando un FileWriter
     (o un OutputStreamWriter) in questo modo:</p>
     
-    <pre>String testo="Questa è una riga";
+<pre><code>
+String testo="Questa è una riga";
 FileWriter flussoCaratteri = new FileWriter("c:\\Users\\pluto\\esempio.txt");
 flussoCaratteri.write(testo+"\n");
-flussoCaratteri.close();</pre>
+flussoCaratteri.close();
+</code></pre>
 
     <div class="test">
     <p>Quando scriverò i dati su disco usando un FileWriter quale carattere indicherà "a capo"?</p> 
@@ -198,7 +215,8 @@ flussoCaratteri.close();</pre>
     fino a quando raggiunge la fine del file, in quel caso ritorna <code>null</code>, questo
     ci permette di scrivere un ciclo che legga tutte le righe di un file:</p>
 
-<pre>FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
+<pre><code>
+FileReader flussoCaratteri = new FileReader("c:\\Users\\pluto\\esempio.txt");
 BufferedReader lettoreDiRighe = new BufferedReader(flussoCaratteri);
 String rigaLetta;
 do {
@@ -209,7 +227,9 @@ do {
     }
 }while(rigaLetta!=null);
 lettoreDiRighe.close();
-flussoCaratteri.close();</pre>
+flussoCaratteri.close();
+</code>
+</pre>
 
     <p>Torna più comodo usare un ciclo a controllo finale perché prima leggo la riga,
     in caso contenga qualcosa faccio quel che devo e poi se ho raggiunto la fine del file 
@@ -224,7 +244,9 @@ flussoCaratteri.close();</pre>
     (in fondo ovviamente!) e non per sovrascriverlo, questa modalità
     di lavorare è nota come "append mode" e usando un <code>FileWriter</code>
     si può attivare così: </p>
-<pre> FileWriter scrittore = new FileWriter("nomeDelFile"<em>, true</em>)</pre>
+<pre><code>
+FileWriter scrittore = new FileWriter("nomeDelFile"<em>, true</em>)
+</code></pre>
     <p>Quel <code>true</code> in fondo è quello che attiva l'append-mode.</p>
 
 
@@ -232,9 +254,11 @@ flussoCaratteri.close();</pre>
     <p>Solitamente il ciclo per leggere le righe da un file si scrive in un altro modo
     che a prima vista potrebbe sembrare meno comprensibile ma è più comdo:</p>
 
-<pre>while( (rigaLetta = lettoreDiRighe.readLine())!=null ) {
+<pre><code>
+while( (rigaLetta = lettoreDiRighe.readLine())!=null ) {
     System.out.println(rigaLetta);
-}</pre>  
+}
+</code></pre>
 
     <p>Direttamente nella condizione del while assegno a <code>rigaLetta</code>
     il valore letto dal file e siccome l'assegnazione per java è una espressione posso 

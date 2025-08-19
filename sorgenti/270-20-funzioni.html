@@ -53,10 +53,8 @@
         	.prog .esecuzione { background-color:yellow }
         	h2 { margin-bottom:0em }
         	h3 { margin-bottom:0em ; text-align: center}
-        	
         	.stack { margin-top:0em }
             .nl {opacity:0.5; padding-right: 2em}
-            
             .bloccoLavoro {
                 display: grid;
                 grid-template-columns: min-content min-content min-content;
@@ -74,7 +72,6 @@
                 grid-area: didascalia ; background-color: yellow; height:3em ; 
                 margin:0; text-indent: 0
             }
-            
             .bloccoLavoro > *:FIRST-CHILD div{
                 text-align: center;
                 border: 2px solid red;
@@ -83,8 +80,7 @@
                 padding:0.25em;
                 margin:0.5em;
             }
-
-        </style>         
+        </style>
     </head>
 <body>
 <header>
@@ -96,7 +92,7 @@
 poniamo di voler costruire un programma per calcolare la media o il massimo di
 un elenco di valori contenuti in una casella di testo, il risultato sarebbe un programma
 come quello qui sotto.</p>
-<pre class="daEvidenziare">
+<pre><code>
 public class MediaMaggiorePlain extends Application{
 
     TextField valori = new TextField();
@@ -162,7 +158,8 @@ public class MediaMaggiorePlain extends Application{
         launch(args);
     }   
 }
-</pre>
+</code></pre>
+
 <p>Una parte del codice è evidenziata per far vedere che ci sono due segmenti
 che si ripetono praticamente identici, questo fatto comporta una serie di problemi:</p>
 <ul>
@@ -176,7 +173,7 @@ che si ripetono praticamente identici, questo fatto comporta una serie di proble
 Questa funzione farà un lavoro ben determinato: leggerà i dati dalla casella <code>valori</code> 
 e avrà come risultato un vettore di interi, in pratica: </p>
 
-<pre>
+<pre><code>
 <em>int[]</em> leggiDati(){
     String testi[] = valori.getText().split(" ");
     int numeri[] = new int[testi.length];
@@ -185,7 +182,7 @@ e avrà come risultato un vettore di interi, in pratica: </p>
     }
     return <em>numeri</em>;
 }
-</pre>
+</code></pre>
 
 <p>Proviamo a vedere cosa c'è scritto nel pezzo di codice precedente. 
 Dalla prima riga, che è la dichiarazione della funzione, si possono ricavare alcune informazioni:
@@ -201,7 +198,8 @@ di un <code>Button</code>, niente di più, quel che cambia è che possiamo diret
 scrivere il nome della funzione perché si trova nella nostra classe
 (non serve scrivere il nome di un oggetto seguito da ".")</p>
 
-<pre>void trovaMassimo(){
+<pre><code>
+void trovaMassimo(){
     <em>int numeri[] = leggiDati()</em>;
     int massimo;
        
@@ -213,7 +211,7 @@ scrivere il nome della funzione perché si trova nella nostra classe
     }
     risposta.setText(""+massimo);
 }
-</pre>
+</code></pre>
 
 <h2>Passaggio di parametri</h2>
 
@@ -226,7 +224,7 @@ tonde che seguono il nome della funzione una sequenza di dichiarazioni,
 proviamo a vedere ad esempio una funzione che calcola il totale di una spesa:</p>
 
 
-<pre>
+<pre><code>
 // definizione
 double calcolaPrezzoTotale(<em>int quantita, double prezzoUnitario</em>) {
     double totale;
@@ -234,15 +232,16 @@ double calcolaPrezzoTotale(<em>int quantita, double prezzoUnitario</em>) {
     totale = quantita * prezzoUnitario;
 
     return totale;
-}</pre>
+}
+</code></pre>
 
-<pre>
+<pre><code>
 // uso (chiamata)
 double t;
 int q = 5;
 double pu = 3.2;
 <em>t = calcolaPrezzoTotale(q , pu)</em>;
-</pre>
+</code></pre>
 
 <p>I parametri presenti nella definizione si chiamano <em>parametri formali</em> mentre
 quelli nella chiamata vengono detti <em>parametri attuali</em>.</p>
@@ -258,7 +257,7 @@ nell'ordine.</p>
 che viene chiamata) avviene per valore: questo vuol dire che nel parametro formale
 viene copiato il valore passato come parametro attuale.</p>
 
-<pre>
+<pre><code>
 static void incrementaNumero(int i){
     i++;
 }
@@ -268,7 +267,7 @@ public static void main(String args[]){
     incrementaNumero(x);
     System.out.println(x); // stampa sempre "1"
 }
-</pre>
+</code></pre>
 
 <p>In caso i parametri siano di tipo riferimento quello che viene passato
 è una copia dell'indirizzo di memoria del parametro attuale: questo significa
@@ -276,7 +275,7 @@ che se la funzione apporta delle modifiche al parametro formale queste queste
 saranno in pratica applicate anche al parametro attuale,
 sarà molto più chiaro con un esempio:</p>
 
-<pre>
+<pre><code>
 static void incrementaElementi(int m[]){
     for(int i=0; i&lt;m.length; i++){
         m[i]++;
@@ -294,7 +293,7 @@ public static void main(String args[]){
     s = v[0]+v[1];
     System.out.println(s); // stampa "8"
 }
-</pre>
+</code></pre>
 
 
 <h2>Valore restituito</h2>
@@ -370,12 +369,6 @@ somma viene copiato nella variabile a che quindi a questo punto conterrà 12.</p
 </div>
 
 
-
-
-
-
-
-
 <h2>Continua esempio</h2>
 <p>Tornando all'esempio iniziale potrebbe succedere che l'elenco dei numeri
 si trovi in una casella oppure in un'altra, in questo caso la nostra funzione
@@ -384,7 +377,7 @@ perché legge sempre dalla stessa casella: potrebbe far comodo
 modificare la funzione in modo che prenda come input un testo 
 e restituisca un vettore di numeri (esattamente come prima). 
 Chiamiamo questa nuova funzione <em>daStringaAVettore</em>.</p>
-<pre>
+<pre><code>
 int[] daStringaAVettore(<em>String testo</em>){ 
     String testi[] = testo.split(" ");
     int numeri[] = new int[testi.length];
@@ -393,7 +386,7 @@ int[] daStringaAVettore(<em>String testo</em>){
     }
     return numeri;
 }
-</pre>
+</code></pre>
 
 <p>In questo caso per usare la funzione sarà necessario fare un passaggio in più perché la funzione 
 vuole un dato in input (un testo) quindi leggerò un testo e lo passerò come parametro:</p>
@@ -424,7 +417,7 @@ vuole un dato in input (un testo) quindi leggerò un testo e lo passerò come pa
 
 
 <div class="test">
-<pre>
+<pre><code>
 public class Incrementa {
     static int incrementa(int x){ 
         x++;
@@ -436,7 +429,7 @@ public class Incrementa {
         System.out.println(a+", "+b);
     }
 }
-</pre>
+</code></pre>
     <p>cosa comparirà come risultato del programma sopra?</p>
     <a onclick="sbagliata(this)">11, 11<span class="spiegazione">no, la variabile a non viene modificata
     dalla funzione perché x contiene una copia del valore di a, non è la stessa variabile</span></a> 

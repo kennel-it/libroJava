@@ -33,9 +33,6 @@ perché potrebbe rendere il codice meno chiaro o più rigido.</li>
 </ul>
 
 
-
-
-
 <h2>Rubrica</h2>
 
 <p>Dobbiamo realizare un programma che funga da rubrica per una società sportiva che gestisce
@@ -48,7 +45,7 @@ memorizzare il numero di telefono, il nome e il tempo migliore sui 100m.</p>
 <p>Il mio programma che permette di visualizzare
 i numeri di telefono si chiama <code>VisualizzatoreRubrica</code> e per adesso
 questa classe ha due soli metodi pubblici:</p>
-<pre>
+<pre><code>
 class VisualizzatoreRubrica {
 	/* altri metodi e proprietà */
 	
@@ -61,7 +58,7 @@ class VisualizzatoreRubrica {
         ...
     }
 }
-</pre>
+</code></pre>
 
 <p>E se in futuro venissero create altre entità (ad esempio "Allenatore" o "Palestra") che io volessi visualizzare? Dovrei di nuovo andare a modificare
 <code>VisualizzatoreRubrica</code>. Questa cosa è tutt'altro che comoda perché ad esempio ad occuparsi di tale parte di programma potrebbe essere un
@@ -85,12 +82,12 @@ che deve avere una classe che lo implementa.</dfn>
 <p>Una interfaccia si dichiara in un file come una normale classe ma sostituendo
 <code>class</code> con <code>interface</code>.</p>
 <p>Questa qui sotto è la nostra interfaccia:</p>
-<pre>
+<pre><code>
 public <em>interface</em> ElementoRubrica {
     <em>public String getNome();
     public String getNumero();</em>
 }
-</pre>
+</code></pre>
 <div class="test">
    	<p>Cosa ha di strano questo file?</p> 
 	<a onclick="sbagliata(this)">i metodi sono public<span class="spiegazione">lo possono essere come nelle classi</span></a> 
@@ -105,7 +102,7 @@ un oggetto deve avere.</p>
 <p>Adesso dobbiamo dichiarare che il nostro Atleta si comporta anche come un ElementoRubrica: 
 dobbiamo cioè <em>implementare</em> l'interfaccia usando la parola chiave <code>implements</code>.</p>
 
-<pre>
+<pre><code>
 public class Atleta <em>implements</em> ElementoRubrica {
     private String nome;
     private String numero;
@@ -121,7 +118,7 @@ public class Atleta <em>implements</em> ElementoRubrica {
         return numero;
     }
 }
-</pre>
+</code></pre>
 
 <p>Sebbene in Java sia possibile estendere una sola classe si possono però
 implementare quante interfacce si vuole (separandone i nomi da ",").
@@ -134,15 +131,15 @@ perché nella definizione dell'interfaccia io non ho definito il suo comportamen
 posso ignorare quale oggetto particolare devo visualizzare, mi interessa soltanto
 che implementi l'opportuna interfaccia <code>ElementoRubrica</code>. Il nostro
 codice diventa:</p>
-<pre>
+<pre><code>
 class VisualizzatoreRubrica {
     /* altri metodi e variabili */
     void visualizza(ElementoRubrica e){
-	    campoNome.setText(e.getNome());
-	    ...
+        campoNome.setText(e.getNome());
+        ...
     }
 }
-</pre>
+</code></pre>
 <p>Adesso al metodo <code>visualizza()</code> non interessa quale tipo di oggetto viene passato ma
 soltanto che implementi l'interfaccia <code>ElementoRubrica</code>.
 Se volessi implementare questa interfaccia anche nell'oggetto Allenatore

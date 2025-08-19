@@ -51,95 +51,95 @@
 	</div>
 	
 	
-<pre id="areaEvidenziabile">
-<code data-riguarda=""    ><span class="comment">// Il pacchetto, cioè la cartella in cui viene inserito questo file</span></code>
-<code data-riguarda=""    ><span class="keyword-directive">package</span> esercizi;</code>
+<pre id="areaEvidenziabile"><code>
+<span class="row"  data-riguarda=""    ><span class="comment">// Il pacchetto, cioè la cartella in cui viene inserito questo file</span></span>
+<span class="row"  data-riguarda=""    ><span class="keyword-directive">package</span> esercizi;</span>
 
-<code data-riguarda=""    ><span class="comment">// l&#39;elenco degli oggetti (con la loro posizione all&#39;interno dei pacchetti</span></code>
-<code data-riguarda=""    ><span class="comment">// standard di java) che vengono usati in questa classe</span></code>
-<code data-riguarda=""    ><span class="keyword-directive">import</span> javafx.application.Application;</code>
-<code data-riguarda=""    ><span class="keyword-directive">import</span> javafx.event.ActionEvent;</code>
-<code data-riguarda=""    ><span class="keyword-directive">import</span> javafx.event.EventHandler;</code>
-<code data-riguarda=""    ><span class="keyword-directive">import</span> javafx.scene.Scene;</code>
-<code data-riguarda="s"   ><span class="keyword-directive">import</span> javafx.scene.control.Button;</code>
-<code data-riguarda="n"   ><span class="keyword-directive">import</span> javafx.scene.control.TextField;</code>
-<code data-riguarda="p"   ><span class="keyword-directive">import</span> javafx.scene.layout.GridPane;</code>
-<code data-riguarda="em"  ><span class="keyword-directive">import</span> javafx.scene.control.Label;</code>
-<code data-riguarda=""    ><span class="keyword-directive">import</span> javafx.stage.Stage;</code>
+<span class="row"  data-riguarda=""    ><span class="comment">// l&#39;elenco degli oggetti (con la loro posizione all&#39;interno dei pacchetti</span></span>
+<span class="row"  data-riguarda=""    ><span class="comment">// standard di java) che vengono usati in questa classe</span></span>
+<span class="row"  data-riguarda=""    ><span class="keyword-directive">import</span> javafx.application.Application;</span>
+<span class="row"  data-riguarda=""    ><span class="keyword-directive">import</span> javafx.event.ActionEvent;</span>
+<span class="row"  data-riguarda=""    ><span class="keyword-directive">import</span> javafx.event.EventHandler;</span>
+<span class="row"  data-riguarda=""    ><span class="keyword-directive">import</span> javafx.scene.Scene;</span>
+<span class="row"  data-riguarda="s"   ><span class="keyword-directive">import</span> javafx.scene.control.Button;</span>
+<span class="row"  data-riguarda="n"   ><span class="keyword-directive">import</span> javafx.scene.control.TextField;</span>
+<span class="row"  data-riguarda="p"   ><span class="keyword-directive">import</span> javafx.scene.layout.GridPane;</span>
+<span class="row"  data-riguarda="em"  ><span class="keyword-directive">import</span> javafx.scene.control.Label;</span>
+<span class="row"  data-riguarda=""    ><span class="keyword-directive">import</span> javafx.stage.Stage;</span>
 
-<code data-riguarda=""    ><span class="comment">/****************************************************************************</span></code>
-<code data-riguarda=""    ><span class="comment"> * Definizione</span> <span class="comment">dell</span><span class="comment">&#39;</span><span class="comment">oggetto</span></code>
-<code data-riguarda=""    ><span class="comment"> **************************************************************************</span><span class="comment">*/</span></code>
-<code data-riguarda=""    ><span class="keyword-directive">public</span> <span class="keyword-directive">class</span> <span class="ST0">HelloNome</span> <span class="keyword-directive">extends</span> Application {</code>
+<span class="row"  data-riguarda=""    ><span class="comment">/****************************************************************************</span></span>
+<span class="row"  data-riguarda=""    ><span class="comment"> * Definizione</span> <span class="comment">dell</span><span class="comment">&#39;</span><span class="comment">oggetto</span></span>
+<span class="row"  data-riguarda=""    ><span class="comment"> **************************************************************************</span><span class="comment">*/</span></span>
+<span class="row"  data-riguarda=""    ><span class="keyword-directive">public</span> <span class="keyword-directive">class</span> <span class="ST0">HelloNome</span> <span class="keyword-directive">extends</span> Application {</span>
     
-<code data-riguarda=""    >    <span class="comment">// lo spazio in cui inserire il messaggio di risposta </span></code>
-<code data-riguarda="m"   >    Label <span class="ST1">messaggio</span> = <span class="keyword-directive">new</span> Label("Sono impaziente...");</code> 
-<code data-riguarda=""    >    <span class="comment">// la casella di testo in cui l&#39;utente dovrà inserire il nome</span></code>
-<code data-riguarda="n"   >    TextField <span class="ST1">nome</span> = <span class="keyword-directive">new</span> TextField();</code>
+<span class="row"  data-riguarda=""    >    <span class="comment">// lo spazio in cui inserire il messaggio di risposta </span></span>
+<span class="row"  data-riguarda="m"   >    Label <span class="ST1">messaggio</span> = <span class="keyword-directive">new</span> Label("Sono impaziente...");</span> 
+<span class="row"  data-riguarda=""    >    <span class="comment">// la casella di testo in cui l&#39;utente dovrà inserire il nome</span></span>
+<span class="row"  data-riguarda="n"   >    TextField <span class="ST1">nome</span> = <span class="keyword-directive">new</span> TextField();</span>
     
-<code data-riguarda=""    >    @Override</code>
-<code data-riguarda=""    >    <span class="keyword-directive">public</span> <span class="keyword-directive">void</span> <span class="ST0">start</span>(Stage primaryStage) {</code>
-<code data-riguarda=""    >        <span class="comment">// la variabili che diachiaro qui vengono usate soltanto dentro </span></code>
-<code data-riguarda=""    >        <span class="comment">// il metodo start()</span></code>
+<span class="row"  data-riguarda=""    >    @Override</span>
+<span class="row"  data-riguarda=""    >    <span class="keyword-directive">public</span> <span class="keyword-directive">void</span> <span class="ST0">start</span>(Stage primaryStage) {</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// la variabili che diachiaro qui vengono usate soltanto dentro </span></span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// il metodo start()</span></span>
 
-<code data-riguarda=""    >        <span class="comment">// l'etichetta che comparirà alla sinistra della casella di testo, </span></code>
-<code data-riguarda=""    >        <span class="comment">// è un testo non modificabile dall'utente, e</span></code>
-<code data-riguarda=""    >        <span class="comment">// imposto direttamente nel costruttore il messagio che dovrà comparire</span></code>
-<code data-riguarda="e"   >        Label mettiNome = new Label("Nome:");</code>
-<code data-riguarda=""    >        <span class="comment">// il pulsante da premere, contestualmente alla creazione imposto anche il testo del pulsante</span></code>
-<code data-riguarda="s"   >        Button eseguiSaluto = <span class="keyword-directive">new</span> Button("Premi qui");</code>
+<span class="row"  data-riguarda=""    >        <span class="comment">// l'etichetta che comparirà alla sinistra della casella di testo, </span></span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// è un testo non modificabile dall'utente, e</span></span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// imposto direttamente nel costruttore il messagio che dovrà comparire</span></span>
+<span class="row"  data-riguarda="e"   >        Label mettiNome = new Label("Nome:");</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// il pulsante da premere, contestualmente alla creazione imposto anche il testo del pulsante</span></span>
+<span class="row"  data-riguarda="s"   >        Button eseguiSaluto = <span class="keyword-directive">new</span> Button("Premi qui");</span>
  
-<code data-riguarda=""    >        <span class="comment">// il testo di aiuto relativo alla casella che conterrà nome e cognome</span></code>
-<code data-riguarda="n"   >        <span class="ST1">nome</span>.setPromptText(<span class="character">&quot;</span><span class="character">Nome o nomignolo per salutarti</span><span class="character">&quot;</span>);</code>
-<code data-riguarda=""    >        <span class="comment">// collego una azione alla pressione del pulsante</span></code>
-<code data-riguarda="s"   >        eseguiSaluto.setOnAction(e -&gt; saluta() );</code>
+<span class="row"  data-riguarda=""    >        <span class="comment">// il testo di aiuto relativo alla casella che conterrà nome e cognome</span></span>
+<span class="row"  data-riguarda="n"   >        <span class="ST1">nome</span>.setPromptText(<span class="character">&quot;</span><span class="character">Nome o nomignolo per salutarti</span><span class="character">&quot;</span>);</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// collego una azione alla pressione del pulsante</span></span>
+<span class="row"  data-riguarda="s"   >        eseguiSaluto.setOnAction(e -&gt; saluta() );</span>
         
-<code data-riguarda=""    >        <span class="comment">// creo un nuovo pannello organizzato come una griglia e la chiamo griglia</span></code>
-<code data-riguarda="p"   >        GridPane griglia = <span class="keyword-directive">new</span> GridPane();</code>
-<code data-riguarda=""    >        <span class="comment">// inserisco i singoli oggetti nella griglia</span></code>
+<span class="row"  data-riguarda=""    >        <span class="comment">// creo un nuovo pannello organizzato come una griglia e la chiamo griglia</span></span>
+<span class="row"  data-riguarda="p"   >        GridPane griglia = <span class="keyword-directive">new</span> GridPane();</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// inserisco i singoli oggetti nella griglia</span></span>
 
-<code data-riguarda=""    >        <span class="comment">// inserisco mettiNome in griglia impostando anche i vincoli (coordinate)</span></code>
-<code data-riguarda="ep"  >        griglia.add(mettiNome, 0, 0);</code>
-<code data-riguarda=""    >        <span class="comment">// inserisco nome in griglia impostando anche i vincoli (coordinate)</span></code>
-<code data-riguarda="np"  >        griglia.add(<span class="ST1">nome</span>, 1, 0);</code>
-<code data-riguarda=""    >        <span class="comment">// inserisco eseguiSaluto in griglia impostando anche i vincoli (coordinate)</span></code>
-<code data-riguarda="sp"  >        griglia.add(eseguiSaluto, 1, 1);</code>
-<code data-riguarda=""    >        <span class="comment">// inserisco messaggio in griglia impostando anche i vincoli (coordinate)</span></code>
-<code data-riguarda="mp"  >        griglia.add(<span class="ST1">messaggio</span>, 1, 2);</code>
+<span class="row"  data-riguarda=""    >        <span class="comment">// inserisco mettiNome in griglia impostando anche i vincoli (coordinate)</span></span>
+<span class="row"  data-riguarda="ep"  >        griglia.add(mettiNome, 0, 0);</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// inserisco nome in griglia impostando anche i vincoli (coordinate)</span></span>
+<span class="row"  data-riguarda="np"  >        griglia.add(<span class="ST1">nome</span>, 1, 0);</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// inserisco eseguiSaluto in griglia impostando anche i vincoli (coordinate)</span></span>
+<span class="row"  data-riguarda="sp"  >        griglia.add(eseguiSaluto, 1, 1);</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// inserisco messaggio in griglia impostando anche i vincoli (coordinate)</span></span>
+<span class="row"  data-riguarda="mp"  >        griglia.add(<span class="ST1">messaggio</span>, 1, 2);</span>
         
-<code data-riguarda=""    >        <span class="comment">// creo una nuova Scene grande 500 punti in orizzontale e 250 in verticale che contiene griglia</span></code>
-<code data-riguarda="p"   >        Scene scene = <span class="keyword-directive">new</span> Scene(griglia, 500, 250);</code>
+<span class="row"  data-riguarda=""    >        <span class="comment">// creo una nuova Scene grande 500 punti in orizzontale e 250 in verticale che contiene griglia</span></span>
+<span class="row"  data-riguarda="p"   >        Scene scene = <span class="keyword-directive">new</span> Scene(griglia, 500, 250);</span>
         
-<code data-riguarda=""    >        <span class="comment">// imposto il titolo della finestra</span></code>
-<code data-riguarda="f"   >        primaryStage.setTitle(<span class="character">&quot;</span><span class="character">Un saluto personalizzato</span><span class="character">&quot;</span>);</code>
-<code data-riguarda=""    >        <span class="comment">// imposto la scena principale della finestra</span></code>
-<code data-riguarda="f"   >        primaryStage.setScene(scene);</code>
-<code data-riguarda=""    >        <span class="comment">// mostro la finestra sullo schermo</span></code>
-<code data-riguarda="f"   >        primaryStage.show();</code>
-<code data-riguarda=""    >    }</code>
+<span class="row"  data-riguarda=""    >        <span class="comment">// imposto il titolo della finestra</span></span>
+<span class="row"  data-riguarda="f"   >        primaryStage.setTitle(<span class="character">&quot;</span><span class="character">Un saluto personalizzato</span><span class="character">&quot;</span>);</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// imposto la scena principale della finestra</span></span>
+<span class="row"  data-riguarda="f"   >        primaryStage.setScene(scene);</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// mostro la finestra sullo schermo</span></span>
+<span class="row"  data-riguarda="f"   >        primaryStage.show();</span>
+<span class="row"  data-riguarda=""    >    }</span>
 
-<code data-riguarda=""    >    <span class="comment">// serve per far partire questo programma</span></code>
-<code data-riguarda=""    >    <span class="keyword-directive">public</span> <span class="keyword-directive">static</span> <span class="keyword-directive">void</span> <span class="ST3">main</span>(String[] args) {</code>
-<code data-riguarda=""    >        <span class="ST2">launch</span>(args);</code>
-<code data-riguarda=""    >    }</code>
+<span class="row"  data-riguarda=""    >    <span class="comment">// serve per far partire questo programma</span></span>
+<span class="row"  data-riguarda=""    >    <span class="keyword-directive">public</span> <span class="keyword-directive">static</span> <span class="keyword-directive">void</span> <span class="ST3">main</span>(String[] args) {</span>
+<span class="row"  data-riguarda=""    >        <span class="ST2">launch</span>(args);</span>
+<span class="row"  data-riguarda=""    >    }</span>
     
-<code data-riguarda=""    >    <span class="comment">/************************************************************************</span></code>
-<code data-riguarda=""    >    <span class="comment"> * Questo</span> <span class="comment">metodo</span> <span class="comment">legge</span> <span class="comment">il</span> <span class="comment">nome</span> <span class="comment">dalla</span> <span class="comment">casella</span> <span class="comment">di</span> <span class="comment">testo</span><span class="comment"> (</span><span class="comment">TextField</span><span class="comment">)</span></code>
-<code data-riguarda=""    >    <span class="comment"> * e</span> <span class="comment">scrive</span> <span class="comment">il</span> <span class="comment">saluto</span> <span class="comment">nel</span> <span class="comment">campo</span> <span class="comment">di</span> <span class="comment">testo</span><span class="comment"> (</span><span class="comment">Label</span><span class="comment">)</span></code>
-<code data-riguarda=""    >    <span class="comment"> **********************************************************************</span><span class="comment">*/</span></code>
-<code data-riguarda=""    >    <span class="keyword-directive">public</span> <span class="keyword-directive">void</span> <span class="ST0">saluta</span>() {</code>
-<code data-riguarda=""    >        <span class="comment">// dichiaro una variabile che conterrà il nome dell&#39;utente</span></code>
-<code data-riguarda=""    >        String utente;</code>
-<code data-riguarda=""    >        <span class="comment">// leggo il nome dell&#39;utente dalla casella di testo</span></code>
-<code data-riguarda=""    >        <span class="comment">// e lo scrivo nella variabile "utente"</span></code>
-<code data-riguarda="n"   >        utente = <span class="ST1">nome</span>.getText();</code>
-<code data-riguarda=""    >        <span class="comment">// scrivo un messaggio dentro l&#39;etichetta di testo chiamata &quot;messaggio&quot;</span></code>
-<code data-riguarda="m"   >        <span class="ST1">messaggio</span>.setText(<span class="character">&quot;</span><span class="character">Signor </span><span class="character">&quot;</span> + utente + <span class="character">&quot;</span><span class="character"> le auguro buona giornata.</span><span class="character">&quot;</span>);</code> 
-<code data-riguarda=""    >    }</code>
+<span class="row"  data-riguarda=""    >    <span class="comment">/************************************************************************</span></span>
+<span class="row"  data-riguarda=""    >    <span class="comment"> * Questo</span> <span class="comment">metodo</span> <span class="comment">legge</span> <span class="comment">il</span> <span class="comment">nome</span> <span class="comment">dalla</span> <span class="comment">casella</span> <span class="comment">di</span> <span class="comment">testo</span><span class="comment"> (</span><span class="comment">TextField</span><span class="comment">)</span></span>
+<span class="row"  data-riguarda=""    >    <span class="comment"> * e</span> <span class="comment">scrive</span> <span class="comment">il</span> <span class="comment">saluto</span> <span class="comment">nel</span> <span class="comment">campo</span> <span class="comment">di</span> <span class="comment">testo</span><span class="comment"> (</span><span class="comment">Label</span><span class="comment">)</span></span>
+<span class="row"  data-riguarda=""    >    <span class="comment"> **********************************************************************</span><span class="comment">*/</span></span>
+<span class="row"  data-riguarda=""    >    <span class="keyword-directive">public</span> <span class="keyword-directive">void</span> <span class="ST0">saluta</span>() {</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// dichiaro una variabile che conterrà il nome dell&#39;utente</span></span>
+<span class="row"  data-riguarda=""    >        String utente;</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// leggo il nome dell&#39;utente dalla casella di testo</span></span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// e lo scrivo nella variabile "utente"</span></span>
+<span class="row"  data-riguarda="n"   >        utente = <span class="ST1">nome</span>.getText();</span>
+<span class="row"  data-riguarda=""    >        <span class="comment">// scrivo un messaggio dentro l&#39;etichetta di testo chiamata &quot;messaggio&quot;</span></span>
+<span class="row"  data-riguarda="m"   >        <span class="ST1">messaggio</span>.setText(<span class="character">&quot;</span><span class="character">Signor </span><span class="character">&quot;</span> + utente + <span class="character">&quot;</span><span class="character"> le auguro buona giornata.</span><span class="character">&quot;</span>);</span> 
+<span class="row"  data-riguarda=""    >    }</span>
     
-<code data-riguarda=""    >}</code>
+<span class="row"  data-riguarda=""    >}</span>
 
-</pre>
+</code></pre>
 </article>
 </body>
 </html>

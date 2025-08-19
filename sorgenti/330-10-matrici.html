@@ -19,7 +19,8 @@
    colonna alla quale si vuole accedere. Per creare oggetti valgono esattamente le regole viste per il vettore.</p>
 <p>Non rimane che risolvere qualche problema.</p>
 <h3>La tavola pitagorica (da 1 a 11)</h3>
-<pre>public class Pitagorica extends Application {
+<pre><code>
+public class Pitagorica extends Application {
    Text <var>elementi</var>[][];
    <br/>
    public void start(Stage <var>primaryStage</var>) {
@@ -36,11 +37,13 @@
       <var>primaryStage</var>.setScene(<var>scena</var>);
       <var>primaryStage</var>.show();
    }
-}</pre>
+}
+</code></pre>
 <h3>Il massimo ed il minimo (matrice non ordinata)</h3>
 <p>Si scorrono tutti gli elementi, cioè una riga alla volta tutti gli elementi in ciascuna colonna e via via si tiene memoria di quale è il minimo ed il
    massimo fino a quel momento</p>
-<pre>public class MinMax extends Application {
+<pre><code>
+public class MinMax extends Application {
    int <var>matrice</var>[][];
    TextField <var>indicaRighe</var> = new TextField();
    TextField <var>indicaColonne</var> = new TextField();
@@ -48,7 +51,7 @@
    Text <var>risMin</var> = new Text("...");
    Text <var>risMax</var> = new Text("...");
    int numRighe, numColonne, rCar, cCar; //Le ultime due sono il n° di righe e colonne caricate
-   <br/>
+
    public void start(Stage <var>primaryStage</var>) {
       Text <var>lIndicaRighe</var> = new Text("N° righe");
       Text <var>lIndicaColonne</var> = new Text("N° colonne");
@@ -95,14 +98,14 @@
       <var>primaryStage</var>.setScene(<var>scena</var>);
       <var>primaryStage</var>.show();
    }
-   <br/>
+
    public void dimensiona() {
       <var>numRighe</var> = Integer.parseInt(<var>indicaRighe</var>.getText());
       <var>numColonne</var> = Integer.parseInt(<var>indicaColonne</var>.getText());
       <var>matrice</var> = new int[<var>numRighe</var>][<var>numColonne</var>];
       rCar = cCar = 0;
    }
-   <br/>
+
    public void carica() {
       if(<var>rCar</var> &lt; <var>numRighe</var>) {
          if(<var>cCar</var> &lt; <var>numColonne</var>) {
@@ -116,7 +119,7 @@
          <var>elemento</var>.setText("Matrice piena.");
       }
    }
-   <br/>
+
    public void calcola() {
       int <var>massimo</var>, <var>minimo</var>, <var>riga</var>, <var>colonna</var>;
       for(<var>riga</var> = 0; <var>riga</var> &lt; <var>rCar</var>; <var>riga</var>++) {
@@ -132,7 +135,9 @@
       <var>risMin</var>.setText(<var>minimo</var> + "");
       <var>risMax</var>.setText(<var>massimo</var> + "");
    }
-}</pre>
+}
+</code></pre>
+
 <h3>Il re mangia?</h3>
 <p>Viene data una normale scacchiera di 8 righe ed 8 colonne, si dispone il re in una certa posizione e 4 pezzi avversari in altrettante posizioni. Ci si
    chiede se, una volta individuato il re, questi possa mangiare un pezzo avversario. Anche se è possibile risolvere questo problema in modo meno costoso,
@@ -140,7 +145,8 @@
    2 se contiene uno dei 4 avversari.</p>
 <p>Sebbene la posizione del re si conosca, per risolvere questo esercizio facciamo a meno di tale informazione; andremo quindi a curiosare in ciascuna cella
    della matrice fino a trovare il re o arrivare alla fine della scacchiera.</p>
-<pre>public class ReMangia extends Application {
+<pre><code>
+public class ReMangia extends Application {
    int <var>scacchiera</var>[][] = new int[8][8];
    TextField <var>reX</var> = new TextField(); //Contiene il numero di colonna del re
    TextField <var>reY</var> = new TextField(); //Contiene il numero di riga del re
@@ -151,7 +157,7 @@
    Button <var>impostaAvversario</var> = new Button("Posiziona l'avversario 1");
    Text <var>ris</var> = new Text("...");
    int <var>numAvversario</var>;
-   <br/>
+
    public void start(Stage <var>primaryStage</var>) {
       Text <var>lReX</var> = new Text("Colonna del re");
       Text <var>lReY</var> = new Text("Riga del re");
@@ -194,7 +200,7 @@
       <var>primaryStage</var>.setScene(<var>scena</var>);
       <var>primaryStage</var>.show();
    }
-   <br/>
+
    public void reXY() {   //Quando posiziono il re pulisco prima tutta la matrice da eventuali impostazioni precedenti
       int <var>riga</var>, <var>colonna</var>;
       for(<var>riga</var> = 0; <var>riga</var> &lt; 8; <var>riga</var>++) {
@@ -210,7 +216,7 @@
       <var>colonna</var> = Integer.parseInt(<var>reY</var>.getText());
       <var>scacchiera</var>[<var>riga</var>][<var>colonna</var>] = 1;
    }
-   <br/>
+
    public void avversarioXY() {
       int <var>riga</var>, <var>colonna</var>;
       <var>riga</var> = Integer.parseInt(<var>avversarioX</var>.getText());
@@ -231,7 +237,7 @@
             <var>avversarioY</var>.setText("posizionati");
          }
    }
-   <br/>
+
    public void mangia() {
       int <var>riga</var>, <var>colonna</var>, <var>conta</var>, <var>i</var>, <var>j</var>;
       for(<var>conta</var> = <var>riga</var> = 0; <var>riga</var> &lt; 8; <var>riga</var>++) {
@@ -261,7 +267,8 @@
          <var>ris</var>.setText("Non hai possibilità di mangiare.");
       }
    }
-}</pre>
+}
+</code></pre>
 <p>Giunto ormai è il momento di provare da soli.</p>
 <p>Prova ad implementare le due varianti di caricamento di una matrice: tramite matrice di TextField e tramite un'unica TextField.</p>
 <div class="esercizio">
@@ -274,24 +281,27 @@
    predefinito nella prima e nella seconda cella 1; in tutte le altre procedi col seguente algoritmo: in una cella metti la somma del
    contenuto di tutte le celle precedenti. Così nella cella (0, 2) ci sarà 1+1 = 2; nella cella (0, 3) ci sarà 1+1+2 = 4 e così via.
 </div>
-<div class="esercizio"><h3>Quadrato (un po') magico</h3>
+<div class="esercizio">
+   <em>Quadrato (un po') magico.</em>
    Data una matrice quadrata di <var>n</var> righe caricata dall'utente con numeri interi, verificare se per ogni casella la somma degli
    elementi della riga è uguale alla somma degli elementi della colonna; tale valore deve essere il medesimo per ogni riga e colonna.
    Personalizza la casella di testo con uno sfumatura colorata, imposta il carattere con un font a tuo piacere e di misura abbastanza
    grande e di colore abbinato allo sfondo.
 </div>
-   
-<div class="esercizio"><h3>Il sentiero senza fine</h3>
+<div class="esercizio">
+   <em>Il sentiero senza fine.</em>
    Data una matrice quadrata di stringhe di <var>n</var> righe già caricata, sapendo che in una sola cella può esserci scritto "Partenza",
    individuare tale cella (non mostrare però il risultato ottenuto). Adiacente (su, giù, dx, sx) a tale cella vi è una sola cella
    contentente il testo "sentiero" che a sua volta avrà adiacente un'altra sola cella contenente "sentiero" e così via. Mostrare la
    posizione dell'ultima cella del percorso. Imposta tramite css le caratteristiche della TextField nella quale mostri il risultato.
 </div>
-<div class="esercizio"><h3>Battaglia navale</h3>
+<div class="esercizio">
+   <em>Battaglia navale.</em>
    Caricata una matrice quadrata di interi per la battaglia navale di <var>n</var> righe, chiesta all'utente la posizione che vuole colpire,
    dire se il colpo è caduto in acqua (cella contenente 0) oppure indicare la dimensione della nave colpita (celle adiacenti contenenti 1).
 </div>
-<div class="esercizio"><h3>Vettore nascosto</h3>
+<div class="esercizio">
+   <em>Vettore nascosto.</em>
    Data una matrice di <var>n</var> righe ed <var>m</var> colonne e dato un vettore di <var>n</var> elementi, dire se in una qualche colonna
    della matrice è contenuto il vettore indicato.
 </div>
