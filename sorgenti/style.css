@@ -1,11 +1,12 @@
 /* color noGroup #f5f5f5 grey 100 */
 /* color infrastruttura #90caf9 blue 200 */
-/* color base #7cb342 Orange 600 */
+/* color base #98db51 */
 /* color grafica #ffee58 yellow 400 */
 /* color file #ba68c8 Green 400 */
-/* color algoritmiStruttureDati #a1887f */
+/* color algoritmiStruttureDati #c9b9a5 */
 /* color riferimenti #b0bec5 */
 /* color giochi #ff9100 */
+/* color oggetti #ff4f4f */
 /* placeholder color map HTML */
 
 * {
@@ -33,6 +34,7 @@ body.file                    header { background-color: var(--colore-sfondo-file
 body.algoritmiStruttureDati  header { background-color: var(--colore-sfondo-algoritmiStruttureDati) }
 body.riferimenti             header { background-color: var(--colore-sfondo-riferimenti) }
 body.giochi                  header { background-color: var(--colore-sfondo-giochi) }
+body.oggetti                  header { background-color: var(--colore-sfondo-oggetti) }
 header    { margin:0 ; padding:0 }
 header h1 { margin:0 ; padding:2rem 3em 0.5rem 3em ; text-align: center }
 header p  { margin:0 ; padding: 0.5rem 1rem 2rem 1rem ; text-align: center }
@@ -44,6 +46,7 @@ header p  { margin:0 ; padding: 0.5rem 1rem 2rem 1rem ; text-align: center }
 .legenda.algoritmiStruttureDati { background-color: var(--colore-sfondo-algoritmiStruttureDati) }
 .legenda.riferimenti            { background-color: var(--colore-sfondo-riferimenti) }
 .legenda.giochi                 { background-color: var(--colore-sfondo-giochi) }
+.legenda.oggetti                { background-color: var(--colore-sfondo-oggetti) }
 .legenda                        { border:1px solid gray; padding:0.5em ; margin-top:1em }
 /* -------------------------- precedente - indice - successiva --------------------------------- */
 body.noGroup                 nav { background-color: var(--colore-sfondo-noGroup-chiaro) }
@@ -54,6 +57,7 @@ body.file                    nav { background-color: var(--colore-sfondo-file-ch
 body.algoritmiStruttureDati  nav { background-color: var(--colore-sfondo-algoritmiStruttureDati-chiaro) }
 body.riferimenti             nav { background-color: var(--colore-sfondo-riferimenti-chiaro) }
 body.giochi                  nav { background-color: var(--colore-sfondo-giochi-chiaro) }
+body.oggetti                 nav { background-color: var(--colore-sfondo-oggetti-chiaro) }
 nav {
     margin:0; padding: 1rem;
     display: flex; flex-direction: row 
@@ -68,6 +72,7 @@ body.file                    nav > * { background-color: var(--colore-sfondo-fil
 body.algoritmiStruttureDati  nav > * { background-color: var(--colore-sfondo-algoritmiStruttureDati-scuro) }
 body.riferimenti             nav > * { background-color: var(--colore-sfondo-riferimenti-scuro) }
 body.giochi                  nav > * { background-color: var(--colore-sfondo-giochi-scuro) }
+body.oggetti                 nav > * { background-color: var(--colore-sfondo-oggetti-scuro) }
 nav > * {
     flex-grow: 1;
     text-align:center; text-decoration: none;
@@ -94,6 +99,7 @@ em {
 }
 dfn {
     display: block;
+    font-style: normal;
     padding: 0.75em;
     background-color: var(--colore-box-evidenziati-sfondo);
     border-top: 0.5em solid var(--colore-box-evidenziati-bordo) 
@@ -136,11 +142,11 @@ pre {
     overflow: auto;
 }
 pre > * {
-    line-height: 125%; padding: 0.5em;
+    line-height: 125%; padding: 0.5em; overflow: auto;
 }
 pre samp { display: block; background-color: #a7fa9d; }
 pre code { display: block; background-color: #eeeeee; }
-p code { color: var(--colore-testo-poco-evidenziato); white-space: nowrap;}
+p code, li code { color: var(--colore-testo-poco-evidenziato); white-space: nowrap;}
 code {
     padding:0.5em
 }

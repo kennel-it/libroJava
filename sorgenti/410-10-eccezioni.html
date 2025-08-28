@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- autoIndex requires="ereditarietà" group="algoritmiStruttureDati" -->
+<!-- autoIndex requires="ereditarietà" group="base" -->
 <!-- changelog 2018-08-31 corretto errore formulazione esercizio eccezioni -->
 <!-- changelog 2018-09-03 dipendenza verso "ereditarieta" -->
 <!-- changelog 2018-09-04 messo in chiaro il discorso delle unchecked exceptions -->
@@ -72,13 +72,13 @@ e che rappresenta un problema che insorge a tempo di esecuzione.</dfn>
 <p>Esiste un modo per controllare cosa
 fare in caso si presenti una situazione del genere. Quello che ci serve è un costrutto sintattico
 chiamato try-catch che nella sua forma più semplice si usa così:</p>
-<pre>
+<pre><code>
 try{
   /* parte di codice che può creare problemi */
 }catch( tipo_dell_eccezione nome){
   /* codice per gestire l'eccezione */
 }
-</pre>
+</code></pre>
 <p>Se la parte del codice racchiusa nel <code>try</code> fosse composta da 10 linee 
 e l'eccezione venisse sollevata dalla prima linea le restanti 9 non verrebbero eseguite 
 e il programma passerebbe alla parte dentro al catch (se l'eccezione è del tipo giusto).</p> 
@@ -117,7 +117,7 @@ public void scambia() {
 </div>
 
 <p>È possibile anche che più di una cosa vada male... in questo caso posso mettere più catch:</p> 
-<pre>
+<pre><code>
 try{
   /* parte di codice che può creare problemi */
 }catch( tipo_dell_eccezione_1 nome){
@@ -125,7 +125,7 @@ try{
 }catch( tipo_dell_eccezione_2 nome){
   /* codice per gestire l'eccezione del secondo tipo */
 }
-</pre>
+</code></pre>
 
 <p>Una ultima considerazione: non tutte le eccezioni sono uguali... alcune eccezioni devono obbligatoriamente
 essere gestite dal programma altre no!</p>
