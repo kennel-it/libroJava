@@ -88,57 +88,60 @@ I primi due sono Open Source e il terzo no ma è molto usato.</p>
 
 <h3>Il nostro ambiente</h3>
 <p>Va bene una qualsiasi combinazione di JDK+IDE+JavaFX che consenta di sviluppare applicazioni,
-qui riportiamo la soluzione più semplice che usa tutto software Open: Eclipse come IDE e il JDK
-di BellSoft (perché include già JavaFX e ci risparmia un po' di lavoro e di seccature) come JDK.</p>
+qui riportiamo la soluzione più semplice che usa tutto software Open:
+<em>Visual Studio Code</em> come IDE e
+il <em>JDK di BellSoft</em>
+(perché include già JavaFX e ci risparmia un po' di lavoro e di seccature) come JDK.</p>
 
 <h2>Installazione</h2>
 <p><em>Attenzione:</em> le indicazioni che verranno date qui sotto
 vanno seguite molto scrupolosamente, prima di prendere una versione
-diversa da quella specificate è meglio chiedere perché potrebbe succedere che alcune combinazioni di
-Edclipse/JDK non siano del tutto compatibili.</p>
+diversa da quella specificate è meglio informarsi bene perché potrebbe succedere
+che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
 
 
 <h2>Installazione ambiente di sviluppo</h2>
 <ol>
-    <li>Scaricare Eclipse
+    <li>Scaricare Visual Studio Code
         <ul>
-            <li>Andare alla <a href="https://www.eclipse.org/downloads/packages/">
-            pagina dei download di Eclipse</a>, la versione deve essere 2025-06 o successiva
-            (ad esempio 2025-09 o 2026-03 vanno bene)</li>
-            <li>Non scaricare l'installer ma il file da scompattare
-            "Eclipse IDE for Enterprise Java and Web Developers",
-            fate però attenzione all'architettura (x86_64 o AArch64):
+            <li>Andare alla <a href="https://code.visualstudio.com/Download">
+            pagina dei download di Visual Studio Code</a> va bene sacaricare l'ultima versione</li>
+            <li>È spesso più pratico non scaricare l'installer ma il file da scompattare,
+            fate però attenzione all'architettura (x86/Intel o Arm64/Apple silicon):
             <ul>
                 <li>Per Linux: da terminale usate il comando `uname -m` che vi darà l'indicazione necessaria</li>
                 <li>Per macOS: dal menu mela in alto a sinistra fate click su "Informazioni su questo Mac",
-                se come Chip trovate qualcosa che inizia con "Apple M..." scaricate AArch64 altrimenti x86_64</li>
-                <li>Per Windows scaricate x86_64</li>
+                se come Chip trovate qualcosa che inizia con "Apple M..." scaricate Applesilicon
+                altrimenti Intel chip</li>
+                <li>Per Windows scaricate x86</li>
             </ul>
-            <br/>
-            <img src="immagini/eclipse-download.png" alt="download Eclipse"/>
             </li>
             <li>Scompattare il file .zip appena scaricato sulla scrivania (<em>Attenzione</em>: per
             scompattare questo file serve un programma che funzioni bene, purtroppo non
-            è il caso della funzionalità base di windows, se non ne avete uno potete scaricare e installare
+            è il caso della funzionalità base di windows (da confermare con 11),
+            se non ne avete uno potete scaricare e installare
             <a href="https://www.7-zip.org/download.html">7zip</a>, va bene il tipo "msi" per Windows 64bit)</li>
         </ul>
     </li>
-    <li>Scaricare e installare il JDK versione 21 Liberica dal sito di Bell Soft:
+    <li>Scaricare e installare il JDK versione 25 Liberica dal sito di Bell Soft:
         <ul>
             <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
-            are click su "JDK 21 LTS"</li>
+            are click su "JDK 25 LTS"</li>
             <li>scorrere in basso fino alla sezione del vostro sistema operativo e fate click
-            sulla vostra architettura (qui chiamano "AArch64" come "ARM" e X86_64 come "x86")</li>
+            sulla vostra architettura (qui chiamano "ARM" e "x86", vale il discorso di prima
+            per capire quale è la vostra architettura)</li>
             <li>come "Package" scegliere "Full JDK"<br/>
+                FIXME: immagine errata
             <img src="immagini/download-liberica.png" alt="passi per download JDK liberica"/>
             </li>
             <li>scaricare lo zip</li>
             <li>scompattare il file zip sulla scrivania</li>
         </ul>
     </li>
-    <li>Arrivati a questo punto sulla scrivania devono esserci due cartelle: una di eclipse (chiamata "eclipse")
-    e una del JDK (con un nome tipo "jdk-21.0.5-full").</li>
-    <li>Configurare Eclipse
+    <li>Arrivati a questo punto sulla scrivania devono esserci due cartelle:
+        una con VS Code (chiamata "???")
+        e una del JDK (con un nome tipo "jdk-25.0.5-full").</li>
+    <li>Configurare VS Code
     	<ul>
     		<li>avviare eclipse (doppio click sul programma eclipse che si trova nella sua cartella)</li>
     		<li>al primo avvio compare un pannello "Select a directory as workspace", quella è la cartella
