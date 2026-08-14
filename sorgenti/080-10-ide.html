@@ -143,20 +143,43 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
         e una del JDK (con un nome tipo "jdk-25.0.5-full").</li>
     <li>Configurare VS Code
     	<ul>
-    		<li>avviare eclipse (doppio click sul programma eclipse che si trova nella sua cartella)</li>
-    		<li>al primo avvio compare un pannello "Select a directory as workspace", quella è la cartella
-    		in cui Eclipse metterà tutti i file su cui lavora, la possiamo lasciare dove dice Eclipse o
-    		crearne una sulla scrivania, una volta deciso click su "launch"</li>
-    		<li>aprire le preferenze di Eclipse: menu "Window/Preferences"</li>
-            <li>Aprire il gruppo "Java" e poi selezionare "Installed JREs"</li>
-    		<li>rimuovere l'unico JDK presente (e anche tutti gli altri se ce ne fossero) e poi
-    		aggiungerne uno nuovo<br/>
-            <img src="immagini/eclipse-configurazione-1.png" alt="confiugurazione jdk in eclipse"/></li>
-            <li>scegliere "Standard VM" e click su "next"</li>
-            <li>click sul pulsante "Directory..." e selezionare la cartella del JDK che
-            è stata scompattata prima sulla scrivania</li>
-        	<li>nel campo "JRE name" comparirà automaticamente un nome (qualcosa tipo "jdk-21.0.2-full"),
-        	click su "finish"</li>
+    		<li>avviare VS Code (il programma si chiama "code" nella cartella scompattata)</li>
+            <li>appena avviato click sul pulsante a destra con le estensioni (numero ?? della figura)
+            e cercare scrivendo nella casella in alto "java", nell'elenco tra le prime estensioni compare
+            "Extension Pack for Java" di Microsoft, da installare questa</li>
+            <li>quando l'estensione parte chiede di installare un JDK ma noi lo abbiamo già preso
+            e vogliamo usare il nostro quindi ignoriamo la richiesta</li>
+            <li>il JDK va impostato comepre prefernza in VS Code: premi CTRL+SHIFT+P (o COMMAND+SHIFT+P sul mac)
+            e compare in alto una casella che si chiama <em>command palette</em> e che useremo spesso
+            per dare velocemente dei comandi a vscode, nella palette scrivi "user settings" e dalle voci che
+            compaiono sotto fai click su "Preferences: Open User Settings (JSON)", dovrebbe comparire
+            un file con soltanto "{}" visto che VS Code è stato appena installato</li>
+            <li> Tra le due graffe fa inserito il pezzo qui sotto
+            <pre>
+                "java.configuration.runtimes": [
+                    {
+                        "name": "JavaSE-25",
+                        "path": "/Users/edoardo/Desktop/jdk-25.0.4-full.jdk",
+                        "default": true
+                    }
+                ]
+            </pre>
+            il file che si ottiene dovrebbe essere una cosa del tipo:
+            <pre>
+            {
+                "java.configuration.runtimes": [
+                    {
+                        "name": "JavaSE-25",
+                        "path": "/Users/nome/Desktop/jdk-25.0.4-full.jdk",
+                        "default": true
+                    }
+                ]
+            }
+            </pre>
+            attenzione che nel caso di windows il percorso contarrà dei "\" che verranno segnalati come errori,
+            vanno sostituiti con "\\".
+            </li>
+            <li>chiudi il pannello, il contenuto viene salvato automaticamente</li>
 		</ul>
     </li>
 </ol>
