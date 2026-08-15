@@ -1,7 +1,8 @@
 ## compilare il libro
 
-Bisogna usare [ebook](https://github.com/kennel-it/ebook)
-
+Bisogna usare [ebook](https://github.com/kennel-it/ebook):
+`java -jar lib/ebook.jar sorgenti compilati`
+o lanciandolo senza parametri si apre l'interfaccia grafica
 
 # debug in locale
 
