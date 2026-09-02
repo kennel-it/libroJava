@@ -19,7 +19,7 @@
     --colore-box-evidenziati-bordo: #ffab40;
     --colore-box-evidenziati-rilievo: #ffab40;
 
-    --colore-suggerimenti-testo: #000000; 
+    --colore-suggerimenti-testo: #000000;
     --colore-suggerimenti-sfondo: #05dfdf;
     --colore-suggerimenti-bordo: #00acac;
 }
@@ -60,9 +60,9 @@ body.giochi                  nav { background-color: var(--colore-sfondo-giochi-
 body.oggetti                 nav { background-color: var(--colore-sfondo-oggetti-chiaro) }
 nav {
     margin:0; padding: 1rem;
-    display: flex; flex-direction: row 
+    display: flex; flex-direction: row
 }
-nav a { color: white } 
+nav a { color: white }
 nav#toc a { color: black } /* per indice in elenco */
 body.noGroup                 nav > * { background-color: var(--colore-sfondo-noGroup-scuro) }
 body.infrastruttura          nav > * { background-color: var(--colore-sfondo-infrastruttura-scuro) }
@@ -76,19 +76,19 @@ body.oggetti                 nav > * { background-color: var(--colore-sfondo-ogg
 nav > * {
     flex-grow: 1;
     text-align:center; text-decoration: none;
-    margin:0em 1em; padding:0.5em; 
+    margin:0em 1em; padding:0.5em;
 }
 /* --------------------------- parti principali della pagina --------------------------------- */
 article, section { margin:1em 5% ; padding-bottom:3em}
-h2 { 
+h2 {
     text-align: left;
     margin-top:3rem;
-    border-bottom:1px dashed #444; 
+    border-bottom:1px dashed #444;
 }
-h3 { 
-    text-align: left; 
+h3 {
+    text-align: left;
     margin-top:2rem;
-    border-bottom:1px dotted #999; 
+    border-bottom:1px dotted #999;
 }
 p, dfn {
     text-align: justify;
@@ -102,7 +102,7 @@ dfn {
     font-style: normal;
     padding: 0.75em;
     background-color: var(--colore-box-evidenziati-sfondo);
-    border-top: 0.5em solid var(--colore-box-evidenziati-bordo) 
+    border-top: 0.5em solid var(--colore-box-evidenziati-bordo)
 }
 dfn em { font-style: normal; font-weight: bold; font-size: 115%; color: var(--colore-testo-molto-evidenziato) }
 img.screen_shot { border:1px solid gray; margin: 0.5em }
@@ -114,7 +114,7 @@ table { border-collapse: collapse }
 td,th { border:1px solid #444 ; padding:0.25em}
 
 
-.approfondimento { 
+.approfondimento {
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 100;
     border-left: 0.2em dashed var(--colore-box-evidenziati-bordo);
@@ -125,7 +125,7 @@ td,th { border:1px solid #444 ; padding:0.25em}
 .approfondimento:before {
     content: "🔍 per saperne di più";
     font-size: 150%;
-    background-color: var(--colore-box-evidenziati-sfondo); 
+    background-color: var(--colore-box-evidenziati-sfondo);
     padding: 0.2em;
 }
 
@@ -154,9 +154,9 @@ code em {
 	font-style: normal;
 }
 var {
-    color: #a45920; 
+    color: #a45920;
     font-size: 110%;
-    font-style: italic 
+    font-style: italic
 }
 pre var { font-size:100% }
 .vecchio { opacity:0.4; }
@@ -176,7 +176,7 @@ pre .esecuzione { background-color:yellow } /* lo usa l'interpreter visuale */
 }
 .test a {
     display: inline-table;
-    margin: 0.5em; 
+    margin: 0.5em;
     padding: 0.5em 0.75em;
     background-color: var(--colore-box-evidenziati-rilievo);
     box-shadow: 1px 1px 3px black;
@@ -195,7 +195,7 @@ pre .esecuzione { background-color:yellow } /* lo usa l'interpreter visuale */
 .riempiSpazi .giusta { background: green }
 .riempiSpazi .sbagliata { background: #ff6161 }
 .mostraSoluzione { color:blue ; font-weight: bold}
-.controllaRisposta { color:blue ; font-weight: bold} 
+.controllaRisposta { color:blue ; font-weight: bold}
 /* -----------------------------i testi degli esercizi da svolgere ----------------------------- */
 .esercizio {
     margin-top:4em;
@@ -220,14 +220,14 @@ div.esercizio:before {
 /* -------------------------------------- i box a lato ----------------------------------------- */
 div.curiosita, div.suggerimento {
     float:right; clear:both; width:25%; font-size:85% ;
-    padding:1em ; margin: 1em 0em 1em 2em ; 
+    padding:1em ; margin: 1em 0em 1em 2em ;
     text-align: left;
-    background-color: var(--colore-suggerimenti-sfondo); 
+    background-color: var(--colore-suggerimenti-sfondo);
     color: var(--colore-suggerimenti-testo);
 }
 div.suggerimento {
     white-space: normal !important;
-    overflow:auto; 
+    overflow:auto;
     border-top: 0.5rem solid var(--colore-suggerimenti-bordo);
 }
 
@@ -241,16 +241,16 @@ div.suggerimento {
 	padding-left:0.25em; padding-right:0.25em
 }
 .ide { text-indent: 0 }
-.eclipse, .netbeans {
+.eclipse, .netbeans, .vscode {
 	background-repeat: no-repeat; padding-left:1.35em;
 	background-size:1em 1em;
 	background-position: 0.10em 0.0em;
 	background-position-y: center;
 	text-indent:0;
-	border:1px solid white;  
+	border:1px solid white;
 }
-p.eclipse, p.netbeans {background-position: 0.10em 0.2em;}
-section.eclipse, section.netbeans {background-position: 0.10em 0.2em; background-size:2em 2em; }
+p.eclipse, p.netbeans, p.vscode {background-position: 0.10em 0.2em;}
+section.eclipse, section.netbeans, section.vscode {background-position: 0.10em 0.2em; background-size:2em 2em; }
 .netbeans {
 	background-color: rgb(240,240,255);
 	background-image: url(immagini/ide_netbeans.png);
@@ -260,4 +260,9 @@ section.eclipse, section.netbeans {background-position: 0.10em 0.2em; background
 	background-color: rgb(255,240,240);
     background-image: url(immagini/ide_eclipse.png);
     border-color: rgb(215,200,200);
+}
+.vscode {
+	background-color: rgb(204, 226, 254);
+    background-image: url(immagini/ide_vscode.png);
+    border-color: rgb(180, 197, 255);
 }

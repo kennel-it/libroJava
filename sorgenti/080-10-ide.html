@@ -19,6 +19,7 @@
 <!-- changelog 2024-12-21 inserite indicazioni per scegliere l'architettura -->
 <!-- changelog 2025-07-15 iserito hello world in modalità testo -->
 <!-- changelog 2025-07-15 piccole correzioni alla procedura di installazione -->
+<!-- changelog 2026-09-02 passaggio a vscode -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="UTF-8"/>
@@ -28,9 +29,59 @@
         <script type="text/javascript" src="script/ide.js"></script>
         <style type="text/css">
             dl.icone {display: grid; grid-template-columns: 2ex 1fr; grid-row-gap:0.5em}
+            button {
+                display: inline-block;
+                margin: 0;
+                border:2px solid blue;
+                padding:0.25em;
+                border-top-left-radius:0.5em;
+                border-top-right-radius:0.5em;
+                border-bottom:0;
+                margin-right:0.5em;
+            }
+            button.selected {
+                background-color:blue;
+                color:white;
+            }
+            .tab-body {
+                border:2px solid blue;
+                padding:0.5em;
+            }
         </style>
     </head>
-<body>
+        <script>
+"use strict";
+function showAlternative() {
+    // prendo il primo per farla corta
+    let container = document.querySelectorAll('.alternative')[0];
+    console.log(container);
+    // prendo i figli diretti e li metto in un array
+    let children = Array.from(container.children);
+    children.forEach(child => container.removeChild(child));
+    // creo le linguette per ogni alternativa
+    let tabContainer = document.createElement('div');
+    container.appendChild(tabContainer);
+    let tabBody = document.createElement('div');
+    tabBody.classList.add('tab-body');
+    container.appendChild(tabBody);
+    for(let child of children) {
+        let tab = document.createElement('button');
+        tab.textContent = child.getAttribute('data-alternativa');
+        tab.addEventListener('click', () => {
+            console.log('click', child);
+            // rimuovo tutti i figli
+            tabBody.innerHTML = '';
+            // aggiungo il figlio selezionato
+            tabBody.appendChild(child);
+            tabContainer.querySelector('.selected')?.classList.remove('selected');
+            tab.classList.add('selected');
+        });
+        tabContainer.appendChild(tab);
+    }
+    tabContainer.children[0].click();
+}
+    </script>
+<body onload="showAlternative()">
 <header>
 <h1>ide</h1>
 <p>l'ambiente di sviluppo</p>
@@ -142,181 +193,137 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
         una con VS Code (chiamata "???")
         e una del JDK (con un nome tipo "jdk-25.0.5-full").</li>
 </ol>
-    <p>Avviare VS Code (il programma si chiama "code" nella cartella scompattata) per configurarlo.<br>
-    <img src="immagini/vscode_finestra.png" alt="finestra di vscode"></p>
-    	<ul>
-            <li>appena avviato click sul pulsante a destra con le estensioni (numero 1 della figura)
-            e cercare scrivendo nella casella in alto "java", nell'elenco tra le prime estensioni compare
-            "Extension Pack for Java" di Microsoft, da installare questa</li>
-            <li>quando l'estensione parte chiede di installare un JDK ma noi lo abbiamo già preso
-            e vogliamo usare il nostro quindi ignoriamo la richiesta</li>
-            <li>il JDK va impostato comepre prefernza in VS Code: premi CTRL+SHIFT+P (o COMMAND+SHIFT+P sul mac)
-            e compare in alto una casella che si chiama <em>command palette</em> (il 2 nella figura) e che useremo spesso
-            per dare velocemente dei comandi a vscode, nella palette scrivi "user settings" e dalle voci che
-            compaiono sotto fai click su "Preferences: Open User Settings (JSON)", dovrebbe comparire
-            un file con soltanto "{}" visto che VS Code è stato appena installato</li>
-            <li> Tra le due graffe fa inserito il pezzo qui sotto
-            <pre>
-                "java.configuration.runtimes": [
-                    {
-                        "name": "JavaSE-25",
-                        "path": "/Users/edoardo/Desktop/jdk-25.0.4-full.jdk",
-                        "default": true
-                    }
-                ]
-            </pre>
-            il file che si ottiene dovrebbe essere una cosa del tipo:
-            <pre>
-            {
-                "java.configuration.runtimes": [
-                    {
-                        "name": "JavaSE-25",
-                        "path": "/Users/nome/Desktop/jdk-25.0.4-full.jdk",
-                        "default": true
-                    }
-                ]
-            }
-            </pre>
-            attenzione che nel caso di windows il percorso contarrà dei "\" che verranno segnalati come errori,
-            vanno sostituiti con "\\".
-            </li>
-            <li>chiudi il pannello, il contenuto viene salvato automaticamente</li>
-		</ul>
-    </li>
-</ol>
 
+<h2>Configurare VS Code (il programma si chiama "code" nella cartella scompattata) per configurarlo.</h2>
+<p style="text-align:center"><img src="immagini/vscode_finestra.png" alt="finestra di vscode"></p>
+<ol>
+    <li>appena avviato click sul pulsante a destra con le estensioni (numero 1 della figura)
+        e cercare scrivendo nella casella in alto "java", nell'elenco tra le prime estensioni compare
+        "Extension Pack for Java" di Microsoft, da installare questa</li>
+        <li>quando l'estensione parte chiede di installare un JDK ma noi lo abbiamo già preso
+        e vogliamo usare il nostro quindi ignoriamo la richiesta</li>
+    <li>il JDK va impostato comepre preferenza in VS Code: premi CTRL+SHIFT+P (o COMMAND+SHIFT+P sul mac)
+        e compare in alto una casella che si chiama <em>command palette</em> (il 2 nella figura) e che useremo spesso
+        per dare velocemente dei comandi a vscode, nella palette scrivi "user settings" e dalle voci che
+        compaiono sotto fai click su "Preferences: Open User Settings (JSON)", dovrebbe comparire
+        un file con soltanto "{}" visto che VS Code è stato appena installato</li>
+    <li> Tra le due graffe va inserito il pezzo qui sotto
+        <pre>
+            "java.configuration.runtimes": [
+                {
+                    "name": "JavaSE-25",
+                    "path": "<em>INSERISCI_QUI_IL_PERCORSO</em>",
+                    "default": true
+                }
+            ]
+        </pre>
+        Al posto di <em>INSERISCI_QUI_IL_PERCORSO</em> va inserito il percorso del JDK che abbiamo scaricato ma con
+        un minimo di attenzione: la cartella di cui ci interessa il percorso è quella che contine bin, conf e altre,
+        a seconda del sistema operativo possono le modalità per copiare il percorso potrebbero essere:
+        <div class="alternative">
+            <div data-alternativa="windows">
+                <img src="immagini/path_windows.png" alt="finestra di gestione risorse"><br>
+                Fare click sulla barra in alto e poi copiare il percorso,
+                <em>attenzione</em> che il percorso contiene dei "\" che vanno sostituiti con "\\"
+                (ad esempio "C:\\Users\\edoar\\Desktop\\jdk-25.0.4-full.jdk")
+            </div>
+            <div data-alternativa="linux">
+                <img src="immagini/path_linux.png" alt="finestra del file manager di gnome"><br>
+                click sulla barra del percorso in alto
+            </div>
+            <div data-alternativa="macos">
+                <img src="immagini/path_mac.png" alt="finestra del finder"><br>
+                click con il destro sulla cartella e poi "copia"
+            </div>
+        </div>
+        il file che si ottiene dovrebbe essere una cosa del tipo:
+        <pre>
+        {
+            "java.configuration.runtimes": [
+                {
+                    "name": "JavaSE-25",
+                    "path": "/Users/nome/Desktop/jdk-25.0.4-full.jdk",
+                    "default": true
+                }
+            ]
+        }
+        </pre>
+    </li>
+    <li>chiudi il pannello, il contenuto viene salvato automaticamente</li>
+</ol>
 
 <h2>Utilizzare l'ambiente di sviluppo</h2>
 
 <p>Gli <em>I</em>ntegrated <em>D</em>evelopment <em>E</em>nvironment sono strumenti molto articolati che
-aiutano gli sviluppatori nello svolgere moltissimi compiti, quello che facciamo adesso è creare il primo progetto:
-un file sorgente java viene scritto appunto all'interno di un progetto.</p>
+aiutano gli sviluppatori nello svolgere moltissimi compiti, a seconda dei plugin installati la finestra potrebbe
+visualizzare informazioni diverse in praticamente qualsiasi parte della finestra,
+Adesso creiamo il primo progetto con il primo file java, il più semplice possibile: il classico "Hello World!"</p>
+<p>come spesso succede quelloo che veidamo è solo uno dei modi possibili ma è anche uno dei più usati.</p>
 
 
-<section class="eclipse">
-<h2>Eclipse</h2>
+<section class="vscode">
+<h2>VS Code</h2>
 
-<h3>Avvio dell'IDE</h3>
-<p>Eclipse organizza i progetti all'interno di spazi di lavoro,
-in ogni sistema possono essere presenti più spazi di lavoro ed Eclipse ci chiede quale
-vogliamo usare, in pratica è una cartella che contiene dei progetti e delle impostazioni.</p>
-<p style="text-align:center"><img src="immagini/eclipse_0.png" alt="avvio di eclipse"/></p>
-<p>Nel caso questa finestra non compaia è possibile far sì di riaverla al prossimo avvio
-dell'applicazione impostando una preferenza:
-dalla finestra delle preferenze (menu "/Window/preferences..." per Windows o Linux),
-sulla sinistra selezionare General, Startup and Shutdown, Workspaces.
-A questo punto bisogna mettere la spunta su "Prompt for workspace on startup".</p>
-<p>In ogni caso dal menu File di Eclipse è possibile cambiare lo spazio di lavoro usando la voce
-<em>Switch workspace</em>.</p>
+<h3>La finestra di VSCode</h3>
+<p style="text-align:center"><img src="immagini/vscode_aree.png" alt="schermata di vscode" style="width:80%"/></p>
+<p>La struttura generale della finestra dell'ambiente di sviluppo <em>Visual Studio Code</em>
+è configurabile e può cambiare a seconda dei plugin installati e delle nostre preferenze,
+quelle che vediamo sono le aree principali.</p>
 
-<p>La prima volta che si avvia Eclipse compare un pannello informativo, per adesso non ci interessa click su "Hide"
-il alto a destra.</p>
-
-<h3>Creare un progetto</h3>
-<ul>
-    <li>click sul menu /File/New/Project...</li>
-    <li>dal gruppo "Java" selezionare "Java project" poi click su "next"</li>
-    <li>inserire il nome del progetto</li>
-    <li>rimuovere la spunta in basso da "Create modude-infop.java file"</li>
-    <li>click su finish</li>
-    <li>a questo punto compare una finestra che chiede se si vuole aprire una nuova "Prospettiva",
-    click su "Open Perspective"</li>
-</ul>
-<p>Ora possiamo creare nuove classi java utilizzando anche gli oggetti di JavaFX.</p>
-
-<h3>La finestra di Eclipse</h3>
-<p style="text-align:center"><img src="immagini/eclipse_1.png" alt="schermata di eclipse"/></p>
-<p>La struttura generale della finestra dell'ambiente di sviluppo <em>Eclipse</em>
-è simile a quella di molte altre applicazioni.
-Dall'alto troviamo: la barra del titolo, quella dei menu (con il segnalino "1" nella figura),
-la barra degli strumenti ("2" nella figura), l'area di lavoro e la barra di stato ("3" nella figura).</p>
-
-<p>Nella barra del titolo troviamo nell'ordine:
-il nome dello spazio di lavoro,
-il percorso del file relativamente alla cartella dello spazio di lavoro
-... e il nome del programma!</p>
-<p>Nella barra di stato per ora ci interessano due informazioni:</p>
-<ul>
-    <li>la prima è <em>Smart Insert</em>, facendoci doppio click diventa <em>Overwrite</em>
-    e il cursore anziché inserire il testo facendo scorrere verso destra quello già presente
-    lo sovrascriverà.</li>
-    <li>le coordinate in cui si trova il cursore, la coppia 14:43 nell'immagine
-    si riferisce alla riga 14 colonna 43</li>
-</ul>
-
-<h3>Barra degli strumenti</h3>
-<p>Vediamo alcuni degli strumenti a nostra disposizione
-nella configurazione standard partendo da sinistra:</p>
-<dl class="icone">
-<dt><img src="immagini/new_con@2x.png" class="iconaIDE"/></dt>
-<dd>Crea un nuovo oggetto (ad esempio un file o un progetto)</dd>
-<dt><img src="immagini/save_edit@2x.png" class="iconaIDE"/></dt>
-<dd>Salva il file su cui si sta lavorando</dd>
-<dt><img src="immagini/run_tool@2x.png" class="iconaIDE"/></dt>
-<dd>Avvia l'oggetto attualmente attivo (ad esempio il programma che stiamo modificando)</dd>
-<dt><img src="immagini/search@2x.png" class="iconaIDE"/></dt>
-<dd>Permette di cercare un all'interno di un progetto e dell'intero workspace</dd>
-<dt><img src="immagini/jperspective@2x.png" class="iconaIDE"/></dt>
-<dd>(sulla destra) questo pulsante e i suoi vicini servono per cambiare l'organizzazione
-dello spazio di lavoro, quando si sta lavorando su un progetto java normalmente è evidenziato.
-Se si vuole ritornare all'organizzazione originale dello spazio di lavoro
-basta fare click qui con il destro e poi selezionare "reset" dal menu che compare.</dd>
-</dl>
-
-<h3>Lo spazio di lavoro</h3>
-<p>Nello spazio di lavoro i contenuti sono organizzati collezionando delle schede in gruppi
-come quello qui sotto.</p>
-<p><img src="immagini/eclipse_gruppo_schede.png" style="height:2em"/></p>
-<p>Ogni singola linguetta contiene tre informazioni: la prima icona rappresenta l'oggetto
-visualizzato (ad esempio <img src="immagini/jcu_obj@2x.png" class="iconaIDE"/>
-per un file java) seguito dal nome e da
-<img src="immagini/remove@2x.png" class="iconaIDE"/> per chiuderla.</p>
-
-<p>Sulla destra l'icona <img src="immagini/thin_min_view@2x.png" class="iconaIDE"/>
-serve per minimizzare il gruppo mentre
-<img src="immagini/thin_max_view@2x.png" class="iconaIDE"/> ser per massimizzare il gruppo,
-per riportarlo alle dimensioni normali basta fare click su
-<img src="immagini/thin_restore_view@2x.png" class="iconaIDE"/>.</p>
-<p>Se nello spazio di lavoro ci servono ulteriori schede possiamo aprirle dal menu
-"/Windows/Show View" o facendo doppio click sul nome di un file nella scheda "Package explorer".</p>
-
-<p>Alcune schede risultano utili nello sviluppo delle applicazioni Java: <em>Package Explorer</em>,
-<em>Console</em> e <em>Problems</em>:</p>
 <dl>
-<dt>Package Explorer</dt>
-<dd>Qui compare la struttura del nostro progetto nascondendo alcune cartelle non essenziali.
-Se vengono copiati dei file nel progetto e non compaiono basta fare click nella
-cartella che li contiene con il destro e poi selezionare "refresh".</dd>
-<dt>Console</dt>
-<dd>In cui vengono stampati i messaggi di errore durante il funzionamento del programma (runtime)</dd>
-<dt>Problems</dt>
-<dd>In cui vengono elencati gli errori presenti nello spazio di lavoro, facendo click sull'icona
-<img src="immagini/view_menu@2x.png" class="iconaIDE"/>
-(sulla destra) è possibile limitare il numero di errori mostrati (ad esempio selezionando
-"Show" e poi "Error/Warnings on project").</dd>
+    <dt>activity bar</dt>
+    <dd>permette di selezionare l'attività che si sta facendo, se vogliamo lavorare
+        sui file sorgente java, per esempio, dobbiamo selezionare l'icona con il simbolo
+        dei due foglietti, il primo in alto (si chiama Explorer)
+    </dd>
+    <dt>primary dise bar</dt>
+    <dd>contiene le principali informaizoni per lavorare, se abbiamo scelto l'Explorer
+        nell'activity bar, qui comparirà la struttura del progetto e dei file sorgente,
+        cliccando su un file sorgente java questo si aprirà nell'area degli editor
+    </dd>
+    <dt>editor</dt>
+    <dd>qui troviamo i nostri file sorgente da poter modificare, o le immagini soltanto
+        visualizzate
+    </dd>
+    <dt>panel</dt>
+    <dd>può contenere diverse informazioni, per noi il pannello "Terminal" sarà
+        utile per vedere ad esempio gli errori del nosgtro programma
+    </dd>
+    <dt>status bar</dt>
+    <dd>varia molto a seconda dei plugin installati, da insormzioni molto riassuntive
+        sullo stato del progetto e dell'editor aperto.
+    </dd>
 </dl>
 
-
-<h3>Creazione di un progetto e dei suoi contenuti</h3>
-<p>Eclipse gestisce molti tipi di progetto (dipende dalla versione che
-abbiamo scaricato e dai plugin installati), vediamo un modo per creare un progetto per sviluppare
-software Java.</p>
-<ol>
-<li>click sul menu "/File/New/Other...</li>
-<li>dal gruppo "Java" selezionare "Java Project" e poi click su "Next &gt;"</li>
-<li>Scrivere il nome del progetto su "Project name:" e poi "Finish"</li>
-</ol>
-<p><img src="immagini/eclipse_package_explorer.png" style="float:left" class="screen_shot"/>
-Dopo aver creato il progetto dalla scheda "Package explorer" è possibile vederne la struttura
-cliccando sul triangolo grigio (se non è già rivolto verso il basso).
-Il primo gruppo "JRE System Library" rappresenta la versione di Java che stiamo utilizzando
-mentre "src" contiene i file sorgente.</p>
-<p>Per creare un nuovo pacchetto: click con il tasto destro su "src" poi "New" e "Package"
-(comparirà una icona <img src="immagini/pack_empty_co@2x.png" class="iconaIDE"/> che indica un pacchetto vuoto,
-diventerà <img src="immagini/package_obj@2x.png" class="iconaIDE"/>quando inseriremo delle classi o altro contenuto),
-analogamente per creare una nuova classe click con il destro sul nome di un pacchetto e poi
-"New" e "Class".</p>
-<p style="clear:both"></p>
+<h3>Creazione del progetto</h3>
+<p style="text-align:center"><img src="immagini/vscode_palette.png" alt="nuovo progetto con vscode"/></p>
+<p>Struttiamo un assistente del plugin Java per crere il progetto passando per la Command Palette,
+    su Windows o Linux Ctrl+Shift+P mentre su Mac Cmd+Shift+P  "Create Java Project...".</p>
+<p>Dal menu che si apre selezionare "Maven create from Archetype" e poi
+    "No archetype"</p>
+<p>Quando viene chiesto il "group id" solitamente si usa il proprio dominio scritto al rovescio
+    come per i pacchetti java, ad esempio "it.miaazienda"</p>
+<p>Il passo successivo è l'"artifact id" cioè il nome del progetto (che di solito sono una o più parole
+    scritte in minuscolo tutto attaccato).</p>
+<p>Ultimo passo è la selezione della cartella in cui creare il file,
+    fatto questo vscode aprirà una finestra e sulla destra si vedrà la cartella selezionata,
+    il caso si voglia vedere soltanto la cartella del progetto (magari per evitare caos)
+    basta andare sul menu "file", fare click su "open folder..." e selezionare la cartella del progetto.</p>
+<p>Durante la creazione del progetto oltre che le cartelle viene creato in automatico un pom.xml
+    su cui dobbiamo intervenire: per aprirlo basta farci click e poi cambiare la sezione
+<pre>
+    &lt;properties&gt;
+        &lt;maven.compiler.source&gt;17&lt;/maven.compiler.source&gt;
+        &lt;maven.compiler.target&gt;17&lt;/maven.compiler.target&gt;
+    &lt;/properties&gt;
+</pre>
+in
+<pre>
+    &lt;properties&gt;
+        &lt;maven.compiler.release&gt;25&lt;/maven.compiler.release&gt;
+    &lt;/properties&gt;
+</pre>
+</p>
 </section>
 
         <h2>Il primo programma</h2>
