@@ -182,16 +182,16 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
             sulla vostra architettura (qui chiamano "ARM" e "x86", vale il discorso di prima
             per capire quale è la vostra architettura)</li>
             <li>come "Package" scegliere "Full JDK"<br/>
-                FIXME: immagine errata
-            <img src="immagini/download-liberica.png" alt="passi per download JDK liberica"/>
+            <div style="text-align: center;">
+                <img src="immagini/download-liberica.png" alt="passi per download JDK liberica">
+            </div>
             </li>
             <li>scaricare lo zip</li>
             <li>scompattare il file zip sulla scrivania</li>
         </ul>
     </li>
     <li>Arrivati a questo punto sulla scrivania devono esserci due cartelle:
-        una con VS Code (chiamata "???")
-        e una del JDK (con un nome tipo "jdk-25.0.5-full").</li>
+        una con VS Code e una del JDK (con un nome tipo "jdk-25.0.5-full").</li>
 </ol>
 
 <h2>Configurare VS Code (il programma si chiama "code" nella cartella scompattata) per configurarlo.</h2>
@@ -202,7 +202,7 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
         "Extension Pack for Java" di Microsoft, da installare questa</li>
         <li>quando l'estensione parte chiede di installare un JDK ma noi lo abbiamo già preso
         e vogliamo usare il nostro quindi ignoriamo la richiesta</li>
-    <li>il JDK va impostato comepre preferenza in VS Code: premi CTRL+SHIFT+P (o COMMAND+SHIFT+P sul mac)
+    <li>il JDK va impostato come preferenza in VS Code: premi CTRL+SHIFT+P (o COMMAND+SHIFT+P sul mac)
         e compare in alto una casella che si chiama <em>command palette</em> (il 2 nella figura) e che useremo spesso
         per dare velocemente dei comandi a vscode, nella palette scrivi "user settings" e dalle voci che
         compaiono sotto fai click su "Preferences: Open User Settings (JSON)", dovrebbe comparire
@@ -218,8 +218,9 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
             ]
         </pre>
         Al posto di <em>INSERISCI_QUI_IL_PERCORSO</em> va inserito il percorso del JDK che abbiamo scaricato ma con
-        un minimo di attenzione: la cartella di cui ci interessa il percorso è quella che contine bin, conf e altre,
-        a seconda del sistema operativo possono le modalità per copiare il percorso potrebbero essere:
+        un minimo di attenzione: la cartella di cui ci interessa il percorso è quella che contiene
+        le cartelle bin, conf e altre ancora.
+        A seconda del sistema operativo le modalità per copiare il percorso potrebbero essere:
         <div class="alternative">
             <div data-alternativa="windows">
                 <img src="immagini/path_windows.png" alt="finestra di gestione risorse"><br>
@@ -258,7 +259,7 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
 aiutano gli sviluppatori nello svolgere moltissimi compiti, a seconda dei plugin installati la finestra potrebbe
 visualizzare informazioni diverse in praticamente qualsiasi parte della finestra,
 Adesso creiamo il primo progetto con il primo file java, il più semplice possibile: il classico "Hello World!"</p>
-<p>come spesso succede quelloo che veidamo è solo uno dei modi possibili ma è anche uno dei più usati.</p>
+<p>come spesso succede quello che veidamo è solo uno dei modi possibili ma è anche uno dei più usati.</p>
 
 
 <section class="vscode">
@@ -277,7 +278,7 @@ quelle che vediamo sono le aree principali.</p>
         dei due foglietti, il primo in alto (si chiama Explorer)
     </dd>
     <dt>primary side bar</dt>
-    <dd>contiene le principali informaizoni per lavorare, se abbiamo scelto l'Explorer
+    <dd>contiene le principali informazioni per lavorare, se abbiamo scelto l'Explorer
         nell'activity bar, qui comparirà la struttura del progetto e dei file sorgente,
         cliccando su un file sorgente java questo si aprirà nell'area degli editor
     </dd>
@@ -287,11 +288,11 @@ quelle che vediamo sono le aree principali.</p>
     </dd>
     <dt>panel</dt>
     <dd>può contenere diverse informazioni, per noi il pannello "Terminal" sarà
-        utile per vedere ad esempio gli errori del nosgtro programma
+        utile per vedere ad esempio gli errori del nostro programma
     </dd>
     <dt>status bar</dt>
-    <dd>varia molto a seconda dei plugin installati, da insormzioni molto riassuntive
-        sullo stato del progetto e dell'editor aperto.
+    <dd>varia molto a seconda dei plugin installati, dà informazioni molto riassuntive
+        sullo stato del progetto, dell'editor aperto, dei plugin e altro.
     </dd>
 </dl>
 
@@ -326,33 +327,33 @@ in
 </p>
 </section>
 
-        <h2>Il primo programma</h2>
-        <p>Classicamente il primo programma che si scrive con ogni linguaggio di programmazione
-        stampa semplicemente il testo "hello world!".</p>
+<h2>Il primo programma</h2>
+<p>Classicamente il primo programma che si scrive con ogni linguaggio di programmazione
+stampa semplicemente il testo "hello world!".</p>
 
-        <h3>Output su console</h3>
-        <p>Lo strumento più basilare che permette di effettuare l'input e l'output testuale si chiama console
-        e prevede l'uso della sola tastiera per inserire i dati e di avere l'output
-        soltanto in formato testo. Come tutti gli altri programmi solitamente
-        gira in una finestra (in questo caso chiamata chiamata appunto "console").</p>
+<h3>Output su console</h3>
+<p>Lo strumento più basilare che permette di effettuare l'input e l'output testuale si chiama console
+e prevede l'uso della sola tastiera per inserire i dati e di avere l'output
+soltanto in formato testo. Come tutti gli altri programmi solitamente
+gira in una finestra (in questo caso chiamata appunto "console").</p>
 
-        <p>Nel caso di vscode la console compare nella parte bassa dello schermo
-            (quella che abbiamo chiamato "panel") come impostazione predefinita,
-            se non fosse visibile per aprirla bisogna usare il menu
-            <span class="ide">/Terminal/New Terminal</span>.</p>
+<p>Nel caso di vscode la console compare nella parte bassa dello schermo
+    (quella che abbiamo chiamato "panel") come impostazione predefinita,
+    se non fosse visibile per aprirla bisogna usare il menu
+    <span class="ide">/Terminal/New Terminal</span>.</p>
 
-        <h3>Hello World</h3>
-        <p>Dopo aver creato il progetto bisogna aprire nella primary side bar
-            la cartella src/main/java e poi la cartella con il nome del package che abbiamo scelto,
-            all'interno di questa cartella troveremo un file chiamato Main.java che contiene
-            un programma di esempio: proprio quello che stampa "Hello World!" nella console!</p>
+<h3>Hello World</h3>
+<p>Dopo aver creato il progetto bisogna aprire nella primary side bar
+    la cartella src/main/java e poi la cartella con il nome del package che abbiamo scelto,
+    all'interno di questa cartella troveremo un file chiamato Main.java che contiene
+    un programma di esempio: proprio quello che stampa "Hello World!" nella console!</p>
 
-        <p>Una volta fatto click su "Main.java" questo si apre nell'editor e per eseguirlo basta
-            fare click sul pulsante a forma di triangolo in alto a destra o fare click
-            con il destro sul programma stesso e selezionare dal menu pop-up la
-            voce <span class="ide">Run Java</span>.
-            Il risultato compare nel pannello <span class="ide">Console</span>.
-        </p>
+<p>Una volta fatto click su "Main.java" questo si apre nell'editor e per eseguirlo basta
+    fare click sul pulsante a forma di triangolo in alto a destra o fare click
+    con il destro sul programma stesso e selezionare dal menu pop-up la
+    voce <span class="ide">Run Java</span>.
+    Il risultato compare nel pannello <span class="ide">Console</span>.
+</p>
 
 </article>
 </body>
