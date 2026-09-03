@@ -17,7 +17,7 @@
 <!-- changelog 2023-09-18 piccolissime correzioni -->
 <!-- changelog 2024-10-18 aggiornata schermata di download di liberica -->
 <!-- changelog 2024-12-21 inserite indicazioni per scegliere l'architettura -->
-<!-- changelog 2025-07-15 iserito hello world in modalità testo -->
+<!-- changelog 2025-07-15 inserito hello world in modalità testo -->
 <!-- changelog 2025-07-15 piccole correzioni alla procedura di installazione -->
 <!-- changelog 2026-09-02 passaggio a vscode -->
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,23 +29,26 @@
         <script type="text/javascript" src="script/ide.js"></script>
         <style type="text/css">
             dl.icone {display: grid; grid-template-columns: 2ex 1fr; grid-row-gap:0.5em}
-            button {
+            .alternative button {
                 display: inline-block;
                 margin: 0;
-                border:2px solid blue;
-                padding:0.25em;
+                border:1px solid blue;
                 border-top-left-radius:0.5em;
                 border-top-right-radius:0.5em;
                 border-bottom:0;
                 margin-right:0.5em;
+                padding: 0.5em 1em;
             }
-            button.selected {
+            .alternative button.selected {
                 background-color:blue;
                 color:white;
             }
-            .tab-body {
-                border:2px solid blue;
-                padding:0.5em;
+            .alternative .tab-container {
+                margin-top:1em
+            }
+            .alternative .tab-body {
+                border:1px solid blue;
+                padding:1.5em 0.5em;
             }
         </style>
     </head>
@@ -61,6 +64,7 @@ function showAlternative() {
     // creo le linguette per ogni alternativa
     let tabContainer = document.createElement('div');
     container.appendChild(tabContainer);
+    tabContainer.classList.add('tab-container');
     let tabBody = document.createElement('div');
     tabBody.classList.add('tab-body');
     container.appendChild(tabBody);
@@ -156,7 +160,7 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
     <li>Scaricare Visual Studio Code
         <ul>
             <li>Andare alla <a href="https://code.visualstudio.com/Download">
-            pagina dei download di Visual Studio Code</a> va bene sacaricare l'ultima versione</li>
+            pagina dei download di Visual Studio Code</a> va bene scaricare l'ultima versione</li>
             <li>È spesso più pratico non scaricare l'installer ma il file da scompattare,
             fate però attenzione all'architettura (x86/Intel o Arm64/Apple silicon):
             <ul>
@@ -167,17 +171,13 @@ che alcune combinazioni di IDE/JDK non siano del tutto compatibili.</p>
                 <li>Per Windows scaricate x86</li>
             </ul>
             </li>
-            <li>Scompattare il file .zip appena scaricato sulla scrivania (<em>Attenzione</em>: per
-            scompattare questo file serve un programma che funzioni bene, purtroppo non
-            è il caso della funzionalità base di windows (da confermare con 11),
-            se non ne avete uno potete scaricare e installare
-            <a href="https://www.7-zip.org/download.html">7zip</a>, va bene il tipo "msi" per Windows 64bit)</li>
+            <li>Scompattare il file .zip appena scaricato sulla scrivania</li>
         </ul>
     </li>
     <li>Scaricare e installare il JDK versione 25 Liberica dal sito di Bell Soft:
         <ul>
             <li>dalla <a href="https://bell-sw.com/pages/downloads/">pagina dei download</a>
-            are click su "JDK 25 LTS"</li>
+            fare click su "JDK 25 LTS"</li>
             <li>scorrere in basso fino alla sezione del vostro sistema operativo e fate click
             sulla vostra architettura (qui chiamano "ARM" e "x86", vale il discorso di prima
             per capire quale è la vostra architettura)</li>
@@ -276,7 +276,7 @@ quelle che vediamo sono le aree principali.</p>
         sui file sorgente java, per esempio, dobbiamo selezionare l'icona con il simbolo
         dei due foglietti, il primo in alto (si chiama Explorer)
     </dd>
-    <dt>primary dise bar</dt>
+    <dt>primary side bar</dt>
     <dd>contiene le principali informaizoni per lavorare, se abbiamo scelto l'Explorer
         nell'activity bar, qui comparirà la struttura del progetto e dei file sorgente,
         cliccando su un file sorgente java questo si aprirà nell'area degli editor
