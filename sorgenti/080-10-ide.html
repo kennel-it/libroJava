@@ -331,44 +331,27 @@ in
         stampa semplicemente il testo "hello world!".</p>
 
         <h3>Output su console</h3>
-        <p><img src="immagini/console_1.png" style="float:right; margin-left:0.5em" alt="poszione console in eclipse"/>
-        Lo strumento che permette di effettuare l'input e l'output testuale si chiama console
+        <p>Lo strumento più basilare che permette di effettuare l'input e l'output testuale si chiama console
         e prevede l'uso della sola tastiera per inserire i dati e di avere l'output
         soltanto in formato testo. Come tutti gli altri programmi solitamente
-        gira in una finestra.</p>
+        gira in una finestra (in questo caso chiamata chiamata appunto "console").</p>
 
-        <p>Nel caso di eclipse la console compare nella parte bassa dello schermo
-        come impostazione predefinita, se non fosse visibile per
-        aprirla bisogna usare il menu <span class="ide">/Window/Show View</span>
-        e selezionare la voce <span class="ide">Console</span>
-        (se la voce "console" non compare direttamente click su
-        <span class="ide">/Window/Show View/Other...</span> e dal gruppo
-        <span class="ide">General</span> selezionare la voce <span class="ide">Console</span>).</p>
+        <p>Nel caso di vscode la console compare nella parte bassa dello schermo
+            (quella che abbiamo chiamato "panel") come impostazione predefinita,
+            se non fosse visibile per aprirla bisogna usare il menu
+            <span class="ide">/Terminal/New Terminal</span>.</p>
 
         <h3>Hello World</h3>
-        <p>Dopo aver creato il progetto bisogna creare una nuova classe,
-        nello svolgere le prossime operazione fai attenzione al Maiuscolo/minuscolo nei nomi degli elementi:
-        apri le cartelle del progetto, diventerà visibile una cartella <span class="ide">src</span>
-        fai click con il destro e poi click sul menu contestuale <span class="ide">New/class</span>,
-        chiamala <span class="ide">CiaoMondo</span> (nel campo Name) e scrivi <span class="ide">ciaomondo</span>
-        nel campo Package. A questo punto fai doppio click sulla classe appena creata per aprirla.</p>
+        <p>Dopo aver creato il progetto bisogna aprire nella primary side bar
+            la cartella src/main/java e poi la cartella con il nome del package che abbiamo scelto,
+            all'interno di questa cartella troveremo un file chiamato Main.java che contiene
+            un programma di esempio: proprio quello che stampa "Hello World!" nella console!</p>
 
-        <p>Il file "CiaoMondo", conterrà qualche linea di codice che va cancellata
-        e sostituita con il programma qui sotto:</p>
-<pre>
-package ciaomondo;
-
-public class CiaoMondo {
-
-    public static void main(String[] args) {
-        System.out.println("Ciao mondo!");
-    }
-
-}</pre>
-
-        <p>Per eseguire il programma bisogna fare click con il destro sul programma stesso poi
-        selezionare il menu <span class="ide">Run As</span> e poi <span class="ide">Java Application</span>.
-        Il risultato compare nel pannello <span class="ide">Console</span>.
+        <p>Una volta fatto click su "Main.java" questo si apre nell'editor e per eseguirlo basta
+            fare click sul pulsante a forma di triangolo in alto a destra o fare click
+            con il destro sul programma stesso e selezionare dal menu pop-up la
+            voce <span class="ide">Run Java</span>.
+            Il risultato compare nel pannello <span class="ide">Console</span>.
         </p>
 
 </article>
