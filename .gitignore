@@ -3,3 +3,10 @@
 .settings
 .DS_Store
 ._.DS_Store
+
+# eclipse
+.classpath
+.project
+.settings/
+# vscode
+.vscode/
