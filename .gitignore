@@ -10,3 +10,5 @@
 .settings/
 # vscode
 .vscode/
+# maven
+target/
